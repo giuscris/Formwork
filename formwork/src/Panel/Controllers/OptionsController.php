@@ -54,13 +54,13 @@ class OptionsController extends AbstractController
 
             // Touch content folder to invalidate cache
             if ($differ) {
-                if ($this->site()->contentPath() === null) {
+                if ($this->site->contentPath() === null) {
                     throw new UnexpectedValueException('Unexpected missing site path');
                 }
-                FileSystem::touch($this->site()->contentPath());
+                FileSystem::touch($this->site->contentPath());
             }
 
-            $this->panel()->notify($this->translate('panel.options.updated'), 'success');
+            $this->panel->notify($this->translate('panel.options.updated'), 'success');
             return $this->redirect($this->generateRoute('panel.options.system'));
         }
 
@@ -92,24 +92,24 @@ class OptionsController extends AbstractController
 
         if ($this->request->method() === RequestMethod::POST) {
             $data = $this->request->input();
-            $options = $this->site()->data();
-            $defaults = $this->site()->defaults();
+            $options = $this->site->data();
+            $defaults = $this->site->defaults();
             $fields->setValues($data, null)->validate();
             $differ = $this->updateOptions('site', $fields, $options, $defaults);
 
             // Touch content folder to invalidate cache
             if ($differ) {
-                if ($this->site()->contentPath() === null) {
+                if ($this->site->contentPath() === null) {
                     throw new UnexpectedValueException('Unexpected missing site path');
                 }
-                FileSystem::touch($this->site()->contentPath());
+                FileSystem::touch($this->site->contentPath());
             }
 
-            $this->panel()->notify($this->translate('panel.options.updated'), 'success');
+            $this->panel->notify($this->translate('panel.options.updated'), 'success');
             return $this->redirect($this->generateRoute('panel.options.site'));
         }
 
-        $fields->setValues($this->site()->data());
+        $fields->setValues($this->site->data());
 
         $this->modal('changes');
 

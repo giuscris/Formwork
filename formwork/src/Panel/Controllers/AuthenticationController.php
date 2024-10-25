@@ -22,11 +22,11 @@ class AuthenticationController extends AbstractController
      */
     public function login(AccessLimiter $accessLimiter): Response
     {
-        if ($this->panel()->isLoggedIn()) {
+        if ($this->panel->isLoggedIn()) {
             return $this->redirect($this->generateRoute('panel.index'));
         }
 
-        $csrfTokenName = $this->panel()->getCsrfTokenName();
+        $csrfTokenName = $this->panel->getCsrfTokenName();
 
         if ($accessLimiter->hasReachedLimit()) {
             $minutes = round($this->config->get('system.panel.loginResetTime') / 60);
@@ -103,13 +103,13 @@ class AuthenticationController extends AbstractController
     {
         try {
             $this->panel->user()->logout();
-            $this->csrfToken->destroy($this->panel()->getCsrfTokenName());
+            $this->csrfToken->destroy($this->panel->getCsrfTokenName());
 
             if ($this->config->get('system.panel.logoutRedirect') === 'home') {
                 return $this->redirect('/');
             }
 
-            $this->panel()->notify($this->translate('panel.login.loggedOut'), 'info');
+            $this->panel->notify($this->translate('panel.login.loggedOut'), 'info');
         } catch (UserNotLoggedException) {
             // Do nothing if user is not logged, the user will be redirected to the login page
         }
@@ -125,7 +125,7 @@ class AuthenticationController extends AbstractController
     protected function error(string $message, array $data = []): Response
     {
         $defaults = ['title' => $this->translate('panel.login.login')];
-        $this->panel()->notify($message, 'error');
+        $this->panel->notify($message, 'error');
         return new Response($this->view('authentication.login', [...$defaults, ...$data]));
     }
 }

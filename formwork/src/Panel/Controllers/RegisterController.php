@@ -22,10 +22,13 @@ class RegisterController extends AbstractController
     public function register(Schemes $schemes): Response
     {
         if (!$this->site->users()->isEmpty()) {
-            return $this->redirectToReferer();
+            return $this->redirectToReferer(
+                default: $this->generateRoute('panel.index'),
+                base: $this->panel->panelRoot()
+            );
         }
 
-        $this->csrfToken->generate($this->panel()->getCsrfTokenName());
+        $this->csrfToken->generate($this->panel->getCsrfTokenName());
 
         $fields = $schemes->get('forms.register')->fields();
 
@@ -40,7 +43,7 @@ class RegisterController extends AbstractController
                 try {
                     $fields->setValues($this->request->input())->validate();
                 } catch (ValidationException) {
-                    $this->panel()->notify($this->translate('panel.users.user.cannotCreate.varMissing'), 'error');
+                    $this->panel->notify($this->translate('panel.users.user.cannotCreate.varMissing'), 'error');
                     return $this->redirect($this->generateRoute('panel.index'));
                 }
 

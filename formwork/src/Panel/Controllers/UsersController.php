@@ -58,13 +58,13 @@ class UsersController extends AbstractController
         try {
             $fields->setValues($requestData)->validate();
         } catch (ValidationException) {
-            $this->panel()->notify($this->translate('panel.users.user.cannotCreate.varMissing'), 'error');
+            $this->panel->notify($this->translate('panel.users.user.cannotCreate.varMissing'), 'error');
             return $this->redirect($this->generateRoute('panel.users'));
         }
 
         // Ensure there isn't a user with the same username
         if ($this->site->users()->has($requestData->get('username'))) {
-            $this->panel()->notify($this->translate('panel.users.user.cannotCreate.alreadyExists'), 'error');
+            $this->panel->notify($this->translate('panel.users.user.cannotCreate.alreadyExists'), 'error');
             return $this->redirect($this->generateRoute('panel.users'));
         }
 
@@ -78,7 +78,7 @@ class UsersController extends AbstractController
 
         Yaml::encodeToFile($userData, FileSystem::joinPaths($this->config->get('system.users.paths.accounts'), $requestData->get('username') . '.yaml'));
 
-        $this->panel()->notify($this->translate('panel.users.user.created'), 'success');
+        $this->panel->notify($this->translate('panel.users.user.created'), 'success');
         return $this->redirect($this->generateRoute('panel.users'));
     }
 
@@ -97,7 +97,7 @@ class UsersController extends AbstractController
             if (!$user) {
                 throw new TranslatedException(sprintf('User "%s" not found', $routeParams->get('user')), 'panel.users.user.notFound');
             }
-            if (!$this->user()->canDeleteUser($user)) {
+            if (!$this->panel->user()->canDeleteUser($user)) {
                 throw new TranslatedException(
                     sprintf('Cannot delete user "%s", you must be an administrator and the user must not be logged in', $user->username()),
                     'users.user.cannotDelete'
@@ -109,8 +109,11 @@ class UsersController extends AbstractController
                 $this->deleteUserImage($user);
             }
         } catch (TranslatedException $e) {
-            $this->panel()->notify($e->getTranslatedMessage(), 'error');
-            return $this->redirectToReferer(default: '/users/');
+            $this->panel->notify($e->getTranslatedMessage(), 'error');
+            return $this->redirectToReferer(
+                default: $this->generateRoute('panel.users'),
+                base: $this->panel->panelRoot()
+            );
         }
 
         $lastAccessRegistry = new Registry(FileSystem::joinPaths($this->config->get('system.panel.paths.logs'), 'lastAccess.json'));
@@ -118,7 +121,7 @@ class UsersController extends AbstractController
         // Remove user last access from registry
         $lastAccessRegistry->remove($user->username());
 
-        $this->panel()->notify($this->translate('panel.users.user.deleted'), 'success');
+        $this->panel->notify($this->translate('panel.users.user.deleted'), 'success');
         return $this->redirect($this->generateRoute('panel.users'));
     }
 
@@ -134,11 +137,14 @@ class UsersController extends AbstractController
         $user = $this->site->users()->get($routeParams->get('user'));
 
         if ($user === null) {
-            $this->panel()->notify($this->translate('panel.users.user.notFound'), 'error');
-            return $this->redirectToReferer(default: '/users/');
+            $this->panel->notify($this->translate('panel.users.user.notFound'), 'error');
+            return $this->redirectToReferer(
+                default: $this->generateRoute('panel.users'),
+                base: $this->panel->panelRoot()
+            );
         }
 
-        if ($this->user()->canChangeOptionsOf($user)) {
+        if ($this->panel->user()->canChangeOptionsOf($user)) {
             try {
                 $this->deleteUserImage($user);
 
@@ -146,12 +152,12 @@ class UsersController extends AbstractController
                 Arr::remove($userData, 'image');
                 Yaml::encodeToFile($userData, FileSystem::joinPaths($this->config->get('system.users.paths.accounts'), $user->username() . '.yaml'));
 
-                $this->panel()->notify($this->translate('panel.user.image.deleted'), 'success');
+                $this->panel->notify($this->translate('panel.user.image.deleted'), 'success');
             } catch (TranslatedException $e) {
-                $this->panel()->notify($e->getTranslatedMessage(), 'error');
+                $this->panel->notify($e->getTranslatedMessage(), 'error');
             }
         } else {
-            $this->panel()->notify($this->translate('panel.users.user.cannotEdit', $user->username()), 'error');
+            $this->panel->notify($this->translate('panel.users.user.cannotEdit', $user->username()), 'error');
         }
 
         return $this->redirect($this->generateRoute('panel.users.profile', ['user' => $user->username()]));
@@ -169,29 +175,29 @@ class UsersController extends AbstractController
         $user = $this->site->users()->get($routeParams->get('user'));
 
         if ($user === null) {
-            $this->panel()->notify($this->translate('panel.users.user.notFound'), 'error');
+            $this->panel->notify($this->translate('panel.users.user.notFound'), 'error');
             return $this->redirect($this->generateRoute('panel.users'));
         }
 
         $fields->setModel($user);
 
         // Disable password and/or role fields if they cannot be changed
-        $fields->get('password')->set('disabled', !$this->user()->canChangePasswordOf($user));
-        $fields->get('role')->set('disabled', !$this->user()->canChangeRoleOf($user));
+        $fields->get('password')->set('disabled', !$this->panel->user()->canChangePasswordOf($user));
+        $fields->get('role')->set('disabled', !$this->panel->user()->canChangeRoleOf($user));
 
         if ($this->request->method() === RequestMethod::POST) {
             // Ensure that options can be changed
-            if ($this->user()->canChangeOptionsOf($user)) {
+            if ($this->panel->user()->canChangeOptionsOf($user)) {
                 $fields->setValuesFromRequest($this->request, null)->validate();
 
                 try {
                     $this->updateUser($user, $fields);
-                    $this->panel()->notify($this->translate('panel.users.user.edited'), 'success');
+                    $this->panel->notify($this->translate('panel.users.user.edited'), 'success');
                 } catch (TranslatedException $e) {
-                    $this->panel()->notify($this->translate($e->getLanguageString(), $user->username()), 'error');
+                    $this->panel->notify($this->translate($e->getLanguageString(), $user->username()), 'error');
                 }
             } else {
-                $this->panel()->notify($this->translate('panel.users.user.cannotEdit', $user->username()), 'error');
+                $this->panel->notify($this->translate('panel.users.user.cannotEdit', $user->username()), 'error');
             }
 
             return $this->redirect($this->generateRoute('panel.users.profile', ['user' => $user->username()]));
@@ -238,7 +244,7 @@ class UsersController extends AbstractController
 
             if ($field->name() === 'password') {
                 // Ensure that password can be changed
-                if (!$this->user()->canChangePasswordOf($user)) {
+                if (!$this->panel->user()->canChangePasswordOf($user)) {
                     throw new TranslatedException(sprintf('Cannot change the password of %s', $user->username()), 'panel.users.user.cannotChangePassword');
                 }
                 // Hash the new password
@@ -248,7 +254,7 @@ class UsersController extends AbstractController
 
             if ($field->name() === 'role') {
                 // Ensure that user role can be changed
-                if ($field->value() !== $user->role() && !$this->user()->canChangeRoleOf($user)) {
+                if ($field->value() !== $user->role() && !$this->panel->user()->canChangeRoleOf($user)) {
                     throw new TranslatedException(sprintf('Cannot change the role of %s', $user->username()), 'panel.users.user.cannotChangeRole');
                 }
                 Arr::set($userData, 'role', $field->value());
@@ -297,7 +303,7 @@ class UsersController extends AbstractController
             $this->deleteUserImage($user);
         }
 
-        $this->panel()->notify($this->translate('panel.user.image.uploaded'), 'success');
+        $this->panel->notify($this->translate('panel.user.image.uploaded'), 'success');
 
         return $file->name();
     }
