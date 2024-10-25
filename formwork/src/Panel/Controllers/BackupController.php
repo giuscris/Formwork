@@ -34,10 +34,10 @@ class BackupController extends AbstractController
         $uriName = urlencode(base64_encode($filename));
         return JsonResponse::success($this->translate('panel.backup.ready'), data: [
             'filename'  => $filename,
-            'uri'       => $this->panel()->uri('/backup/download/' . $uriName . '/'),
+            'uri'       => $this->panel->uri('/backup/download/' . $uriName . '/'),
             'date'      => Date::formatTimestamp(FileSystem::lastModifiedTime($file), $this->config->get('system.date.datetimeFormat')),
             'size'      => FileSystem::formatSize(FileSystem::size($file)),
-            'deleteUri' => $this->panel()->uri('/backup/delete/' . $uriName . '/'),
+            'deleteUri' => $this->panel->uri('/backup/delete/' . $uriName . '/'),
             'maxFiles'  => $this->config->get('system.backup.maxFiles'),
         ]);
     }
@@ -58,8 +58,11 @@ class BackupController extends AbstractController
             }
             throw new RuntimeException($this->translate('panel.backup.error.cannotDownload.invalidFilename'));
         } catch (TranslatedException $e) {
-            $this->panel()->notify($this->translate('panel.backup.error.cannotDownload', $e->getTranslatedMessage()), 'error');
-            return $this->redirectToReferer(default: '/dashboard/');
+            $this->panel->notify($this->translate('panel.backup.error.cannotDownload', $e->getTranslatedMessage()), 'error');
+            return $this->redirectToReferer(
+                default: $this->generateRoute('panel.tools.backups'),
+                base: $this->panel->panelRoot()
+            );
         }
     }
 
@@ -76,13 +79,19 @@ class BackupController extends AbstractController
         try {
             if (FileSystem::isFile($file, assertExists: false)) {
                 FileSystem::delete($file);
-                $this->panel()->notify($this->translate('panel.backup.deleted'), 'success');
-                return $this->redirectToReferer(default: '/dashboard/');
+                $this->panel->notify($this->translate('panel.backup.deleted'), 'success');
+                return $this->redirectToReferer(
+                    default: $this->generateRoute('panel.tools.backups'),
+                    base: $this->generateRoute('panel.index'),
+                );
             }
             throw new RuntimeException($this->translate('panel.backup.error.cannotDelete.invalidFilename'));
         } catch (TranslatedException $e) {
-            $this->panel()->notify($this->translate('panel.backup.error.cannotDelete', $e->getTranslatedMessage()), 'error');
-            return $this->redirectToReferer(default: '/dashboard/');
+            $this->panel->notify($this->translate('panel.backup.error.cannotDelete', $e->getTranslatedMessage()), 'error');
+            return $this->redirectToReferer(
+                default: $this->generateRoute('panel.tools.backups'),
+                base: $this->panel->panelRoot()
+            );
         }
     }
 }

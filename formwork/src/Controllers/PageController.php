@@ -4,7 +4,6 @@ namespace Formwork\Controllers;
 
 use Formwork\Cache\FilesCache;
 use Formwork\Http\FileResponse;
-use Formwork\Http\RedirectResponse;
 use Formwork\Http\Response;
 use Formwork\Http\ResponseStatus;
 use Formwork\Pages\Page;
@@ -19,9 +18,9 @@ class PageController extends AbstractController
 {
     public function __construct(
         private readonly Container $container,
-        protected Router $router,
-        protected Site $site,
-        protected FilesCache $filesCache
+        protected readonly Router $router,
+        protected readonly Site $site,
+        protected readonly FilesCache $filesCache
     ) {
         $this->container->call(parent::__construct(...));
     }
@@ -51,7 +50,7 @@ class PageController extends AbstractController
 
                 if ($routeParams->get('page', '/') !== $canonical) {
                     $route = $this->router->rewrite(['page' => $canonical]);
-                    return new RedirectResponse($this->site->uri($route), ResponseStatus::MovedPermanently);
+                    return $this->redirect($route, ResponseStatus::MovedPermanently);
                 }
             }
 

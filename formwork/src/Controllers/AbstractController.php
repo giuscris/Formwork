@@ -4,10 +4,14 @@ namespace Formwork\Controllers;
 
 use Formwork\App;
 use Formwork\Config\Config;
+use Formwork\Http\RedirectResponse;
 use Formwork\Http\Request;
 use Formwork\Http\Response;
+use Formwork\Http\ResponseStatus;
 use Formwork\Services\Container;
+use Formwork\Utils\Path;
 use Formwork\Utils\Str;
+use Formwork\Utils\Uri;
 use Formwork\View\ViewFactory;
 use InvalidArgumentException;
 
@@ -16,14 +20,14 @@ abstract class AbstractController
     /**
      * Controller name
      */
-    protected string $name;
+    protected readonly string $name;
 
     public function __construct(
         private readonly Container $container,
-        protected App $app,
-        protected Config $config,
-        protected ViewFactory $viewFactory,
-        protected Request $request,
+        protected readonly App $app,
+        protected readonly Config $config,
+        protected readonly ViewFactory $viewFactory,
+        protected readonly Request $request,
     ) {
         $this->name = strtolower(Str::beforeLast(Str::afterLast(static::class, '\\'), 'Controller'));
     }
@@ -36,6 +40,35 @@ abstract class AbstractController
     protected function view(string $name, array $data = []): string
     {
         return $this->viewFactory->make($name, $data)->render();
+    }
+
+    /**
+     * @param array<string, string> $headers
+     */
+    protected function redirect(string $route, ResponseStatus $responseStatus = ResponseStatus::Found, array $headers = []): RedirectResponse
+    {
+        $uri = Uri::make([], Path::join([$this->app->request()->root(), $route]));
+        return new RedirectResponse($uri, $responseStatus, $headers);
+    }
+
+    /**
+     * Redirect to the referer page
+     *
+     * @param array<string, string> $headers
+     */
+    protected function redirectToReferer(
+        ResponseStatus $responseStatus = ResponseStatus::Found,
+        array $headers = [],
+        string $default = '/',
+        string $base = '/'
+    ): RedirectResponse {
+        if (
+            !in_array($this->request->referer(), [null, Uri::current()], true)
+            && $this->request->validateReferer(Path::join([$this->app->request()->root(), $base]))
+        ) {
+            return new RedirectResponse($this->request->referer(), $responseStatus, $headers);
+        }
+        return $this->redirect($default, $responseStatus, $headers);
     }
 
     /**

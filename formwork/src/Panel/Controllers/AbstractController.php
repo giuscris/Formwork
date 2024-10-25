@@ -3,8 +3,6 @@
 namespace Formwork\Panel\Controllers;
 
 use Formwork\Controllers\AbstractController as BaseAbstractController;
-use Formwork\Http\RedirectResponse;
-use Formwork\Http\ResponseStatus;
 use Formwork\Panel\Modals\Modal;
 use Formwork\Panel\Modals\ModalCollection;
 use Formwork\Panel\Modals\ModalFactory;
@@ -15,9 +13,7 @@ use Formwork\Security\CsrfToken;
 use Formwork\Services\Container;
 use Formwork\Site;
 use Formwork\Translations\Translations;
-use Formwork\Users\User;
 use Formwork\Utils\Date;
-use Formwork\Utils\Uri;
 use Stringable;
 
 abstract class AbstractController extends BaseAbstractController
@@ -26,30 +22,16 @@ abstract class AbstractController extends BaseAbstractController
 
     public function __construct(
         private readonly Container $container,
-        protected Router $router,
-        protected CsrfToken $csrfToken,
-        protected Translations $translations,
-        protected ModalFactory $modalFactory,
-        protected Site $site,
-        protected Panel $panel
+        protected readonly Router $router,
+        protected readonly CsrfToken $csrfToken,
+        protected readonly Translations $translations,
+        protected readonly ModalFactory $modalFactory,
+        protected readonly Site $site,
+        protected readonly Panel $panel
     ) {
         $this->container->call(parent::__construct(...));
-    }
 
-    /**
-     * Return panel instance
-     */
-    protected function panel(): Panel
-    {
-        return $this->panel;
-    }
-
-    /**
-     * Return site instance
-     */
-    protected function site(): Site
-    {
-        return $this->site;
+        $this->modals = new ModalCollection();
     }
 
     /**
@@ -60,27 +42,41 @@ abstract class AbstractController extends BaseAbstractController
         return $this->router->generate($name, $params);
     }
 
-    protected function redirect(string $route, ResponseStatus $responseStatus = ResponseStatus::Found): RedirectResponse
-    {
-        return new RedirectResponse($this->site->uri($route, includeLanguage: false), $responseStatus);
-    }
-
-    /**
-     * Redirect to the referer page
-     *
-     * @param string $default Default route if HTTP referer is not available
-     */
-    protected function redirectToReferer(ResponseStatus $responseStatus = ResponseStatus::Found, string $default = '/'): RedirectResponse
-    {
-        if (!in_array($this->request->referer(), [null, Uri::current()], true) && $this->request->validateReferer($this->panel()->uri('/'))) {
-            return new RedirectResponse($this->request->referer(), $responseStatus);
-        }
-        return new RedirectResponse($this->panel()->uri($default), $responseStatus);
-    }
-
     protected function translate(string $key, int|float|string|Stringable ...$arguments): string
     {
         return $this->translations->getCurrent()->translate($key, ...$arguments);
+    }
+
+    /**
+     * Get if current user has a permission
+     */
+    protected function hasPermission(string $permission): bool
+    {
+        return $this->panel->user()->permissions()->has($permission);
+    }
+
+    /**
+     * Load a modal to be rendered later
+     */
+    protected function modal(string $name): Modal
+    {
+        $this->modals->add($modal = $this->modalFactory->make($name));
+        return $modal;
+    }
+
+    /**
+     * Render a view
+     *
+     * @param array<string, mixed> $data
+     */
+    protected function view(string $name, array $data = []): string
+    {
+        $view = $this->viewFactory->make(
+            $name,
+            [...$this->defaults(), ...$data],
+            $this->config->get('system.views.paths.panel'),
+        );
+        return $view->render();
     }
 
     /**
@@ -92,10 +88,10 @@ abstract class AbstractController extends BaseAbstractController
     {
         return [
             'location'   => $this->name,
-            'site'       => $this->site(),
-            'panel'      => $this->panel(),
-            'csrfToken'  => $this->csrfToken->get($this->panel()->getCsrfTokenName()),
-            'modals'     => $this->modals(),
+            'site'       => $this->site,
+            'panel'      => $this->panel,
+            'csrfToken'  => $this->csrfToken->get($this->panel->getCsrfTokenName()),
+            'modals'     => $this->modals,
             'navigation' => [
                 'dashboard' => [
                     'label'       => $this->translate('panel.dashboard.dashboard'),
@@ -141,7 +137,7 @@ abstract class AbstractController extends BaseAbstractController
                 ],
             ],
             'appConfig' => Json::encode([
-                'baseUri'   => $this->panel()->panelUri(),
+                'baseUri'   => $this->panel->panelUri(),
                 'DateInput' => [
                     'weekStarts' => $this->config->get('system.date.weekStarts'),
                     'format'     => Date::formatToPattern($this->config->get('system.date.datetimeFormat')),
@@ -198,50 +194,5 @@ abstract class AbstractController extends BaseAbstractController
                 ],
             ]),
         ];
-    }
-
-    /**
-     * Get logged user
-     */
-    protected function user(): User
-    {
-        return $this->panel()->user();
-    }
-
-    /**
-     * Get if current user has a permission
-     */
-    protected function hasPermission(string $permission): bool
-    {
-        return $this->user()->permissions()->has($permission);
-    }
-
-    protected function modals(): ModalCollection
-    {
-        return $this->modals ??= new ModalCollection();
-    }
-
-    /**
-     * Load a modal to be rendered later
-     */
-    protected function modal(string $name): Modal
-    {
-        $this->modals()->add($modal = $this->modalFactory->make($name));
-        return $modal;
-    }
-
-    /**
-     * Render a view
-     *
-     * @param array<string, mixed> $data
-     */
-    protected function view(string $name, array $data = []): string
-    {
-        $view = $this->viewFactory->make(
-            $name,
-            [...$this->defaults(), ...$data],
-            $this->config->get('system.views.paths.panel'),
-        );
-        return $view->render();
     }
 }
