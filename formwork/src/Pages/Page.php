@@ -10,6 +10,7 @@ use Formwork\Http\ResponseStatus;
 use Formwork\Languages\Language;
 use Formwork\Languages\Languages;
 use Formwork\Metadata\MetadataCollection;
+use Formwork\Model\Attributes\ReadonlyModelProperty;
 use Formwork\Model\Model;
 use Formwork\Pages\Traits\PageStatus;
 use Formwork\Pages\Traits\PageTraversal;
@@ -54,12 +55,24 @@ class Page extends Model implements Stringable
 
     protected const MODEL_IDENTIFIER = 'page';
 
+    /**
+     * Ignored field names on frontmatter generation
+     */
     protected const IGNORED_FIELD_NAMES = ['content', 'template', 'parent'];
 
+    /**
+     * Ignored field types on frontmatter generation
+     */
     protected const IGNORED_FIELD_TYPES = ['upload'];
 
+    /**
+     * Slug regex
+     */
     protected const SLUG_REGEX = '/^[a-z0-9]+(?:-[a-z0-9]+)*$/i';
 
+    /**
+     * Datetime format used for page numbering with `date` mode
+     */
     protected const DATE_NUM_FORMAT = 'Ymd';
 
     /**
@@ -70,21 +83,25 @@ class Page extends Model implements Stringable
     /**
      * Page path relative to the content path
      */
+    #[ReadonlyModelProperty]
     protected ?string $relativePath = null;
 
     /**
      * Page content file
      */
+    #[ReadonlyModelProperty]
     protected ?ContentFile $contentFile = null;
 
     /**
      * Page last modified time
-     * */
+     */
+    #[ReadonlyModelProperty]
     protected int $lastModifiedTime;
 
     /**
      * Page route
      */
+    #[ReadonlyModelProperty]
     protected ?string $route = null;
 
     /**
@@ -105,6 +122,7 @@ class Page extends Model implements Stringable
     /**
      * Available page languages
      */
+    #[ReadonlyModelProperty]
     protected Languages $languages;
 
     /**
@@ -120,11 +138,13 @@ class Page extends Model implements Stringable
     /**
      * Page metadata
      */
+    #[ReadonlyModelProperty]
     protected MetadataCollection $metadata;
 
     /**
      * Page files
      */
+    #[ReadonlyModelProperty]
     protected FileCollection $files;
 
     /**
@@ -135,10 +155,17 @@ class Page extends Model implements Stringable
     /**
      * Page loading state
      */
+    #[ReadonlyModelProperty]
     protected bool $loaded = false;
 
+    /**
+     * Reference to the site
+     */
     protected Site $site;
 
+    /**
+     * Page icon
+     */
     protected string $icon;
 
     /**
@@ -168,6 +195,9 @@ class Page extends Model implements Stringable
         return (string) ($this->title() ?? $this->slug());
     }
 
+    /**
+     * Return site
+     */
     public function site(): Site
     {
         return $this->site;
@@ -398,6 +428,9 @@ class Page extends Model implements Stringable
         }
     }
 
+    /**
+     * Set page parent
+     */
     public function setParent(Page|Site|string $parent): void
     {
         if ($parent instanceof Page || $parent instanceof Site) {
@@ -407,6 +440,9 @@ class Page extends Model implements Stringable
         }
     }
 
+    /**
+     * Set page template
+     */
     public function setTemplate(Template|string $template): void
     {
         if ($template instanceof Template) {
@@ -416,6 +452,9 @@ class Page extends Model implements Stringable
         }
     }
 
+    /**
+     * Set page slug
+     */
     public function setSlug(string $slug): void
     {
         if (!$this->validateSlug($slug)) {
@@ -424,6 +463,11 @@ class Page extends Model implements Stringable
         $this->slug = $slug;
     }
 
+    /**
+     * Set page num
+     *
+     * If no arguments are passed, the num is set based on the current mode
+     */
     public function setNum(?int $num = null): void
     {
         if (func_num_args() === 0) {
@@ -581,21 +625,35 @@ class Page extends Model implements Stringable
         $this->__construct($data);
     }
 
+    /**
+     * Return page content path
+     */
     public function contentPath(): ?string
     {
         return $this->path;
     }
 
+    /**
+     * Return page content relative path
+     */
     public function contentRelativePath(): ?string
     {
         return $this->relativePath;
     }
 
+    /**
+     * Return page icon
+     */
     public function icon(): string
     {
         return $this->icon ??= $this->data['icon'] ?? $this->scheme()->options()->get('icon', 'page');
     }
 
+    /**
+     * Save page contents and move files if needed
+     *
+     * @param string|null $language Language code to save the page in
+     */
     public function save(?string $language = null): void
     {
         if ($this->parent() === null) {
