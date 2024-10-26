@@ -25,9 +25,13 @@ export class Modal {
         $("[data-dismiss]", element)?.addEventListener("click", () => this.hide());
 
         let mousedownTriggered = false;
-        element.addEventListener("mousedown", () => (mousedownTriggered = true));
-        element.addEventListener("click", (event) => {
-            if (mousedownTriggered && event.target === element) {
+        element.addEventListener("mousedown", (event) => {
+            if (event.target !== element) {
+                mousedownTriggered = true;
+            }
+        });
+        element.addEventListener("click", () => {
+            if (!mousedownTriggered) {
                 this.hide();
             }
             mousedownTriggered = false;
