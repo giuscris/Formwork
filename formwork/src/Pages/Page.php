@@ -228,7 +228,7 @@ class Page extends Model implements Stringable
         ];
 
         // Merge with scheme default field values
-        $defaults = [...$defaults, ...Arr::reject($this->fields()->pluck('default'), fn($value) => $value === null)];
+        $defaults = [...$defaults, ...Arr::reject($this->fields()->pluck('default'), fn ($value) => $value === null)];
 
         // If the page doesn't have a route, by default it won't be routable nor cacheable
         if ($this->route() === null) {
@@ -525,7 +525,7 @@ class Page extends Model implements Stringable
      */
     public function media(): FileCollection
     {
-        return $this->files()->filterBy('type', fn(string $type) => in_array($type, ['image', 'video'], true));
+        return $this->files()->filterBy('type', fn (string $type) => in_array($type, ['image', 'video'], true));
     }
 
     /**
