@@ -13,6 +13,7 @@ use Formwork\Http\JsonResponse;
 use Formwork\Http\RequestData;
 use Formwork\Http\RequestMethod;
 use Formwork\Http\Response;
+use Formwork\Http\ResponseStatus;
 use Formwork\Pages\Page;
 use Formwork\Panel\ContentHistory\ContentHistory;
 use Formwork\Panel\ContentHistory\ContentHistoryEvent;
@@ -287,22 +288,22 @@ class PagesController extends AbstractController
 
         $parent = $this->resolveParent($requestData->get('parent'));
         if (!$parent->hasChildren()) {
-            return JsonResponse::error($this->translate('panel.pages.page.cannotMove'));
+            return JsonResponse::error($this->translate('panel.pages.page.cannotMove'), ResponseStatus::InternalServerError);
         }
 
-        $pageCollection = $parent->children()->filterBy('orderable');
+        $pageCollection = $parent->children();
         $keys = $pageCollection->keys();
 
         $from = Arr::indexOf($keys, $requestData->get('page'));
         $to = Arr::indexOf($keys, $requestData->get('before'));
 
         if ($from === null || $to === null) {
-            return JsonResponse::error($this->translate('panel.pages.page.cannotMove'));
+            return JsonResponse::error($this->translate('panel.pages.page.cannotMove'), ResponseStatus::InternalServerError);
         }
 
         $pageCollection->moveItem($from, $to);
 
-        foreach ($pageCollection->values() as $i => $page) {
+        foreach ($pageCollection->filterBy('orderable')->values() as $i => $page) {
             $num = $i + 1;
             if ($num !== $page->num()) {
                 $page->set('num', $num);
