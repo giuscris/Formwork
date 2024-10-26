@@ -15,9 +15,11 @@ use Formwork\Pages\Traits\PageStatus;
 use Formwork\Pages\Traits\PageTraversal;
 use Formwork\Pages\Traits\PageUid;
 use Formwork\Pages\Traits\PageUri;
+use Formwork\Parsers\Yaml;
 use Formwork\Site;
 use Formwork\Templates\Template;
 use Formwork\Utils\Arr;
+use Formwork\Utils\Date;
 use Formwork\Utils\FileSystem;
 use Formwork\Utils\Path;
 use Formwork\Utils\Str;
@@ -51,6 +53,14 @@ class Page extends Model implements Stringable
     public const PAGE_STATUS_NOT_PUBLISHED = 'notPublished';
 
     protected const MODEL_IDENTIFIER = 'page';
+
+    protected const IGNORED_FIELD_NAMES = ['content', 'template', 'parent'];
+
+    protected const IGNORED_FIELD_TYPES = ['upload'];
+
+    protected const SLUG_REGEX = '/^[a-z0-9]+(?:-[a-z0-9]+)*$/i';
+
+    protected const DATE_NUM_FORMAT = 'Ymd';
 
     /**
      * Page path
@@ -172,6 +182,8 @@ class Page extends Model implements Stringable
     {
         $defaults = [
             'published'      => true,
+            'publishDate'    => null,
+            'unpublishDate'  => null,
             'routable'       => true,
             'listed'         => true,
             'searchable'     => true,
@@ -386,6 +398,62 @@ class Page extends Model implements Stringable
         }
     }
 
+    public function setParent(Page|Site|string $parent): void
+    {
+        if ($parent instanceof Page || $parent instanceof Site) {
+            $this->parent = $parent;
+        } else {
+            $this->parent = $this->resolveParent($parent);
+        }
+    }
+
+    public function setTemplate(Template|string $template): void
+    {
+        if ($template instanceof Template) {
+            $this->template = $template;
+        } else {
+            $this->template = $this->site->templates()->get($template);
+        }
+    }
+
+    public function setSlug(string $slug): void
+    {
+        if (!$this->validateSlug($slug)) {
+            throw new InvalidArgumentException('Invalid page slug');
+        }
+        $this->slug = $slug;
+    }
+
+    public function setNum(?int $num = null): void
+    {
+        if (func_num_args() === 0) {
+            $mode = $this->scheme()->options()->get('num');
+
+            $num = $this->num();
+
+            if ($mode === 'date' && $num !== null) {
+                $timestamp = isset($this->data['publishDate'])
+                    ? Date::toTimestamp($this->data['publishDate'])
+                    : $this->contentFile()?->lastModifiedTime();
+
+                if ($num === (int) date(self::DATE_NUM_FORMAT, $timestamp)) {
+                    return;
+                }
+            }
+
+            if (!$this->parent()) {
+                throw new UnexpectedValueException('Unexpected missing parent');
+            }
+
+            $num = match ($mode) {
+                'date'  => date(self::DATE_NUM_FORMAT),
+                default => 1 + max([0, ...$this->parent()->children()->everyItem()->num()->values()])
+            };
+        }
+
+        $this->num = (int) $num;
+    }
+
     /**
      * Return all page images
      */
@@ -526,6 +594,96 @@ class Page extends Model implements Stringable
     public function icon(): string
     {
         return $this->icon ??= $this->data['icon'] ?? $this->scheme()->options()->get('icon', 'page');
+    }
+
+    public function save(): void
+    {
+        if ($this->parent() === null) {
+            throw new UnexpectedValueException('Unexpected missing parent');
+        }
+
+        if ($this->parent()->contentPath() === null) {
+            throw new UnexpectedValueException('Unexpected missing parent content path');
+        }
+
+        $config = App::instance()->config();
+
+        $frontmatter = $this->contentFile()?->frontmatter() ?? [];
+
+        $defaults = $this->defaults();
+
+        $fieldCollection = $this->fields
+            ->setValues([...$this->data, 'parent' => $this->parent()->route(), 'template' => $this->template])
+            ->validate();
+
+        foreach ($fieldCollection as $field) {
+            if (
+                $field->isEmpty()
+                || (Arr::has($defaults, $field->name()) && Arr::get($defaults, $field->name()) === $field->value())
+                || in_array($field->name(), self::IGNORED_FIELD_NAMES, true)
+                || in_array($field->type(), self::IGNORED_FIELD_TYPES, true)
+            ) {
+                unset($frontmatter[$field->name()]);
+                continue;
+            }
+
+            $frontmatter[$field->name()] = $field->value();
+        }
+
+        $content = str_replace("\r\n", "\n", $this->data['content']);
+
+        $contentTemplate = $this->contentFile() !== null
+            ? Str::before(basename($this->contentFile()->path()), '.')
+            : $this->template()->name();
+
+        if (!$this->contentPath() && $this->num === null) {
+            $this->setNum();
+        }
+
+        $contentDir = $this->num()
+            ? $this->num() . '-' . $this->slug()
+            : $this->slug();
+
+        $contentPath = FileSystem::joinPaths(
+            (string) $this->parent()?->contentPath(),
+            $contentDir . '/'
+        );
+
+        $differ = $contentPath !== $this->contentPath()
+            || $contentTemplate !== $this->template->name()
+            || $frontmatter !== $this->contentFile()?->frontmatter()
+            || $content !== $this->contentFile()->content();
+
+        if ($differ) {
+            $filename = $this->template->name();
+
+            if ($this->language() !== null) {
+                $filename .= '.' . $this->language()->code();
+            }
+
+            $filename .= $config->get('system.pages.content.extension');
+
+            $fileContent = Str::wrap(Yaml::encode($frontmatter), '---' . PHP_EOL) . $content;
+
+            if ($contentPath !== $this->contentPath()) {
+                if (!FileSystem::isDirectory($contentPath, assertExists: false)) {
+                    FileSystem::createDirectory($contentPath, recursive: true);
+                }
+                if ($this->contentPath() !== null) {
+                    FileSystem::moveDirectory($this->contentPath(), $contentPath, overwrite: FileSystem::isEmptyDirectory($contentPath, assertExists: false));
+                }
+            } elseif ($contentTemplate !== $this->template->name() && $this->contentFile() !== null) {
+                FileSystem::delete($this->contentFile()->path());
+            }
+
+            FileSystem::write($contentPath . $filename, $fileContent);
+
+            $this->reload(['path' => $contentPath]);
+
+            if ($this->site->contentPath() !== null) {
+                FileSystem::touch($this->site->contentPath());
+            }
+        }
     }
 
     /**
@@ -670,5 +828,26 @@ class Page extends Model implements Stringable
                 $this->{$reflectionProperty->getName()} = $reflectionProperty->getDefaultValue();
             }
         }
+    }
+
+    /**
+     * Resolve parent page helper
+     *
+     * @param string $parent Page URI or '.' for site
+     */
+    protected function resolveParent(string $parent): Page|Site
+    {
+        if ($parent === '.') {
+            return $this->site;
+        }
+        return $this->site->findPage($parent) ?? throw new RuntimeException('Invalid parent');
+    }
+
+    /**
+     * Validate page slug helper
+     */
+    protected function validateSlug(string $slug): bool
+    {
+        return (bool) preg_match(self::SLUG_REGEX, $slug);
     }
 }

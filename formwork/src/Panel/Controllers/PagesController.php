@@ -21,26 +21,17 @@ use Formwork\Router\RouteParams;
 use Formwork\Site;
 use Formwork\Utils\Arr;
 use Formwork\Utils\Constraint;
-use Formwork\Utils\Date;
 use Formwork\Utils\FileSystem;
 use Formwork\Utils\Str;
 use Formwork\Utils\Uri;
-use RuntimeException;
 use UnexpectedValueException;
 
 class PagesController extends AbstractController
 {
     /**
-     * Valid page slug regex
-     */
-    protected const SLUG_REGEX = '/^[a-z0-9]+(?:-[a-z0-9]+)*$/i';
-
-    /**
      * Page prefix date format
      */
     protected const DATE_NUM_FORMAT = 'Ymd';
-
-    protected const IGNORED_FIELD_NAMES = ['content', 'template', 'parent'];
 
     /**
      * Pages@index action
@@ -232,7 +223,7 @@ class PagesController extends AbstractController
             : null;
 
         return new Response($this->view('pages.editor', [
-            'title'           => $this->translate('panel.pages.editPage', $page->title()),
+            'title'           => $this->translate('panel.pages.editPage', (string) $page->title()),
             'page'            => $page,
             'fields'          => $page->fields(),
             'currentLanguage' => $routeParams->get('language', $page->language()?->code()),
@@ -268,7 +259,7 @@ class PagesController extends AbstractController
             $page->reload(['template' => $this->site->templates()->get($template)]);
         }
 
-        if ($page->parent() !== ($parent = $this->resolveParent($requestData->get('parent')))) {
+        if ($page->parent() !== ($this->resolveParent($requestData->get('parent')))) {
             $this->panel->notify($this->translate('panel.pages.page.cannotPreview.parentChanged'), 'error');
             return $this->redirectToReferer(
                 default: $this->generateRoute('panel.pages'),
@@ -299,7 +290,7 @@ class PagesController extends AbstractController
             return JsonResponse::error($this->translate('panel.pages.page.cannotMove'));
         }
 
-        $pageCollection = $parent->children();
+        $pageCollection = $parent->children()->filterBy('orderable');
         $keys = $pageCollection->keys();
 
         $from = Arr::indexOf($keys, $requestData->get('page'));
@@ -312,12 +303,10 @@ class PagesController extends AbstractController
         $pageCollection->moveItem($from, $to);
 
         foreach ($pageCollection->values() as $i => $page) {
-            $name = basename((string) $page->relativePath());
-            $newName = preg_replace(Page::NUM_REGEX, $i + 1 . '-', $name)
-                ?? throw new RuntimeException(sprintf('Replacement failed with error: %s', preg_last_error_msg()));
-
-            if ($newName !== $name) {
-                $this->changePageName($page, $newName);
+            $num = $i + 1;
+            if ($num !== $page->num()) {
+                $page->set('num', $num);
+                $page->save();
             }
         }
 
@@ -618,66 +607,57 @@ class PagesController extends AbstractController
      */
     protected function createPage(FieldCollection $fieldCollection): Page
     {
-        try {
-            $parent = $this->resolveParent($fieldCollection->get('parent')->value());
-        } catch (RuntimeException) {
-            throw new TranslatedException('Parent page not found', 'panel.pages.page.cannotCreate.invalidParent');
+        $page = new Page(['site' => $this->site, 'published' => false]);
+
+        $data = $fieldCollection->everyItem()->value()->toArray();
+
+        $page->setMultiple($data);
+
+        $page->save();
+
+        if ($page->contentPath()) {
+            $contentHistory = new ContentHistory($page->contentPath());
+            $contentHistory->update(ContentHistoryEvent::Created, $this->panel->user()->username(), time());
+            $contentHistory->save();
         }
 
-        if ($parent instanceof Page && !$parent->allowChildren()) {
-            throw new TranslatedException('Parent page does not allow children', 'panel.pages.page.cannotCreate.invalidParent');
+        return $page;
+    }
+
+    /**
+     * Update a page
+     */
+    protected function updatePage(Page $page, RequestData $requestData, FieldCollection $fieldCollection, bool $force = false): Page
+    {
+        foreach ($fieldCollection as $field) {
+            if ($field->type() === 'upload') {
+                if (!$field->isEmpty()) {
+                    $uploadedFiles = $field->is('multiple') ? $field->value() : [$field->value()];
+                    $this->processPageUploads($uploadedFiles, $page, $field->acceptMimeTypes());
+                }
+                $fieldCollection->remove($field->name());
+            }
         }
 
-        // Validate page slug
-        if (!$this->validateSlug($fieldCollection->get('slug')->value())) {
-            throw new TranslatedException('Invalid page slug', 'panel.pages.page.cannotCreate.invalidSlug');
+        $previousData = $page->data();
+
+        /** @var array<string, mixed> */
+        $data = [...$fieldCollection->everyItem()->value()->toArray(), 'slug' => $requestData->get('slug')];
+
+        $page->setMultiple($data);
+        $page->save();
+
+        if ($page->contentPath() === null) {
+            throw new UnexpectedValueException('Unexpected missing content file');
         }
 
-        $route = $parent->route() . $fieldCollection->get('slug')->value() . '/';
-
-        // Ensure there isn't a page with the same route
-        if ($this->site->findPage($route) !== null) {
-            throw new TranslatedException('A page with the same route already exists', 'panel.pages.page.cannotCreate.alreadyExists');
+        if ($previousData !== $page->data() || $force) {
+            $contentHistory = new ContentHistory($page->contentPath());
+            $contentHistory->update(ContentHistoryEvent::Edited, $this->panel->user()->username(), time());
+            $contentHistory->save();
         }
 
-        // Validate page template
-        if (!$this->site->templates()->has($fieldCollection->get('template'))) {
-            throw new TranslatedException('Invalid page template', 'panel.pages.page.cannotCreate.invalidTemplate');
-        }
-
-        $scheme = $this->app->schemes()->get('pages.' . $fieldCollection->get('template')->value());
-
-        $path = FileSystem::joinPaths(
-            (string) $parent->contentPath(),
-            $this->makePageNum($parent, $scheme->options()->get('num')) . '-' . $fieldCollection->get('slug')->value(),
-            '/'
-        );
-
-        FileSystem::createDirectory($path, recursive: true);
-
-        $language = $this->site->languages()->default();
-
-        $filename = $fieldCollection->get('template')->value();
-        $filename .= $language !== null ? '.' . $language : '';
-        $filename .= $this->config->get('system.pages.content.extension');
-
-        FileSystem::createFile($path . $filename);
-
-        $contentData = [
-            'title'     => $fieldCollection->get('title')->value(),
-            'published' => false,
-        ];
-
-        $fileContent = Str::wrap(Yaml::encode($contentData), '---' . PHP_EOL);
-
-        FileSystem::write($path . $filename, $fileContent);
-
-        $contentHistory = new ContentHistory($path);
-
-        $contentHistory->update(ContentHistoryEvent::Created, $this->panel->user()->username(), time());
-        $contentHistory->save();
-
-        return $this->site->retrievePage($path);
+        return $page;
     }
 
     protected function updateFileMetadata(File $file, FieldCollection $fieldCollection): void
@@ -708,155 +688,6 @@ class PagesController extends AbstractController
     }
 
     /**
-     * Update a page
-     */
-    protected function updatePage(Page $page, RequestData $requestData, FieldCollection $fieldCollection, bool $force = false): Page
-    {
-        if ($page->contentFile() === null) {
-            throw new RuntimeException('Unexpected missing content file');
-        }
-
-        // Load current page frontmatter
-        $frontmatter = $page->contentFile()->frontmatter();
-
-        // Preserve the title if not given
-        if (!empty($requestData->get('title'))) {
-            $frontmatter['title'] = $requestData->get('title');
-        }
-
-        // Get page defaults
-        $defaults = $page->defaults();
-
-        // Handle data from fields
-        foreach ($fieldCollection as $field) {
-            // Remove empty and default values
-            if (
-                $field->isEmpty()
-                || (Arr::has($defaults, $field->name()) && Arr::get($defaults, $field->name()) === $field->value())
-                || in_array($field->name(), self::IGNORED_FIELD_NAMES, true)
-            ) {
-                unset($frontmatter[$field->name()]);
-                continue;
-            }
-
-            if ($field->type() === 'upload') {
-                $uploadedFiles = $field->is('multiple') ? $field->value() : [$field->value()];
-                $this->processPageUploads($uploadedFiles, $page, $field->acceptMimeTypes());
-                continue;
-            }
-
-            // Set frontmatter value
-            $frontmatter[$field->name()] = $field->value();
-        }
-
-        $content = $requestData->has('content') ? str_replace("\r\n", "\n", $requestData->get('content')) : $page->data()['content'];
-
-        $language = $requestData->get('language');
-
-        // Validate language
-        if (!empty($language) && !in_array($language, $this->config->get('system.languages.available'), true)) {
-            throw new TranslatedException('Invalid page language', 'panel.pages.page.cannotEdit.invalidLanguage');
-        }
-
-        if ($page->contentFile() === null) {
-            throw new RuntimeException('Unexpected missing content file');
-        }
-
-        $differ = $frontmatter !== $page->contentFile()->frontmatter() || $content !== $page->data()['content'] || $language !== $page->language();
-
-        if ($force || $differ) {
-            $filename = $requestData->get('template');
-            $filename .= empty($language) ? '' : '.' . $language;
-            $filename .= $this->config->get('system.pages.content.extension');
-
-            $fileContent = Str::wrap(Yaml::encode($frontmatter), '---' . PHP_EOL) . $content;
-
-            if ($page->contentPath() === null) {
-                throw new UnexpectedValueException('Unexpected missing page path');
-            }
-
-            if ($this->site->contentPath() === null) {
-                throw new UnexpectedValueException('Unexpected missing site path');
-            }
-
-            FileSystem::write($page->contentPath() . $filename, $fileContent);
-            FileSystem::touch($this->site->contentPath());
-
-            $contentHistory = new ContentHistory($page->contentPath());
-
-            $contentHistory->update(ContentHistoryEvent::Edited, $this->panel->user()->username(), time());
-            $contentHistory->save();
-
-            // Update page with the new data
-            $page->reload();
-
-            // Set correct page language if it has changed
-            if (!empty($language) && $language !== $page->language()?->code()) {
-                $page->setLanguage($language);
-            }
-
-            if ($page->contentFile() === null) {
-                throw new RuntimeException('Unexpected missing content file');
-            }
-
-            // Check if page number has to change
-
-            $timestamp = isset($page->data()['publishDate'])
-                ? Date::toTimestamp($page->data()['publishDate'])
-                : $page->contentFile()->lastModifiedTime();
-
-            if ($page->scheme()->options()->get('num') === 'date' && $page->num() !== ($num = (int) date(self::DATE_NUM_FORMAT, $timestamp))) {
-                if ($page->relativePath() === null) {
-                    throw new UnexpectedValueException('Unexpected missing page relative path');
-                }
-
-                $name = preg_replace(Page::NUM_REGEX, $num . '-', basename($page->relativePath()))
-                    ?? throw new RuntimeException(sprintf('Replacement failed with error: %s', preg_last_error_msg()));
-
-                try {
-                    $page = $this->changePageName($page, $name);
-                } catch (RuntimeException) {
-                    throw new TranslatedException('Cannot change page num', 'panel.pages.page.cannotChangeNum');
-                }
-            }
-        }
-
-        // Check if parent page has to change
-        try {
-            if ($page->parent() !== ($parent = $this->resolveParent($requestData->get('parent')))) {
-                $page = $this->changePageParent($page, $parent);
-            }
-        } catch (RuntimeException) {
-            throw new TranslatedException('Invalid parent page', 'panel.pages.page.cannotEdit.invalidParent');
-        }
-
-        // Check if page template has to change
-        if ($page->template()->name() !== ($template = $requestData->get('template'))) {
-            if (!$this->site->templates()->has($template)) {
-                throw new TranslatedException('Invalid page template', 'panel.pages.page.cannotEdit.invalidTemplate');
-            }
-            $page = $this->changePageTemplate($page, $template);
-        }
-
-        // Check if page slug has to change
-        if ($page->slug() !== ($slug = $requestData->get('slug'))) {
-            if (!$this->validateSlug($slug)) {
-                throw new TranslatedException('Invalid page slug', 'panel.pages.page.cannotEdit.invalidSlug');
-            }
-            // Don't change index and error pages slug
-            if ($page->isIndexPage() || $page->isErrorPage()) {
-                throw new TranslatedException('Cannot change slug of index or error pages', 'panel.pages.page.cannotEdit.indexOrErrorPageSlug');
-            }
-            if ($this->site->findPage($page->parent()?->route() . $slug . '/') !== null) {
-                throw new TranslatedException('A page with the same route already exists', 'panel.pages.page.cannotEdit.alreadyExists');
-            }
-            $page = $this->changePageName($page, ltrim($page->num() . '-', '-') . $slug);
-        }
-
-        return $page;
-    }
-
-    /**
      * Process page uploads
      *
      * @param list<UploadedFile> $files
@@ -878,79 +709,6 @@ class PagesController extends AbstractController
     }
 
     /**
-     * Make a page num according to 'date' or default mode
-     *
-     * @param string $mode 'date' for pages with a publish date
-     */
-    protected function makePageNum(Page|Site $parent, ?string $mode): string
-    {
-        return (string) match ($mode) {
-            'date'  => date(self::DATE_NUM_FORMAT),
-            default => 1 + max([0, ...$parent->children()->everyItem()->num()->values()])
-        };
-    }
-
-    /**
-     * Change the name of a page
-     */
-    protected function changePageName(Page $page, string $name): Page
-    {
-        if ($page->contentPath() === null) {
-            throw new UnexpectedValueException('Unexpected missing page path');
-        }
-        $directory = dirname($page->contentPath());
-        $destination = FileSystem::joinPaths($directory, $name, DS);
-        FileSystem::moveDirectory($page->contentPath(), $destination);
-        return $this->site->retrievePage($destination);
-    }
-
-    /**
-     * Change the parent of a page
-     */
-    protected function changePageParent(Page $page, Page|Site $parent): Page
-    {
-        if ($parent instanceof Page && !$parent->allowChildren()) {
-            throw new UnexpectedValueException('Parent page does not allow children');
-        }
-
-        if ($parent->contentPath() === null) {
-            throw new UnexpectedValueException('Unexpected missing parent page path');
-        }
-
-        if ($page->contentPath() === null) {
-            throw new UnexpectedValueException('Unexpected missing page path');
-        }
-
-        if ($page->contentRelativePath() === null) {
-            throw new UnexpectedValueException('Unexpected missing page relative path');
-        }
-
-        $destination = FileSystem::joinPaths($parent->contentPath(), basename($page->contentRelativePath()), DS);
-
-        FileSystem::moveDirectory($page->contentPath(), $destination);
-        return $this->site->retrievePage($destination);
-    }
-
-    /**
-     * Change page template
-     */
-    protected function changePageTemplate(Page $page, string $template): Page
-    {
-        if ($page->contentPath() === null) {
-            throw new UnexpectedValueException('Unexpected missing page path');
-        }
-
-        if ($page->contentFile() === null) {
-            throw new UnexpectedValueException('Unexpected missing content file');
-        }
-
-        $destination = $page->contentPath() . $template . $this->config->get('system.pages.content.extension');
-        FileSystem::move($page->contentFile()->path(), $destination);
-        $page->reload();
-        return $page;
-    }
-
-    /**
      * Resolve parent page helper
      *
      * @param string $parent Page URI or '.' for site
@@ -960,15 +718,7 @@ class PagesController extends AbstractController
         if ($parent === '.') {
             return $this->site;
         }
-        return $this->site->findPage($parent) ?? throw new RuntimeException('Invalid parent');
-    }
-
-    /**
-     * Validate page slug helper
-     */
-    protected function validateSlug(string $slug): bool
-    {
-        return (bool) preg_match(self::SLUG_REGEX, $slug);
+        return $this->site->findPage($parent) ?? throw new UnexpectedValueException('Invalid parent');
     }
 
     /**
