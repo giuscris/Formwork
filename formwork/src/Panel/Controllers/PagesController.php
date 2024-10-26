@@ -613,7 +613,7 @@ class PagesController extends AbstractController
 
         $page->setMultiple($data);
 
-        $page->save();
+        $page->save($this->site->languages()->default());
 
         if ($page->contentPath()) {
             $contentHistory = new ContentHistory($page->contentPath());
@@ -645,7 +645,7 @@ class PagesController extends AbstractController
         $data = [...$fieldCollection->everyItem()->value()->toArray(), 'slug' => $requestData->get('slug')];
 
         $page->setMultiple($data);
-        $page->save();
+        $page->save($requestData->get('language'));
 
         if ($page->contentPath() === null) {
             throw new UnexpectedValueException('Unexpected missing content file');

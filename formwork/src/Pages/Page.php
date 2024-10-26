@@ -596,7 +596,7 @@ class Page extends Model implements Stringable
         return $this->icon ??= $this->data['icon'] ?? $this->scheme()->options()->get('icon', 'page');
     }
 
-    public function save(): void
+    public function save(?string $language = null): void
     {
         if ($this->parent() === null) {
             throw new UnexpectedValueException('Unexpected missing parent');
@@ -607,6 +607,12 @@ class Page extends Model implements Stringable
         }
 
         $config = App::instance()->config();
+
+        $language ??= $this->language();
+
+        if ($language !== null && !in_array($language, $this->site->languages()->available()->keys(), true)) {
+            throw new InvalidArgumentException('Invalid page language');
+        }
 
         $frontmatter = $this->contentFile()?->frontmatter() ?? [];
 
@@ -657,8 +663,8 @@ class Page extends Model implements Stringable
         if ($differ) {
             $filename = $this->template->name();
 
-            if ($this->language() !== null) {
-                $filename .= '.' . $this->language()->code();
+            if ($language !== null) {
+                $filename .= '.' . $language;
             }
 
             $filename .= $config->get('system.pages.content.extension');
