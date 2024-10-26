@@ -30,11 +30,6 @@ use UnexpectedValueException;
 class PagesController extends AbstractController
 {
     /**
-     * Page prefix date format
-     */
-    protected const DATE_NUM_FORMAT = 'Ymd';
-
-    /**
      * Pages@index action
      */
     public function index(): Response
