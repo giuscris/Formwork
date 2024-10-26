@@ -228,7 +228,7 @@ class Page extends Model implements Stringable
         ];
 
         // Merge with scheme default field values
-        $defaults = [...$defaults, ...Arr::reject($this->fields()->pluck('default'), fn ($value) => $value === null)];
+        $defaults = [...$defaults, ...Arr::reject($this->fields()->pluck('default'), fn($value) => $value === null)];
 
         // If the page doesn't have a route, by default it won't be routable nor cacheable
         if ($this->route() === null) {
@@ -460,6 +460,12 @@ class Page extends Model implements Stringable
         if (!$this->validateSlug($slug)) {
             throw new InvalidArgumentException('Invalid page slug');
         }
+        if ($this->isIndexPage() || $this->isErrorPage()) {
+            throw new UnexpectedValueException('Cannot change slug of index or error pages');
+        }
+        if ($this->site->findPage($this->parent()?->route() . $slug . '/') !== null) {
+            throw new UnexpectedValueException('A page with the same route already exists');
+        }
         $this->slug = $slug;
     }
 
@@ -519,7 +525,7 @@ class Page extends Model implements Stringable
      */
     public function media(): FileCollection
     {
-        return $this->files()->filterBy('type', fn (string $type) => in_array($type, ['image', 'video'], true));
+        return $this->files()->filterBy('type', fn(string $type) => in_array($type, ['image', 'video'], true));
     }
 
     /**
