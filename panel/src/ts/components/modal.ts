@@ -24,17 +24,17 @@ export class Modal {
 
         $("[data-dismiss]", element)?.addEventListener("click", () => this.hide());
 
-        let mousedownTriggered = false;
+        let mousedownInside = false;
         element.addEventListener("mousedown", (event) => {
             if (event.target !== element) {
-                mousedownTriggered = true;
+                mousedownInside = true;
             }
         });
-        element.addEventListener("click", () => {
-            if (!mousedownTriggered) {
+        element.addEventListener("click", (event) => {
+            if (!mousedownInside && event.target === element) {
                 this.hide();
             }
-            mousedownTriggered = false;
+            mousedownInside = false;
         });
 
         document.addEventListener("click", (event) => {
