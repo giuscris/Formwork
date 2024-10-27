@@ -30,7 +30,7 @@ return function (App $app) {
             }
 
             if (!$field->hasUniqueValue()) {
-                throw new ValidationException(sprintf('The value of field "%s" of type "%s" must be unique', $field->name(), $field->value()));
+                throw new ValidationException(sprintf('The value of field "%s" of type "%s" must be unique', $field->name(), $field->value()), 'alreadyExists');
             }
 
             return (string) $value;
