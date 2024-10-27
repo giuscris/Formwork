@@ -174,6 +174,14 @@ class Field implements Arrayable, Stringable
     }
 
     /**
+     * Return whether the field is readonly
+     */
+    public function isReadonly(): bool
+    {
+        return $this->is('readonly');
+    }
+
+    /**
      * Validate field value
      */
     public function validate(): static
@@ -239,7 +247,7 @@ class Field implements Arrayable, Stringable
      */
     public function is(string $key, bool $default = false): bool
     {
-        return $this->baseGet($key, $default) === true;
+        return $this->get($key, $default) === true;
     }
 
     public function get(string $key, mixed $default = null): mixed
