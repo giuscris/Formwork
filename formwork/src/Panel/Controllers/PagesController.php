@@ -197,8 +197,6 @@ class PagesController extends AbstractController
 
         $this->modal('changes');
 
-        $this->modal('slug');
-
         $this->modal('deletePage');
 
         $this->modal('deleteFile');

@@ -9,6 +9,7 @@ import { ImageInput } from "./inputs/image-input";
 import { ImagePicker } from "./inputs/image-picker";
 import { RangeInput } from "./inputs/range-input";
 import { SelectInput } from "./inputs/select-input";
+import { SlugInput } from "./inputs/slug-input";
 import { TagInput } from "./inputs/tag-input";
 
 export class Inputs {
@@ -35,7 +36,9 @@ export class Inputs {
 
         $$("select:not([hidden])", parent).forEach((element: HTMLSelectElement) => (this[element.name] = new SelectInput(element, app.config.SelectInput)));
 
-        $$(".form-input-reset", parent).forEach((element) => {
+        $$(".form-input-slug", parent).forEach((element: HTMLInputElement) => (this[element.name] = new SlugInput(element)));
+
+        $$(".form-input-action[data-reset]", parent).forEach((element) => {
             const targetId = element.dataset.reset;
             if (targetId) {
                 element.addEventListener("click", () => {

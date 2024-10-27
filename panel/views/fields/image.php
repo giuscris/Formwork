@@ -13,5 +13,5 @@
                 'disabled'    => $field->isDisabled(),
                 'hidden'      => $field->isHidden(),
             ]) ?>>
-    <span class="form-input-reset" data-reset="<?= $field->name() ?>"><?= $this->icon('times-circle') ?></span>
+    <span class="form-input-action" data-reset="<?= $field->name() ?>"><?= $this->icon('times-circle') ?></span>
 </div>

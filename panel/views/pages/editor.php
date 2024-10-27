@@ -13,16 +13,9 @@
             </div>
             <div class="flex">
                 <div><?= $this->insert('_pages/status', ['page' => $page]) ?></div>
-                <?php if (!$page->isIndexPage() && !$page->isErrorPage()) : ?>
-                    <div class="page-route page-route-changeable min-w-0">
-                        <button type="button" class="button page-slug-change truncate max-w-100" data-command="change-slug" title="<?= $this->translate('panel.pages.changeSlug') ?>"><span class="page-route-inner"><?= $page->route() ?></span> <?= $this->icon('pencil') ?></button>
-                    </div>
-                <?php else : ?>
-                    <div class="page-route"><?= $page->route() ?></div>
-                <?php endif ?>
+                <div class="page-route"><?= $page->route() ?></div>
             </div>
         </div>
-        <input type="hidden" id="slug" name="slug" value="<?= $page->slug() ?>">
         <?php if ($currentLanguage) : ?>
             <input type="hidden" id="language" name="language" value="<?= $currentLanguage ?>">
         <?php endif ?>

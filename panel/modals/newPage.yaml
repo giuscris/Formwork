@@ -9,11 +9,13 @@ fields:
         required: true
 
     slug:
-        type: text
+        type: slug
         label: '{{panel.pages.newPage.slug}}'
         suggestion: '{{panel.pages.newPage.slugSuggestion}}'
         required: true
         pattern: '^[a-z0-9\-]+$'
+        source: title
+        root: parent
 
     parent:
         type: page

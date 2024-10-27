@@ -22,7 +22,7 @@ layout:
             collapsible: true
             collapsed: true
             label: '{{page.attributes}}'
-            fields: [parent, template]
+            fields: [slug, parent, template]
 
         files:
             collapsible: true
@@ -75,6 +75,15 @@ fields:
         type: checkbox
         label: '{{page.cacheable}}'
         default: true
+
+    slug:
+        type: slug
+        label: '{{page.slug}}'
+        suggestion: '{{panel.pages.newPage.slugSuggestion}}'
+        required: true
+        readonly@: page.isSlugReadonly
+        source: title
+        autoUpdate: false
 
     parent:
         type: page
