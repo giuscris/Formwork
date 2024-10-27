@@ -2,8 +2,8 @@
 
 namespace Formwork\Panel\Controllers;
 
+use Formwork\Data\Exceptions\InvalidValueException;
 use Formwork\Exceptions\TranslatedException;
-use Formwork\Fields\Exceptions\ValidationException;
 use Formwork\Fields\FieldCollection;
 use Formwork\Files\File;
 use Formwork\Files\FileCollection;
@@ -78,17 +78,16 @@ class PagesController extends AbstractController
 
         try {
             $fields->setValues($requestData)->validate();
-        } catch (ValidationException) {
-            $this->panel->notify($this->translate('panel.pages.page.cannotCreate.varMissing'), 'error');
-            return $this->redirectToReferer(default: $this->generateRoute('panel.pages'), base: $this->panel->panelRoot());
-        }
 
-        // Let's create the page
-        try {
+            // Let's create the page
             $page = $this->createPage($fields);
             $this->panel->notify($this->translate('panel.pages.page.created'), 'success');
         } catch (TranslatedException $e) {
             $this->panel->notify($e->getTranslatedMessage(), 'error');
+            return $this->redirectToReferer(default: $this->generateRoute('panel.pages'), base: $this->panel->panelRoot());
+        } catch (InvalidValueException $e) {
+            $identifier = $e->getIdentifier() ?? 'varMissing';
+            $this->panel->notify($this->translate('panel.pages.page.cannotCreate.' . $identifier), 'error');
             return $this->redirectToReferer(default: $this->generateRoute('panel.pages'), base: $this->panel->panelRoot());
         }
 
@@ -178,6 +177,9 @@ class PagesController extends AbstractController
                     $this->panel->notify($this->translate('panel.pages.page.edited'), 'success');
                 } catch (TranslatedException $e) {
                     $this->panel->notify($e->getTranslatedMessage(), 'error');
+                } catch (InvalidValueException $e) {
+                    $identifier = $e->getIdentifier() ?? 'varMissing';
+                    $this->panel->notify($this->translate('panel.pages.page.cannotEdit.' . $identifier), 'error');
                 }
 
                 if ($page->route() === null) {

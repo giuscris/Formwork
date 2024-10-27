@@ -3,6 +3,7 @@
 namespace Formwork\Pages;
 
 use Formwork\App;
+use Formwork\Data\Exceptions\InvalidValueException;
 use Formwork\Files\File;
 use Formwork\Files\FileCollection;
 use Formwork\Files\FileFactory;
@@ -25,7 +26,6 @@ use Formwork\Utils\FileSystem;
 use Formwork\Utils\Path;
 use Formwork\Utils\Str;
 use Formwork\Utils\Uri;
-use InvalidArgumentException;
 use ReflectionClass;
 use RuntimeException;
 use Stringable;
@@ -422,7 +422,7 @@ class Page extends Model implements Stringable
 
         if ($this->languages()->current()?->code() !== ($code = $language?->code())) {
             if ($code !== null && !$this->languages()->available()->has($code)) {
-                throw new InvalidArgumentException(sprintf('Invalid page language "%s"', $code));
+                throw new InvalidValueException(sprintf('Invalid page language "%s"', $code), 'invalidLanguage');
             }
             $this->reload(['language' => $language]);
         }
@@ -435,8 +435,10 @@ class Page extends Model implements Stringable
     {
         if ($parent instanceof Page || $parent instanceof Site) {
             $this->parent = $parent;
+        } elseif ($parent === '.') {
+            $this->parent = $this->site;
         } else {
-            $this->parent = $this->resolveParent($parent);
+            $this->parent = $this->site->findPage($parent) ?? throw new InvalidValueException('Invalid parent', 'invalidParent');
         }
     }
 
@@ -448,6 +450,9 @@ class Page extends Model implements Stringable
         if ($template instanceof Template) {
             $this->template = $template;
         } else {
+            if (!$this->site->templates()->has($template)) {
+                throw new InvalidValueException('Invalid page template', 'invalidTemplate');
+            }
             $this->template = $this->site->templates()->get($template);
         }
     }
@@ -458,16 +463,16 @@ class Page extends Model implements Stringable
     public function setSlug(string $slug): void
     {
         if (!$this->validateSlug($slug)) {
-            throw new InvalidArgumentException('Invalid page slug');
+            throw new InvalidValueException('Invalid page slug', 'invalidSlug');
         }
         if ($slug === $this->slug) {
             return;
         }
         if ($this->isIndexPage() || $this->isErrorPage()) {
-            throw new UnexpectedValueException('Cannot change slug of index or error pages');
+            throw new InvalidValueException('Cannot change slug of index or error pages', 'indexOrErrorPageSlug');
         }
         if ($this->site->findPage($this->parent()?->route() . $slug . '/') !== null) {
-            throw new UnexpectedValueException('A page with the same route already exists');
+            throw new InvalidValueException('A page with the same route already exists', 'alreadyExists');
         }
         $this->slug = $slug;
     }
@@ -694,7 +699,7 @@ class Page extends Model implements Stringable
         $language ??= $this->language();
 
         if ($language !== null && !in_array($language, $this->site->languages()->available()->keys(), true)) {
-            throw new InvalidArgumentException('Invalid page language');
+            throw new InvalidValueException('Invalid page language', 'invalidLanguage');
         }
 
         $frontmatter = $this->contentFile()?->frontmatter() ?? [];
@@ -917,19 +922,6 @@ class Page extends Model implements Stringable
                 $this->{$reflectionProperty->getName()} = $reflectionProperty->getDefaultValue();
             }
         }
-    }
-
-    /**
-     * Resolve parent page helper
-     *
-     * @param string $parent Page URI or '.' for site
-     */
-    protected function resolveParent(string $parent): Page|Site
-    {
-        if ($parent === '.') {
-            return $this->site;
-        }
-        return $this->site->findPage($parent) ?? throw new RuntimeException('Invalid parent');
     }
 
     /**
