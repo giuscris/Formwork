@@ -2,8 +2,8 @@
 
 namespace Formwork\Fields\Exceptions;
 
-use RuntimeException;
+use Formwork\Data\Exceptions\InvalidValueException;
 
-class ValidationException extends RuntimeException
+class ValidationException extends InvalidValueException
 {
 }
