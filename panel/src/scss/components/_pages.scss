@@ -16,11 +16,6 @@
     font-size: $font-size-sm;
 }
 
-.page-route-changeable {
-    padding: $focusring-width;
-    margin: -($focusring-width);
-}
-
 .button .page-language {
     font-size: $font-size-xs;
 }
@@ -98,40 +93,6 @@
 .page-languages {
     font-size: $font-size-md;
     white-space: nowrap;
-}
-
-.page-slug-change {
-    padding: 0;
-    border-color: transparent;
-    margin: 0;
-    background-color: transparent;
-    box-shadow: none;
-    color: var(--color-base-300);
-    cursor: pointer;
-
-    &:hover,
-    &:focus {
-        border-color: transparent;
-        background-color: transparent;
-        color: var(--color-base-300);
-    }
-
-    &:focus {
-        @include focusring;
-    }
-
-    & .icon {
-        display: inline-block;
-        margin-right: 0;
-        color: var(--color-base-100);
-        opacity: 0;
-        transition: opacity $transition-time-sm;
-    }
-
-    &:hover .icon,
-    &:focus .icon {
-        opacity: 1;
-    }
 }
 
 .is-dragging .page-title {

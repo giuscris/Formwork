@@ -1,5 +1,5 @@
 import { $, $$ } from "../../utils/selectors";
-import { escapeRegExp, makeDiacriticsRegExp, makeSlug, validateSlug } from "../../utils/validation";
+import { escapeRegExp, makeDiacriticsRegExp } from "../../utils/validation";
 import { app } from "../../app";
 import { debounce } from "../../utils/events";
 import { Notification } from "../notification";
@@ -12,12 +12,10 @@ export class Pages {
         const commandCollapseAllPages = $("[data-command=collapse-all-pages]") as HTMLButtonElement;
         const commandReorderPages = $("[data-command=reorder-pages]") as HTMLButtonElement;
         const commandPreview = $("[data-command=preview]") as HTMLButtonElement;
-        const commandChangeSlug = $("[data-command=change-slug]") as HTMLButtonElement;
 
         const searchInput = $(".page-search");
 
         const newPageModal = app.modals["newPageModal"];
-        const slugModal = app.modals["slugModal"];
 
         $$(".pages-tree").forEach((element) => {
             if (element.dataset.orderableChildren === "true") {
@@ -180,56 +178,6 @@ export class Pages {
                     }, 500),
                 );
             }
-        }
-
-        if (slugModal && commandChangeSlug) {
-            const newSlugInput = $('[id="slugModal.newSlug"]') as HTMLInputElement;
-            const commandGenerateSlug = $("[data-command=generate-slug]", slugModal.element) as HTMLElement;
-            const commandContinue = $("[data-command=continue]", slugModal.element) as HTMLElement;
-
-            commandChangeSlug.addEventListener("click", () => {
-                app.modals["slugModal"].show(undefined, (modal) => {
-                    const slug = (document.getElementById("slug") as HTMLInputElement).value;
-                    const slugInput = $('[id="slugModal.newSlug"]', modal.element) as HTMLInputElement;
-                    slugInput.value = slug;
-                    slugInput.placeholder = slug;
-                });
-            });
-
-            const handleSlugChange = (event: Event) => {
-                const target = event.target as HTMLInputElement;
-                target.value = validateSlug(target.value);
-            };
-
-            newSlugInput.addEventListener("keyup", handleSlugChange);
-            newSlugInput.addEventListener("blur", handleSlugChange);
-
-            commandGenerateSlug.addEventListener("click", () => {
-                const slug = makeSlug((document.getElementById("title") as HTMLInputElement).value);
-                newSlugInput.value = slug;
-                newSlugInput.focus();
-            });
-
-            const changeSlug = () => {
-                const slug = newSlugInput.value.replace(/^-+|-+$/, "");
-
-                if (slug.length > 0) {
-                    const route = ($(".page-route-inner") as HTMLElement).innerHTML;
-                    newSlugInput.value = slug;
-                    ($("#slug") as HTMLInputElement).value = slug;
-                    ($(".page-route-inner") as HTMLElement).innerHTML = route.replace(/\/[a-z0-9-]+\/$/, `/${slug}/`);
-                }
-
-                app.modals["slugModal"].hide();
-            };
-
-            commandContinue.addEventListener("click", changeSlug);
-
-            newSlugInput.addEventListener("keydown", (event) => {
-                if (event.key === "Enter") {
-                    changeSlug();
-                }
-            });
         }
 
         $$("[data-modal=renameFileModal]").forEach((element) => {

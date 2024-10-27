@@ -18,6 +18,15 @@ fields:
         label: '{{page.status.published}}'
         default: true
 
+    slug:
+        type: slug
+        label: '{{page.slug}}'
+        suggestion: '{{panel.pages.newPage.slugSuggestion}}'
+        required: true
+        readonly@: page.isSlugReadonly
+        source: title
+        autoUpdate: false
+
     parent:
         type: page
         label: '{{page.parent}}'

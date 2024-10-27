@@ -58,7 +58,7 @@ class Page extends Model implements Stringable
     /**
      * Ignored field names on frontmatter generation
      */
-    protected const IGNORED_FIELD_NAMES = ['content', 'template', 'parent'];
+    protected const IGNORED_FIELD_NAMES = ['content', 'slug', 'template', 'parent'];
 
     /**
      * Ignored field types on frontmatter generation
@@ -604,6 +604,22 @@ class Page extends Model implements Stringable
     }
 
     /**
+     * Return whether the slug is editable
+     */
+    public function isSlugEditable(): bool
+    {
+        return !$this->isIndexPage() && !$this->isErrorPage();
+    }
+
+    /**
+     * Return whether the slug is readonly
+     */
+    public function isSlugReadonly(): bool
+    {
+        return !$this->isSlugEditable();
+    }
+
+    /**
      * Return whether the page has loaded
      */
     public function hasLoaded(): bool
@@ -686,7 +702,7 @@ class Page extends Model implements Stringable
         $defaults = $this->defaults();
 
         $fieldCollection = $this->fields
-            ->setValues([...$this->data, 'parent' => $this->parent()->route(), 'template' => $this->template])
+            ->setValues([...$this->data, 'slug' => $this->slug, 'parent' => $this->parent()->route(), 'template' => $this->template])
             ->validate();
 
         foreach ($fieldCollection as $field) {
