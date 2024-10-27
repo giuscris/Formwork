@@ -59,10 +59,7 @@ class BackupController extends AbstractController
             throw new RuntimeException($this->translate('panel.backup.error.cannotDownload.invalidFilename'));
         } catch (TranslatedException $e) {
             $this->panel->notify($this->translate('panel.backup.error.cannotDownload', $e->getTranslatedMessage()), 'error');
-            return $this->redirectToReferer(
-                default: $this->generateRoute('panel.tools.backups'),
-                base: $this->panel->panelRoot()
-            );
+            return $this->redirectToReferer(default: $this->generateRoute('panel.tools.backups'), base: $this->panel->panelRoot());
         }
     }
 
@@ -80,18 +77,12 @@ class BackupController extends AbstractController
             if (FileSystem::isFile($file, assertExists: false)) {
                 FileSystem::delete($file);
                 $this->panel->notify($this->translate('panel.backup.deleted'), 'success');
-                return $this->redirectToReferer(
-                    default: $this->generateRoute('panel.tools.backups'),
-                    base: $this->generateRoute('panel.index'),
-                );
+                return $this->redirectToReferer(default: $this->generateRoute('panel.tools.backups'), base: $this->generateRoute('panel.index'));
             }
             throw new RuntimeException($this->translate('panel.backup.error.cannotDelete.invalidFilename'));
         } catch (TranslatedException $e) {
             $this->panel->notify($this->translate('panel.backup.error.cannotDelete', $e->getTranslatedMessage()), 'error');
-            return $this->redirectToReferer(
-                default: $this->generateRoute('panel.tools.backups'),
-                base: $this->panel->panelRoot()
-            );
+            return $this->redirectToReferer(default: $this->generateRoute('panel.tools.backups'), base: $this->panel->panelRoot());
         }
     }
 }

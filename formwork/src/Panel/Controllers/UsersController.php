@@ -110,10 +110,7 @@ class UsersController extends AbstractController
             }
         } catch (TranslatedException $e) {
             $this->panel->notify($e->getTranslatedMessage(), 'error');
-            return $this->redirectToReferer(
-                default: $this->generateRoute('panel.users'),
-                base: $this->panel->panelRoot()
-            );
+            return $this->redirectToReferer(default: $this->generateRoute('panel.users'), base: $this->panel->panelRoot());
         }
 
         $lastAccessRegistry = new Registry(FileSystem::joinPaths($this->config->get('system.panel.paths.logs'), 'lastAccess.json'));
@@ -138,10 +135,7 @@ class UsersController extends AbstractController
 
         if ($user === null) {
             $this->panel->notify($this->translate('panel.users.user.notFound'), 'error');
-            return $this->redirectToReferer(
-                default: $this->generateRoute('panel.users'),
-                base: $this->panel->panelRoot()
-            );
+            return $this->redirectToReferer(default: $this->generateRoute('panel.users'), base: $this->panel->panelRoot());
         }
 
         if ($this->panel->user()->canChangeOptionsOf($user)) {

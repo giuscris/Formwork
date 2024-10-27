@@ -22,10 +22,7 @@ class RegisterController extends AbstractController
     public function register(Schemes $schemes): Response
     {
         if (!$this->site->users()->isEmpty()) {
-            return $this->redirectToReferer(
-                default: $this->generateRoute('panel.index'),
-                base: $this->panel->panelRoot()
-            );
+            return $this->redirectToReferer(default: $this->generateRoute('panel.index'), base: $this->panel->panelRoot());
         }
 
         $this->csrfToken->generate($this->panel->getCsrfTokenName());
