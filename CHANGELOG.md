@@ -1,5 +1,53 @@
 # Changelog
 
+## [2.0.0-beta.2](https://github.com/getformwork/formwork/releases/tag/2.0.0-beta.2)
+
+**Breaking Changes**
+
+- **Users, roles and statistics folders moved to sites/**
+
+**Enhancements**
+
+- **Add content history to panel**
+- **Add live preview to panel**
+- **Implement new Markdown editor**
+- **Translate scheme and templates titles**
+- **Allow theme switching based on `prefers-color-scheme` change**
+- **Implement file metadata**
+- **Add page info cards by hovering on page icons**
+- **Add descriptions to publish and visibility-related fields**
+- **Send `FileResponse` splitted chunkwise and according to the Range request header to improve performance with large files**
+- **Allow `HEAD` requests**
+- **Add slug field type**
+- Add `Role` class
+- Move Info to Tools section
+- Add `csrfToken` service alias
+- Allow and filter POST requests to site pages
+- Avoid using special fields for page parent and template
+- Improve file upload field
+- Add `AbstractCollection::flatten()`, `AbstractCollection::union()`, `AbstractCollection::intersection()`, `AbstractCollection::difference()` and `AbstractCollection::find()`
+- Allow index-only call to `AbstractCollection::slice()`
+- Add utility methods to `PageCollection`
+- Add `site.path` to config
+- Fix `Debug::dump()` dumping before sendig headers
+- Check panel assets presence on boot
+- Add the possibility to delete user image
+- Use attribute `ReadonlyModelProperty` to control Model::set() write access
+- Add `Page::videos()` and `Page::media()`
+- Allow defining icon in page schemes options
+- Change default session durations to 2 
+- Load only video metadata in thumbnails
+- Add preview size to dimensionless images
+- Add `AbstractController::forward()` to forward requests to other controllers
+- Move authentication logic to `User`
+- Add `Page::save()` method
+- Add `Field::isReadonly()`
+- Add `InvalidValueException` to handle exceptions in model setters
+
+**Security**
+
+- **Add `Sanitizer` class to sanitize Markdown and SVG output**
+
 ## [2.0.0-beta.1](https://github.com/getformwork/formwork/releases/tag/2.0.0-beta.1)
 As the upcoming version 2.0.0 is a major release and the code has been extensively rewritten (~ 900 commits), here are listed only the most notable changes (the list may not be exhaustive and could change):
 
