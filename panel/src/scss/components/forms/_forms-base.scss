@@ -26,11 +26,6 @@
         background-color: var(--color-base-700);
         color: var(--color-base-300);
     }
-
-    &[readonly] {
-        // Safari Mobile bug
-        @include user-select-none;
-    }
 }
 
 .form-input[type="checkbox"],
@@ -129,7 +124,7 @@
     margin-bottom: 0;
 }
 
-.form-input-reset {
+.form-input-action {
     position: absolute;
     top: 50%;
     right: 0.5rem;
@@ -159,7 +154,7 @@
     padding-left: 1.75rem;
 }
 
-.form-input-wrap .form-input:has(+ .form-input-reset) {
+.form-input-wrap .form-input:has(+ .form-input-action) {
     padding-right: 1.625rem;
 }
 

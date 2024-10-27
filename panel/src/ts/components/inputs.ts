@@ -35,7 +35,7 @@ export class Inputs {
 
         $$("select:not([hidden])", parent).forEach((element: HTMLSelectElement) => (this[element.name] = new SelectInput(element, app.config.SelectInput)));
 
-        $$(".form-input-reset", parent).forEach((element) => {
+        $$(".form-input-action[data-reset]", parent).forEach((element) => {
             const targetId = element.dataset.reset;
             if (targetId) {
                 element.addEventListener("click", () => {
