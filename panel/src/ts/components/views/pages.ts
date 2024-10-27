@@ -122,21 +122,7 @@ export class Pages {
         }
 
         if (newPageModal) {
-            const titleInput = $('[id="newPageModal.title"]') as HTMLInputElement;
-            const slugInput = $('[id="newPageModal.slug"]') as HTMLInputElement;
             const parentSelect = $('[id="newPageModal.parent"]') as HTMLInputElement;
-
-            titleInput.addEventListener("keyup", (event) => {
-                ($('[id="newPageModal.slug"]') as HTMLInputElement).value = makeSlug((event.target as HTMLInputElement).value);
-            });
-
-            const handleSlugChange = (event: Event) => {
-                const target = event.target as HTMLInputElement;
-                target.value = validateSlug(target.value);
-            };
-
-            slugInput.addEventListener("keyup", handleSlugChange);
-            slugInput.addEventListener("blur", handleSlugChange);
 
             parentSelect.addEventListener("change", () => {
                 const option = $('.dropdown-list[data-for="newPageModal.parent"] .selected');

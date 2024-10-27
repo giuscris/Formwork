@@ -185,7 +185,7 @@ class Page extends Model implements Stringable
             ];
         }
 
-        $this->fields->setValues([...$this->data, 'parent' => $this->parent()?->route(), 'template' => $this->template]);
+        $this->fields->setValues([...$this->data, 'slug' => $this->slug, 'parent' => $this->parent()?->route(), 'template' => $this->template]);
 
         $this->loaded = true;
     }
@@ -459,6 +459,9 @@ class Page extends Model implements Stringable
     {
         if (!$this->validateSlug($slug)) {
             throw new InvalidArgumentException('Invalid page slug');
+        }
+        if ($slug === $this->slug) {
+            return;
         }
         if ($this->isIndexPage() || $this->isErrorPage()) {
             throw new UnexpectedValueException('Cannot change slug of index or error pages');
