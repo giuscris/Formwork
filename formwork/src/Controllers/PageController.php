@@ -110,6 +110,15 @@ class PageController extends AbstractController
 
         $cacheKey = $page->uri(includeLanguage: true);
 
+        $headers = [];
+
+        if ($config->get('system.cache.enabled') && $page->contentFile() !== null) {
+            $headers = [
+                'ETag'          => $page->contentFile()->hash(),
+                'Last-Modified' => gmdate('D, d M Y H:i:s T', $page->contentFile()->lastModifiedTime()),
+            ];
+        }
+
         if ($config->get('system.cache.enabled') && $this->filesCache->has($cacheKey)) {
             /**
              * @var int
@@ -123,7 +132,7 @@ class PageController extends AbstractController
             $this->filesCache->delete($cacheKey);
         }
 
-        $response = new Response($page->render(), $page->responseStatus(), $page->headers());
+        $response = new Response($page->render(), $page->responseStatus(), $page->headers() + $headers);
 
         if ($config->get('system.cache.enabled') && $page->cacheable()) {
             $this->filesCache->save($cacheKey, $response);
