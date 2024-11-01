@@ -19,8 +19,14 @@ class FileResponse extends Response
     /**
      * @inheritdoc
      */
-    public function __construct(protected string $path, ResponseStatus $responseStatus = ResponseStatus::OK, array $headers = [], bool $download = false)
-    {
+    public function __construct(
+        protected string $path,
+        ResponseStatus $responseStatus = ResponseStatus::OK,
+        array $headers = [],
+        bool $download = false,
+        protected bool $autoEtag = false,
+        protected bool $autoLastModified = false
+    ) {
         $this->fileSize = FileSystem::fileSize($path);
 
         $headers += [
@@ -86,6 +92,14 @@ class FileResponse extends Response
 
     public function prepare(Request $request): static
     {
+        if ($this->autoEtag && !$this->headers->has('ETag')) {
+            $this->headers->set('ETag', hash('sha256', $this->path . ':' . FileSystem::lastModifiedTime($this->path)));
+        }
+
+        if ($this->autoLastModified && !$this->headers->has('Last-Modified')) {
+            $this->headers->set('Last-Modified', gmdate('D, d M Y H:i:s T', FileSystem::lastModifiedTime($this->path)));
+        }
+
         parent::prepare($request);
 
         if (!$this->headers->has('Accept-Ranges') && in_array($request->method(), [RequestMethod::HEAD, RequestMethod::GET], true)) {

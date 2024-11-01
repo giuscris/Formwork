@@ -86,7 +86,7 @@ class PageController extends AbstractController
 
             if ((($parent = $this->site->findPage($upperLevel)) !== null) && $parent->files()->has($filename)) {
                 $file = $parent->files()->get($filename);
-                return new FileResponse($file->path(), headers: ['ETag' => $file->hash(), 'Last-Modified' => gmdate('D, d M Y H:i:s T', $file->lastModifiedTime())]);
+                return new FileResponse($file->path(), autoEtag: true, autoLastModified: true);
             }
         }
 
