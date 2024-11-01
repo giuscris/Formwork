@@ -88,8 +88,8 @@ class FileResponse extends Response
     {
         parent::prepare($request);
 
-        if (!isset($this->headers['Accept-Ranges']) && in_array($request->method(), [RequestMethod::HEAD, RequestMethod::GET], true)) {
-            $this->headers['Accept-Ranges'] = 'bytes';
+        if (!$this->headers->has('Accept-Ranges') && in_array($request->method(), [RequestMethod::HEAD, RequestMethod::GET], true)) {
+            $this->headers->set('Accept-Ranges', 'bytes');
         }
 
         if ($request->method() === RequestMethod::HEAD || $this->requiresEmptyContent()) {
@@ -112,12 +112,12 @@ class FileResponse extends Response
             if ($start > $end) {
                 $this->length = 0;
                 $this->responseStatus = ResponseStatus::RangeNotSatisfiable;
-                $this->headers['Content-Range'] = sprintf('bytes */%s', $this->fileSize);
+                $this->headers->set('Content-Range', sprintf('bytes */%s', $this->fileSize));
             } else {
                 $this->length = (int) ($end - $start + 1);
                 $this->responseStatus = ResponseStatus::PartialContent;
-                $this->headers['Content-Range'] = sprintf('bytes %s-%s/%s', $start, $end, $this->fileSize);
-                $this->headers['Content-Length'] = sprintf('%s', $this->length);
+                $this->headers->set('Content-Range', sprintf('bytes %s-%s/%s', $start, $end, $this->fileSize));
+                $this->headers->set('Content-Length', sprintf('%s', $this->length));
             }
         }
 

@@ -3,6 +3,7 @@
 namespace Formwork\Http;
 
 use Formwork\Traits\StaticClass;
+use Formwork\Utils\Arr;
 use RuntimeException;
 use UnexpectedValueException;
 
@@ -67,5 +68,20 @@ class Header
         }
         arsort($result);
         return $result;
+    }
+
+    public static function fixHeaderName(string $name): string
+    {
+        return str_replace('_', '-', ucwords(strtolower($name), '_-'));
+    }
+
+    /**
+     * @param array<string, string> $headers
+     *
+     * @return array<string, string>
+     */
+    public static function fixHeaderNames(array $headers): array
+    {
+        return Arr::mapKeys($headers, fn (string $key) => static::fixHeaderName($key));
     }
 }

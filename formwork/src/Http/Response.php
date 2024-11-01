@@ -2,16 +2,15 @@
 
 namespace Formwork\Http;
 
+use Formwork\Http\Header as HttpHeader;
 use Formwork\Http\Utils\Header;
 
 class Response implements ResponseInterface
 {
     /**
      * Response HTTP headers
-     *
-     * @var array<string, string>
      */
-    protected array $headers;
+    protected ResponseHeaders $headers;
 
     /**
      * Create a new Response instance
@@ -25,7 +24,7 @@ class Response implements ResponseInterface
             'Content-Length' => (string) strlen($content),
             'Content-Type'   => Header::make(['text/html', 'charset' => 'utf-8']),
         ];
-        $this->headers = $headers;
+        $this->headers = new ResponseHeaders($headers);
     }
 
     public static function __set_state(array $properties): static
@@ -52,7 +51,7 @@ class Response implements ResponseInterface
     /**
      * Return HTTP headers
      */
-    public function headers(): array
+    public function headers(): ResponseHeaders
     {
         return $this->headers;
     }
@@ -103,7 +102,7 @@ class Response implements ResponseInterface
         return [
             'content' => $this->content,
             'status'  => $this->responseStatus,
-            'headers' => $this->headers,
+            'headers' => $this->headers->toArray(),
         ];
     }
 

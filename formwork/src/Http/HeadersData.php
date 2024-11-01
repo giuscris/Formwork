@@ -2,8 +2,6 @@
 
 namespace Formwork\Http;
 
-use Formwork\Utils\Arr;
-
 class HeadersData extends RequestData
 {
     /**
@@ -19,7 +17,7 @@ class HeadersData extends RequestData
      */
     protected function initialize(array $headers): void
     {
-        $this->data = Arr::mapKeys($headers, fn (string $key) => str_replace('_', '-', ucwords(strtolower($key), '_')));
+        $this->data = Header::fixHeaderNames($headers);
         ksort($this->data);
     }
 }
