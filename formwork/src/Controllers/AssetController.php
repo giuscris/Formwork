@@ -14,7 +14,7 @@ class AssetController extends AbstractController
         $path = FileSystem::joinPaths($this->config->get('system.images.processPath'), $routeParams->get('id'), $routeParams->get('name'));
 
         if (FileSystem::isFile($path)) {
-            return new FileResponse($path);
+            return new FileResponse($path, headers: ['Cache-Control' => 'private, max-age=31536000, immutable']);
         }
 
         throw new FileNotFoundException('Cannot find asset');
