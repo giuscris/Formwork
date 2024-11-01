@@ -65,7 +65,7 @@ class Response implements ResponseInterface
             $this->responseStatus = ResponseStatus::NotModified;
         }
 
-        if ($this->headers->has('Last-Modidfied') && $request->headers()->get('If-Modified-Since') === $this->headers->get('Last-Modified')) {
+        if ($this->headers->has('Last-Modified') && $request->headers()->get('If-Modified-Since') === $this->headers->get('Last-Modified')) {
             $this->responseStatus = ResponseStatus::NotModified;
         }
 
