@@ -61,6 +61,14 @@ class Response implements ResponseInterface
      */
     public function prepare(Request $request): static
     {
+        if ($this->headers->has('ETag') && $request->headers()->get('If-None-Match') === $this->headers->get('ETag')) {
+            $this->responseStatus = ResponseStatus::NotModified;
+        }
+
+        if ($this->headers->has('Last-Modidfied') && $request->headers()->get('If-Modified-Since') === $this->headers->get('Last-Modified')) {
+            $this->responseStatus = ResponseStatus::NotModified;
+        }
+
         if ($request->method() === RequestMethod::HEAD || $this->requiresEmptyContent()) {
             $this->content = '';
         }
