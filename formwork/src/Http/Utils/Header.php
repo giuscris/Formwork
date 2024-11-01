@@ -22,7 +22,7 @@ class Header
      */
     public static function status(ResponseStatus $responseStatus, bool $send = true, bool $exit = false)
     {
-        $protocol = $_SERVER['SERVER_PROTOCOL'] ?? 'HTTP/1.0';
+        $protocol = $_SERVER['SERVER_PROTOCOL'] ?? 'HTTP/1.1';
         $responseStatus = implode(' ', [$protocol, $responseStatus->value]);
         if (!$send) {
             return $responseStatus;
