@@ -83,6 +83,15 @@ class Response implements ResponseInterface
     {
         $this->sendStatus();
 
+        foreach (headers_list() as $header) {
+            [$name, $value] = HttpHeader::split($header, ':');
+            if (!$this->headers->has($name)) {
+                $this->headers->set($name, $value);
+            }
+        }
+
+        header_remove();
+
         foreach ($this->headers as $fieldName => $fieldValue) {
             Header::send($fieldName, $fieldValue);
         }
