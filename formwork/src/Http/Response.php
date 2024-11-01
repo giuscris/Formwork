@@ -93,12 +93,14 @@ class Response implements ResponseInterface
 
         foreach (headers_list() as $header) {
             [$name, $value] = HttpHeader::split($header, ':');
+            if (strcasecmp($name, 'Set-Cookie') === 0) {
+                continue;
+            }
             if (!$this->headers->has($name)) {
                 $this->headers->set($name, $value);
             }
+            header_remove($name);
         }
-
-        header_remove();
 
         if (!$this->headers->has('Cache-Control')) {
             $this->headers->set('Cache-Control', 'no-cache, private');
