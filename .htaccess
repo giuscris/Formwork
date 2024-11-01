@@ -13,9 +13,7 @@ AddDefaultCharset utf-8
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteRule ^.* index.php [L]
 
-    ## Prevent direct access to Formwork folders but allow access to assets
-    RewriteRule ^site/templates/assets/.* - [L]
-    RewriteRule ^panel/assets/.* - [L]
+    ## Prevent direct access to Formwork folders
     RewriteRule ^(panel|backup|bin|cache|formwork|site|vendor)/.* index.php [L,NC]
 
     ## Prevent access to specific files

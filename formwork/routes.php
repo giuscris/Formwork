@@ -24,7 +24,11 @@ return [
         ],
         'assets' => [
             'path'   => '/assets/{id}/{name}/',
-            'action' => 'Formwork\Controllers\AssetController@load',
+            'action' => 'Formwork\Controllers\AssetsController@asset',
+        ],
+        'assets.template' => [
+            'path'   => '/site/templates/assets/{file}/',
+            'action' => 'Formwork\Controllers\AssetsController@template',
         ],
         'tag.pagination' => [
             'path'   => '/{page}/tag/{tagName:aln}/page/{paginationPage:num}/',

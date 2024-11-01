@@ -218,7 +218,7 @@ class UsersController extends AbstractController
         $path = FileSystem::joinPaths($this->config->get('system.users.paths.images'), $routeParams->get('image'));
 
         if (FileSystem::isFile($path)) {
-            return new FileResponse($path, headers: ['Cache-Control' => 'private, max-age=31536000, immutable']);
+            return new FileResponse($path, headers: ['Cache-Control' => 'private, max-age=31536000, immutable'], autoEtag: true, autoLastModified: true);
         }
 
         throw new FileNotFoundException('Cannot find asset');

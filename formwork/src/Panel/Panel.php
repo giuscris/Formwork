@@ -63,14 +63,6 @@ final class Panel
     }
 
     /**
-     * Return a URI relative to the real Panel root
-     */
-    public function realUri(string $route): string
-    {
-        return $this->request->root() . 'panel/' . ltrim($route, '/');
-    }
-
-    /**
      * Return panel root
      */
     public function panelRoot(): string
@@ -141,7 +133,7 @@ final class Panel
      */
     public function assets(): Assets
     {
-        return $this->assets ?? ($this->assets = new Assets($this->config->get('system.panel.paths.assets'), $this->realUri('/assets/')));
+        return $this->assets ?? ($this->assets = new Assets($this->config->get('system.panel.paths.assets'), $this->uri('/assets/')));
     }
 
     public function colorScheme(): ColorScheme
