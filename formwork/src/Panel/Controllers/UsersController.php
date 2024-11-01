@@ -50,33 +50,33 @@ class UsersController extends AbstractController
             return $this->forward(ErrorsController::class, 'forbidden');
         }
 
-        $requestData = $this->request->input();
-
         $fields = $this->modal('newUser')->fields();
 
         // Ensure no required data is missing
         try {
-            $fields->setValues($requestData)->validate();
+            $fields->setValues($this->request->input())->validate();
         } catch (ValidationException) {
             $this->panel->notify($this->translate('panel.users.user.cannotCreate.varMissing'), 'error');
             return $this->redirect($this->generateRoute('panel.users'));
         }
 
+        $data = $fields->everyItem()->value();
+
+        $username = $data->get('username');
+
         // Ensure there isn't a user with the same username
-        if ($this->site->users()->has($requestData->get('username'))) {
+        if ($this->site->users()->has($username)) {
             $this->panel->notify($this->translate('panel.users.user.cannotCreate.alreadyExists'), 'error');
             return $this->redirect($this->generateRoute('panel.users'));
         }
 
-        $userData = [
-            'username' => $requestData->get('username'),
-            'fullname' => $requestData->get('fullname'),
-            'hash'     => Password::hash($requestData->get('password')),
-            'email'    => $requestData->get('email'),
-            'language' => $requestData->get('language'),
-        ];
-
-        Yaml::encodeToFile($userData, FileSystem::joinPaths($this->config->get('system.users.paths.accounts'), $requestData->get('username') . '.yaml'));
+        Yaml::encodeToFile([
+            'username' => $username,
+            'fullname' => $data->get('fullname'),
+            'hash'     => Password::hash($data->get('password')),
+            'email'    => $data->get('email'),
+            'language' => $data->get('language'),
+        ], FileSystem::joinPaths($this->config->get('system.users.paths.accounts'), $username . '.yaml'));
 
         $this->panel->notify($this->translate('panel.users.user.created'), 'success');
         return $this->redirect($this->generateRoute('panel.users'));
@@ -218,7 +218,7 @@ class UsersController extends AbstractController
         $path = FileSystem::joinPaths($this->config->get('system.users.paths.images'), $routeParams->get('image'));
 
         if (FileSystem::isFile($path)) {
-            return new FileResponse($path);
+            return new FileResponse($path, headers: ['Cache-Control' => 'max-age=31536000, private']);
         }
 
         throw new FileNotFoundException('Cannot find asset');

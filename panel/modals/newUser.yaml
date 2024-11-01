@@ -1,6 +1,6 @@
 title: '{{panel.users.newUser}}'
 
-action: '/users/new/'
+action: /users/new/
 
 fields:
     fullname:

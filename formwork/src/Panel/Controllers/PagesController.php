@@ -410,6 +410,12 @@ class PagesController extends AbstractController
 
         $page = $this->site->findPage($routeParams->get('page'));
 
+        $fields = $this->modal('renameFile')->fields();
+
+        $fields->setValues($this->request->input())->validate();
+
+        $data = $fields->everyItem()->value();
+
         if ($page === null) {
             $this->panel->notify($this->translate('panel.pages.page.cannotRenameFile.pageNotFound'), 'error');
             return $this->redirectToReferer(default: $this->generateRoute('panel.pages'), base: $this->panel->panelRoot());
@@ -420,7 +426,7 @@ class PagesController extends AbstractController
             return $this->redirect($this->generateRoute('panel.pages.edit', ['page' => $routeParams->get('page')]));
         }
 
-        $name = Str::slug(FileSystem::name($this->request->input()->get('filename')));
+        $name = Str::slug(FileSystem::name($data->get('filename')));
         $extension = FileSystem::extension($routeParams->get('filename'));
 
         $newName = $name . '.' . $extension;
