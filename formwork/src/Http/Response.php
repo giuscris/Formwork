@@ -92,6 +92,10 @@ class Response implements ResponseInterface
 
         header_remove();
 
+        if (!$this->headers->has('Cache-Control')) {
+            $this->headers->set('Cache-Control', 'no-cache, private');
+        }
+
         foreach ($this->headers as $fieldName => $fieldValue) {
             Header::send($fieldName, $fieldValue);
         }
