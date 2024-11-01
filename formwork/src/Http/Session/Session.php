@@ -83,6 +83,8 @@ class Session implements Arrayable
         }
 
         session_start([
+            'cache_limiter'   => '',
+            'cache_expire'    => 0,
             'use_strict_mode' => true,
         ]);
 
