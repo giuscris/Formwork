@@ -1756,7 +1756,7 @@ __metadata:
     prosemirror-schema-list: "npm:^1.4.1"
     prosemirror-state: "npm:^1.4.3"
     prosemirror-view: "npm:^1.34.3"
-    sass: "npm:^1.77.8"
+    sass: "npm:^1.80.5"
     sortablejs: "npm:^1.15.3"
     stylelint: "npm:^16.9.0"
     stylelint-config-standard-scss: "npm:^13.1.0"
@@ -2914,9 +2914,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sass@npm:^1.77.8":
-  version: 1.80.3
-  resolution: "sass@npm:1.80.3"
+"sass@npm:^1.80.5":
+  version: 1.80.5
+  resolution: "sass@npm:1.80.5"
   dependencies:
     "@parcel/watcher": "npm:^2.4.1"
     chokidar: "npm:^4.0.0"
@@ -2924,7 +2924,7 @@ __metadata:
     source-map-js: "npm:>=0.6.2 <2.0.0"
   bin:
     sass: sass.js
-  checksum: 10c0/fa08043fc36b854717b6eaf6247ee11341d0aff5e17a645965071866bd677930c9c9467d82ed5a4a666d7897a82be8a61427cd81b808e6b9e2d3b32cf278bebd
+  checksum: 10c0/d592e57c037315f4c5976af3d37ce4c7758b1b4e89d064455d6992829ea59888c71b9dbc86f7fc8dca87ac98ebc9cece10e5c8fc5509bf192db81712a34fd579
   languageName: node
   linkType: hard
 
