@@ -50,6 +50,7 @@ class FileResponse extends Response
         $length = $this->length ?? $this->fileSize;
 
         if ($length === 0) {
+            $this->flush();
             return;
         }
 
@@ -88,6 +89,8 @@ class FileResponse extends Response
 
         fclose($output);
         fclose($file);
+
+        $this->flush();
     }
 
     public function prepare(Request $request): static

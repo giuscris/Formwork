@@ -126,6 +126,7 @@ class Response implements ResponseInterface
     {
         $this->sendHeaders();
         echo $this->content;
+        $this->flush();
     }
 
     public function toArray(): array
@@ -155,5 +156,14 @@ class Response implements ResponseInterface
     protected function requiresEmptyContent(): bool
     {
         return in_array($this->responseStatus, [ResponseStatus::NoContent, ResponseStatus::NotModified], true);
+    }
+
+    protected function flush(): void
+    {
+        if (function_exists('fastcgi_finish_request')) {
+            fastcgi_finish_request();
+        } else {
+            flush();
+        }
     }
 }
