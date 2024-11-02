@@ -91,10 +91,8 @@ class Client
 
     /**
      * @param array<string, mixed> $options
-     *
-     * @return array<string, string>
      */
-    public function fetchHeaders(string $uri, array $options = []): array
+    public function fetchHeaders(string $uri, array $options = []): ResponseHeaders
     {
         $options += [
             'method' => 'HEAD',

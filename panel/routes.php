@@ -13,6 +13,7 @@ use Formwork\Security\CsrfToken;
 use Formwork\Site;
 use Formwork\Translations\Translations;
 use Formwork\Utils\FileSystem;
+use Formwork\Utils\Str;
 use Formwork\View\ViewFactory;
 
 return [
@@ -239,6 +240,11 @@ return [
             'methods' => ['GET', 'POST'],
         ],
 
+        'panel.assets' => [
+            'path'   => '/assets/{type:aln}/{file}/',
+            'action' => 'Formwork\Panel\Controllers\AssetsController@asset',
+        ],
+
         'panel.errors.notfound' => [
             'path'   => '/{route}/',
             'action' => 'Formwork\Panel\Controllers\ErrorsController@notFound',
@@ -324,7 +330,11 @@ return [
         'panel.redirectToLogin' => [
             'action' => static function (Request $request, Site $site, Panel $panel) {
                 // Redirect to login if no user is logged
-                if (!$site->users()->isEmpty() && !$panel->isLoggedIn() && !in_array($panel->route(), ['/login/', '/logout/'], true)) {
+                if (
+                    !$site->users()->isEmpty() && !$panel->isLoggedIn()
+                    && !in_array($panel->route(), ['/login/', '/logout/'], true)
+                    && !Str::startsWith($panel->route(), '/assets/')
+                ) {
                     $request->session()->set(AuthenticationController::SESSION_REDIRECT_KEY, $panel->route());
                     return new RedirectResponse($panel->uri('/login/'));
                 }

@@ -30,10 +30,8 @@ interface ResponseInterface extends ArraySerializable
 
     /**
      * Return HTTP headers
-     *
-     * @return array<string, string>
      */
-    public function headers(): array;
+    public function headers(): ResponseHeaders;
 
     /**
      * Prepare response according to the given HTTP request

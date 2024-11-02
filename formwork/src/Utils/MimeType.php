@@ -16,6 +16,8 @@ class MimeType
      */
     protected const DEFAULT_MIME_TYPE = 'application/octet-stream';
 
+    protected const SAFE_PLAINTEXT_EXTENSIONS = ['css', 'js', 'htm', 'html', 'md', 'markdown', 'yml', 'yaml', 'json'];
+
     /**
      * Associative array containing common MIME types
      *
@@ -142,6 +144,17 @@ class MimeType
         if ($finfo = finfo_open(FILEINFO_MIME_TYPE)) {
             $mimeType = finfo_file($finfo, $file);
             finfo_close($finfo);
+
+            $extension = FileSystem::extension($file);
+
+            if ($mimeType === 'text/plain' && in_array($extension, self::SAFE_PLAINTEXT_EXTENSIONS, true)) {
+                $mimeType = static::fromExtension($extension);
+            }
+
+            // Fix type for CSS files with text/x-asm MIME type
+            if ($mimeType === 'text/x-asm' && $extension === 'css') {
+                $mimeType = static::fromExtension($extension);
+            }
 
             // Fix type for SVG images without XML declaration
             if ($mimeType === 'image/svg') {

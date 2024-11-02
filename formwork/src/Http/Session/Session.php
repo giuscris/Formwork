@@ -83,6 +83,8 @@ class Session implements Arrayable
         }
 
         session_start([
+            'cache_limiter'   => '',
+            'cache_expire'    => 0,
             'use_strict_mode' => true,
         ]);
 
@@ -95,6 +97,17 @@ class Session implements Arrayable
         $this->data = &$_SESSION;
 
         $this->started = true;
+    }
+
+    public function save(): void
+    {
+        if (!$this->started) {
+            return;
+        }
+
+        session_write_close();
+
+        $this->started = false;
     }
 
     public function destroy(): void

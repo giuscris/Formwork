@@ -9,7 +9,6 @@ use Formwork\Cache\FilesCache;
 use Formwork\Config\Config;
 use Formwork\Controllers\ErrorsController;
 use Formwork\Controllers\ErrorsControllerInterface;
-use Formwork\Fields\Dynamic\DynamicFieldValue;
 use Formwork\Files\FileFactory;
 use Formwork\Files\FileUriGenerator;
 use Formwork\Files\Services\FileUploader;
@@ -139,16 +138,14 @@ final class App
 
         try {
             $this->loadServices($this->container);
-
             $this->loadRoutes();
-
-            DynamicFieldValue::$vars = $this->container->call(require $this->config()->get('system.fields.dynamic.vars.file'));
-
             $response = $this->router()->dispatch();
         } catch (Throwable $throwable) {
             $controller = $this->container->get(ErrorsControllerInterface::class);
             $response = $controller->error(throwable: $throwable);
         }
+
+        $this->request()->session()->save();
 
         $response->prepare($this->request())->send();
 
@@ -172,8 +169,7 @@ final class App
             ->alias('request');
 
         $container->define(ErrorsController::class)
-            ->alias(ErrorsControllerInterface::class)
-            ->lazy(false);
+            ->alias(ErrorsControllerInterface::class);
 
         $container->define(CsrfToken::class)
             ->alias('csrfToken');

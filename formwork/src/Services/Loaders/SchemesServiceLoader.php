@@ -3,6 +3,7 @@
 namespace Formwork\Services\Loaders;
 
 use Formwork\Config\Config;
+use Formwork\Fields\Dynamic\DynamicFieldValue;
 use Formwork\Fields\FieldFactory;
 use Formwork\Languages\Languages;
 use Formwork\Schemes\Schemes;
@@ -19,6 +20,8 @@ class SchemesServiceLoader implements ResolutionAwareServiceLoaderInterface
     {
         $container->define(FieldFactory::class);
 
+        DynamicFieldValue::$varsLoader = fn () => $container->call(require $this->config->get('system.fields.dynamic.vars.file'));
+
         return $container->build(Schemes::class);
     }
 
@@ -28,5 +31,6 @@ class SchemesServiceLoader implements ResolutionAwareServiceLoaderInterface
     public function onResolved(object $service, Container $container): void
     {
         $service->loadFromPath($this->config->get('system.schemes.paths.system'));
+        $service->loadFromPath($this->config->get('system.schemes.paths.site'));
     }
 }

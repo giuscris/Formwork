@@ -2,16 +2,15 @@
 
 namespace Formwork\Http;
 
+use Formwork\Http\Header as HttpHeader;
 use Formwork\Http\Utils\Header;
 
 class Response implements ResponseInterface
 {
     /**
      * Response HTTP headers
-     *
-     * @var array<string, string>
      */
-    protected array $headers;
+    protected ResponseHeaders $headers;
 
     /**
      * Create a new Response instance
@@ -25,7 +24,7 @@ class Response implements ResponseInterface
             'Content-Length' => (string) strlen($content),
             'Content-Type'   => Header::make(['text/html', 'charset' => 'utf-8']),
         ];
-        $this->headers = $headers;
+        $this->headers = new ResponseHeaders($headers);
     }
 
     public static function __set_state(array $properties): static
@@ -52,7 +51,7 @@ class Response implements ResponseInterface
     /**
      * Return HTTP headers
      */
-    public function headers(): array
+    public function headers(): ResponseHeaders
     {
         return $this->headers;
     }
@@ -62,8 +61,24 @@ class Response implements ResponseInterface
      */
     public function prepare(Request $request): static
     {
+        if ($this->headers->has('ETag') && $request->headers()->get('If-None-Match') === $this->headers->get('ETag')) {
+            $this->responseStatus = ResponseStatus::NotModified;
+        }
+
+        if ($this->headers->has('Last-Modified') && $request->headers()->get('If-Modified-Since') === $this->headers->get('Last-Modified')) {
+            $this->responseStatus = ResponseStatus::NotModified;
+        }
+
         if ($request->method() === RequestMethod::HEAD || $this->requiresEmptyContent()) {
             $this->content = '';
+        }
+
+        if ($this->requiresEmptyContent()) {
+            // Disable default MIME type set by PHP
+            ini_set('default_mimetype', '');
+
+            $this->headers->remove('Content-Length');
+            $this->headers->remove('Content-Type');
         }
 
         return $this;
@@ -84,6 +99,21 @@ class Response implements ResponseInterface
     {
         $this->sendStatus();
 
+        foreach (headers_list() as $header) {
+            [$name, $value] = HttpHeader::split($header, ':');
+            if (strcasecmp($name, 'Set-Cookie') === 0) {
+                continue;
+            }
+            if (!$this->headers->has($name)) {
+                $this->headers->set($name, $value);
+            }
+            header_remove($name);
+        }
+
+        if (!$this->headers->has('Cache-Control')) {
+            $this->headers->set('Cache-Control', 'no-cache, private');
+        }
+
         foreach ($this->headers as $fieldName => $fieldValue) {
             Header::send($fieldName, $fieldValue);
         }
@@ -96,6 +126,7 @@ class Response implements ResponseInterface
     {
         $this->sendHeaders();
         echo $this->content;
+        $this->flush();
     }
 
     public function toArray(): array
@@ -103,7 +134,7 @@ class Response implements ResponseInterface
         return [
             'content' => $this->content,
             'status'  => $this->responseStatus,
-            'headers' => $this->headers,
+            'headers' => $this->headers->toArray(),
         ];
     }
 
@@ -125,5 +156,14 @@ class Response implements ResponseInterface
     protected function requiresEmptyContent(): bool
     {
         return in_array($this->responseStatus, [ResponseStatus::NoContent, ResponseStatus::NotModified], true);
+    }
+
+    protected function flush(): void
+    {
+        if (function_exists('fastcgi_finish_request')) {
+            fastcgi_finish_request();
+        } else {
+            flush();
+        }
     }
 }

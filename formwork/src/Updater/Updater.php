@@ -263,7 +263,7 @@ class Updater
      */
     protected function getHeaders(): array
     {
-        return $this->headers ?? ($this->headers = $this->client->fetchHeaders($this->release['archive']));
+        return $this->headers ?? ($this->headers = $this->client->fetchHeaders($this->release['archive'])->toArray());
     }
 
     /**
