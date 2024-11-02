@@ -73,6 +73,14 @@ class Response implements ResponseInterface
             $this->content = '';
         }
 
+        if ($this->requiresEmptyContent()) {
+            // Disable default MIME type set by PHP
+            ini_set('default_mimetype', '');
+
+            $this->headers->remove('Content-Length');
+            $this->headers->remove('Content-Type');
+        }
+
         return $this;
     }
 
