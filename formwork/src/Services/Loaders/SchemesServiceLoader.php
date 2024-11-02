@@ -31,5 +31,6 @@ class SchemesServiceLoader implements ResolutionAwareServiceLoaderInterface
     public function onResolved(object $service, Container $container): void
     {
         $service->loadFromPath($this->config->get('system.schemes.paths.system'));
+        $service->loadFromPath($this->config->get('system.schemes.paths.site'));
     }
 }

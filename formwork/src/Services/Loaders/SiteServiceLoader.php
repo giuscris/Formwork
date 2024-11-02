@@ -17,7 +17,6 @@ class SiteServiceLoader implements ResolutionAwareServiceLoaderInterface
 
     public function load(Container $container): Site
     {
-        $this->schemes->loadFromPath($this->config->get('system.schemes.paths.site'));
         $config = $this->config->get('site');
 
         return $container->build(Site::class, ['data' => [
