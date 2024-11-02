@@ -174,8 +174,7 @@ final class App
             ->alias('request');
 
         $container->define(ErrorsController::class)
-            ->alias(ErrorsControllerInterface::class)
-            ->lazy(false);
+            ->alias(ErrorsControllerInterface::class);
 
         $container->define(CsrfToken::class)
             ->alias('csrfToken');
