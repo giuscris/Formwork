@@ -4,6 +4,7 @@ namespace Formwork\Controllers;
 
 use Formwork\Cache\FilesCache;
 use Formwork\Http\FileResponse;
+use Formwork\Http\RequestMethod;
 use Formwork\Http\Response;
 use Formwork\Http\ResponseStatus;
 use Formwork\Pages\Page;
@@ -95,49 +96,52 @@ class PageController extends AbstractController
 
     protected function getPageResponse(Page $page): Response
     {
-        $site = $this->site;
-
-        if ($site->currentPage() === null) {
-            $site->setCurrentPage($page);
+        if ($this->site->currentPage() === null) {
+            $this->site->setCurrentPage($page);
         }
 
         /**
          * @var Page
          */
-        $page = $site->currentPage();
-
-        $config = $this->config;
+        $page = $this->site->currentPage();
 
         $cacheKey = $page->uri(includeLanguage: true);
 
         $headers = [];
 
-        if ($config->get('system.cache.enabled') && $page->contentFile() !== null) {
-            $headers = [
-                'ETag'          => $page->contentFile()->hash(),
-                'Last-Modified' => gmdate('D, d M Y H:i:s T', $page->contentFile()->lastModifiedTime()),
-            ];
-        }
-
-        if ($config->get('system.cache.enabled') && $this->filesCache->has($cacheKey)) {
-            /**
-             * @var int
-             */
-            $cachedTime = $this->filesCache->cachedTime($cacheKey);
-            // Validate cached response
-            if (!$site->modifiedSince($cachedTime)) {
-                return $this->filesCache->fetch($cacheKey);
+        if (($cacheable = $this->config->get('system.cache.enabled') && $this->isRequestCacheable() && $page->cacheable())) {
+            if ($page->contentFile() !== null) {
+                $headers = [
+                    'ETag'          => $page->contentFile()->hash(),
+                    'Last-Modified' => gmdate('D, d M Y H:i:s T', $page->contentFile()->lastModifiedTime()),
+                ];
             }
 
-            $this->filesCache->delete($cacheKey);
+            if ($this->filesCache->has($cacheKey)) {
+                /**
+                 * @var int
+                 */
+                $cachedTime = $this->filesCache->cachedTime($cacheKey);
+                // Validate cached response
+                if (!$this->site->modifiedSince($cachedTime)) {
+                    return $this->filesCache->fetch($cacheKey);
+                }
+
+                $this->filesCache->delete($cacheKey);
+            }
         }
 
         $response = new Response($page->render(), $page->responseStatus(), $page->headers() + $headers);
 
-        if ($config->get('system.cache.enabled') && $page->cacheable()) {
+        if ($cacheable) {
             $this->filesCache->save($cacheKey, $response);
         }
 
         return $response;
+    }
+
+    private function isRequestCacheable(): bool
+    {
+        return in_array($this->request->method(), [RequestMethod::GET, RequestMethod::HEAD]);
     }
 }
