@@ -2,16 +2,25 @@
 
 namespace Formwork\Fields\Dynamic;
 
+use Closure;
 use Formwork\Exceptions\RecursionException;
 use Formwork\Fields\Field;
 use Formwork\Interpolator\Interpolator;
+use UnexpectedValueException;
 
 class DynamicFieldValue
 {
     /**
+     * Closure used to lazily load vars
+     *
+     * @var Closure(): array<string, mixed>
+     */
+    public static Closure $varsLoader;
+
+    /**
      * @var array<string, mixed>
      */
-    public static array $vars = [];
+    protected static array $vars = [];
 
     /**
      * Dynamic value computation status
@@ -56,6 +65,13 @@ class DynamicFieldValue
      */
     public function compute(): void
     {
+        if (static::$vars === []) {
+            if (!(static::$varsLoader instanceof Closure)) {
+                throw new UnexpectedValueException(sprintf('%s() must be set to a valid Closure before computing dynamic field values', __METHOD__));
+            }
+            static::$vars = (static::$varsLoader)();
+        }
+
         if ($this->computed) {
             return;
         }
