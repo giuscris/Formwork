@@ -99,6 +99,17 @@ class Session implements Arrayable
         $this->started = true;
     }
 
+    public function save(): void
+    {
+        if (!$this->started) {
+            return;
+        }
+
+        session_write_close();
+
+        $this->started = false;
+    }
+
     public function destroy(): void
     {
         session_destroy();

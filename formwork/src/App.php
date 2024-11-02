@@ -150,6 +150,8 @@ final class App
             $response = $controller->error(throwable: $throwable);
         }
 
+        $this->request()->session()->save();
+
         $response->prepare($this->request())->send();
 
         return $response;
