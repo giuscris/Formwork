@@ -145,7 +145,14 @@ class MimeType
             $mimeType = finfo_file($finfo, $file);
             finfo_close($finfo);
 
-            if ($mimeType === 'text/plain' && in_array($extension = FileSystem::extension($file), self::SAFE_PLAINTEXT_EXTENSIONS, true)) {
+            $extension = FileSystem::extension($file);
+
+            if ($mimeType === 'text/plain' && in_array($extension, self::SAFE_PLAINTEXT_EXTENSIONS, true)) {
+                $mimeType = static::fromExtension($extension);
+            }
+
+            // Fix type for CSS files with text/x-asm MIME type
+            if ($mimeType === 'text/x-asm' && $extension === 'css') {
                 $mimeType = static::fromExtension($extension);
             }
 
