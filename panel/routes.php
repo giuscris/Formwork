@@ -278,7 +278,10 @@ return [
 
                 if (!$csrfToken->validate($tokenName, $token)) {
                     $csrfToken->destroy($tokenName);
-                    $panel->user()->logout();
+
+                    if ($panel->isLoggedIn()) {
+                        $panel->user()->logout();
+                    }
 
                     $panel->notify(
                         $translations->getCurrent()->translate('panel.login.suspiciousRequestDetected'),
