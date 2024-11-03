@@ -28,9 +28,13 @@ class PageController extends AbstractController
 
     public function load(RouteParams $routeParams, Statistics $statistics): Response
     {
+        $trackable = $this->config->get('system.statistics.enabled');
+
         if ($this->site->get('maintenance.enabled') && !$this->app->panel()?->isLoggedIn()) {
-            if ($this->site->get('maintenance.page') !== null) {
-                $route = $this->site->get('maintenance.page')->route();
+            $trackable = false;
+
+            if (($maintenancePage = $this->site->get('maintenance.page')) instanceof Page) {
+                $route = $maintenancePage->route();
             } else {
                 $status = ResponseStatus::ServiceUnavailable;
                 return new Response($this->view('errors.maintenance', ['status' => $status->code(), 'message' => $status->message()]), $status);
@@ -70,11 +74,10 @@ class PageController extends AbstractController
                 }
             }
 
-            if ($this->config->get('system.statistics.enabled')) {
-                $statistics->trackVisit();
-            }
-
             if ($page->isPublished() && $page->routable()) {
+                if ($trackable) {
+                    $statistics->trackVisit();
+                }
                 return $this->getPageResponse($page);
             }
         } else {
