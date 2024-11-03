@@ -59,7 +59,7 @@ class PageController extends AbstractController
                 return $this->getPageResponse($this->site->errorPage());
             }
 
-            if ($this->config->get('system.cache.enabled') && ($page->has('publishDate') || $page->has('unpublishDate')) && (
+            if ($this->config->get('system.cache.enabled') && ($page->fields()->has('publishDate') || $page->fields()->has('unpublishDate')) && (
                 ($page->isPublished() && !$page->publishDate()->isEmpty() && !$this->site->modifiedSince($page->publishDate()->toTimestamp()))
                 || (!$page->isPublished() && !$page->unpublishDate()->isEmpty() && !$this->site->modifiedSince($page->unpublishDate()->toTimestamp()))
             )) {
