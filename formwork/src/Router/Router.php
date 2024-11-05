@@ -43,9 +43,15 @@ class Router
      * Array containing route patterns shortcuts
      */
     protected const PATTERN_SHORTCUTS = [
-        'num' => '[0-9]+',
-        'aln' => '[A-Za-z0-9-]+',
-        'all' => '.+',
+        'all'     => '[^?#]+',
+        'any'     => '[^/?#]+',
+        'slug'    => '[A-Za-z0-9]+(?:-[A-Za-z0-9]+)*',
+        'alnum'   => '[A-Za-z0-9]+',
+        'alpha'   => '[A-Za-z]+',
+        'digits'  => '[0-9]+',
+        'xdigits' => '[0-9a-f]+',
+        'number'  => '[1-9][0-9]*',
+        'base64'  => '[A-Za-z0-9+/]+={0,2}',
     ];
 
     /**
@@ -379,7 +385,7 @@ class Router
      */
     protected function resolvePatternShortcut(?string $pattern): string
     {
-        $pattern ??= 'all';
+        $pattern ??= 'any';
         return self::PATTERN_SHORTCUTS[$pattern] ?? $pattern;
     }
 

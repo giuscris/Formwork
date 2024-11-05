@@ -19,7 +19,7 @@ return [
             'methods' => ['GET', 'POST'],
         ],
         'index.pagination' => [
-            'path'   => '/page/{paginationPage:num}/',
+            'path'   => '/page/{paginationPage:number}/',
             'action' => 'Formwork\Controllers\PageController@load',
         ],
         'assets' => [
@@ -27,23 +27,23 @@ return [
             'action' => 'Formwork\Controllers\AssetsController@asset',
         ],
         'assets.template' => [
-            'path'   => '/site/templates/assets/{file}/',
+            'path'   => '/site/templates/assets/{file:all}/',
             'action' => 'Formwork\Controllers\AssetsController@template',
         ],
         'tag.pagination' => [
-            'path'   => '/{page}/tag/{tagName:aln}/page/{paginationPage:num}/',
+            'path'   => '/{page:all}/tag/{tagName:slug}/page/{paginationPage:number}/',
             'action' => 'Formwork\Controllers\PageController@load',
         ],
         'tag' => [
-            'path'   => '/{page}/tag/{tagName:aln}/',
+            'path'   => '/{page:all}/tag/{tagName:slug}/',
             'action' => 'Formwork\Controllers\PageController@load',
         ],
         'page.pagination' => [
-            'path'   => '/{page}/page/{paginationPage:num}/',
+            'path'   => '/{page:all}/page/{paginationPage:number}/',
             'action' => 'Formwork\Controllers\PageController@load',
         ],
         'page' => [
-            'path'    => '/{page}/',
+            'path'    => '/{page:all}/',
             'action'  => 'Formwork\Controllers\PageController@load',
             'methods' => ['GET', 'POST'],
         ],

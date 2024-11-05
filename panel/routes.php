@@ -34,30 +34,9 @@ return [
             'action' => 'Formwork\Panel\Controllers\AuthenticationController@logout',
         ],
 
-        'panel.backup.make' => [
-            'path'    => '/backup/make/',
-            'action'  => 'Formwork\Panel\Controllers\BackupController@make',
-            'methods' => ['POST'],
-            'types'   => ['XHR'],
-        ],
-
-        'panel.backup.download' => [
-            'path'    => '/backup/download/{backup}/',
-            'action'  => 'Formwork\Panel\Controllers\BackupController@download',
-            'methods' => ['GET', 'POST'],
-        ],
-
-        'panel.backup.delete' => [
-            'path'    => '/backup/delete/{backup}/',
-            'action'  => 'Formwork\Panel\Controllers\BackupController@delete',
-            'methods' => ['POST'],
-        ],
-
-        'panel.cache.clear' => [
-            'path'    => '/cache/clear/{type}?/',
-            'action'  => 'Formwork\Panel\Controllers\CacheController@clear',
-            'methods' => ['POST'],
-            'types'   => ['XHR'],
+        'panel.assets' => [
+            'path'   => '/assets/{type:alpha}/{file:all}/',
+            'action' => 'Formwork\Panel\Controllers\AssetsController@asset',
         ],
 
         'panel.dashboard' => [
@@ -65,46 +44,9 @@ return [
             'action' => 'Formwork\Panel\Controllers\DashboardController@index',
         ],
 
-        'panel.options' => [
-            'path'   => '/options/',
-            'action' => 'Formwork\Panel\Controllers\OptionsController@index',
-        ],
-
-        'panel.options.system' => [
-            'path'    => '/options/system/',
-            'action'  => 'Formwork\Panel\Controllers\OptionsController@systemOptions',
-            'methods' => ['GET', 'POST'],
-        ],
-
-        'panel.options.site' => [
-            'path'    => '/options/site/',
-            'action'  => 'Formwork\Panel\Controllers\OptionsController@siteOptions',
-            'methods' => ['GET', 'POST'],
-        ],
-
         'panel.pages' => [
             'path'   => '/pages/',
             'action' => 'Formwork\Panel\Controllers\PagesController@index',
-        ],
-
-        'panel.tools' => [
-            'path'   => '/tools/',
-            'action' => 'Formwork\Panel\Controllers\ToolsController@index',
-        ],
-
-        'panel.tools.backups' => [
-            'path'   => '/tools/backups/',
-            'action' => 'Formwork\Panel\Controllers\ToolsController@backups',
-        ],
-
-        'panel.tools.updates' => [
-            'path'   => '/tools/updates/',
-            'action' => 'Formwork\Panel\Controllers\ToolsController@updates',
-        ],
-
-        'panel.tools.info' => [
-            'path'   => '/tools/info/',
-            'action' => 'Formwork\Panel\Controllers\ToolsController@info',
         ],
 
         'panel.pages.new' => [
@@ -114,19 +56,19 @@ return [
         ],
 
         'panel.pages.edit' => [
-            'path'    => '/pages/{page}/edit/',
+            'path'    => '/pages/{page:all}/edit/',
             'action'  => 'Formwork\Panel\Controllers\PagesController@edit',
             'methods' => ['GET', 'POST'],
         ],
 
         'panel.pages.preview' => [
-            'path'    => '/pages/{page}/preview/',
+            'path'    => '/pages/{page:all}/preview/',
             'action'  => 'Formwork\Panel\Controllers\PagesController@preview',
             'methods' => ['POST'],
         ],
 
         'panel.pages.edit.lang' => [
-            'path'    => '/pages/{page}/edit/language/{language}/',
+            'path'    => '/pages/{page:all}/edit/language/{language:alpha}/',
             'action'  => 'Formwork\Panel\Controllers\PagesController@edit',
             'methods' => ['GET', 'POST'],
         ],
@@ -138,44 +80,44 @@ return [
             'types'   => ['XHR'],
         ],
 
-        'panel.pages.uploadfile' => [
-            'path'    => '/pages/{page}/file/upload/',
+        'panel.pages.file' => [
+            'path'    => '/pages/{page:all}/file/{filename}/',
+            'action'  => 'Formwork\Panel\Controllers\PagesController@file',
+            'methods' => ['GET', 'POST'],
+        ],
+
+        'panel.pages.uploadFile' => [
+            'path'    => '/pages/{page:all}/file/upload/',
             'action'  => 'Formwork\Panel\Controllers\PagesController@uploadFile',
             'methods' => ['POST'],
         ],
 
-        'panel.pages.deletefile' => [
-            'path'    => '/pages/{page}/file/{filename}/delete/',
+        'panel.pages.deleteFile' => [
+            'path'    => '/pages/{page:all}/file/{filename}/delete/',
             'action'  => 'Formwork\Panel\Controllers\PagesController@deleteFile',
             'methods' => ['POST'],
         ],
 
         'panel.pages.renameFile' => [
-            'path'    => '/pages/{page}/file/{filename}/rename/',
+            'path'    => '/pages/{page:all}/file/{filename}/rename/',
             'action'  => 'Formwork\Panel\Controllers\PagesController@renameFile',
             'methods' => ['POST'],
         ],
 
         'panel.pages.replaceFile' => [
-            'path'    => '/pages/{page}/file/{filename}/replace/',
+            'path'    => '/pages/{page:all}/file/{filename}/replace/',
             'action'  => 'Formwork\Panel\Controllers\PagesController@replaceFile',
             'methods' => ['POST'],
         ],
 
-        'panel.pages.file' => [
-            'path'    => '/pages/{page}/file/{filename}/',
-            'action'  => 'Formwork\Panel\Controllers\PagesController@file',
-            'methods' => ['GET', 'POST'],
-        ],
-
         'panel.pages.delete' => [
-            'path'    => '/pages/{page}/delete/',
+            'path'    => '/pages/{page:all}/delete/',
             'action'  => 'Formwork\Panel\Controllers\PagesController@delete',
             'methods' => ['POST'],
         ],
 
         'panel.pages.delete.lang' => [
-            'path'    => '/pages/{page}/delete/language/{language}/',
+            'path'    => '/pages/{page:all}/delete/language/{language:alpha}/',
             'action'  => 'Formwork\Panel\Controllers\PagesController@delete',
             'methods' => ['POST'],
         ],
@@ -210,18 +152,6 @@ return [
             'methods' => ['POST'],
         ],
 
-        'panel.users.delete' => [
-            'path'    => '/users/{user:[a-z0-9_-]+}/delete/',
-            'action'  => 'Formwork\Panel\Controllers\UsersController@delete',
-            'methods' => ['POST'],
-        ],
-
-        'panel.users.deleteImage' => [
-            'path'    => '/users/{user:[a-z0-9_-]+}/image/delete/',
-            'action'  => 'Formwork\Panel\Controllers\UsersController@deleteImage',
-            'methods' => ['POST'],
-        ],
-
         'panel.users.profile' => [
             'path'    => '/users/{user:[a-z0-9_-]+}/profile/',
             'action'  => 'Formwork\Panel\Controllers\UsersController@profile',
@@ -234,19 +164,89 @@ return [
             'methods' => ['GET'],
         ],
 
+        'panel.users.delete' => [
+            'path'    => '/users/{user:[a-z0-9_-]+}/delete/',
+            'action'  => 'Formwork\Panel\Controllers\UsersController@delete',
+            'methods' => ['POST'],
+        ],
+
+        'panel.users.deleteImage' => [
+            'path'    => '/users/{user:[a-z0-9_-]+}/image/delete/',
+            'action'  => 'Formwork\Panel\Controllers\UsersController@deleteImage',
+            'methods' => ['POST'],
+        ],
+
+        'panel.options' => [
+            'path'   => '/options/',
+            'action' => 'Formwork\Panel\Controllers\OptionsController@index',
+        ],
+
+        'panel.options.system' => [
+            'path'    => '/options/system/',
+            'action'  => 'Formwork\Panel\Controllers\OptionsController@systemOptions',
+            'methods' => ['GET', 'POST'],
+        ],
+
+        'panel.options.site' => [
+            'path'    => '/options/site/',
+            'action'  => 'Formwork\Panel\Controllers\OptionsController@siteOptions',
+            'methods' => ['GET', 'POST'],
+        ],
+
+        'panel.tools' => [
+            'path'   => '/tools/',
+            'action' => 'Formwork\Panel\Controllers\ToolsController@index',
+        ],
+
+        'panel.tools.backups' => [
+            'path'   => '/tools/backups/',
+            'action' => 'Formwork\Panel\Controllers\ToolsController@backups',
+        ],
+
+        'panel.tools.updates' => [
+            'path'   => '/tools/updates/',
+            'action' => 'Formwork\Panel\Controllers\ToolsController@updates',
+        ],
+
+        'panel.tools.info' => [
+            'path'   => '/tools/info/',
+            'action' => 'Formwork\Panel\Controllers\ToolsController@info',
+        ],
+
+        'panel.backup.make' => [
+            'path'    => '/backup/make/',
+            'action'  => 'Formwork\Panel\Controllers\BackupController@make',
+            'methods' => ['POST'],
+            'types'   => ['XHR'],
+        ],
+
+        'panel.backup.download' => [
+            'path'    => '/backup/download/{backup:base64}/',
+            'action'  => 'Formwork\Panel\Controllers\BackupController@download',
+            'methods' => ['GET', 'POST'],
+        ],
+
+        'panel.backup.delete' => [
+            'path'    => '/backup/delete/{backup:base64}/',
+            'action'  => 'Formwork\Panel\Controllers\BackupController@delete',
+            'methods' => ['POST'],
+        ],
+
+        'panel.cache.clear' => [
+            'path'    => '/cache/clear/{type:alpha}?/',
+            'action'  => 'Formwork\Panel\Controllers\CacheController@clear',
+            'methods' => ['POST'],
+            'types'   => ['XHR'],
+        ],
+
         'panel.register' => [
             'path'    => '/register/',
             'action'  => 'Formwork\Panel\Controllers\RegisterController@register',
             'methods' => ['GET', 'POST'],
         ],
 
-        'panel.assets' => [
-            'path'   => '/assets/{type:aln}/{file}/',
-            'action' => 'Formwork\Panel\Controllers\AssetsController@asset',
-        ],
-
-        'panel.errors.notfound' => [
-            'path'   => '/{route}/',
+        'panel.errors.notFound' => [
+            'path'   => '/{route:all}/',
             'action' => 'Formwork\Panel\Controllers\ErrorsController@notFound',
         ],
     ],
