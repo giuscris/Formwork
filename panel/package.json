@@ -17,9 +17,12 @@
         "build:js": "tsc && esbuild ./src/ts/app.ts --outfile=./assets/js/app.min.js --bundle --format=iife --global-name=Formwork --target=es6 --minify",
         "watch:css": "yarn build:css --watch",
         "watch:js": "yarn build:js --watch",
+        "format": "yarn format:css && yarn format:ts",
+        "format:css": "prettier './src/scss/**/*.scss' --write",
+        "format:ts": "prettier './src/ts/**/*.ts' --write",
         "lint": "yarn lint:css && yarn lint:ts",
-        "lint:css": "prettier './src/scss/**/*.scss' --write && stylelint './src/scss/**/*.scss' --fix",
-        "lint:ts": "prettier './src/ts/**/*.ts' --write && eslint './src/ts/**/*.ts' --fix"
+        "lint:css": "stylelint './src/scss/**/*.scss' --fix",
+        "lint:ts": "eslint './src/ts/**/*.ts' --fix"
     },
     "dependencies": {
         "@codemirror/commands": "^6.7.0",
