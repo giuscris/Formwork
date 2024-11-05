@@ -58,7 +58,9 @@ class ServeCommand
 
             switch (true) {
                 case Str::contains($line, 'Development Server ('):
-                    $this->climate->out(sprintf('Formwork <bold>%s</bold> Server running at <dark_gray>http://%s:%d</dark_gray>', App::VERSION, $this->host, $this->port));
+                    $this->climate->out(sprintf('<bold>Formwork <cyan>%s</cyan> Server</bold> running at <dark_gray>http://%s:%d</dark_gray>', App::VERSION, $this->host, $this->port));
+                    $this->climate->out(sprintf('PHP runtime <bold>%s</bold>', preg_replace('/^PHP (\d+\.\d+\.\d+[^ ]*) Development Server.+/', '$1', $message)));
+                    $this->climate->br();
                     $this->climate->out('Press <bold>CTRL+C</bold> to stop');
                     $this->climate->br();
                     break;
