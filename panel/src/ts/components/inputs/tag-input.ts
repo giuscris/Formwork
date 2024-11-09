@@ -93,10 +93,6 @@ export class TagInput {
                 dropdown = document.createElement("div");
                 dropdown.className = "dropdown-list";
 
-                const container = document.createElement("div");
-                container.className = "dropdown-list-items";
-                dropdown.appendChild(container);
-
                 for (const key in list) {
                     const item = document.createElement("div");
                     item.className = "dropdown-item";
@@ -107,7 +103,7 @@ export class TagInput {
                             addTag(this.dataset.value);
                         }
                     });
-                    container.appendChild(item);
+                    dropdown.appendChild(item);
                 }
 
                 field.appendChild(dropdown);

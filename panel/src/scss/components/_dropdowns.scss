@@ -33,25 +33,12 @@
     margin-top: 3px;
     background-color: var(--color-base-900);
     box-shadow: $box-shadow-md;
-    float: left;
-}
-
-.dropdown-menu::after,
-.dropdown-list::after {
-    position: absolute;
-    bottom: -40px;
-    width: 1px;
-    height: 40px;
-    content: "";
+    overflow-y: scroll;
 }
 
 .dropdown-list {
     width: 100%;
-}
-
-.dropdown-list-items {
     max-height: 6.25 * (2 * 0.5rem * $base-line-height + $font-size-sm);
-    overflow-y: auto;
 }
 
 .dropdown-item {
