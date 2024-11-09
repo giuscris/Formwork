@@ -101,7 +101,7 @@ fields:
         label: '{{panel.options.system.files.allowedExtensions}}'
         placeholder: '{{panel.options.system.files.allowedExtensions.noExtensions}}'
         pattern: '^\.[a-zA-Z0-9]+$'
-        options@: mimeTypes.extensionTypes
+        options@: mimeTypes.getExtensionTypes()
 
     cache.enabled:
         type: togglegroup

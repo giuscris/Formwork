@@ -22,7 +22,7 @@ return function (App $app) {
         ],
 
         'mimeTypes' => [
-            'extensionTypes' => MimeType::extensionTypes(),
+            'getExtensionTypes' => MimeType::extensionTypes(...),
         ],
     ];
 };
