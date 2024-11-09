@@ -4,6 +4,7 @@ namespace Formwork\Http;
 
 use Formwork\Http\Header as HttpHeader;
 use Formwork\Http\Utils\Header;
+use Formwork\Utils\Str;
 
 class Response implements ResponseInterface
 {
@@ -108,6 +109,12 @@ class Response implements ResponseInterface
                 $this->headers->set($name, $value);
             }
             header_remove($name);
+        }
+
+        if (!$this->headers->has('Content-Type')) {
+            $this->headers->set('Content-Type', Header::make(['text/html', 'charset' => 'utf-8']));
+        } elseif (Str::startsWith($contentType = $this->headers->get('Content-Type'), 'text/') && !Str::contains($contentType, 'charset')) {
+            $this->headers->set('Content-Type', Header::make([$contentType, 'charset' => 'utf-8']));
         }
 
         if (!$this->headers->has('Cache-Control')) {
