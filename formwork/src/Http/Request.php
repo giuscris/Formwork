@@ -37,7 +37,7 @@ class Request
     protected array $trustedProxies = [];
 
     /**
-     * @var list<array<string, string>>
+     * @var array<array<string, string>>
      */
     protected array $forwardedDirectives;
 
@@ -337,7 +337,7 @@ class Request
     }
 
     /**
-     * @return list<array<string, string>>
+     * @return array<array<string, string>>
      */
     protected function getForwardedDirectives(): array
     {

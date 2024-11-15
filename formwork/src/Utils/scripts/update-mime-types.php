@@ -50,7 +50,7 @@ foreach ($extensions as $mimeType => $exts) {
 /** @var list<string> */
 $keys = array_keys($mimeTypes);
 
-$maxlen = max(array_map(strlen(...), $keys));
+$maxlen = max(0, ...array_map(strlen(...), $keys));
 
 $lines = [];
 

@@ -13,6 +13,9 @@ use Formwork\Utils\Arr;
 use Formwork\Utils\Str;
 use InvalidArgumentException;
 
+/**
+ * @property array{title?: array<string, string>|string, extend?: string, options?: array<string, mixed>, layout?: array<string, mixed>, fields?: array<string, mixed>} $data
+ */
 class Scheme implements Arrayable
 {
     use DataArrayable;

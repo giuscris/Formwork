@@ -641,8 +641,8 @@ class PagesController extends AbstractController
     /**
      * Process page uploads
      *
-     * @param list<UploadedFile> $files
-     * @param list<string>       $mimeTypes
+     * @param array<UploadedFile> $files
+     * @param list<string>        $mimeTypes
      */
     protected function processPageUploads(array $files, Page $page, ?array $mimeTypes = null, ?string $name = null, bool $overwrite = false): void
     {

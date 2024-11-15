@@ -121,6 +121,7 @@ class Php extends AbstractEncoder
                 }
 
                 // Check if the class has a callable __set_state() magic method
+                // @phpstan-ignore function.alreadyNarrowedType
                 if (method_exists($data, '__set_state') && is_callable([$data, '__set_state'])) {
                     $properties = [];
                     foreach ((array) $data as $property => $value) {

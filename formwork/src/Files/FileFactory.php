@@ -28,9 +28,6 @@ class FileFactory
 
         $class = $this->container->build($class, compact('path'));
 
-        /**
-         * @var File
-         */
         $instance = isset($method)
             ? $this->container->call(Closure::fromCallable($class->$method(...)), compact('path'))
             : $class;

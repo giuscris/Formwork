@@ -294,7 +294,7 @@ class Updater
      *
      * @param list<string> $installedFiles
      *
-     * @return list<string>
+     * @return array<string>
      */
     protected function findDeletableFiles(array $installedFiles): array
     {

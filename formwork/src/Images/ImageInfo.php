@@ -10,8 +10,14 @@ class ImageInfo implements Arrayable
 {
     protected string $mimeType;
 
+    /**
+     * @var int<1, max>
+     */
     protected int $width;
 
+    /**
+     * @var int<1, max>
+     */
     protected int $height;
 
     protected ?ColorSpace $colorSpace = null;
@@ -47,11 +53,17 @@ class ImageInfo implements Arrayable
         return $this->mimeType;
     }
 
+    /**
+     * @return int<1, max>
+     */
     public function width(): int
     {
         return $this->width;
     }
 
+    /**
+     * @return int<1, max>
+     */
     public function height(): int
     {
         return $this->height;

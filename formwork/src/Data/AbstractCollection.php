@@ -351,7 +351,7 @@ abstract class AbstractCollection implements Arrayable, Countable, Iterator
      *
      * Keys are preserved by default in associative collections
      *
-     * @param callable|list<string>|null $sortBy
+     * @param array<string>|callable|null $sortBy
      */
     public function sort(
         int $direction = SORT_ASC,
@@ -391,6 +391,7 @@ abstract class AbstractCollection implements Arrayable, Countable, Iterator
      */
     public function pluck(string $key, mixed $default = null): array
     {
+        // @phpstan-ignore argument.templateType
         return Arr::pluck($this->data, $key, $default);
     }
 

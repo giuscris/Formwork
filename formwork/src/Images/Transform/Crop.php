@@ -4,12 +4,26 @@ namespace Formwork\Images\Transform;
 
 use Formwork\Images\ImageInfo;
 use GdImage;
+use InvalidArgumentException;
 use RuntimeException;
+use UnexpectedValueException;
 
 class Crop extends AbstractTransform
 {
     final public function __construct(protected int $originX, protected int $originY, protected int $width, protected int $height)
     {
+        if ($originX < 0) {
+            throw new InvalidArgumentException('$originX must be greater than or equal to 0');
+        }
+        if ($originY < 0) {
+            throw new InvalidArgumentException('$originY must be greater than or equal to 0');
+        }
+        if ($width <= 0) {
+            throw new InvalidArgumentException('$width must be greater than 0');
+        }
+        if ($height <= 0) {
+            throw new InvalidArgumentException('$height must be greater than 0');
+        }
     }
 
     public static function fromArray(array $data): static
@@ -19,6 +33,14 @@ class Crop extends AbstractTransform
 
     public function apply(GdImage $gdImage, ImageInfo $imageInfo): GdImage
     {
+        if ($this->width <= 0) {
+            throw new UnexpectedValueException('Unexpected non-positive width');
+        }
+
+        if ($this->height <= 0) {
+            throw new UnexpectedValueException('Unexpected non-positive height');
+        }
+
         if (($destinationImage = imagecreatetruecolor($this->width, $this->height)) === false) {
             throw new RuntimeException('Cannot create destination image');
         }

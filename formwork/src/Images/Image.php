@@ -125,6 +125,10 @@ class Image extends File
         return $this;
     }
 
+    /**
+     * @param int<1, max> $width
+     * @param int<1, max> $height
+     */
     public function resize(int $width, int $height, ResizeMode|string $mode = ResizeMode::Cover): self
     {
         if (is_string($mode)) {
@@ -134,12 +138,21 @@ class Image extends File
         return $this;
     }
 
+    /**
+     * @param int<1, max>|null $size
+     */
     public function square(?int $size = null, ResizeMode|string $mode = ResizeMode::Cover): self
     {
         $size ??= min($this->info()->width(), $this->info()->height());
         return $this->resize($size, $size, $mode);
     }
 
+    /**
+     * @param int<0, max> $originX
+     * @param int<0, max> $originY
+     * @param int<1, max> $width
+     * @param int<1, max> $height
+     */
     public function crop(int $originX, int $originY, int $width, int $height): self
     {
         $this->transforms->add(new Crop($originX, $originY, $width, $height));

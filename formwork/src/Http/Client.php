@@ -128,7 +128,7 @@ class Client
      *
      * @param array<string, mixed> $options
      *
-     * @return array{status: int, headers: array<string, mixed>, length: ?int, handle: resource}
+     * @return array{status: int, headers: array<string, string>, length: int|null, handle: resource}
      */
     protected function connect(string $uri, array $options = []): array
     {
@@ -190,7 +190,7 @@ class Client
         return [
             'status'  => $currentResponse['statusCode'],
             'headers' => $currentResponse['headers'],
-            'length'  => (int) $length,
+            'length'  => $length !== null ? (int) $length : null,
             'handle'  => $handle,
         ];
     }
@@ -236,9 +236,9 @@ class Client
     /**
      * Split HTTP response header lines
      *
-     * @param list<string> $lines
+     * @param array<string> $lines
      *
-     * @return list<array{HTTPVersion: string, statusCode: int, reasonPhrase: string, headers: array<string, string>}>
+     * @return array<array{HTTPVersion: string, statusCode: int, reasonPhrase: string, headers: array<string, string>}>
      */
     protected function splitHTTPResponseHeader(array $lines): array
     {
@@ -251,7 +251,7 @@ class Client
                 $result[$i]['statusCode'] = (int) $matches[2];
                 $result[$i]['reasonPhrase'] = $matches[3];
                 $result[$i]['headers'] = [];
-            } elseif ($i < 0) {
+            } elseif ($i < 0 || !isset($result[$i])) {
                 throw new UnexpectedValueException('Unexpected header field: headers must come after an HTTP status line');
             } else {
                 $this->splitHeader($line, $result[$i]['headers']);
@@ -263,22 +263,15 @@ class Client
     /**
      * Split header contents into a target array
      *
-     * @param array<string, list<string>|string> $target
+     * @param array<string, string> $target
      */
-    protected function splitHeader(string $header, ?array &$target): void
+    protected function splitHeader(string $header, array &$target): void
     {
         $parts = explode(':', $header, 2);
         $key = ucwords(strtolower(trim($parts[0])), '-');
-        $value = isset($parts[1]) ? trim($parts[1]) : null;
+        $value = isset($parts[1]) ? trim($parts[1]) : '';
 
-        if (isset($target[$key])) {
-            if (!is_array($target[$key])) {
-                $target[$key] = [$target[$key]];
-            }
-            $target[$key][] = $value;
-        } else {
-            $target[$key] = $value;
-        }
+        $target[$key] = $value;
     }
 
     /**

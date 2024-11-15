@@ -189,8 +189,7 @@ class Str
             static function (array $matches) use ($data): string {
                 [, $escape, $key] = $matches;
 
-                /** @var ?string $escape */
-                if ($escape !== null) {
+                if (is_string($escape)) {
                     return '{{' . $key . '}}';
                 }
 

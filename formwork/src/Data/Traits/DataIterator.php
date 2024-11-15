@@ -21,9 +21,11 @@ trait DataIterator
         return current($this->data);
     }
 
+    /**
+     * @return int|string|null
+     */
     public function key(): mixed
     {
-        // @phpstan-ignore-next-line
         return key($this->data);
     }
 

@@ -132,6 +132,7 @@ class Model implements Arrayable
 
         Arr::pull($properties, 'data');
 
+        /** @var list<string> $properties */
         $data = [...$this->data, ...$this->getMultiple($properties)];
 
         ksort($data);

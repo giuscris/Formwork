@@ -39,7 +39,7 @@ class GifHandler extends AbstractHandler
             }
 
             if ($block['type'] === 'EXT' && $block['label'] === 0xf9) {
-                $info['hasAlphaChannel'] = ord($block['value'][3]) & 0x01 === 1;
+                $info['hasAlphaChannel'] = (ord($block['value'][3]) & 0x01) === 1;
                 if (!$info['isAnimation']) {
                     $info['isAnimation'] = $this->unpack('v', $block['value'], 4)[1] > 0;
                 }

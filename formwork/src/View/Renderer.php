@@ -12,7 +12,8 @@ class Renderer
     /**
      * Load a script passing variables and binding to given instance and context
      *
-     * @param array<string, mixed> $vars
+     * @param array<string, mixed>       $vars
+     * @param 'static'|class-string|null $context
      */
     public static function load(string $filename, array $vars, object $instance, ?string $context = null): mixed
     {
@@ -22,6 +23,8 @@ class Renderer
 
     /**
      * Return rendering closure bound to given instance and context
+     *
+     * @param 'static'|class-string|null $context
      */
     protected static function getClosure(object $instance, ?string $context = null): Closure
     {

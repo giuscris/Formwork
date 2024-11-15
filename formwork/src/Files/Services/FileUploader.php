@@ -17,7 +17,7 @@ use Formwork\Utils\Str;
 class FileUploader
 {
     /**
-     * @var list<string>
+     * @var array<string>
      */
     protected array $allowedMimeTypes;
 
@@ -27,7 +27,7 @@ class FileUploader
     }
 
     /**
-     * @return list<string>
+     * @return array<string>
      */
     public function allowedMimeTypes(): array
     {
@@ -35,7 +35,7 @@ class FileUploader
     }
 
     /**
-     * @param ?list<string> $allowedMimeTypes
+     * @param ?array<string> $allowedMimeTypes
      */
     public function upload(UploadedFile $uploadedFile, string $destinationPath, ?string $name = null, bool $overwrite = false, ?array $allowedMimeTypes = null): File
     {

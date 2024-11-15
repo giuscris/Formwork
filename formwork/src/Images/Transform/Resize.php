@@ -4,12 +4,21 @@ namespace Formwork\Images\Transform;
 
 use Formwork\Images\ImageInfo;
 use GdImage;
+use InvalidArgumentException;
 use RuntimeException;
+use UnexpectedValueException;
 
 class Resize extends AbstractTransform
 {
     final public function __construct(protected int $width, protected int $height, protected ResizeMode $resizeMode = ResizeMode::Cover)
     {
+        if ($width <= 0) {
+            throw new InvalidArgumentException('$width must be greater than 0');
+        }
+
+        if ($height <= 0) {
+            throw new InvalidArgumentException('$height must be greater than 0');
+        }
     }
 
     public static function fromArray(array $data): static
@@ -59,10 +68,10 @@ class Resize extends AbstractTransform
             case ResizeMode::Contain:
                 if ($sourceRatio < $destinationRatio) {
                     $destinationWidth = $this->height * $sourceRatio;
-                    $width = $destinationWidth;
+                    $width = (int) $destinationWidth;
                 } else {
                     $destinationHeight = $this->width / $sourceRatio;
-                    $height = $destinationHeight;
+                    $height = (int) $destinationHeight;
                 }
                 break;
 
@@ -77,7 +86,15 @@ class Resize extends AbstractTransform
                 break;
         }
 
-        $destinationImage = imagecreatetruecolor((int) $width, (int) $height);
+        if ($width <= 0) {
+            throw new UnexpectedValueException('Unexpected non-positive calculated width');
+        }
+
+        if ($height <= 0) {
+            throw new UnexpectedValueException('Unexpected non-positive calculated height');
+        }
+
+        $destinationImage = imagecreatetruecolor($width, $height);
 
         if ($destinationImage === false) {
             throw new RuntimeException('Cannot create destination image');

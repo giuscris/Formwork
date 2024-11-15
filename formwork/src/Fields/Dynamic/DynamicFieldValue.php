@@ -66,7 +66,7 @@ class DynamicFieldValue
     public function compute(): void
     {
         if (static::$vars === []) {
-            if (!(static::$varsLoader instanceof Closure)) {
+            if (!isset(static::$varsLoader)) {
                 throw new UnexpectedValueException(sprintf('%s() must be set to a valid Closure before computing dynamic field values', __METHOD__));
             }
             static::$vars = (static::$varsLoader)();

@@ -30,7 +30,7 @@ class PageController extends AbstractController
     {
         $trackable = $this->config->get('system.statistics.enabled');
 
-        if ($this->site->get('maintenance.enabled') && !$this->app->panel()?->isLoggedIn()) {
+        if ($this->site->get('maintenance.enabled') && !$this->app->panel()->isLoggedIn()) {
             $trackable = false;
 
             if (($maintenancePage = $this->site->get('maintenance.page')) instanceof Page) {

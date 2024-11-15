@@ -17,7 +17,7 @@ class Metadata implements Stringable
     /**
      * Metadata prefix
      */
-    protected string $prefix;
+    protected ?string $prefix = null;
 
     /**
      * Create a new Metadata instance

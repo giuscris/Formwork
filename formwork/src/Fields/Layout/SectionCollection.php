@@ -12,7 +12,7 @@ class SectionCollection extends AbstractCollection
     protected ?string $dataType = Section::class;
 
     /**
-     * @param array<string, Section> $sections
+     * @param array<string, array<string, mixed>> $sections
      */
     public function __construct(array $sections)
     {

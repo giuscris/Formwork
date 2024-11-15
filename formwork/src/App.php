@@ -102,7 +102,7 @@ final class App
         return $this->container->get(Translations::class);
     }
 
-    public function panel(): ?Panel
+    public function panel(): Panel
     {
         return $this->container->get(Panel::class);
     }

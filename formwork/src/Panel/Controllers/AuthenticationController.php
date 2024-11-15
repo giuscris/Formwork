@@ -50,7 +50,7 @@ class AuthenticationController extends AbstractController
 
             $username = $data->get('username');
 
-            /** @var User */
+            /** @var ?User */
             $user = $this->site->users()->get($username);
 
             // Authenticate user

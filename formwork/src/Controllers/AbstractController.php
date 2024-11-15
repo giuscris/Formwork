@@ -74,7 +74,7 @@ abstract class AbstractController
     /**
      * Forward the request to another controller
      *
-     * @param class-string<self>   $controller
+     * @param class-string         $controller
      * @param array<string, mixed> $parameters
      */
     protected function forward(string $controller, string $action, array $parameters = []): Response
