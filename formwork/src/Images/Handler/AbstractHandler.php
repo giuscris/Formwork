@@ -207,16 +207,6 @@ abstract class AbstractHandler implements HandlerInterface
             throw new UnexpectedValueException('Invalid image data');
         }
 
-        if ($this->getInfo()->hasAlphaChannel()) {
-            if (($transparent = imagecolorallocatealpha($image, 0, 0, 0, 127)) === false) {
-                throw new UnexpectedValueException('Cannot allocate transparent color');
-            }
-            imagealphablending($image, true);
-            imagesavealpha($image, true);
-            imagecolortransparent($image, $transparent);
-            imagefill($image, 0, 0, $transparent);
-        }
-
         return $image;
     }
 }

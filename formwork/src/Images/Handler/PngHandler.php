@@ -200,6 +200,8 @@ class PngHandler extends AbstractHandler
 
     protected function setDataFromGdImage(GdImage $gdImage): void
     {
+        imagesavealpha($gdImage, true);
+
         ob_start();
 
         if (imagepng($gdImage, null, $this->options['pngCompression']) === false) {

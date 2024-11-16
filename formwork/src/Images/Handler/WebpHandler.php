@@ -226,6 +226,8 @@ class WebpHandler extends AbstractHandler
 
     protected function setDataFromGdImage(GdImage $gdImage): void
     {
+        imagesavealpha($gdImage, true);
+
         ob_start();
 
         if (imagewebp($gdImage, null, $this->options['webpQuality']) === false) {
