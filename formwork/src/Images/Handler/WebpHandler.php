@@ -16,6 +16,8 @@ class WebpHandler extends AbstractHandler
 {
     protected const RIFF_HEADER = 'RIFF';
 
+    protected const NO_FLAG = 0b00000000;
+
     protected const ALPHA_FLAG = 0b00010000;
 
     protected const ICC_FLAG = 0b00100000;
@@ -239,7 +241,8 @@ class WebpHandler extends AbstractHandler
     {
         if (!str_contains(substr($this->data, 12), 'VP8X')) {
             $info = $this->getInfo();
-            $data = chr(self::ALPHA_FLAG) . "\x0\x0\x0" . substr(pack('V', $info->width() - 1), 0, 3) . substr(pack('V', $info->height() - 1), 0, 3);
+            $VP8XFlags = $info->hasAlphaChannel() ? self::ALPHA_FLAG : self::NO_FLAG;
+            $data = chr($VP8XFlags) . "\x0\x0\x0" . substr(pack('V', $info->width() - 1), 0, 3) . substr(pack('V', $info->height() - 1), 0, 3);
             $chunk = $this->encodeChunk('VP8X', $data);
             $this->data = substr_replace($this->data, $chunk, 12, 0);
             $this->updateRIFFHeader();
