@@ -61,7 +61,7 @@ metadata:
     setGenerator: true
 
 pages:
-    path: '${site.path}/pages'
+    path: '${%ROOT_PATH%}/site/pages'
     index: index
     error: error
     content:
@@ -86,9 +86,9 @@ panel:
 
 users:
     paths:
-        accounts: '${site.path}/users/accounts'
-        images: '${site.path}/users/images'
-        roles: '${site.path}/users/roles'
+        accounts: '${%ROOT_PATH%}/site/users/accounts'
+        images: '${%ROOT_PATH%}/site/users/images'
+        roles: '${%ROOT_PATH%}/site/users/roles'
 
 routes:
     files:
@@ -99,14 +99,14 @@ schemes:
     paths:
         panel: '${system.panel.path}/schemes'
         system: '${%SYSTEM_PATH%}/schemes'
-        site: '${site.path}/schemes'
+        site: '${%ROOT_PATH%}/site/schemes'
 
 statistics:
     enabled: true
-    path: '${site.path}/statistics'
+    path: '${%ROOT_PATH%}/site/statistics'
 
 templates:
-    path: '${site.path}/templates'
+    path: '${%ROOT_PATH%}/site/templates'
     extension: .php
 
 translations:
