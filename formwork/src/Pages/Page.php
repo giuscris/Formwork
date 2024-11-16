@@ -898,7 +898,7 @@ class Page extends Model implements Stringable
             throw new UnexpectedValueException('Unexpected missing site path');
         }
 
-        $this->relativePath = Str::prepend(Path::makeRelative($this->path, $this->site()->contentPath(), DS), DS);
+        $this->relativePath = Str::prepend(Path::makeRelative($this->path, $this->site()->contentPath(), DIRECTORY_SEPARATOR), DIRECTORY_SEPARATOR);
 
         $routePath = preg_replace('~[/\\\](\d+-)~', '/', $this->relativePath)
             ?? throw new RuntimeException(sprintf('Replacement failed with error: %s', preg_last_error_msg()));

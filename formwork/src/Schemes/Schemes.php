@@ -43,7 +43,7 @@ class Schemes
     public function loadFromPath(string $path): void
     {
         foreach (FileSystem::listRecursive($path) as $item) {
-            $id = str_replace(DS, '.', Str::beforeLast($item, '.'));
+            $id = str_replace(DIRECTORY_SEPARATOR, '.', Str::beforeLast($item, '.'));
             $this->load($id, FileSystem::joinPaths($path, $item));
         }
     }

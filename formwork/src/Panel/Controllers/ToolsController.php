@@ -127,7 +127,7 @@ class ToolsController extends AbstractController
                 'jaybizzle/crawler-detect' => $dependencies['jaybizzle/crawler-detect']['version'],
             ],
             'System' => [
-                'Directory Separator' => DS,
+                'Directory Separator' => DIRECTORY_SEPARATOR,
                 'EOL Symbol'          => addcslashes(PHP_EOL, "\r\n"),
                 'Max Path Length'     => FileSystem::MAX_PATH_LENGTH,
                 'File Creation Mask'  => sprintf('0%03o', umask()),

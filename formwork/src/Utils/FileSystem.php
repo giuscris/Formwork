@@ -72,7 +72,7 @@ class FileSystem
      */
     public static function normalizePath(string $path): string
     {
-        return Path::normalize($path, DS);
+        return Path::normalize($path, DIRECTORY_SEPARATOR);
     }
 
     /**
@@ -80,7 +80,7 @@ class FileSystem
      */
     public static function joinPaths(string ...$paths): string
     {
-        return Path::join($paths, DS);
+        return Path::join($paths, DIRECTORY_SEPARATOR);
     }
 
     /**
@@ -88,7 +88,7 @@ class FileSystem
      */
     public static function resolvePath(string $path): string
     {
-        return Path::resolve($path, static::cwd(), DS);
+        return Path::resolve($path, static::cwd(), DIRECTORY_SEPARATOR);
     }
 
     /**
@@ -432,7 +432,7 @@ class FileSystem
         }
         // On Windows symbolic links pointing to a directory have to be removed with `rmdir()`
         // see https://bugs.php.net/bug.php?id=52176
-        if (@unlink($link) || (DS === '\\' && @rmdir($link))) {
+        if (@unlink($link) || (DIRECTORY_SEPARATOR === '\\' && @rmdir($link))) {
             return true;
         }
         throw new FileSystemException(sprintf('Cannot delete symbolic link "%s": %s', $link, static::getLastErrorMessage()));
@@ -707,7 +707,7 @@ class FileSystem
             throw new InvalidArgumentException(sprintf('%s() accepts only links as $link argument', __METHOD__));
         }
         // Use `realpath()` on Windows because `readlink()` returns the canonicalized path
-        if (($target = DS === '\\' ? @realpath($link) : @readlink($link)) !== false) {
+        if (($target = DIRECTORY_SEPARATOR === '\\' ? @realpath($link) : @readlink($link)) !== false) {
             return $target;
         }
         throw new FileSystemException(sprintf('Cannot resolve symbolic link "%s": %s', $link, static::getLastErrorMessage()));
@@ -790,7 +790,7 @@ class FileSystem
             static::assertExists($target);
         }
         // On Windows `symlink()` may require an absolute path
-        if (@symlink($target, $link) || (DS === '\\' && @symlink(static::resolvePath($target), $link))) {
+        if (@symlink($target, $link) || (DIRECTORY_SEPARATOR === '\\' && @symlink(static::resolvePath($target), $link))) {
             return true;
         }
         throw new FileSystemException(sprintf('Cannot create symbolic link "%s": %s', $link, static::getLastErrorMessage()));

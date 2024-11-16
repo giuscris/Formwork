@@ -175,7 +175,7 @@ class Updater
                 if (!FileSystem::exists($destinationDirectory)) {
                     FileSystem::createDirectory($destinationDirectory);
                 }
-                if (!Str::endsWith($destination, DS)) {
+                if (!Str::endsWith($destination, DIRECTORY_SEPARATOR)) {
                     $contents = $zipArchive->getFromIndex($i);
                     if ($contents === false) {
                         throw new RuntimeException(sprintf('Cannot read "%s" from zip archive', $filename));
