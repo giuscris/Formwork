@@ -97,6 +97,11 @@ class PageController extends AbstractController
         return $this->getPageResponse($this->site->errorPage());
     }
 
+    public function error(): Response
+    {
+        return $this->getPageResponse($this->site->errorPage());
+    }
+
     protected function getPageResponse(Page $page): Response
     {
         if ($this->site->currentPage() === null) {

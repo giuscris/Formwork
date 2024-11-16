@@ -17,7 +17,6 @@ use Formwork\Parsers\Yaml;
 use Formwork\Router\RouteParams;
 use Formwork\Users\User;
 use Formwork\Utils\Arr;
-use Formwork\Utils\Exceptions\FileNotFoundException;
 use Formwork\Utils\FileSystem;
 
 class UsersController extends AbstractController
@@ -217,11 +216,11 @@ class UsersController extends AbstractController
     {
         $path = FileSystem::joinPaths($this->config->get('system.users.paths.images'), $routeParams->get('image'));
 
-        if (FileSystem::isFile($path)) {
+        if (FileSystem::isFile($path, assertExists: false)) {
             return new FileResponse($path, headers: ['Cache-Control' => 'private, max-age=31536000, immutable'], autoEtag: true, autoLastModified: true);
         }
 
-        throw new FileNotFoundException('Cannot find asset');
+        return $this->forward(ErrorsController::class, 'notFound');
     }
 
     /**
