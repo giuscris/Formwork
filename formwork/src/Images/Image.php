@@ -332,7 +332,6 @@ class Image extends File
         $image = new Image($path, $this->options);
         $image->data = $this->data;
         $image->uriGenerator = $this->uriGenerator;
-        $image->transforms = $this->transforms;
 
         if (isset($image->handler)) {
             $image->handler = $this->handler;
