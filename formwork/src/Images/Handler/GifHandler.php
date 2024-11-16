@@ -125,11 +125,30 @@ class GifHandler extends AbstractHandler
 
     protected function setDataFromGdImage(GdImage $gdImage): void
     {
-        imagetruecolortopalette($gdImage, true, $this->options['gifColors']);
+        // We need to copy the original image resampled to a new image to avoid transparency issues
+
+        $width = imagesx($gdImage);
+        $height = imagesy($gdImage);
+
+        if (($image = imagecreatetruecolor($width, $height)) === false) {
+            throw new RuntimeException('Cannot create GIF image from GdImage');
+        }
+
+        if (($transparent = imagecolorallocatealpha($gdImage, 0, 0, 0, 127)) === false) {
+            throw new RuntimeException('Cannot allocate transparent color');
+        }
+
+        imagecolortransparent($image, $transparent);
+
+        imagefill($image, 0, 0, $transparent);
+
+        imagecopyresampled($image, $gdImage, 0, 0, 0, 0, $width, $height, $width, $height);
+
+        imagetruecolortopalette($image, true, $this->options['gifColors']);
 
         ob_start();
 
-        if (imagegif($gdImage, null) === false) {
+        if (imagegif($image, null) === false) {
             throw new RuntimeException('Cannot set data from GdImage');
         }
 
