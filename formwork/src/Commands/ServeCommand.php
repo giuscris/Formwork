@@ -21,6 +21,8 @@ class ServeCommand
 
     protected CLImate $climate;
 
+    protected float $startTime;
+
     public function __construct(protected string $host = '127.0.0.1', protected int $port = 8000)
     {
         $this->climate = new CLImate();
@@ -28,6 +30,8 @@ class ServeCommand
 
     public function start(): void
     {
+        $this->startTime = microtime(true);
+
         $php = (new PhpExecutableFinder())->find();
 
         $this->process = new Process([
@@ -58,10 +62,14 @@ class ServeCommand
 
             switch (true) {
                 case Str::contains($line, 'Development Server ('):
-                    $this->climate->out(sprintf('<bold>Formwork <cyan>%s</cyan> Server</bold> running at <dark_gray>http://%s:%d</dark_gray>', App::VERSION, $this->host, $this->port));
+                    $this->climate->clear();
+                    $this->climate->out(sprintf('<bold>Formwork <cyan>%s</cyan></bold> <dark_gray>Server ready in %s</dark_gray>', App::VERSION, $this->formatTime(microtime(true) - $this->startTime)));
+                    $this->climate->br();
                     $this->climate->out(sprintf('PHP runtime <bold>%s</bold>', preg_replace('/^PHP (\d+\.\d+\.\d+[^ ]*) Development Server.+/', '$1', $message)));
                     $this->climate->br();
-                    $this->climate->out('Press <bold>CTRL+C</bold> to stop');
+                    $this->climate->out(sprintf('➜ Listening on <cyan>http://%s:<bold>%s</bold>/</cyan>', $this->host, $this->port));
+                    $this->climate->br();
+                    $this->climate->out('<dark_gray>Press <bold>CTRL+C</bold> to stop</dark_gray>');
                     $this->climate->br();
                     break;
 
@@ -102,10 +110,13 @@ class ServeCommand
                 case Str::contains($line, 'Failed to listen on'):
                     $this->process->stop(0);
 
-                    $this->climate->to('error')->out(sprintf('Formwork <bold>%s</bold> Server <red>failed to listen on port <bold>%d</bold></red>', App::VERSION, $this->port));
+                    $this->climate->clear();
+                    $this->climate->to('error')->out(sprintf('<bold>Formwork <cyan>%s</cyan></bold> <dark_gray>Server</dark_gray> <red>failed to listen on port <bold>%d</bold></red>', App::VERSION, $this->port));
+                    $this->climate->br();
+                    $this->climate->out('<dark_gray>Press <bold>CTRL+C</bold> to quit</dark_gray>');
                     $this->climate->br();
 
-                    $input = $this->climate->input('Enter another port:');
+                    $input = $this->climate->input('➜ Enter another port:');
                     $input->accept(fn (string $response) => ctype_digit($response));
 
                     $this->port = (int) $input->prompt();
