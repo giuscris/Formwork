@@ -54,8 +54,6 @@ panel.errors.error.notFound.description: Страница не существу�
 panel.errors.error.notFound.heading: К сожалению, страница не найдена!
 panel.errors.error.notFound.status: Не обнаружена
 panel.files.actions: Действия
-panel.files.metadata: Метаданные
-panel.files.metadata.alternativeText: Альтернативный текст
 panel.files.metadata.updated: Метаданные файла обновлены
 panel.files.viewAsList: Просмотр в виде списка
 panel.files.viewAsThumbnails: Просмотр в виде миниатюр
@@ -82,25 +80,6 @@ panel.modal.link.uri: Uri
 panel.navigation.toggle: Переключить навигацию
 panel.options.options: Параметры
 panel.options.site: Сайт
-panel.options.site.advanced: Расширенные настройки
-panel.options.site.advanced.aliases: Псевдонимы
-panel.options.site.advanced.aliases.alias: Псевдоним
-panel.options.site.advanced.aliases.route: Маршрут
-panel.options.site.advanced.metadata: Метаданные HTML
-panel.options.site.advanced.metadata.content: Содержание
-panel.options.site.advanced.metadata.name: Имя
-panel.options.site.info: Информация
-panel.options.site.info.author: Автор
-panel.options.site.info.description: Описание
-panel.options.site.info.language: Язык
-panel.options.site.info.title: Заглавие
-panel.options.site.maintenance: Обслуживание
-panel.options.site.maintenance.enabled: Режим обслуживания
-panel.options.site.maintenance.enabled.disabled: Отключено
-panel.options.site.maintenance.enabled.enabled: Включено
-panel.options.site.maintenance.page: Страница обслуживания
-panel.options.site.pages: Страницы
-panel.options.site.pages.defaultTemplate: Шаблон по умолчанию
 panel.options.system: Система
 panel.options.system.adminPanel: Панель администратора
 panel.options.system.adminPanel.defaultColorScheme: Цветовая схема по умолчанию
@@ -207,12 +186,7 @@ panel.pages.languages: Языки
 panel.pages.languages.addLanguage: Добавлять %s
 panel.pages.languages.editLanguage: Редактировать %s
 panel.pages.newPage: Новая страница
-panel.pages.newPage.parent: Родитель страницы
 panel.pages.newPage.site: Сайт
-panel.pages.newPage.slug: Страница Slug
-panel.pages.newPage.slugSuggestion: буквы, цифры и дефис только
-panel.pages.newPage.template: Шаблон
-panel.pages.newPage.title: Заглавие
 panel.pages.next: Следующая страница
 panel.pages.nextFile: Следующий файл
 panel.pages.page: Страница
@@ -315,36 +289,21 @@ panel.updates.status.installing: Установка обновлений ...
 panel.updates.status.upToDate: До настоящего времени!
 panel.uploader.uploaded: Файл загружен
 panel.user.actions: Действия
-panel.user.colorScheme: Цветовая схема
-panel.user.colorScheme.auto: Авто
-panel.user.colorScheme.dark: Тёмная
-panel.user.colorScheme.light: Светлая
-panel.user.email: Email
-panel.user.fullname: Полное имя
-panel.user.image: Аватар
 panel.user.image.actions: Действия
 panel.user.image.cannotDelete.defaultImage: Невозможно удалить изображение пользователя по умолчанию
 panel.user.image.delete: Удалить изображение пользователя
 panel.user.image.delete.prompt: Вы уверены, что хотите удалить изображение пользователя? Это действие нельзя отменить.
 panel.user.image.deleted: Изображение пользователя удалено
 panel.user.image.uploaded: Аватар закачанный
-panel.user.language: Язык
 panel.user.lastAccess: Последний доступ
-panel.user.password: Пароль
-panel.user.password.typeNewPassword: Введите новый пароль для изменения ...
-panel.user.role: Роль
-panel.user.role.admin: Администратор
-panel.user.role.user: Пользователь
-panel.user.username: Имя пользователя
 panel.users.deleteUser: Удалить пользователя
 panel.users.deleteUser.prompt: Вы уверены, что хотите удалить этого пользователя? Это действие не может быть отменено.
 panel.users.newUser: Новый пользователь
-panel.users.newUser.passwordSuggestion: не менее 8 символов
-panel.users.newUser.usernameSuggestion: между 3-20 букв, цифр и тире
+panel.users.newUser.password.suggestion: не менее 8 символов
+panel.users.newUser.username.suggestion: между 3-20 букв, цифр и тире
 panel.users.nextUser: Следующий пользователь
 panel.users.options: Параметры
 panel.users.previousUser: Предыдущий пользователь
-panel.users.user: Пользователь
 panel.users.user.cannotChangePassword: Невозможно изменить пароль другого пользователя. Действие не допускается.
 panel.users.user.cannotChangeRole: Невозможно изменить роль %s. Действие не допускается.
 panel.users.user.cannotCreate.alreadyExists: Невозможно создать пользователь, пользователь с таким именем уже существует

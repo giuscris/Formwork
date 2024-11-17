@@ -19,6 +19,8 @@ fields.array.add: Add
 fields.array.remove: Remove
 fields.file.uploadLabel: <strong>Click</strong> to choose a file to upload or <strong>drag</strong> it here
 fields.select.empty: No matching options
+file.metadata: Metadata
+file.metadata.alternativeText: Alternative text
 page.attributes: Attributes
 page.cacheable: Cacheable
 page.content: Content
@@ -39,6 +41,7 @@ page.publishDate: Publish date
 page.routable: Routable
 page.routable.description: Routable pages are accessible from their address
 page.slug: Slug
+page.slug.suggestion: letters, numbers and dashes only
 page.status.notPublished: Not published
 page.status.published: Published
 page.status.published.description: Published pages are visible in the site and accessible from their address
@@ -48,6 +51,25 @@ page.template: Template
 page.text: Text
 page.title: Title
 page.unpublishDate: Unpublish date
+site.advanced: Advanced options
+site.advanced.aliases: Aliases
+site.advanced.aliases.alias: Alias
+site.advanced.aliases.route: Route
+site.advanced.metadata: HTML metadata
+site.advanced.metadata.content: Content
+site.advanced.metadata.name: Name
+site.info: Info
+site.info.author: Author
+site.info.description: Description
+site.info.language: Language
+site.info.title: Title
+site.maintenance: Maintenance
+site.maintenance.enabled: Maintenance mode
+site.maintenance.enabled.disabled: Disabled
+site.maintenance.enabled.enabled: Enabled
+site.maintenance.page: Maintenance page
+site.pages: Pages
+site.pages.defaultTemplate: Default template
 upload.error: Cannot upload file. %s.
 upload.error.alreadyExists: A file with the same name already exists
 upload.error.cannotMoveToDestination: Failed to move uploaded file to destination
@@ -62,6 +84,21 @@ upload.error.noTemp: Missing a temporary folder
 upload.error.partial: The uploaded file was only partially uploaded
 upload.error.phpExtension: File upload stopped by extension
 upload.error.size: The uploaded file exceeds the maximum file size
+user.colorScheme: Color scheme
+user.colorScheme.auto: Auto
+user.colorScheme.dark: Dark
+user.colorScheme.light: Light
+user.email: Email
+user.fullname: Full name
+user.image: Image
+user.language: Language
+user.password: Password
+user.password.placeholder: Type a new password to change...
+user.role: Role
+user.role.admin: Administrator
+user.role.user: User
+user.user: User
+user.username: Username
 zip.error.alreadyExists: The archive already exists
 zip.error.cannotOpen: Cannot open the archive
 zip.error.cannotRead: Cannot read the archive

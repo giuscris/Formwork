@@ -54,8 +54,6 @@ panel.errors.error.notFound.description: La page n’existe pas ou la demande n�
 panel.errors.error.notFound.heading: Oups, page non trouvée!
 panel.errors.error.notFound.status: Pas trouvé
 panel.files.actions: Actions
-panel.files.metadata: Métadonnées
-panel.files.metadata.alternativeText: Texte alternatif
 panel.files.metadata.updated: Métadonnées du fichier mises à jour
 panel.files.viewAsList: Afficher en liste
 panel.files.viewAsThumbnails: Afficher en vignettes
@@ -82,25 +80,6 @@ panel.modal.link.uri: Uri
 panel.navigation.toggle: Afficher/Masquer la navigation
 panel.options.options: Paramètres
 panel.options.site: Site
-panel.options.site.advanced: Options avancées
-panel.options.site.advanced.aliases: Alias
-panel.options.site.advanced.aliases.alias: Alias
-panel.options.site.advanced.aliases.route: Route
-panel.options.site.advanced.metadata: Métadonnées HTML
-panel.options.site.advanced.metadata.content: Contenu
-panel.options.site.advanced.metadata.name: Nom
-panel.options.site.info: Info
-panel.options.site.info.author: Auteur
-panel.options.site.info.description: Description
-panel.options.site.info.language: Langue
-panel.options.site.info.title: Titre
-panel.options.site.maintenance: Maintenance
-panel.options.site.maintenance.enabled: Mode de maintenance
-panel.options.site.maintenance.enabled.disabled: Désactivé
-panel.options.site.maintenance.enabled.enabled: Activé
-panel.options.site.maintenance.page: Page de maintenance
-panel.options.site.pages: Pages
-panel.options.site.pages.defaultTemplate: Modèle (template) par défaut
 panel.options.system: Système
 panel.options.system.adminPanel: Panneau d’administration
 panel.options.system.adminPanel.defaultColorScheme: Schéma de couleur par défaut du panneau d'administration
@@ -207,12 +186,7 @@ panel.pages.languages: Langues
 panel.pages.languages.addLanguage: Ajouter %s
 panel.pages.languages.editLanguage: Éditer %s
 panel.pages.newPage: Nouvelle page
-panel.pages.newPage.parent: Parent
 panel.pages.newPage.site: Site
-panel.pages.newPage.slug: Permalien
-panel.pages.newPage.slugSuggestion: lettres, chiffres et tirets seulement
-panel.pages.newPage.template: Modèle (template)
-panel.pages.newPage.title: Titre
 panel.pages.next: Page suivante
 panel.pages.nextFile: Fichier suivant
 panel.pages.page: Page
@@ -315,36 +289,21 @@ panel.updates.status.installing: Installation de mises à jour…
 panel.updates.status.upToDate: À jour !
 panel.uploader.uploaded: Fichier envoyé !
 panel.user.actions: Actions
-panel.user.colorScheme: Schéma de couleur
-panel.user.colorScheme.auto: Auto
-panel.user.colorScheme.dark: Foncé
-panel.user.colorScheme.light: Clair
-panel.user.email: Adresse de messagerie
-panel.user.fullname: Nom complet
-panel.user.image: Photo de profil
 panel.user.image.actions: Actions
 panel.user.image.cannotDelete.defaultImage: Impossible de supprimer l’image par défaut de l’utilisateur
 panel.user.image.delete: Supprimer l'image de l’utilisateur
 panel.user.image.delete.prompt: Êtes-vous sûr de vouloir supprimer l’image de l’utilisateur ? Cette action ne peut pas être annulée.
 panel.user.image.deleted: Image de l’utilisateur supprimée
 panel.user.image.uploaded: Photo de profil téléversée avec succès.
-panel.user.language: Langue
 panel.user.lastAccess: Dernier accès
-panel.user.password: Mot de passe
-panel.user.password.typeNewPassword: Tapez un nouveau mot de passe pour le modifier...
-panel.user.role: Rôle
-panel.user.role.admin: Administrateur
-panel.user.role.user: Éditeur
-panel.user.username: Nom d’utilisateur
 panel.users.deleteUser: Supprimer l’utilisateur
 panel.users.deleteUser.prompt: ÊtesVous sûr de vouloir supprimer cet utilisateur? Cette action est irréversible.
 panel.users.newUser: Nouvel utilisateur
-panel.users.newUser.passwordSuggestion: au moins 8 caractères
-panel.users.newUser.usernameSuggestion: entre 3-20 lettres, chiffres et tirets
+panel.users.newUser.password.suggestion: au moins 8 caractères
+panel.users.newUser.username.suggestion: entre 3-20 lettres, chiffres et tirets
 panel.users.nextUser: Utilisateur suivant
 panel.users.options: Options
 panel.users.previousUser: Utilisateur précédent
-panel.users.user: Utilisateur
 panel.users.user.cannotChangePassword: Impossible de changer le mot de passe d’un autre utilisateur. L’action n’est pas autorisée.
 panel.users.user.cannotChangeRole: Impossible de changer le rôle de %s. L’action n’est pas autorisée.
 panel.users.user.cannotCreate.alreadyExists: Impossible de créer l’utilisateur, un utilisateur portant le même nom existe déjà

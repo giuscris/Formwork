@@ -6,10 +6,10 @@ layout:
     type: sections
     sections:
         metadata:
-            label: '{{panel.files.metadata}}'
+            label: '{{file.metadata}}'
             fields: [alt]
 
 fields:
     alt:
         type: text
-        label: '{{panel.files.metadata.alternativeText}}'
+        label: '{{file.metadata.alternativeText}}'

@@ -54,8 +54,6 @@ panel.errors.error.notFound.description: Die Seite existiert nicht oder die Anfr
 panel.errors.error.notFound.heading: Oops, Seite nicht gefunden!
 panel.errors.error.notFound.status: Nicht gefunden
 panel.files.actions: Aktionen
-panel.files.metadata: Metadaten
-panel.files.metadata.alternativeText: Alternativtext
 panel.files.metadata.updated: Dateimetadaten aktualisiert
 panel.files.viewAsList: Als Liste anzeigen
 panel.files.viewAsThumbnails: Als Miniaturansichten anzeigen
@@ -82,25 +80,6 @@ panel.modal.link.uri: Uri
 panel.navigation.toggle: Navigation umschalten
 panel.options.options: Optionen
 panel.options.site: Webseite
-panel.options.site.advanced: Erweiterte Optionen
-panel.options.site.advanced.aliases: Aliasnamen
-panel.options.site.advanced.aliases.alias: Alias
-panel.options.site.advanced.aliases.route: Route
-panel.options.site.advanced.metadata: HTML-Metadaten
-panel.options.site.advanced.metadata.content: Inhalt
-panel.options.site.advanced.metadata.name: Name
-panel.options.site.info: Info
-panel.options.site.info.author: Autor
-panel.options.site.info.description: Beschreibung
-panel.options.site.info.language: Sprache
-panel.options.site.info.title: Titel
-panel.options.site.maintenance: Wartung
-panel.options.site.maintenance.enabled: Wartungsmodus
-panel.options.site.maintenance.enabled.disabled: Deaktiviert
-panel.options.site.maintenance.enabled.enabled: Aktiviert
-panel.options.site.maintenance.page: Wartungsseite
-panel.options.site.pages: Seiten
-panel.options.site.pages.defaultTemplate: Standardvorlage
 panel.options.system: System
 panel.options.system.adminPanel: Administrationspanel
 panel.options.system.adminPanel.defaultColorScheme: Standard-Farbschema
@@ -207,12 +186,7 @@ panel.pages.languages: Sprachen
 panel.pages.languages.addLanguage: "%s hinzufügen"
 panel.pages.languages.editLanguage: "%s bearbeiten"
 panel.pages.newPage: Neue Seite
-panel.pages.newPage.parent: Übergeordnete Seite
 panel.pages.newPage.site: Webseite
-panel.pages.newPage.slug: Seiten-Slug
-panel.pages.newPage.slugSuggestion: Nur Buchstaben, Zahlen und Bindestriche
-panel.pages.newPage.template: Vorlage
-panel.pages.newPage.title: Titel
 panel.pages.next: Nächste Seite
 panel.pages.nextFile: Nächste Datei
 panel.pages.page: Seite
@@ -315,36 +289,21 @@ panel.updates.status.installing: Installiere Updates...
 panel.updates.status.upToDate: Aktuell!
 panel.uploader.uploaded: Datei hochgeladen
 panel.user.actions: Aktionen
-panel.user.colorScheme: Farbschema
-panel.user.colorScheme.auto: Automatisch
-panel.user.colorScheme.dark: Dunkel
-panel.user.colorScheme.light: Hell
-panel.user.email: E-Mail
-panel.user.fullname: Vollständiger Name
-panel.user.image: Bild
 panel.user.image.actions: Aktionen
 panel.user.image.cannotDelete.defaultImage: Das Standard-Benutzerbild kann nicht gelöscht werden
 panel.user.image.delete: Benutzerbild löschen
 panel.user.image.delete.prompt: Sind Sie sicher, dass Sie das Benutzerbild löschen möchten? Diese Aktion kann nicht rückgängig gemacht werden.
 panel.user.image.deleted: Benutzerbild gelöscht
 panel.user.image.uploaded: Benutzerbild hochgeladen
-panel.user.language: Sprache
 panel.user.lastAccess: Letzter Zugriff
-panel.user.password: Passwort
-panel.user.password.typeNewPassword: Geben Sie ein neues Passwort ein, um es zu ändern...
-panel.user.role: Rolle
-panel.user.role.admin: Administrator
-panel.user.role.user: Benutzer
-panel.user.username: Benutzername
 panel.users.deleteUser: Benutzer löschen
 panel.users.deleteUser.prompt: Möchten Sie diesen Benutzer wirklich löschen? Diese Aktion kann nicht rückgängig gemacht werden.
 panel.users.newUser: Neuer Benutzer
-panel.users.newUser.passwordSuggestion: mindestens 8 Zeichen
-panel.users.newUser.usernameSuggestion: zwischen 3-20 Buchstaben, Ziffern und Bindestriche
+panel.users.newUser.password.suggestion: mindestens 8 Zeichen
+panel.users.newUser.username.suggestion: zwischen 3-20 Buchstaben, Ziffern und Bindestriche
 panel.users.nextUser: Nächster Benutzer
 panel.users.options: Optionen
 panel.users.previousUser: Vorheriger Benutzer
-panel.users.user: Benutzer
 panel.users.user.cannotChangePassword: Das Passwort eines anderen Benutzers kann nicht geändert werden. Die Aktion ist nicht erlaubt.
 panel.users.user.cannotChangeRole: Die Rolle von %s kann nicht geändert werden. Die Aktion ist nicht erlaubt.
 panel.users.user.cannotCreate.alreadyExists: Benutzer kann nicht erstellt werden, ein Benutzer mit demselben Namen existiert bereits

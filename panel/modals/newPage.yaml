@@ -5,13 +5,13 @@ action: /pages/new/
 fields:
     title:
         type: text
-        label: '{{panel.pages.newPage.title}}'
+        label: '{{page.title}}'
         required: true
 
     slug:
         type: slug
-        label: '{{panel.pages.newPage.slug}}'
-        suggestion: '{{panel.pages.newPage.slugSuggestion}}'
+        label: '{{page.slug}}'
+        suggestion: '{{page.slug.suggestion}}'
         required: true
         pattern: '^[a-z0-9\-]+$'
         source: title
@@ -19,14 +19,14 @@ fields:
 
     parent:
         type: page
-        label: '{{panel.pages.newPage.parent}}'
+        label: '{{page.parent}}'
         collection@: site.descendants.allowingChildren
         required: true
         allowSite: true
 
     template:
         type: template
-        label: '{{panel.pages.newPage.template}}'
+        label: '{{page.template}}'
         required: true
         default@: site.get('defaultTemplate', 'default')
 

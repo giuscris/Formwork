@@ -4,50 +4,50 @@ layout:
     type: sections
     sections:
         user:
-            label: '{{panel.users.user}}'
+            label: '{{user.user}}'
             fields: [fullname, email, password, language, role, colorScheme, image]
 
 fields:
     fullname:
         type: text
-        label: '{{panel.user.fullname}}'
+        label: '{{user.fullname}}'
         required: true
 
     email:
         type: email
-        label: '{{panel.user.email}}'
+        label: '{{user.email}}'
         required: true
 
     password:
         type: password
-        label: '{{panel.user.password}}'
-        placeholder: '{{panel.user.password.typeNewPassword}}'
+        label: '{{user.password}}'
+        placeholder: '{{user.password.placeholder}}'
         disabled: true
         pattern: '^.{8,}$'
         autocomplete: new-password
 
     language:
         type: select
-        label: '{{panel.user.language}}'
+        label: '{{user.language}}'
         required: true
         translate: [label]
         options@: formwork.panel.availableTranslations
 
     role:
         type: select
-        label: '{{panel.user.role}}'
+        label: '{{user.role}}'
         disabled: true
         options@: site.users.availableRoles
 
     colorScheme:
         type: togglegroup
-        label: '{{panel.user.colorScheme}}'
+        label: '{{user.colorScheme}}'
         options:
-            light: '{{panel.user.colorScheme.light}}'
-            dark: '{{panel.user.colorScheme.dark}}'
-            auto: '{{panel.user.colorScheme.auto}}'
+            light: '{{user.colorScheme.light}}'
+            dark: '{{user.colorScheme.dark}}'
+            auto: '{{user.colorScheme.auto}}'
 
     image:
         type: upload
-        label: '{{panel.user.image}}'
+        label: '{{user.image}}'
         accept: .jpg, .jpeg, .png, .gif

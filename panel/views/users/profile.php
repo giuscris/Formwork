@@ -1,7 +1,7 @@
 <?php $this->layout('panel') ?>
 <form method="post" enctype="multipart/form-data" data-form="user-profile-form">
     <div class="header">
-        <div class="header-title"><?= $this->translate('panel.users.user') ?></div>
+        <div class="header-title"><?= $this->translate('user.user') ?></div>
         <?php if ($panel->user()->canChangeOptionsOf($user)) : ?>
             <div>
                 <a class="<?= $this->classes(['button', 'button-link', 'show-from-md', 'disabled' => !$previousUser]) ?>" role="button" <?php if ($previousUser) : ?>href="<?= $panel->uri('/users/' . $previousUser->username() . '/profile/') ?>" <?php endif ?> title="<?= $this->translate('panel.users.previousUser') ?>" aria-label="<?= $this->translate('panel.users.previousUser') ?>"><?= $this->icon('chevron-left') ?></a>
@@ -27,7 +27,7 @@
             <div class="h3 mb-0"><?= $this->escape($user->fullname()) ?></div>
             <div class="text-color-gray-medium mb-4"><?= $this->escape($user->username()) ?></div>
             <div class="mb-2"><a href="mailto:<?= $user->email() ?>"><?= $this->escape($user->email()) ?></a></div>
-            <div class="text-size-sm mb-2"><?= $this->translate('panel.user.role') ?>: <?= $user->role()->title() ?></div>
+            <div class="text-size-sm mb-2"><?= $this->translate('user.role') ?>: <?= $user->role()->title() ?></div>
             <div class="text-size-sm"><?= $this->translate('panel.user.lastAccess') ?>: <?= is_null($user->lastAccess()) ? '&infin;' : $this->datetime($user->lastAccess()) ?></div>
         </div>
     </section>

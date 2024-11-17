@@ -19,6 +19,8 @@ fields.array.add: Agregar
 fields.array.remove: Quitar
 fields.file.uploadLabel: <strong>Haz clic</strong> para elegir un archivo para cargar o <strong>arrástralo</strong> aquí
 fields.select.empty: No hay opciones coincidentes
+file.metadata: Metadatos
+file.metadata.alternativeText: Texto alternativo
 page.attributes: Atributos
 page.cacheable: En caché
 page.content: Contenido
@@ -39,6 +41,7 @@ page.publishDate: Fecha de publicación
 page.routable: Enrutable
 page.routable.description: Las páginas enrutables son accesibles desde su dirección
 page.slug: Slug
+page.slug.suggestion: solo letras, números y guiones
 page.status.notPublished: No publicado
 page.status.published: Publicado
 page.status.published.description: Las páginas publicadas son visibles en el sitio y accesibles desde su dirección
@@ -48,6 +51,25 @@ page.template: Plantilla
 page.text: Texto
 page.title: Título
 page.unpublishDate: Fecha de despublicación
+site.advanced: Opciones avanzadas
+site.advanced.aliases: Alias
+site.advanced.aliases.alias: Alias
+site.advanced.aliases.route: Ruta
+site.advanced.metadata: Metadatos HTML
+site.advanced.metadata.content: Contenido
+site.advanced.metadata.name: Nombre
+site.info: Información
+site.info.author: Autor
+site.info.description: Descripción
+site.info.language: Idioma
+site.info.title: Título
+site.maintenance: Mantenimiento
+site.maintenance.enabled: Modo de mantenimiento
+site.maintenance.enabled.disabled: Desactivado
+site.maintenance.enabled.enabled: Activado
+site.maintenance.page: Página de mantenimiento
+site.pages: Páginas
+site.pages.defaultTemplate: Plantilla predeterminada
 upload.error: No se puede cargar el archivo. %s.
 upload.error.alreadyExists: Ya existe un archivo con el mismo nombre
 upload.error.cannotMoveToDestination: Error al mover el archivo cargado al destino
@@ -62,6 +84,21 @@ upload.error.noTemp: Falta una carpeta temporal
 upload.error.partial: El archivo cargado se ha subido parcialmente
 upload.error.phpExtension: La carga de archivos se detuvo por extensión
 upload.error.size: El archivo cargado supera el tamaño máximo permitido
+user.colorScheme: Esquema de color
+user.colorScheme.auto: Automático
+user.colorScheme.dark: Oscuro
+user.colorScheme.light: Claro
+user.email: Correo electrónico
+user.fullname: Nombre completo
+user.image: Imagen
+user.language: Idioma
+user.password: Contraseña
+user.password.placeholder: Escribe una nueva contraseña para cambiar...
+user.role: Rol
+user.role.admin: Administrador
+user.role.user: Usuario
+user.user: Usuario
+user.username: Nombre de usuario
 zip.error.alreadyExists: El archivo ya existe
 zip.error.cannotOpen: No se puede abrir el archivo
 zip.error.cannotRead: No se puede leer el archivo

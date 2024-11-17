@@ -1,4 +1,4 @@
-title: '{{panel.user.role.user}}'
+title: '{{user.role.user}}'
 
 permissions:
     dashboard: true

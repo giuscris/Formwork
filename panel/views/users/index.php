@@ -9,9 +9,9 @@
 
 <section class="section">
     <div class="users-list-headers" aria-hidden="true">
-        <div class="users-headers-cell user-username truncate"><?= $this->translate('panel.user.username') ?></div>
-        <div class="users-headers-cell user-fullname truncate show-from-sm"><?= $this->translate('panel.user.fullname') ?></div>
-        <div class="users-headers-cell user-email truncate show-from-md"><?= $this->translate('panel.user.email') ?></div>
+        <div class="users-headers-cell user-username truncate"><?= $this->translate('user.username') ?></div>
+        <div class="users-headers-cell user-fullname truncate show-from-sm"><?= $this->translate('user.fullname') ?></div>
+        <div class="users-headers-cell user-email truncate show-from-md"><?= $this->translate('user.email') ?></div>
         <div class="users-headers-cell user-last-access truncate show-from-sm"><?= $this->translate('panel.user.lastAccess') ?></div>
         <div class="users-headers-cell user-actions"><?= $this->translate('panel.user.actions') ?></div>
     </div>

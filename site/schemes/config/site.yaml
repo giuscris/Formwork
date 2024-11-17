@@ -4,22 +4,22 @@ layout:
     type: sections
     sections:
         info:
-            label: '{{panel.options.site.info}}'
+            label: '{{site.info}}'
             collapsible: true
             fields: [title, description]
 
         pages:
-            label: '{{panel.options.site.pages}}'
+            label: '{{site.pages}}'
             collapsible: true
             fields: [defaultTemplate]
 
         maintenance:
-            label: '{{panel.options.site.maintenance}}'
+            label: '{{site.maintenance}}'
             collapsible: true
             fields: [maintenance.enabled, maintenance.page]
 
         advanced:
-            label: '{{panel.options.site.advanced}}'
+            label: '{{site.advanced}}'
             collapsible: true
             collapsed: true
             fields: [metadata, routeAliases]
@@ -27,42 +27,42 @@ layout:
 fields:
     title:
         type: text
-        label: '{{panel.options.site.info.title}}'
+        label: '{{site.info.title}}'
         class: form-input-large
         required: true
 
     description:
         type: textarea
-        label: '{{panel.options.site.info.description}}'
+        label: '{{site.info.description}}'
 
     defaultTemplate:
         type: template
-        label: '{{panel.options.site.pages.defaultTemplate}}'
+        label: '{{site.pages.defaultTemplate}}'
 
     maintenance.enabled:
         type: togglegroup
-        label: '{{panel.options.site.maintenance.enabled}}'
+        label: '{{site.maintenance.enabled}}'
         options:
-            1: '{{panel.options.site.maintenance.enabled.enabled}}'
-            0: '{{panel.options.site.maintenance.enabled.disabled}}'
+            1: '{{site.maintenance.enabled.enabled}}'
+            0: '{{site.maintenance.enabled.disabled}}'
 
     maintenance.page:
         type: page
-        label: '{{panel.options.site.maintenance.page}}'
+        label: '{{site.maintenance.page}}'
         allowSite: false
         default: null
         collection@: site.pages
 
     metadata:
         type: array
-        label: '{{panel.options.site.advanced.metadata}}'
+        label: '{{site.advanced.metadata}}'
         associative: true
-        placeholderKey: '{{panel.options.site.advanced.metadata.name}}'
-        placeholderValue: '{{panel.options.site.advanced.metadata.content}}'
+        placeholderKey: '{{site.advanced.metadata.name}}'
+        placeholderValue: '{{site.advanced.metadata.content}}'
 
     routeAliases:
         type: array
-        label: '{{panel.options.site.advanced.aliases}}'
+        label: '{{site.advanced.aliases}}'
         associative: true
-        placeholderKey: '{{panel.options.site.advanced.aliases.alias}}'
-        placeholderValue: '{{panel.options.site.advanced.aliases.route}}'
+        placeholderKey: '{{site.advanced.aliases.alias}}'
+        placeholderValue: '{{site.advanced.aliases.route}}'

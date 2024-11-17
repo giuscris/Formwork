@@ -3,32 +3,32 @@ title: Register
 fields:
     fullname:
         type: text
-        label: '{{panel.user.fullname}}'
+        label: '{{user.fullname}}'
         required: true
 
     username:
         type: text
-        label: '{{panel.user.username}}'
-        suggestion: '{{panel.users.newUser.usernameSuggestion}}'
+        label: '{{user.username}}'
+        suggestion: '{{panel.users.newUser.username.suggestion}}'
         required: true
         pattern: '^[a-z0-9_\-]{3,20}$'
 
     password:
         type: password
-        label: '{{panel.user.password}}'
-        suggestion: '{{panel.users.newUser.passwordSuggestion}}'
+        label: '{{user.password}}'
+        suggestion: '{{panel.users.newUser.password.suggestion}}'
         required: true
         pattern: '^.{8,}$'
         autocomplete: new-password
 
     email:
         type: email
-        label: '{{panel.user.email}}'
+        label: '{{user.email}}'
         required: true
 
     language:
         type: select
-        label: '{{panel.user.language}}'
+        label: '{{user.language}}'
         required: true
         translate: [label]
         options@: formwork.panel.availableTranslations

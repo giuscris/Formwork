@@ -19,6 +19,8 @@ fields.array.add: Hinzufügen
 fields.array.remove: Entfernen
 fields.file.uploadLabel: <strong>Klicken</strong>, um eine Datei auszuwählen oder <strong>ziehen</strong>, um sie hier abzulegen
 fields.select.empty: Keine passenden Optionen
+file.metadata: Metadaten
+file.metadata.alternativeText: Alternativtext
 page.attributes: Attribute
 page.cacheable: Im Cache speichern
 page.content: Inhalt
@@ -39,6 +41,7 @@ page.publishDate: Veröffentlichungsdatum
 page.routable: Routbar
 page.routable.description: Routbare Seiten sind über ihre Adresse zugänglich
 page.slug: Slug
+page.slug.suggestion: Nur Buchstaben, Zahlen und Bindestriche
 page.status.notPublished: Nicht veröffentlicht
 page.status.published: Veröffentlicht
 page.status.published.description: Veröffentliche Seiten sind auf der Website sichtbar und über ihre Adresse zugänglich
@@ -48,6 +51,25 @@ page.template: Vorlage
 page.text: Text
 page.title: Titel
 page.unpublishDate: Veröffentlichungsdatum aufheben
+site.advanced: Erweiterte Optionen
+site.advanced.aliases: Aliasnamen
+site.advanced.aliases.alias: Alias
+site.advanced.aliases.route: Route
+site.advanced.metadata: HTML-Metadaten
+site.advanced.metadata.content: Inhalt
+site.advanced.metadata.name: Name
+site.info: Info
+site.info.author: Autor
+site.info.description: Beschreibung
+site.info.language: Sprache
+site.info.title: Titel
+site.maintenance: Wartung
+site.maintenance.enabled: Wartungsmodus
+site.maintenance.enabled.disabled: Deaktiviert
+site.maintenance.enabled.enabled: Aktiviert
+site.maintenance.page: Wartungsseite
+site.pages: Seiten
+site.pages.defaultTemplate: Standardvorlage
 upload.error: Datei kann nicht hochgeladen werden. %s.
 upload.error.alreadyExists: Eine Datei mit demselben Namen existiert bereits
 upload.error.cannotMoveToDestination: Hochgeladene Datei kann nicht an das Ziel verschoben werden
@@ -62,6 +84,21 @@ upload.error.noTemp: Temporärer Ordner fehlt
 upload.error.partial: Die hochgeladene Datei wurde nur teilweise übertragen
 upload.error.phpExtension: Dateiupload wurde durch eine Erweiterung gestoppt
 upload.error.size: Die hochgeladene Datei überschreitet die maximale Dateigröße
+user.colorScheme: Farbschema
+user.colorScheme.auto: Automatisch
+user.colorScheme.dark: Dunkel
+user.colorScheme.light: Hell
+user.email: E-Mail
+user.fullname: Vollständiger Name
+user.image: Bild
+user.language: Sprache
+user.password: Passwort
+user.password.placeholder: Geben Sie ein neues Passwort ein, um es zu ändern...
+user.role: Rolle
+user.role.admin: Administrator
+user.role.user: Benutzer
+user.user: Benutzer
+user.username: Benutzername
 zip.error.alreadyExists: Das Archiv existiert bereits
 zip.error.cannotOpen: Das Archiv kann nicht geöffnet werden
 zip.error.cannotRead: Das Archiv kann nicht gelesen werden

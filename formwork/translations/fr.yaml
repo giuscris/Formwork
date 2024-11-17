@@ -19,6 +19,8 @@ fields.array.add: Ajouter
 fields.array.remove: Supprimer
 fields.file.uploadLabel: <strong>Glisser-déposer</strong> dans la zone ou <strong>cliquer-ici</strong> pour sélectionner un fichier à envoyer.
 fields.select.empty: Aucune option correspondante
+file.metadata: Métadonnées
+file.metadata.alternativeText: Texte alternatif
 page.attributes: Attributs
 page.cacheable: Activer le cache
 page.content: Contenu
@@ -39,6 +41,7 @@ page.publishDate: Date de publication
 page.routable: Accessible
 page.routable.description: Les pages routables sont accessibles depuis leur adresse
 page.slug: Slug
+page.slug.suggestion: lettres, chiffres et tirets seulement
 page.status.notPublished: Brouillon
 page.status.published: Publié
 page.status.published.description: Les pages publiées sont visibles sur le site et accessibles depuis leur adresse
@@ -48,6 +51,25 @@ page.template: Modèle
 page.text: Texte
 page.title: Titre
 page.unpublishDate: Date de péremption
+site.advanced: Options avancées
+site.advanced.aliases: Alias
+site.advanced.aliases.alias: Alias
+site.advanced.aliases.route: Route
+site.advanced.metadata: Métadonnées HTML
+site.advanced.metadata.content: Contenu
+site.advanced.metadata.name: Nom
+site.info: Info
+site.info.author: Auteur
+site.info.description: Description
+site.info.language: Langue
+site.info.title: Titre
+site.maintenance: Maintenance
+site.maintenance.enabled: Mode de maintenance
+site.maintenance.enabled.disabled: Désactivé
+site.maintenance.enabled.enabled: Activé
+site.maintenance.page: Page de maintenance
+site.pages: Pages
+site.pages.defaultTemplate: Modèle (template) par défaut
 upload.error: Impossible de télécharger le fichier. %s.
 upload.error.alreadyExists: Un fichier du même nom existe déjà
 upload.error.cannotMoveToDestination: Impossible de déplacer le fichier téléchargé vers la destination
@@ -62,6 +84,21 @@ upload.error.noTemp: Absence du dossier temporaire
 upload.error.partial: Le fichier envoyé n’a été que partiellement téléversé
 upload.error.phpExtension: Téléversement du fichier arrêté par extension
 upload.error.size: Le fichier téléversé dépasse la taille de fichier maximale
+user.colorScheme: Schéma de couleur
+user.colorScheme.auto: Auto
+user.colorScheme.dark: Foncé
+user.colorScheme.light: Clair
+user.email: Adresse de messagerie
+user.fullname: Nom complet
+user.image: Photo de profil
+user.language: Langue
+user.password: Mot de passe
+user.password.placeholder: Tapez un nouveau mot de passe pour le modifier...
+user.role: Rôle
+user.role.admin: Administrateur
+user.role.user: Éditeur
+user.user: Utilisateur
+user.username: Nom d’utilisateur
 zip.error.alreadyExists: L’archive existe déjà
 zip.error.cannotOpen: Impossible d’ouvrir l’archive
 zip.error.cannotRead: Impossible de lire l’archive

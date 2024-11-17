@@ -21,7 +21,7 @@ fields:
     slug:
         type: slug
         label: '{{page.slug}}'
-        suggestion: '{{panel.pages.newPage.slugSuggestion}}'
+        suggestion: '{{page.slug.suggestion}}'
         required: true
         readonly@: page.isSlugReadonly
         source: title

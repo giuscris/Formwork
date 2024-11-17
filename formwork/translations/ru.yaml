@@ -19,6 +19,8 @@ fields.array.add: Добавлять
 fields.array.remove: Удалить
 fields.file.uploadLabel: <strong>Нажмите</strong> чтобы выбрать файл для загрузки или <strong>тянуть</strong> это здесь
 fields.select.empty: Нет подходящих вариантов
+file.metadata: Метаданные
+file.metadata.alternativeText: Альтернативный текст
 page.attributes: Атрибуты
 page.cacheable: Кешируемый
 page.content: Содержание
@@ -39,6 +41,7 @@ page.publishDate: Дата публикации
 page.routable: Маршрутизируемый
 page.routable.description: Маршрутизируемые страницы доступны по их адресу
 page.slug: Slug
+page.slug.suggestion: буквы, цифры и дефис только
 page.status.notPublished: Не Опубликовано
 page.status.published: Опубликованный
 page.status.published.description: Опубликованные страницы видны на сайте и доступны по их адресу
@@ -48,6 +51,25 @@ page.template: Шаблон
 page.text: Текст
 page.title: Заглавие
 page.unpublishDate: Дата Отменить публикацию
+site.advanced: Расширенные настройки
+site.advanced.aliases: Псевдонимы
+site.advanced.aliases.alias: Псевдоним
+site.advanced.aliases.route: Маршрут
+site.advanced.metadata: Метаданные HTML
+site.advanced.metadata.content: Содержание
+site.advanced.metadata.name: Имя
+site.info: Информация
+site.info.author: Автор
+site.info.description: Описание
+site.info.language: Язык
+site.info.title: Заглавие
+site.maintenance: Обслуживание
+site.maintenance.enabled: Режим обслуживания
+site.maintenance.enabled.disabled: Отключено
+site.maintenance.enabled.enabled: Включено
+site.maintenance.page: Страница обслуживания
+site.pages: Страницы
+site.pages.defaultTemplate: Шаблон по умолчанию
 upload.error: Невозможно загрузить файл. %s.
 upload.error.alreadyExists: Файл с таким именем уже существует
 upload.error.cannotMoveToDestination: Не удалось переместить загруженный файл в папку назначения
@@ -62,6 +84,21 @@ upload.error.noTemp: Отсутствующие временную папку
 upload.error.partial: Загруженный файл был загружен только частично
 upload.error.phpExtension: Загрузка файла останавливали расширения
 upload.error.size: Загруженный файл превышает максимальный размер файла
+user.colorScheme: Цветовая схема
+user.colorScheme.auto: Авто
+user.colorScheme.dark: Тёмная
+user.colorScheme.light: Светлая
+user.email: Email
+user.fullname: Полное имя
+user.image: Аватар
+user.language: Язык
+user.password: Пароль
+user.password.placeholder: Введите новый пароль для изменения ...
+user.role: Роль
+user.role.admin: Администратор
+user.role.user: Пользователь
+user.user: Пользователь
+user.username: Имя пользователя
 zip.error.alreadyExists: Архив уже существует
 zip.error.cannotOpen: Не удается открыть архив
 zip.error.cannotRead: Не удается прочитать архив

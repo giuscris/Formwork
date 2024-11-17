@@ -19,6 +19,8 @@ fields.array.add: Adicionar
 fields.array.remove: Remover
 fields.file.uploadLabel: <strong>Clique</strong> aqui para escolher um ficheiro para enviar ou <strong>arrastar</strong> para aqui.
 fields.select.empty: Sem opções correspondentes
+file.metadata: Metadados
+file.metadata.alternativeText: Texto alternativo
 page.attributes: Atributos
 page.cacheable: Cache
 page.content: Conteúdo
@@ -39,6 +41,7 @@ page.publishDate: Data de publicação
 page.routable: Roteável
 page.routable.description: As páginas roteáveis são acessíveis a partir do seu endereço
 page.slug: Slug
+page.slug.suggestion: letras, números e hifens apenas
 page.status.notPublished: Não publicado
 page.status.published: Publicado
 page.status.published.description: As páginas publicadas são visíveis no site e acessíveis a partir do seu endereço
@@ -48,6 +51,25 @@ page.template: Template
 page.text: Texto
 page.title: Titulo
 page.unpublishDate: Data de cancelamento da publicação
+site.advanced: Opções avançadas
+site.advanced.aliases: Aliases
+site.advanced.aliases.alias: Alias
+site.advanced.aliases.route: Rota
+site.advanced.metadata: Metadados HTML
+site.advanced.metadata.content: Conteúdo
+site.advanced.metadata.name: Nome
+site.info: Informações
+site.info.author: Autor
+site.info.description: Descrição
+site.info.language: Idiomas
+site.info.title: Título
+site.maintenance: Manutenção
+site.maintenance.enabled: Modo de manutenção
+site.maintenance.enabled.disabled: Desativado
+site.maintenance.enabled.enabled: Ativado
+site.maintenance.page: Página de manutenção
+site.pages: Páginas
+site.pages.defaultTemplate: Template padrão
 upload.error: Não é possível fazer upload do ficheiro. %s.
 upload.error.alreadyExists: Já existe um ficheiro com o mesmo nome
 upload.error.cannotMoveToDestination: Falha ao mover o ficheiro enviado para o destino
@@ -62,6 +84,21 @@ upload.error.noTemp: Pasta temporária inexistente
 upload.error.partial: O ficheiro foi enviado apenas parcialmente
 upload.error.phpExtension: Envio de ficheiro interrompido por extensão
 upload.error.size: O ficheiro enviado excede o tamanho máximo permitido
+user.colorScheme: Esquema de cores
+user.colorScheme.auto: Auto
+user.colorScheme.dark: Escuro
+user.colorScheme.light: Claro
+user.email: E'mail
+user.fullname: Nome completo
+user.image: Imagem
+user.language: Idioma
+user.password: Password
+user.password.placeholder: Insira nova password para alterar...
+user.role: Cargo
+user.role.admin: Administrador
+user.role.user: Utilizador
+user.user: Utilizador
+user.username: Nome do utilizador
 zip.error.alreadyExists: O ficheiro já existe
 zip.error.cannotOpen: Erro de abertura do ficheiro
 zip.error.cannotRead: Erro de leitura do ficheiro
