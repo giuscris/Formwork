@@ -41,39 +41,43 @@ class Page extends Model implements Stringable
     /**
      * Page num regex
      */
-    public const NUM_REGEX = '/^(\d+)-/';
+    public const string NUM_REGEX = '/^(\d+)-/';
 
     /**
      * Page `published` status
      */
-    public const PAGE_STATUS_PUBLISHED = 'published';
+    public const string PAGE_STATUS_PUBLISHED = 'published';
 
     /**
      * Page `not published` status
      */
-    public const PAGE_STATUS_NOT_PUBLISHED = 'notPublished';
+    public const string PAGE_STATUS_NOT_PUBLISHED = 'notPublished';
 
-    protected const MODEL_IDENTIFIER = 'page';
+    protected const string MODEL_IDENTIFIER = 'page';
 
     /**
      * Ignored field names on frontmatter generation
+     *
+     * @var list<string>
      */
-    protected const IGNORED_FIELD_NAMES = ['content', 'slug', 'template', 'parent'];
+    protected const array IGNORED_FIELD_NAMES = ['content', 'slug', 'template', 'parent'];
 
     /**
      * Ignored field types on frontmatter generation
+     *
+     * @var list<string>
      */
-    protected const IGNORED_FIELD_TYPES = ['upload'];
+    protected const array IGNORED_FIELD_TYPES = ['upload'];
 
     /**
      * Slug regex
      */
-    protected const SLUG_REGEX = '/^[a-z0-9]+(?:-[a-z0-9]+)*$/i';
+    protected const string SLUG_REGEX = '/^[a-z0-9]+(?:-[a-z0-9]+)*$/i';
 
     /**
      * Datetime format used for page numbering with `date` mode
      */
-    protected const DATE_NUM_FORMAT = 'Ymd';
+    protected const string DATE_NUM_FORMAT = 'Ymd';
 
     /**
      * Page path

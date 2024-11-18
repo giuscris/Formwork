@@ -13,11 +13,11 @@ use UnexpectedValueException;
 
 class JpegHandler extends AbstractHandler
 {
-    protected const MAX_BYTES_IN_SEGMENT = 65533;
+    protected const int MAX_BYTES_IN_SEGMENT = 65533;
 
-    protected const EXIF_HEADER = "Exif\x00\x00";
+    protected const string EXIF_HEADER = "Exif\x00\x00";
 
-    protected const ICC_PROFILE_HEADER = "ICC_PROFILE\x00";
+    protected const string ICC_PROFILE_HEADER = "ICC_PROFILE\x00";
 
     public function getInfo(): ImageInfo
     {

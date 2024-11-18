@@ -11,7 +11,7 @@ use Formwork\Utils\FileSystem;
 
 class Config implements ArraySerializable
 {
-    protected const INTERPOLATION_REGEX = '/\$(?!\$)\{([%a-z._]+)\}/i';
+    protected const string INTERPOLATION_REGEX = '/\$(?!\$)\{([%a-z._]+)\}/i';
 
     protected bool $resolved = false;
 

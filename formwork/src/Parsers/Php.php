@@ -15,12 +15,14 @@ class Php extends AbstractEncoder
     /**
      * Number of spaces used to indent arrays
      */
-    protected const INDENT_SPACES = 4;
+    protected const int INDENT_SPACES = 4;
 
     /**
      * Class names of objects which cannot be encoded
+     *
+     * @var array<class-string>
      */
-    protected const UNENCODABLE_CLASSES = [\Closure::class, \Reflector::class, \ReflectionGenerator::class, \ReflectionType::class, \IteratorIterator::class, \RecursiveIteratorIterator::class];
+    protected const array UNENCODABLE_CLASSES = [\Closure::class, \Reflector::class, \ReflectionGenerator::class, \ReflectionType::class, \IteratorIterator::class, \RecursiveIteratorIterator::class];
 
     /**
      * @inheritdoc

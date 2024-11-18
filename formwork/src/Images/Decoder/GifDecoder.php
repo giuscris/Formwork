@@ -8,7 +8,12 @@ use UnexpectedValueException;
 
 class GifDecoder implements DecoderInterface
 {
-    protected const GIF_HEADERS = ['GIF87a', 'GIF89a'];
+    /**
+     * GIF headers
+     *
+     * @var array<string>
+     */
+    protected const array GIF_HEADERS = ['GIF87a', 'GIF89a'];
 
     public function decode(string &$data): Generator
     {

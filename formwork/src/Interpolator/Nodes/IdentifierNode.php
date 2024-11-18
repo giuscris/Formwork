@@ -7,7 +7,7 @@ class IdentifierNode extends AbstractNode
     /**
      * @inheritdoc
      */
-    public const TYPE = 'identifier';
+    public const string TYPE = 'identifier';
 
     public function __construct(string $value, protected ?ArgumentsNode $argumentsNode, protected ?AbstractNode $node)
     {

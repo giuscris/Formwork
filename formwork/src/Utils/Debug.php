@@ -8,7 +8,7 @@ use UnitEnum;
 
 class Debug
 {
-    protected const INDENT_SPACES = 2;
+    protected const int INDENT_SPACES = 2;
 
     protected static string $css = <<<'CSS'
         .__formwork-dump {

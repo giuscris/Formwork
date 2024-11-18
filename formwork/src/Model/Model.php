@@ -18,10 +18,7 @@ class Model implements Arrayable
     use DataMultipleGetter;
     use DataMultipleSetter;
 
-    /**
-     * @var string
-     */
-    protected const MODEL_IDENTIFIER = 'model';
+    protected const string MODEL_IDENTIFIER = 'model';
 
     protected Scheme $scheme;
 

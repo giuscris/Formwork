@@ -17,7 +17,7 @@ class View
     /**
      * View type
      */
-    protected const TYPE = 'view';
+    protected const string TYPE = 'view';
 
     /**
      * View file

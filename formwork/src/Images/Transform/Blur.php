@@ -11,8 +11,10 @@ class Blur extends AbstractTransform
 {
     /**
      * Convolution kernels used for image effects
+     *
+     * @var array<string, array<list<float>>>
      */
-    protected const CONVOLUTION_KERNELS = [
+    protected const array CONVOLUTION_KERNELS = [
         BlurMode::Smooth->value => [
             [0.075, 0.125, 0.075],
             [0.125, 0.200, 0.125],

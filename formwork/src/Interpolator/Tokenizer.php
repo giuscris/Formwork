@@ -9,32 +9,32 @@ class Tokenizer implements TokenizerInterface
     /**
      * Regex matching identifier tokens
      */
-    protected const IDENTIFIER_REGEX = '/[A-Za-z_][A-Za-z0-9_]*/A';
+    protected const string IDENTIFIER_REGEX = '/[A-Za-z_][A-Za-z0-9_]*/A';
 
     /**
      * Regex matching number tokens
      */
-    protected const NUMBER_REGEX = '/[+-]?[0-9]+(.[0-9]+)?([Ee][+-]?[0-9]+)?/A';
+    protected const string NUMBER_REGEX = '/[+-]?[0-9]+(.[0-9]+)?([Ee][+-]?[0-9]+)?/A';
 
     /**
      * Regex matching single quote string tokens
      */
-    protected const SINGLE_QUOTE_STRING_REGEX = '/\'(?:[^\'\\\]|\\\.)*\'/A';
+    protected const string SINGLE_QUOTE_STRING_REGEX = '/\'(?:[^\'\\\]|\\\.)*\'/A';
 
     /**
      * Regex matching double quote string tokens
      */
-    protected const DOUBLE_QUOTE_STRING_REGEX = '/"(?:[^"\\\]|\\\.)*"/A';
+    protected const string DOUBLE_QUOTE_STRING_REGEX = '/"(?:[^"\\\]|\\\.)*"/A';
 
     /**
      * Punctuation characters
      */
-    protected const PUNCTUATION_CHARACTERS = '.,()[]';
+    protected const string PUNCTUATION_CHARACTERS = '.,()[]';
 
     /**
      * Arrow sequence
      */
-    protected const ARROW_SEQUENCE = '=>';
+    protected const string ARROW_SEQUENCE = '=>';
 
     /**
      * Tokenizer input length

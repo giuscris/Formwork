@@ -7,16 +7,6 @@ use Symfony\Component\Yaml\Yaml as SymfonyYaml;
 class Yaml extends AbstractEncoder
 {
     /**
-     * Document start delimiter required by yaml_parse()
-     */
-    protected const DOCUMENT_START = "---\n";
-
-    /**
-     * Regex matching document delimiters to be removed from yaml_emit() output
-     */
-    protected const DOCUMENT_DELIMITERS_REGEX = '/^-{3}[\n ]|\n\.{3}$/';
-
-    /**
      * Parse a YAML string
      *
      * @param array<string, mixed> $options

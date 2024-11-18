@@ -16,9 +16,9 @@ use Stringable;
 
 class File extends Model implements Arrayable, Stringable
 {
-    protected const MODEL_IDENTIFIER = 'file';
+    protected const string MODEL_IDENTIFIER = 'file';
 
-    protected const SCHEME_IDENTIFIER = 'files.file';
+    protected const string SCHEME_IDENTIFIER = 'files.file';
 
     /**
      * File name

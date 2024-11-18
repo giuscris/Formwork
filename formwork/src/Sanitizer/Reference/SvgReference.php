@@ -4,9 +4,12 @@ namespace Formwork\Sanitizer\Reference;
 
 class SvgReference
 {
-    public const NAMESPACE_URI = 'http://www.w3.org/2000/svg';
+    public const string NAMESPACE_URI = 'http://www.w3.org/2000/svg';
 
-    public const ALLOWED_ELEMENTS = [
+    /**
+     * @var list<string>
+     */
+    public const array ALLOWED_ELEMENTS = [
         'a',
         'animate',
         'animateMotion',
@@ -77,7 +80,10 @@ class SvgReference
         'vkern',
     ];
 
-    public const ALLOWED_ATTRIBUTES = [
+    /**
+     * @var list<string>
+     */
+    public const array ALLOWED_ATTRIBUTES = [
         'accent-height',
         'accumulate',
         'additive',
@@ -298,7 +304,10 @@ class SvgReference
         'zoomAndPan',
     ];
 
-    public const URI_ATTRIBUTES = [
+    /**
+     * @var list<string>
+     */
+    public const array URI_ATTRIBUTES = [
         'src',
         'href',
         'xlink:href',

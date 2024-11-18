@@ -14,9 +14,12 @@ class MimeType
     /**
      * Default MIME type for unknown files
      */
-    protected const DEFAULT_MIME_TYPE = 'application/octet-stream';
+    protected const string DEFAULT_MIME_TYPE = 'application/octet-stream';
 
-    protected const SAFE_PLAINTEXT_EXTENSIONS = ['css', 'js', 'html', 'htm', 'md', 'markdown', 'yaml', 'yml', 'json'];
+    /**
+     * @var list<key-of<MimeType::MIME_TYPES>>
+     */
+    protected const array SAFE_PLAINTEXT_EXTENSIONS = ['css', 'js', 'html', 'htm', 'md', 'markdown', 'yaml', 'yml', 'json'];
 
     /**
      * Extension to MIME type mapping
@@ -24,8 +27,10 @@ class MimeType
      * Last updated: 2024-11-09
      *
      * @see scripts/update-mime-types.php To update this list
+     *
+     * @var array<string, string>
      */
-    protected const MIME_TYPES = [
+    protected const array MIME_TYPES = [
         'ez'                       => 'application/andrew-inset',
         'appinstaller'             => 'application/appinstaller',
         'aw'                       => 'application/applixware',

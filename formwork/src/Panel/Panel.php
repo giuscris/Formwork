@@ -17,7 +17,7 @@ use Formwork\Utils\Uri;
 
 final class Panel
 {
-    protected const CSRF_TOKEN_NAME = 'panel';
+    protected const string CSRF_TOKEN_NAME = 'panel';
 
     /**
      * Assets instance

@@ -11,11 +11,26 @@ use InvalidArgumentException;
 
 class Request
 {
-    public const DEFAULT_PORTS = ['http' => 80, 'https' => 430];
+    /**
+     * Default ports for HTTP and HTTPS protocols
+     *
+     * @var array<string, int>
+     */
+    public const array DEFAULT_PORTS = ['http' => 80, 'https' => 430];
 
-    protected const LOCALHOST_IP_ADDRESSES = ['127.0.0.1', '::1'];
+    /**
+     * List of IP addresses considered as localhost
+     *
+     * @var list<string>
+     */
+    protected const array LOCALHOST_IP_ADDRESSES = ['127.0.0.1', '::1'];
 
-    protected const FORWARDED_DIRECTIVES = ['for', 'host', 'proto', 'port'];
+    /**
+     * List of forwarded directives
+     *
+     * @var list<string>
+     */
+    protected const array FORWARDED_DIRECTIVES = ['for', 'host', 'proto', 'port'];
 
     protected RequestData $input;
 

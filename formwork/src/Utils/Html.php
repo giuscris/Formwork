@@ -13,9 +13,24 @@ class Html
      * Void HTML elements without content and end tag
      *
      * @see https://html.spec.whatwg.org/multipage/syntax.html#void-elements
+     *
+     * @var list<string>
      */
-    protected const VOID_ELEMENTS = [
-        'area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'link', 'meta', 'param', 'source', 'track', 'wbr',
+    protected const array VOID_ELEMENTS = [
+        'area',
+        'base',
+        'br',
+        'col',
+        'embed',
+        'hr',
+        'img',
+        'input',
+        'link',
+        'meta',
+        'param',
+        'source',
+        'track',
+        'wbr',
     ];
 
     /**

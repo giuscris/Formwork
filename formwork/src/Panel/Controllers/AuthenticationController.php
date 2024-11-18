@@ -15,7 +15,7 @@ use Formwork\Utils\FileSystem;
 
 class AuthenticationController extends AbstractController
 {
-    public const SESSION_REDIRECT_KEY = '_formwork_redirect_to';
+    public const string SESSION_REDIRECT_KEY = '_formwork_redirect_to';
 
     /**
      * Authentication@login action

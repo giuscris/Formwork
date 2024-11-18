@@ -30,7 +30,12 @@ class Field implements Arrayable, Stringable
     }
     use Methods;
 
-    protected const UNTRANSLATABLE_KEYS = ['name', 'type', 'value', 'default', 'translate'];
+    /**
+     * Keys that should not be translated
+     *
+     * @var list<string>
+     */
+    protected const array UNTRANSLATABLE_KEYS = ['name', 'type', 'value', 'default', 'translate'];
 
     /**
      * Field validation status

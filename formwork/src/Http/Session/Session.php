@@ -24,11 +24,11 @@ class Session implements Arrayable
         remove as protected baseRemove;
     }
 
-    protected const SESSION_NAME = 'formwork_session';
+    protected const string SESSION_NAME = 'formwork_session';
 
-    protected const SESSION_MESSAGES_KEY = '_formwork_messages';
+    protected const string SESSION_MESSAGES_KEY = '_formwork_messages';
 
-    protected const SESSION_ID_REGEX = '/^[a-z0-9,-]{22,256}$/i';
+    protected const string SESSION_ID_REGEX = '/^[a-z0-9,-]{22,256}$/i';
 
     protected Messages $messages;
 

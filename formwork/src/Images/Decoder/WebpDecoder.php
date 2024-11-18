@@ -8,9 +8,9 @@ use UnexpectedValueException;
 
 class WebpDecoder implements DecoderInterface
 {
-    protected const RIFF_HEADER = 'RIFF';
+    protected const string RIFF_HEADER = 'RIFF';
 
-    protected const WEBP_HEADER = 'WEBP';
+    protected const string WEBP_HEADER = 'WEBP';
 
     public function decode(string &$data): Generator
     {

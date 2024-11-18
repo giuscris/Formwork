@@ -9,8 +9,10 @@ class UploadedFile
 {
     /**
      * Human-readable Uploader error messages
+     *
+     * @var array<int, string>
      */
-    protected const ERROR_MESSAGES = [
+    protected const array ERROR_MESSAGES = [
         UPLOAD_ERR_OK         => 'The file uploaded with success',
         UPLOAD_ERR_INI_SIZE   => 'The uploaded file exceeds the upload_max_filesize directive in php.ini',
         UPLOAD_ERR_FORM_SIZE  => 'The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form',
@@ -23,8 +25,10 @@ class UploadedFile
 
     /**
      * Uploader errors language strings
+     *
+     * @var array<int, string>
      */
-    protected const ERROR_TRANSLATION_STRINGS = [
+    protected const array ERROR_TRANSLATION_STRINGS = [
         UPLOAD_ERR_INI_SIZE   => 'upload.error.size',
         UPLOAD_ERR_FORM_SIZE  => 'upload.error.size',
         UPLOAD_ERR_PARTIAL    => 'upload.error.partial',

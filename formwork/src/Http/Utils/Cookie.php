@@ -13,16 +13,16 @@ class Cookie
     /**
      * 'Strict' value for SameSite attribute
      */
-    public const SAMESITE_STRICT = 'Strict';
+    public const string SAMESITE_STRICT = 'Strict';
 
     /**
      * 'Lax' value for SameSite attribute
      */
-    public const SAMESITE_LAX = 'Lax';
+    public const string SAMESITE_LAX = 'Lax';
 
-    public const SAMESITE_NONE = 'None';
+    public const string SAMESITE_NONE = 'None';
 
-    protected const INVALID_NAME_CHARACTERS = '/[\x00-\x20.()<>@,;:\"\/[\]?={}]|[^\x21-\x7e]/';
+    protected const string INVALID_NAME_CHARACTERS = '/[\x00-\x20.()<>@,;:\"\/[\]?={}]|[^\x21-\x7e]/';
 
     /**
      * Send a cookie

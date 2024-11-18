@@ -8,19 +8,22 @@ use UnexpectedValueException;
 
 class ExifReader
 {
-    protected const EXIF_LITTLE_ENDIAN = 'II';
+    protected const string EXIF_LITTLE_ENDIAN = 'II';
 
-    protected const EXIF_BIG_ENDIAN = 'MM';
+    protected const string EXIF_BIG_ENDIAN = 'MM';
 
-    protected const EXIF_ENCODING_ASCII = "ASCII\x00\x00\x00";
+    protected const string EXIF_ENCODING_ASCII = "ASCII\x00\x00\x00";
 
-    protected const EXIF_ENCODING_JIS = "JIS\x00\x00\x00\x00\x00";
+    protected const string EXIF_ENCODING_JIS = "JIS\x00\x00\x00\x00\x00";
 
-    protected const EXIF_ENCODING_UNICODE = "UNICODE\x00";
+    protected const string EXIF_ENCODING_UNICODE = "UNICODE\x00";
 
-    protected const EXIF_ENCODING_UNDEFINED = "\x00\x00\x00\x00\x00\x00\x00\x00";
+    protected const string EXIF_ENCODING_UNDEFINED = "\x00\x00\x00\x00\x00\x00\x00\x00";
 
-    protected const IGNORED_SECTIONS = [
+    /**
+     * @var list<string>
+     */
+    protected const array IGNORED_SECTIONS = [
         'FileName',
         'FileDateTime',
         'FileSize',
@@ -34,7 +37,10 @@ class ExifReader
         'InteroperabilityOffset',
     ];
 
-    protected const UNDEFINED_TAGS_TO_EXIF_TAGS = [
+    /**
+     * @var array<string, string>
+     */
+    protected const array UNDEFINED_TAGS_TO_EXIF_TAGS = [
         'UndefinedTag:0x001F' => 'GPSHPositioningError',
         'UndefinedTag:0x9010' => 'OffsetTime',
         'UndefinedTag:0x9011' => 'OffsetTimeOriginal',
@@ -60,7 +66,10 @@ class ExifReader
         'UndefinedTag:0xA435' => 'LensSerialNumber',
     ];
 
-    protected const TAG_ALIASES = [
+    /**
+     * @var array<string, string>
+     */
+    protected const array TAG_ALIASES = [
         'SpectralSensity'   => 'SpectralSensitivity',
         'ISOSpeedRatings'   => 'PhotographicSensitivity',
         'SubjectLocation'   => 'SubjectArea',

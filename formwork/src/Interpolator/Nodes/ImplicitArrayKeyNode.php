@@ -7,5 +7,5 @@ class ImplicitArrayKeyNode extends AbstractNode
     /**
      * @inheritdoc
      */
-    public const TYPE = 'implicit array key';
+    public const string TYPE = 'implicit array key';
 }

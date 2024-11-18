@@ -14,15 +14,15 @@ use UnexpectedValueException;
 
 class WebpHandler extends AbstractHandler
 {
-    protected const RIFF_HEADER = 'RIFF';
+    protected const string RIFF_HEADER = 'RIFF';
 
-    protected const NO_FLAG = 0b00000000;
+    protected const int NO_FLAG = 0b00000000;
 
-    protected const ALPHA_FLAG = 0b00010000;
+    protected const int ALPHA_FLAG = 0b00010000;
 
-    protected const ICC_FLAG = 0b00100000;
+    protected const int ICC_FLAG = 0b00100000;
 
-    protected const EXIF_FLAG = 0b00001000;
+    protected const int EXIF_FLAG = 0b00001000;
 
     public function getInfo(): ImageInfo
     {
