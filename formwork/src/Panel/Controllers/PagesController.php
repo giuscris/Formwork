@@ -83,7 +83,7 @@ class PagesController extends AbstractController
             $page = $this->createPage($fields);
             $this->panel->notify($this->translate('panel.pages.page.created'), 'success');
         } catch (TranslatedException $e) {
-            $this->panel->notify($e->getTranslatedMessage(), 'error');
+            $this->panel->notify($this->translate($e->getLanguageString()), 'error');
             return $this->redirectToReferer(default: $this->generateRoute('panel.pages'), base: $this->panel->panelRoot());
         } catch (InvalidValueException $e) {
             $identifier = $e->getIdentifier() ?? 'varMissing';
@@ -176,7 +176,7 @@ class PagesController extends AbstractController
 
                     $this->panel->notify($this->translate('panel.pages.page.edited'), 'success');
                 } catch (TranslatedException $e) {
-                    $this->panel->notify($e->getTranslatedMessage(), 'error');
+                    $this->panel->notify($this->translate($e->getLanguageString()), 'error');
                 } catch (InvalidValueException $e) {
                     $identifier = $e->getIdentifier() ?? 'varMissing';
                     $this->panel->notify($this->translate('panel.pages.page.cannotEdit.' . $identifier), 'error');
@@ -363,7 +363,7 @@ class PagesController extends AbstractController
             try {
                 $this->processPageUploads($this->request->files()->getAll(), $page);
             } catch (TranslatedException $e) {
-                $this->panel->notify($this->translate('upload.error', $e->getTranslatedMessage()), 'error');
+                $this->panel->notify($this->translate('upload.error', $this->translate($e->getLanguageString())), 'error');
                 return $this->redirect($this->generateRoute('panel.pages.edit', ['page' => $routeParams->get('page')]));
             }
         }
@@ -485,7 +485,7 @@ class PagesController extends AbstractController
             try {
                 $this->processPageUploads($this->request->files()->getAll(), $page, [$page->files()->get($filename)->mimeType()], FileSystem::name($filename), true);
             } catch (TranslatedException $e) {
-                $this->panel->notify($this->translate('upload.error', $e->getTranslatedMessage()), 'error');
+                $this->panel->notify($this->translate('upload.error', $this->translate($e->getLanguageString())), 'error');
                 return $this->redirect($this->generateRoute('panel.pages.edit', ['page' => $routeParams->get('page')]));
             }
         }

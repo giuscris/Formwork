@@ -28,7 +28,7 @@ class BackupController extends AbstractController
         try {
             $file = $backupper->backup();
         } catch (TranslatedException $e) {
-            return JsonResponse::error($this->translate('panel.backup.error.cannotMake', $e->getTranslatedMessage()), ResponseStatus::InternalServerError);
+            return JsonResponse::error($this->translate('panel.backup.error.cannotMake', $this->translate($e->getLanguageString())), ResponseStatus::InternalServerError);
         }
         $filename = basename($file);
         $uriName = urlencode(base64_encode($filename));
@@ -58,7 +58,7 @@ class BackupController extends AbstractController
             }
             throw new RuntimeException($this->translate('panel.backup.error.cannotDownload.invalidFilename'));
         } catch (TranslatedException $e) {
-            $this->panel->notify($this->translate('panel.backup.error.cannotDownload', $e->getTranslatedMessage()), 'error');
+            $this->panel->notify($this->translate('panel.backup.error.cannotDownload', $this->translate($e->getLanguageString())), 'error');
             return $this->redirectToReferer(default: $this->generateRoute('panel.tools.backups'), base: $this->panel->panelRoot());
         }
     }
@@ -81,7 +81,7 @@ class BackupController extends AbstractController
             }
             throw new RuntimeException($this->translate('panel.backup.error.cannotDelete.invalidFilename'));
         } catch (TranslatedException $e) {
-            $this->panel->notify($this->translate('panel.backup.error.cannotDelete', $e->getTranslatedMessage()), 'error');
+            $this->panel->notify($this->translate('panel.backup.error.cannotDelete', $this->translate($e->getLanguageString())), 'error');
             return $this->redirectToReferer(default: $this->generateRoute('panel.tools.backups'), base: $this->panel->panelRoot());
         }
     }

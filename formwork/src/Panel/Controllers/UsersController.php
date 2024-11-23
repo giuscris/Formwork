@@ -108,7 +108,7 @@ class UsersController extends AbstractController
                 $this->deleteUserImage($user);
             }
         } catch (TranslatedException $e) {
-            $this->panel->notify($e->getTranslatedMessage(), 'error');
+            $this->panel->notify($this->translate($e->getLanguageString()), 'error');
             return $this->redirectToReferer(default: $this->generateRoute('panel.users'), base: $this->panel->panelRoot());
         }
 
@@ -147,7 +147,7 @@ class UsersController extends AbstractController
 
                 $this->panel->notify($this->translate('panel.user.image.deleted'), 'success');
             } catch (TranslatedException $e) {
-                $this->panel->notify($e->getTranslatedMessage(), 'error');
+                $this->panel->notify($this->translate($e->getLanguageString()), 'error');
             }
         } else {
             $this->panel->notify($this->translate('panel.users.user.cannotEdit', $user->username()), 'error');

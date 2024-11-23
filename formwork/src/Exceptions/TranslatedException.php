@@ -3,7 +3,6 @@
 namespace Formwork\Exceptions;
 
 use Exception;
-use Formwork\App;
 
 class TranslatedException extends Exception
 {
@@ -26,13 +25,5 @@ class TranslatedException extends Exception
     public function getLanguageString(): string
     {
         return $this->languageString;
-    }
-
-    /**
-     * Get localized message
-     */
-    public function getTranslatedMessage(): string
-    {
-        return App::instance()->translations()->getCurrent()->translate($this->languageString);
     }
 }
