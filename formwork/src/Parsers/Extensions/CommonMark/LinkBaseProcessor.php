@@ -2,7 +2,6 @@
 
 namespace Formwork\Parsers\Extensions\CommonMark;
 
-use Formwork\App;
 use Formwork\Utils\Uri;
 use League\CommonMark\Event\DocumentParsedEvent;
 use League\CommonMark\Extension\CommonMark\Node\Inline\Image;
@@ -24,7 +23,7 @@ class LinkBaseProcessor
 
             $baseRoute = $this->configuration->get('formwork/baseRoute');
 
-            $site = App::instance()->site();
+            $site = $this->configuration->get('formwork/site');
 
             $uri = $node->getUrl();
 

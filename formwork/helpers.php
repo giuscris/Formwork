@@ -40,7 +40,11 @@ return function (App $app) {
             $currentPage = $app->site()->currentPage();
             return Markdown::parse(
                 $markdown,
-                ['baseRoute' => $currentPage !== null ? $currentPage->route() : '/']
+                [
+                    'site'      => $app->site(),
+                    'safeMode'  => $app->config()->get('system.pages.content.safeMode'),
+                    'baseRoute' => $currentPage !== null ? $currentPage->route() : '/',
+                ]
             );
         },
 

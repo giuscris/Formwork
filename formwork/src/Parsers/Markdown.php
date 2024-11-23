@@ -2,7 +2,6 @@
 
 namespace Formwork\Parsers;
 
-use Formwork\App;
 use Formwork\Parsers\Extensions\CommonMark\FormworkExtension;
 use Formwork\Parsers\Extensions\CommonMark\ImageRenderer;
 use Formwork\Sanitizer\HtmlSanitizer;
@@ -21,7 +20,7 @@ class Markdown extends AbstractParser
      */
     public static function parse(string $input, array $options = []): string
     {
-        $safeMode = App::instance()->config()->get('system.pages.content.safeMode', true);
+        $safeMode = $options['safeMode'] ?? true;
 
         $environment = new Environment([
             'html_input'        => $safeMode ? 'escape' : 'allow',
