@@ -208,6 +208,14 @@ class File extends Model implements Arrayable, Stringable
         return $this->uriGenerator->generate($this);
     }
 
+    public function absoluteUri(): string
+    {
+        if (!isset($this->uriGenerator)) {
+            throw new FileUriGenerationException('Cannot generate file absolute uri: generator not set');
+        }
+        return $this->uriGenerator->generateAbsolute($this);
+    }
+
     public function toArray(): array
     {
         return [

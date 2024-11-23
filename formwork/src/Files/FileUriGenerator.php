@@ -4,15 +4,17 @@ namespace Formwork\Files;
 
 use Formwork\Config\Config;
 use Formwork\Files\Exceptions\FileUriGenerationException;
+use Formwork\Http\Request;
 use Formwork\Router\Router;
 use Formwork\Site;
 use Formwork\Utils\FileSystem;
 use Formwork\Utils\Str;
+use Formwork\Utils\Uri;
 use RuntimeException;
 
 class FileUriGenerator
 {
-    public function __construct(protected Config $config, protected Router $router, protected Site $site)
+    public function __construct(protected Config $config, protected Router $router, protected Request $request, protected Site $site)
     {
     }
 
@@ -45,5 +47,10 @@ class FileUriGenerator
         }
 
         throw new FileUriGenerationException(sprintf('Cannot generate uri for "%s": missing file generator', $file->name()));
+    }
+
+    public function generateAbsolute(File $file): string
+    {
+        return Uri::resolveRelative($this->generate($file), $this->request->absoluteUri());
     }
 }
