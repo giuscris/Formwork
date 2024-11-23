@@ -47,16 +47,17 @@ return function (App $app) {
         'date' => static function (int $timestamp, ?string $format = null) use ($app): string {
             return Date::formatTimestamp(
                 $timestamp,
-                $format ?? $app->config()->get('system.date.dateFormat')
+                $format ?? $app->config()->get('system.date.dateFormat'),
+                $app->translations()->getCurrent()
             );
         },
 
         'datetime' => static function (int $timestamp) use ($app): string {
-            return Date::formatTimestamp($timestamp, $app->config()->get('system.date.datetimeFormat'));
+            return Date::formatTimestamp($timestamp, $app->config()->get('system.date.datetimeFormat'), $app->translations()->getCurrent());
         },
 
-        'timedistance' => static function (int $timestamp): string {
-            return Date::formatTimestampAsDistance($timestamp);
+        'timedistance' => static function (int $timestamp) use ($app): string {
+            return Date::formatTimestampAsDistance($timestamp, $app->translations()->getCurrent());
         },
 
         'translate' => fn (string $key, ...$arguments) => $app->translations()->getCurrent()->translate($key, ...$arguments),

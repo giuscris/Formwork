@@ -2,6 +2,7 @@
 
 namespace Formwork\Pages\Traits;
 
+use Formwork\App;
 use Formwork\Pages\Page;
 use Formwork\Utils\Date;
 use UnexpectedValueException;
@@ -36,12 +37,17 @@ trait PageStatus
 
         $now = time();
 
+        $formats = [
+            App::instance()->config()->get('system.date.dateFormat'),
+            App::instance()->config()->get('system.date.datetimeFormat'),
+        ];
+
         if ($publishDate = ($this->data['publishDate'] ?? null)) {
             if (!is_string($publishDate)) {
                 throw new UnexpectedValueException('Invalid publish date');
             }
 
-            $published = $published && Date::toTimestamp($publishDate) < $now;
+            $published = $published && Date::toTimestamp($publishDate, $formats) < $now;
         }
 
         if ($unpublishDate = ($this->data['unpublishDate'] ?? null)) {
@@ -49,7 +55,7 @@ trait PageStatus
                 throw new UnexpectedValueException('Invalid unpublish date');
             }
 
-            $published = $published && Date::toTimestamp($unpublishDate) > $now;
+            $published = $published && Date::toTimestamp($unpublishDate, $formats) > $now;
         }
 
         $this->status = match (true) {

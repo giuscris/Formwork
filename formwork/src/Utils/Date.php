@@ -4,8 +4,8 @@ namespace Formwork\Utils;
 
 use DateTime;
 use Exception;
-use Formwork\App;
 use Formwork\Traits\StaticClass;
+use Formwork\Translations\Translation;
 use InvalidArgumentException;
 use RuntimeException;
 
@@ -80,15 +80,14 @@ class Date
 
     /**
      * Parse a date according to a given format (or the default format if not given) and return the timestamp
+     *
+     * @param array<string>|string $format
      */
-    public static function toTimestamp(string $date, ?string $format = null): int
+    public static function toTimestamp(string $date, string|array $format): int
     {
         try {
-            $dateTime = static::createDateTime($date, (array) ($format ?? static::getDefaultFormats()));
+            $dateTime = static::createDateTime($date, (array) $format);
         } catch (InvalidArgumentException $e) {
-            if ($format !== null) {
-                throw $e;
-            }
             // Try to parse the date anyway if the format is not given
             try {
                 $dateTime = new DateTime($date);
@@ -139,14 +138,8 @@ class Date
     /**
      * Formats a DateTime object using the current translation for weekdays and months
      */
-    public static function formatDateTime(DateTime $dateTime, ?string $format = null, ?string $language = null): string
+    public static function formatDateTime(DateTime $dateTime, string $format, Translation $translation): string
     {
-        $format ??= App::instance()->config()->get('system.date.dateFormat');
-
-        $language ??= App::instance()->translations()->getCurrent()->code();
-
-        $translation = App::instance()->translations()->get($language, fallbackIfInvalid: true);
-
         return preg_replace_callback(
             self::DATE_FORMAT_REGEX,
             fn (array $matches): string => match ($matches[0]) {
@@ -154,30 +147,26 @@ class Date
                 'F'     => $translation->getStrings('date.months.long')[$dateTime->format('n') - 1],
                 'D'     => $translation->getStrings('date.weekdays.short')[(int) $dateTime->format('w')],
                 'l'     => $translation->getStrings('date.weekdays.long')[(int) $dateTime->format('w')],
-                'r'     => static::formatDateTime($dateTime, DateTime::RFC2822),
+                'r'     => static::formatDateTime($dateTime, DateTime::RFC2822, $translation),
                 default => $dateTime->format($matches[1] ?? $matches[0])
             },
             $format
-        );
+        ) ?? throw new RuntimeException(sprintf('Date formatting failed with error: %s', preg_last_error_msg()));
     }
 
     /**
      * The same as self::formatDateTime() but takes a timestamp instead of a DateTime object
      */
-    public static function formatTimestamp(int $timestamp, ?string $format = null, ?string $language = null): string
+    public static function formatTimestamp(int $timestamp, string $format, Translation $translation): string
     {
-        return static::formatDateTime((new DateTime())->setTimestamp($timestamp), $format, $language);
+        return static::formatDateTime((new DateTime())->setTimestamp($timestamp), $format, $translation);
     }
 
     /**
      * Formats a DateTime object as a time distance from now
      */
-    public static function formatDateTimeAsDistance(DateTime $dateTime, ?string $language = null): string
+    public static function formatDateTimeAsDistance(DateTime $dateTime, Translation $translation): string
     {
-        $language ??= App::instance()->translations()->getCurrent()->code();
-
-        $translation = App::instance()->translations()->get($language, fallbackIfInvalid: true);
-
         $time = $dateTime->getTimestamp();
         $now = time();
 
@@ -213,22 +202,9 @@ class Date
     /**
      * The same as self::formatDateTimeAsDistance() but takes a timestamp instead of a DateTime object
      */
-    public static function formatTimestampAsDistance(int $timestamp, ?string $language = null): string
+    public static function formatTimestampAsDistance(int $timestamp, Translation $translation): string
     {
-        return static::formatDateTimeAsDistance((new DateTime())->setTimestamp($timestamp), $language);
-    }
-
-    /**
-     * Get default date formats from config
-     *
-     * @return array<string>
-     */
-    protected static function getDefaultFormats(): array
-    {
-        return [
-            App::instance()->config()->get('system.date.dateFormat'),
-            App::instance()->config()->get('system.date.datetimeFormat'),
-        ];
+        return static::formatDateTimeAsDistance((new DateTime())->setTimestamp($timestamp), $translation);
     }
 
     /**

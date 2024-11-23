@@ -494,8 +494,13 @@ class Page extends Model implements Stringable
             $num = $this->num();
 
             if ($mode === 'date' && $num !== null) {
+                $formats = [
+                    App::instance()->config()->get('system.date.dateFormat'),
+                    App::instance()->config()->get('system.date.datetimeFormat'),
+                ];
+
                 $timestamp = isset($this->data['publishDate'])
-                    ? Date::toTimestamp($this->data['publishDate'])
+                    ? Date::toTimestamp($this->data['publishDate'], $formats)
                     : $this->contentFile()?->lastModifiedTime();
 
                 if ($num === (int) date(self::DATE_NUM_FORMAT, $timestamp)) {
