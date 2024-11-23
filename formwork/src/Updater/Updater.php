@@ -19,12 +19,12 @@ class Updater
     /**
      * GitHub repository from which updates are retrieved
      */
-    protected const REPOSITORY = 'getformwork/formwork';
+    protected const string REPOSITORY = 'getformwork/formwork';
 
     /**
      * GitHub API latest release URI
      */
-    protected const API_RELEASE_URI = 'https://api.github.com/repos/' . self::REPOSITORY . '/releases/latest';
+    protected const string API_RELEASE_URI = 'https://api.github.com/repos/' . self::REPOSITORY . '/releases/latest';
 
     /**
      * Updater options

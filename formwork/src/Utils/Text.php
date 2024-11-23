@@ -12,22 +12,22 @@ class Text
     /**
      * Regex matching whitespace characters
      */
-    protected const WHITESPACE_REGEX = '/[\s\xb\p{Z}]+/u';
+    protected const string WHITESPACE_REGEX = '/[\s\xb\p{Z}]+/u';
 
     /**
      * Normalized whitespace sequence
      */
-    protected const WHITESPACE_SEQUENCE = ' ';
+    protected const string WHITESPACE_SEQUENCE = ' ';
 
     /**
      * Default sequence appended when text is truncated
      */
-    protected const DEFAULT_ELLIPSIS_SEQUENCE = '…';
+    protected const string DEFAULT_ELLIPSIS_SEQUENCE = '…';
 
     /**
      * Default words per minute used to determine reading time
      */
-    protected const DEFAULT_WORDS_PER_MINUTE = 180;
+    protected const int DEFAULT_WORDS_PER_MINUTE = 180;
 
     /**
      * Normalize whitespace of a given text

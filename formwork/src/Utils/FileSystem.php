@@ -15,57 +15,61 @@ class FileSystem
     /**
      * List only files flag
      */
-    public const LIST_FILES = 1;
+    public const int LIST_FILES = 1;
 
     /**
      * List only directories flag
      */
-    public const LIST_DIRECTORIES = 2;
+    public const int LIST_DIRECTORIES = 2;
 
     /**
      * List hidden files flag
      */
-    public const LIST_HIDDEN = 4;
+    public const int LIST_HIDDEN = 4;
 
     /**
      * List visible files and directories flag
      */
-    public const LIST_VISIBLE = self::LIST_FILES | self::LIST_DIRECTORIES;
+    public const int LIST_VISIBLE = self::LIST_FILES | self::LIST_DIRECTORIES;
 
     /**
      * List visible and hidden files and directories flag
      */
-    public const LIST_ALL = self::LIST_FILES | self::LIST_DIRECTORIES | self::LIST_HIDDEN;
+    public const int LIST_ALL = self::LIST_FILES | self::LIST_DIRECTORIES | self::LIST_HIDDEN;
 
     /**
      * Maximum path length provided by the system
      */
-    public const MAX_PATH_LENGTH = PHP_MAXPATHLEN - 2;
+    public const int MAX_PATH_LENGTH = PHP_MAXPATHLEN - 2;
 
     /**
      * Maximum directory or filename length
      */
-    public const MAX_NAME_LENGTH = 255;
+    public const int MAX_NAME_LENGTH = 255;
 
     /**
      * Default mode for created files
      */
-    protected const DEFAULT_FILE_MODE = 0o666;
+    protected const int DEFAULT_FILE_MODE = 0o666;
 
     /**
      * Default mode for created directories
      */
-    protected const DEFAULT_DIRECTORY_MODE = 0o777;
+    protected const int DEFAULT_DIRECTORY_MODE = 0o777;
 
     /**
      * Array containing files to ignore
+     *
+     * @var list<string>
      */
-    protected const IGNORED_FILES = ['.', '..'];
+    protected const array IGNORED_FILES = ['.', '..'];
 
     /**
      * Array containing units of measurement for human-readable file sizes
+     *
+     * @var list<string>
      */
-    protected const FILE_SIZE_UNITS = ['B', 'KB', 'MB', 'GB', 'TB'];
+    protected const array FILE_SIZE_UNITS = ['B', 'KB', 'MB', 'GB', 'TB'];
 
     /**
      * Normalize path slashes

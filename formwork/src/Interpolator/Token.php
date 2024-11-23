@@ -9,32 +9,32 @@ class Token implements Stringable
     /**
      * Identifier token type
      */
-    public const TYPE_IDENTIFIER = 'identifier';
+    public const string TYPE_IDENTIFIER = 'identifier';
 
     /**
      * Number token type
      */
-    public const TYPE_NUMBER = 'number';
+    public const string TYPE_NUMBER = 'number';
 
     /**
      * String token type
      */
-    public const TYPE_STRING = 'string';
+    public const string TYPE_STRING = 'string';
 
     /**
      * Punctuation token type
      */
-    public const TYPE_PUNCTUATION = 'punctuation';
+    public const string TYPE_PUNCTUATION = 'punctuation';
 
     /**
      * Arrow token type
      */
-    public const TYPE_ARROW = 'arrow';
+    public const string TYPE_ARROW = 'arrow';
 
     /**
      * End token type
      */
-    public const TYPE_END = 'end';
+    public const string TYPE_END = 'end';
 
     public function __construct(protected string $type, protected ?string $value, protected int $position)
     {

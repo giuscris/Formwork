@@ -8,9 +8,10 @@ use Rector\Config\RectorConfig;
 use Rector\Php74\Rector\Closure\ClosureToArrowFunctionRector;
 use Rector\Php80\Rector\Switch_\ChangeSwitchToMatchRector;
 use Rector\Php81\Rector\FuncCall\NullToStrictStringFuncCallArgRector;
+use Rector\Php83\Rector\ClassMethod\AddOverrideAttributeToOverriddenMethodsRector;
 
 return RectorConfig::configure()
-    ->withPhpSets(php82: true)
+    ->withPhpSets(php83: true)
     ->withPreparedSets(deadCode: true, codeQuality: true, earlyReturn: true, naming: true, instanceOf: true)
     ->withImportNames(importShortClasses: false)
     ->withPaths([
@@ -27,4 +28,5 @@ return RectorConfig::configure()
         CompactToVariablesRector::class,
         FlipTypeControlToUseExclusiveTypeRector::class,
         NullToStrictStringFuncCallArgRector::class,
+        AddOverrideAttributeToOverriddenMethodsRector::class,
     ]);

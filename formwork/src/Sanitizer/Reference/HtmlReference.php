@@ -4,7 +4,10 @@ namespace Formwork\Sanitizer\Reference;
 
 class HtmlReference
 {
-    public const ALLOWED_ELEMENTS = [
+    /**
+     * @var list<string>
+     */
+    public const array ALLOWED_ELEMENTS = [
         'a',
         'abbr',
         'acronym',
@@ -135,7 +138,10 @@ class HtmlReference
         'xmp',
     ];
 
-    public const ALLOWED_ATTRIBUTES = [
+    /**
+     * @var list<string>
+     */
+    public const array ALLOWED_ATTRIBUTES = [
         'abbr',
         'accept-charset',
         'accept',
@@ -352,7 +358,10 @@ class HtmlReference
         'wrap',
     ];
 
-    public const URI_ATTRIBUTES = [
+    /**
+     * @var list<string>
+     */
+    public const array URI_ATTRIBUTES = [
         'action',
         'src',
         'href',

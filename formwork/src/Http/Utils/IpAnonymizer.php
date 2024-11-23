@@ -12,12 +12,12 @@ class IpAnonymizer
     /**
      * IPv4 addresses mask
      */
-    protected const IPV4_MASK = '255.255.255.0';
+    protected const string IPV4_MASK = '255.255.255.0';
 
     /**
      * IPv6 addresses mask
      */
-    protected const IPV6_MASK = 'ffff:ffff:ffff:ffff::';
+    protected const string IPV6_MASK = 'ffff:ffff:ffff:ffff::';
 
     /**
      * Anonymize an IP address

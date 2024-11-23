@@ -10,18 +10,24 @@ class Constraint
 
     /**
      * Values considered true when parsed as boolean
+     *
+     * @var list<mixed>
      */
-    public const TRUTHY_VALUES = [true, 1, 'true', '1', 'on', 'yes'];
+    public const array TRUTHY_VALUES = [true, 1, 'true', '1', 'on', 'yes'];
 
     /**
      * Values considered false when parsed as boolean
+     *
+     * @var list<mixed>
      */
-    public const FALSY_VALUES = [false, 0, 'false', '0', 'off', 'no'];
+    public const array FALSY_VALUES = [false, 0, 'false', '0', 'off', 'no'];
 
     /**
      * Values considered null when parsed as such
+     *
+     * @var list<mixed>
      */
-    public const EMPTY_VALUES = [null, '', []];
+    public const array EMPTY_VALUES = [null, '', []];
 
     /**
      * Return whether a value is considered true when parsed as boolean

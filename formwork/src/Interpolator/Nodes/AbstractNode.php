@@ -9,7 +9,7 @@ abstract class AbstractNode implements Stringable
     /**
      * Node type
      */
-    public const TYPE = 'node';
+    public const string TYPE = 'node';
 
     /**
      * Node value

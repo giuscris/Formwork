@@ -22,7 +22,7 @@
 ![](site/pages/index/formwork.png)
 
 ## Requirements
-- PHP **8.2** or higher
+- PHP **8.3** or higher
 - PHP extensions `dom`, `fileinfo`, `gd`, `mbstring`, `openssl` and `zip`
 
 ## Installing

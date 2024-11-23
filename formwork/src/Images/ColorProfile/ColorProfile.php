@@ -8,9 +8,9 @@ use UnexpectedValueException;
 
 class ColorProfile
 {
-    protected const ICC_PROFILE_SIGNATURE = 'acsp';
+    protected const string ICC_PROFILE_SIGNATURE = 'acsp';
 
-    protected const ICC_PROFILE_SIGNATURE_OFFSET = 36;
+    protected const int ICC_PROFILE_SIGNATURE_OFFSET = 36;
 
     /**
      * @var array<string, mixed>

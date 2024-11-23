@@ -7,7 +7,12 @@ use GdImage;
 
 class Flip extends AbstractTransform
 {
-    protected const DIRECTIONS = [
+    /**
+     * Flip directions
+     *
+     * @var array<string, int>
+     */
+    protected const array DIRECTIONS = [
         'Horizontal' => IMG_FLIP_HORIZONTAL,
         'Vertical'   => IMG_FLIP_VERTICAL,
         'Both'       => IMG_FLIP_BOTH,

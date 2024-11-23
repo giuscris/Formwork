@@ -26,7 +26,7 @@ class Site extends Model implements Stringable
     use PageUid;
     use PageUri;
 
-    protected const MODEL_IDENTIFIER = 'site';
+    protected const string MODEL_IDENTIFIER = 'site';
 
     /**
      * Site path

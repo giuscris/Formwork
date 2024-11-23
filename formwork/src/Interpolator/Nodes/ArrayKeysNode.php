@@ -7,7 +7,7 @@ class ArrayKeysNode extends AbstractNode
     /**
      * @inheritdoc
      */
-    public const TYPE = 'array keys';
+    public const string TYPE = 'array keys';
 
     /**
      * @param list<array-key> $value

@@ -7,7 +7,7 @@ class StringNode extends AbstractNode
     /**
      * @inheritdoc
      */
-    public const TYPE = 'string';
+    public const string TYPE = 'string';
 
     public function __construct(string $value)
     {

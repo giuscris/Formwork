@@ -21,28 +21,34 @@ class Router
 {
     /**
      * Valid request types
+     *
+     * @var list<string>
      */
-    protected const REQUEST_TYPES = ['HTTP', 'XHR'];
+    protected const array REQUEST_TYPES = ['HTTP', 'XHR'];
 
     /**
      * Valid request methods
+     *
+     * @var list<string>
      */
-    protected const REQUEST_METHODS = ['HEAD', 'GET', 'POST', 'PUT', 'PATCH', 'DELETE'];
+    protected const array REQUEST_METHODS = ['HEAD', 'GET', 'POST', 'PUT', 'PATCH', 'DELETE'];
 
     /**
      * Valid param separators
      */
-    protected const PARAMS_SEPARATORS = '/,;.:-_';
+    protected const string PARAMS_SEPARATORS = '/,;.:-_';
 
     /**
      * Route params regex
      */
-    protected const PARAMS_REGEX = '~([' . self::PARAMS_SEPARATORS . '])?{([A-Za-z0-9_]+)(?::([^{]+))?}(\?)?~';
+    protected const string PARAMS_REGEX = '~([' . self::PARAMS_SEPARATORS . '])?{([A-Za-z0-9_]+)(?::([^{]+))?}(\?)?~';
 
     /**
      * Array containing route patterns shortcuts
+     *
+     * @var array<string, string>
      */
-    protected const PATTERN_SHORTCUTS = [
+    protected const array PATTERN_SHORTCUTS = [
         'all'     => '[^?#]+',
         'any'     => '[^/?#]+',
         'slug'    => '[A-Za-z0-9]+(?:-[A-Za-z0-9]+)*',

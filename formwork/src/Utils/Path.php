@@ -12,12 +12,12 @@ class Path
     /**
      * Default path separator (forward slash)
      */
-    protected const DEFAULT_SEPARATOR = '/';
+    protected const string DEFAULT_SEPARATOR = '/';
 
     /**
      * Regex matching multiple separators (forward and backward slash) to split paths into segments
      */
-    protected const SEPARATORS_REGEX = '~[/\\\]+~';
+    protected const string SEPARATORS_REGEX = '~[/\\\]+~';
 
     /**
      * Return whether a path is absolute

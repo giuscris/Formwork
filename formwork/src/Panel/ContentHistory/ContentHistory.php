@@ -8,9 +8,9 @@ use Formwork\Utils\FileSystem;
 
 class ContentHistory
 {
-    public const HISTORY_FILENAME = '.history';
+    public const string HISTORY_FILENAME = '.history';
 
-    public const HISTORY_DEFAULT_LIMIT = 1;
+    public const int HISTORY_DEFAULT_LIMIT = 1;
 
     protected ContentHistoryItemCollection $items;
 

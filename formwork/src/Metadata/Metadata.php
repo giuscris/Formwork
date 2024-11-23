@@ -7,7 +7,12 @@ use Stringable;
 
 class Metadata implements Stringable
 {
-    protected const HTTP_EQUIV_NAMES = ['content-type', 'default-style', 'refresh'];
+    /**
+     * List of metadata names that are http-equiv directives
+     *
+     * @var list<string>
+     */
+    protected const array HTTP_EQUIV_NAMES = ['content-type', 'default-style', 'refresh'];
 
     /**
      * Metadata name

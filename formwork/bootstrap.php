@@ -1,7 +1,7 @@
 <?php
 
 // Check PHP version requirements
-if (!version_compare(PHP_VERSION, '8.2.0', '>=')) {
+if (!version_compare(PHP_VERSION, '8.3.0', '>=')) {
     require __DIR__ . '/views/errors/phpversion.php';
     exit;
 }

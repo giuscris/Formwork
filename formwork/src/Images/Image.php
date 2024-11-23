@@ -39,9 +39,9 @@ use RuntimeException;
 
 class Image extends File
 {
-    protected const MODEL_IDENTIFIER = 'image';
+    protected const string MODEL_IDENTIFIER = 'image';
 
-    protected const SCHEME_IDENTIFIER = 'files.image';
+    protected const string SCHEME_IDENTIFIER = 'files.image';
 
     #[ReadonlyModelProperty]
     protected AbstractHandler $handler;

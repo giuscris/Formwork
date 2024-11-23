@@ -8,7 +8,7 @@ use RuntimeException;
 
 class FileResponse extends Response
 {
-    protected const CHUNK_SIZE = 512 * 1024;
+    protected const int CHUNK_SIZE = 512 * 1024;
 
     protected int $fileSize;
 

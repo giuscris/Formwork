@@ -7,9 +7,9 @@ use Stringable;
 
 class ExifDateTime extends DateTimeImmutable implements Stringable
 {
-    public const EXIF = 'Y:m:d H:i:s';
+    public const string EXIF = 'Y:m:d H:i:s';
 
-    public const EXIF_EXTENDED = self::EXIF . '.uP';
+    public const string EXIF_EXTENDED = self::EXIF . '.uP';
 
     public function __toString(): string
     {

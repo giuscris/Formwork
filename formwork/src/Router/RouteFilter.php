@@ -8,13 +8,17 @@ class RouteFilter
 {
     /**
      * Default filter methods
+     *
+     * @var list<value-of<Router::REQUEST_METHODS>>
      */
-    protected const DEFAULT_METHODS = ['GET'];
+    protected const array DEFAULT_METHODS = ['GET'];
 
     /**
      * Default filter types
+     *
+     * @var list<value-of<Router::REQUEST_TYPES>>
      */
-    protected const DEFAULT_TYPES = ['HTTP'];
+    protected const array DEFAULT_TYPES = ['HTTP'];
 
     /**
      * Filter action

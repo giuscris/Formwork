@@ -7,7 +7,7 @@ class ArgumentsNode extends AbstractNode
     /**
      * @inheritdoc
      */
-    public const TYPE = 'arguments';
+    public const string TYPE = 'arguments';
 
     /**
      * @param list<AbstractNode> $value

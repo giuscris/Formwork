@@ -7,7 +7,7 @@ class ArrayNode extends AbstractNode
     /**
      * @inheritdoc
      */
-    public const TYPE = 'array';
+    public const string TYPE = 'array';
 
     /**
      * @param list<mixed> $value

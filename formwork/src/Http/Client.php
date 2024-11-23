@@ -14,12 +14,12 @@ class Client
     /**
      * Default Formwork user agent
      */
-    protected const DEFAULT_USER_AGENT = 'PHP Formwork/' . App::VERSION;
+    protected const string DEFAULT_USER_AGENT = 'PHP Formwork/' . App::VERSION;
 
     /**
      * Regex matching HTTP status line
      */
-    protected const STATUS_LINE_REGEX = '~^(HTTP/\d+\.\d+)\s+(\d+)\s+(.+)~i';
+    protected const string STATUS_LINE_REGEX = '~^(HTTP/\d+\.\d+)\s+(\d+)\s+(.+)~i';
 
     /**
      * Client options

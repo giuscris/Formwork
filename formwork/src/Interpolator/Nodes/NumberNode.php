@@ -7,7 +7,7 @@ class NumberNode extends AbstractNode
     /**
      * @inheritdoc
      */
-    public const TYPE = 'number';
+    public const string TYPE = 'number';
 
     public function __construct(float|int $value)
     {

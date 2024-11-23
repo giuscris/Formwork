@@ -11,8 +11,10 @@ class ZipErrors
 
     /**
      * Human-readable ZipArchive error messages
+     *
+     * @var array<int, string>
      */
-    public const ERROR_MESSAGES = [
+    public const array ERROR_MESSAGES = [
         ZipArchive::ER_MULTIDISK   => 'Multi-disk zip archives not supported',
         ZipArchive::ER_RENAME      => 'Renaming temporary file failed',
         ZipArchive::ER_CLOSE       => 'Closing zip archive failed',
@@ -40,8 +42,10 @@ class ZipErrors
 
     /**
      * ZipArchive errors language strings
+     *
+     * @var array<int, string>
      */
-    public const ERROR_LANGUAGE_STRINGS = [
+    public const array ERROR_LANGUAGE_STRINGS = [
         ZipArchive::ER_MULTIDISK   => 'zip.error.unspecified',
         ZipArchive::ER_RENAME      => 'zip.error.unspecified',
         ZipArchive::ER_CLOSE       => 'zip.error.unspecified',

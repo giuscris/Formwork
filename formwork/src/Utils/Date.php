@@ -16,33 +16,59 @@ class Date
     /**
      * Characters used in formats accepted by date()
      */
-    protected const DATE_FORMAT_CHARACTERS = 'AaBcDdeFgGHhIijlLMmnNoOpPrsSTtUuvWwyYzZ';
+    protected const string DATE_FORMAT_CHARACTERS = 'AaBcDdeFgGHhIijlLMmnNoOpPrsSTtUuvWwyYzZ';
 
     /**
      * Regex used to parse formats accepted by date()
      */
-    protected const DATE_FORMAT_REGEX = '/(?P<escaped>(?:\\\[A-Za-z])+)|[' . self::DATE_FORMAT_CHARACTERS . ']|(?P<invalid>[A-Za-z])/';
+    protected const string DATE_FORMAT_REGEX = '/(?P<escaped>(?:\\\[A-Za-z])+)|[' . self::DATE_FORMAT_CHARACTERS . ']|(?P<invalid>[A-Za-z])/';
 
     /**
      * Regex used to parse date patterns like 'DD/MM/YYYY hh:mm:ss'
      */
-    protected const PATTERN_REGEX = '/(?:\[(?P<escaped>[^\]]+)\])|[YR]{4}|uuu|[YR]{2}|[MD]{1,4}|[WHhms]{1,2}|[AaZz]|(?P<invalid>[A-Za-z]+)/';
+    protected const string PATTERN_REGEX = '/(?:\[(?P<escaped>[^\]]+)\])|[YR]{4}|uuu|[YR]{2}|[MD]{1,4}|[WHhms]{1,2}|[AaZz]|(?P<invalid>[A-Za-z]+)/';
 
     /**
      * Array used to translate pattern tokens to their date() format counterparts
+     *
+     * @var array<string, string>
      */
-    protected const PATTERN_TO_DATE_FORMAT = [
-        'YY' => 'y', 'YYYY' => 'Y', 'M' => 'n', 'MM' => 'm', 'MMM' => 'M', 'MMMM' => 'F',
-        'D'  => 'j', 'DD' => 'd', 'DDD' => 'D', 'DDDD' => 'l', 'W' => 'W', 'WW' => 'W',
-        'RR' => 'o', 'RRRR' => 'o', 'H' => 'g', 'HH' => 'h', 'h' => 'G', 'hh' => 'H',
-        'm'  => 'i', 'mm' => 'i', 's' => 's', 'ss' => 's', 'uuu' => 'v', 'A' => 'A',
-        'a'  => 'a', 'Z' => 'P', 'z' => 'O',
+    protected const array PATTERN_TO_DATE_FORMAT = [
+        'YY'   => 'y',
+        'YYYY' => 'Y',
+        'M'    => 'n',
+        'MM'   => 'm',
+        'MMM'  => 'M',
+        'MMMM' => 'F',
+        'D'    => 'j',
+        'DD'   => 'd',
+        'DDD'  => 'D',
+        'DDDD' => 'l',
+        'W'    => 'W',
+        'WW'   => 'W',
+        'RR'   => 'o',
+        'RRRR' => 'o',
+        'H'    => 'g',
+        'HH'   => 'h',
+        'h'    => 'G',
+        'hh'   => 'H',
+        'm'    => 'i',
+        'mm'   => 'i',
+        's'    => 's',
+        'ss'   => 's',
+        'uuu'  => 'v',
+        'A'    => 'A',
+        'a'    => 'a',
+        'Z'    => 'P',
+        'z'    => 'O',
     ];
 
     /**
      * Time intervals in seconds
+     *
+     * @var array<string, int>
      */
-    protected const TIME_INTERVALS = [
+    protected const array TIME_INTERVALS = [
         'years'   => 60 * 60 * 24 * 365,
         'months'  => 60 * 60 * 24 * 30,
         'weeks'   => 60 * 60 * 24 * 7,

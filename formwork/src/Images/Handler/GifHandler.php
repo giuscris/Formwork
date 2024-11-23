@@ -14,7 +14,7 @@ use UnexpectedValueException;
 
 class GifHandler extends AbstractHandler
 {
-    protected const NETSCAPE_EXT_HEADER = "!\xff\x0bNETSCAPE2.0";
+    protected const string NETSCAPE_EXT_HEADER = "!\xff\x0bNETSCAPE2.0";
 
     public function getInfo(): ImageInfo
     {

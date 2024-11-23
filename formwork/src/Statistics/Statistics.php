@@ -17,32 +17,32 @@ class Statistics
     /**
      * Date format
      */
-    protected const DATE_FORMAT = 'Ymd';
+    protected const string DATE_FORMAT = 'Ymd';
 
     /**
      * Number of days displayed in the statistics chart
      */
-    protected const CHART_LIMIT = 7;
+    protected const int CHART_LIMIT = 7;
 
     /**
      * Visits registry filename
      */
-    protected const VISITS_FILENAME = 'visits.json';
+    protected const string VISITS_FILENAME = 'visits.json';
 
     /**
      * Unique visits registry filename
      */
-    protected const UNIQUE_VISITS_FILENAME = 'uniqueVisits.json';
+    protected const string UNIQUE_VISITS_FILENAME = 'uniqueVisits.json';
 
     /**
      * Visitors registry filename
      */
-    protected const VISITORS_FILENAME = 'visitors.json';
+    protected const string VISITORS_FILENAME = 'visitors.json';
 
     /**
      * Page views registry filename
      */
-    protected const PAGE_VIEWS_FILENAME = 'pageViews.json';
+    protected const string PAGE_VIEWS_FILENAME = 'pageViews.json';
 
     /**
      * Visits registry

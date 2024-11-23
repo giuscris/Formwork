@@ -11,8 +11,10 @@ class LanguageCodes
 
     /**
      * All available language codes
+     *
+     * @var array<string, array{name: string, native: string, rtl?: bool, continents: list<'AF'|'AS'|'EU'|'NA'|'OC'|'SA'>}>
      */
-    protected const LANGUAGE_CODES = [
+    protected const array LANGUAGE_CODES = [
         'af' => ['name' => 'Afrikaans', 'native' => 'Afrikaans', 'continents' => ['AF']],
         'am' => ['name' => 'Amharic', 'native' => 'አማርኛ', 'continents' => ['AF']],
         'ar' => ['name' => 'Arabic', 'native' => 'العربية', 'rtl' => true, 'continents' => ['AF', 'AS']],

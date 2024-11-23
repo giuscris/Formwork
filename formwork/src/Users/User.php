@@ -18,9 +18,9 @@ use SensitiveParameter;
 
 class User extends Model
 {
-    public const SESSION_LOGGED_USER_KEY = '_formwork_logged_user';
+    public const string SESSION_LOGGED_USER_KEY = '_formwork_logged_user';
 
-    protected const MODEL_IDENTIFIER = 'user';
+    protected const string MODEL_IDENTIFIER = 'user';
 
     /**
      * Default data of the user
