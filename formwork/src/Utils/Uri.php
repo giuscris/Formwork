@@ -2,7 +2,6 @@
 
 namespace Formwork\Utils;
 
-use Formwork\App;
 use Formwork\Traits\StaticClass;
 use InvalidArgumentException;
 
@@ -23,24 +22,10 @@ class Uri
     protected static ?string $current = null;
 
     /**
-     * Get current URI
-     */
-    public static function current(): string
-    {
-        if (!isset(static::$current)) {
-            static::$current = static::base() . rtrim(App::instance()->request()->root(), '/') . App::instance()->request()->uri();
-        }
-        return static::$current;
-    }
-
-    /**
      * Get the scheme of current or a given URI
      */
-    public static function scheme(?string $uri = null): ?string
+    public static function scheme(string $uri): ?string
     {
-        if ($uri === null) {
-            return App::instance()->request()->isSecure() ? 'https' : 'http';
-        }
         $scheme = static::parseComponent($uri, PHP_URL_SCHEME);
         return $scheme !== null ? strtolower((string) $scheme) : null;
     }
@@ -48,11 +33,8 @@ class Uri
     /**
      * Get the host of current or a given URI
      */
-    public static function host(?string $uri = null): ?string
+    public static function host(string $uri): ?string
     {
-        if ($uri === null) {
-            return strtolower((string) $_SERVER['SERVER_NAME']);
-        }
         $host = static::parseComponent($uri, PHP_URL_HOST);
         return $host !== null ? strtolower((string) $host) : null;
     }
@@ -60,76 +42,65 @@ class Uri
     /**
      * Get the port of current or a given URI
      */
-    public static function port(?string $uri = null): ?int
+    public static function port(string $uri): ?int
     {
-        if ($uri === null) {
-            return (int) $_SERVER['SERVER_PORT'];
-        }
-        return static::parseComponent($uri, PHP_URL_PORT) ?? static::getDefaultPort(static::scheme($uri));
+        return static::parseComponent($uri, PHP_URL_PORT);
     }
 
     /**
      * Return the default port of current URI or a given scheme
      */
-    public static function getDefaultPort(?string $scheme = null): ?int
+    public static function getDefaultPort(string $scheme): int
     {
-        $scheme ??= static::scheme();
-        return self::DEFAULT_PORTS[$scheme] ?? null;
+        return self::DEFAULT_PORTS[$scheme] ?? throw new InvalidArgumentException(sprintf('Unknown scheme "%s"', $scheme));
     }
 
     /**
      * Return whether current or a given port is default
      */
-    public static function isDefaultPort(?int $port = null, ?string $scheme = null): bool
+    public static function isDefaultPort(int $port, string $scheme): bool
     {
-        $port ??= static::port();
-        $scheme ??= static::scheme();
-        return $port !== null && $scheme !== null && $port === static::getDefaultPort($scheme);
+        return $port === static::getDefaultPort($scheme);
     }
 
     /**
      * Get the path of current or a given URI
      */
-    public static function path(?string $uri = null): ?string
+    public static function path(string $uri): ?string
     {
-        $uri ??= static::current();
         return static::parseComponent($uri, PHP_URL_PATH);
     }
 
     /**
      * Get the absolute path of current or a given URI
      */
-    public static function absolutePath(?string $uri = null): string
+    public static function absolutePath(string $uri): string
     {
-        $uri ??= static::current();
         return static::base($uri) . static::path($uri);
     }
 
     /**
      * Get the query of current or a given URI
      */
-    public static function query(?string $uri = null): ?string
+    public static function query(string $uri): ?string
     {
-        $uri ??= static::current();
         return static::parseComponent($uri, PHP_URL_QUERY);
     }
 
     /**
      * Get the fragment of current or a given URI
      */
-    public static function fragment(?string $uri = null): ?string
+    public static function fragment(string $uri): ?string
     {
-        $uri ??= static::current();
         return static::parseComponent($uri, PHP_URL_FRAGMENT);
     }
 
     /**
      * Get the base URI (scheme://host:port) of current or a given URI
      */
-    public static function base(?string $uri = null): string
+    public static function base(string $uri): string
     {
-        $port = static::port($uri);
-        return static::scheme($uri) . '://' . static::host($uri) . (static::isDefaultPort($port, static::scheme($uri)) ? '' : ':' . $port);
+        return sprintf('%s://%s%s', static::scheme($uri), static::host($uri), static::port($uri) !== null ? ':' . static::port($uri) : '');
     }
 
     /**
@@ -137,9 +108,8 @@ class Uri
      *
      * @return array<array<string>|string>
      */
-    public static function queryToArray(?string $uri = null): array
+    public static function queryToArray(string $uri): array
     {
-        $uri ??= static::current();
         parse_str(static::query($uri) ?? '', $array);
         return $array;
     }
@@ -150,9 +120,8 @@ class Uri
      *
      * @return array{scheme: ?string, host: ?string, port: ?int, path: ?string, query: ?string, fragment: ?string}
      */
-    public static function parse(?string $uri = null): array
+    public static function parse(string $uri): array
     {
-        $uri ??= static::current();
         return [
             'scheme'   => static::scheme($uri),
             'host'     => static::host($uri),
@@ -170,7 +139,7 @@ class Uri
      *
      * @see Uri::parse()
      */
-    public static function make(array $parts, ?string $uri = null, bool $forcePort = false): string
+    public static function make(array $parts, string $uri, bool $forcePort = false): string
     {
         $givenParts = array_keys($parts);
         $parts = [...static::parse($uri), ...$parts];
@@ -212,27 +181,24 @@ class Uri
     /**
      * Remove query from current or a given URI
      */
-    public static function removeQuery(?string $uri = null): string
+    public static function removeQuery(string $uri): string
     {
-        $uri ??= static::current();
         return static::make(['query' => ''], $uri);
     }
 
     /**
      * Remove fragment from current or a given URI
      */
-    public static function removeFragment(?string $uri = null): string
+    public static function removeFragment(string $uri): string
     {
-        $uri ??= static::current();
         return static::make(['fragment' => ''], $uri);
     }
 
     /**
      * Resolve a relative URI against current or a given base URI
      */
-    public static function resolveRelative(string $uri, ?string $base = null): string
+    public static function resolveRelative(string $uri, string $base): string
     {
-        $base ??= static::current();
         if (Str::startsWith($uri, '#')) {
             return static::make(['fragment' => $uri], $base);
         }

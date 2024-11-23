@@ -40,7 +40,7 @@ class ToolsController extends AbstractController
             return $this->forward(ErrorsController::class, 'forbidden');
         }
 
-        $backupper = new Backupper($this->config);
+        $backupper = new Backupper([...$this->config->get('system.backup'), 'hostname' => $this->request->host()]);
 
         $backups = Arr::map($backupper->getBackups(), fn (string $path, int $timestamp): array => [
             'name'        => basename($path),

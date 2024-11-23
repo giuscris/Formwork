@@ -2,6 +2,7 @@
 
 namespace Formwork\Images;
 
+use Formwork\App;
 use Formwork\Files\File;
 use Formwork\Images\ColorProfile\ColorProfile;
 use Formwork\Images\Exif\ExifData;
@@ -71,7 +72,8 @@ class Image extends File
 
     public function absoluteUri(): string
     {
-        return Uri::resolveRelative($this->uri());
+        $request = App::instance()->request();
+        return Uri::resolveRelative($this->uri(), $request->absoluteUri());
     }
 
     public function mimeType(): string

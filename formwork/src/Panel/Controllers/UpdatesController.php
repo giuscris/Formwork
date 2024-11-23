@@ -50,7 +50,7 @@ class UpdatesController extends AbstractController
         }
 
         if ($this->config->get('system.updates.backupBefore')) {
-            $backupper = new Backupper($this->config);
+            $backupper = new Backupper([...$this->config->get('system.backup'), 'hostname' => $this->request->host()]);
             try {
                 $backupper->backup();
             } catch (TranslatedException) {

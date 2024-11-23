@@ -337,7 +337,7 @@ class PagesController extends AbstractController
         $this->panel->notify($this->translate('panel.pages.page.deleted'), 'success');
 
         // Try to redirect to referer unless it's to Pages@edit
-        if ($this->request->referer() !== null && !Str::startsWith(Uri::normalize($this->request->referer()), Uri::make(['path' => $this->panel->uri('/pages/' . $routeParams->get('page') . '/edit/')]))) {
+        if ($this->request->referer() !== null && !Str::startsWith(Uri::normalize($this->request->referer()), Uri::make(['path' => $this->panel->uri('/pages/' . $routeParams->get('page') . '/edit/')], $this->request->baseUri()))) {
             return $this->redirectToReferer(default: $this->generateRoute('panel.pages'), base: $this->panel->panelRoot());
         }
         return $this->redirect($this->generateRoute('panel.pages'));
@@ -444,7 +444,7 @@ class PagesController extends AbstractController
 
         $previousFileRoute = $this->generateRoute('panel.pages.file', ['page' => $routeParams->get('page'), 'filename' => $previousName]);
 
-        if (Str::removeEnd((string) Uri::path($this->request->referer()), '/') === $this->site->uri($previousFileRoute)) {
+        if (Str::removeEnd((string) Uri::path((string) $this->request->referer()), '/') === $this->site->uri($previousFileRoute)) {
             return $this->redirect($this->generateRoute('panel.pages.file', ['page' => $routeParams->get('page'), 'filename' => $newName]));
         }
 

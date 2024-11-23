@@ -2,10 +2,8 @@
 
 namespace Formwork;
 
-use Formwork\Config\Config;
 use Formwork\Exceptions\TranslatedException;
 use Formwork\Utils\FileSystem;
-use Formwork\Utils\Uri;
 use Formwork\Utils\ZipErrors;
 use ZipArchive;
 
@@ -17,18 +15,13 @@ class Backupper
     protected const string DATE_FORMAT = 'YmdHis';
 
     /**
-     * Backupper options
-     *
-     * @var array<string, mixed>
-     */
-    protected array $options = [];
-
-    /**
      * Return a new Backupper instance
+     *
+     * @param array<mixed> $options
      */
-    public function __construct(Config $config)
-    {
-        $this->options = $config->get('system.backup');
+    public function __construct(
+        protected array $options
+    ) {
     }
 
     /**
@@ -47,7 +40,7 @@ class Backupper
             FileSystem::createDirectory($this->options['path'], recursive: true);
         }
 
-        $name = sprintf('%s-%s-%s.zip', str_replace([' ', '.'], '-', Uri::host() ?? ''), $this->options['name'], date(self::DATE_FORMAT));
+        $name = sprintf('%s-%s-%s.zip', str_replace([' ', '.'], '-', $this->options['hostname'] ?? 'unknown-host'), $this->options['name'], date(self::DATE_FORMAT));
 
         $destination = FileSystem::joinPaths($path, $name);
 

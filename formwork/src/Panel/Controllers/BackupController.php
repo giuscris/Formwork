@@ -24,7 +24,7 @@ class BackupController extends AbstractController
             return $this->forward(ErrorsController::class, 'forbidden');
         }
 
-        $backupper = new Backupper($this->config);
+        $backupper = $backupper = new Backupper([...$this->config->get('system.backup'), 'hostname' => $this->request->host()]);
         try {
             $file = $backupper->backup();
         } catch (TranslatedException $e) {

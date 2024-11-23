@@ -49,6 +49,6 @@ trait PageUri
      */
     public function absoluteUri(string $path = '', bool|string $includeLanguage = true): string
     {
-        return Uri::resolveRelative($this->uri($path, $includeLanguage));
+        return Uri::resolveRelative($this->uri($path, $includeLanguage), App::instance()->request()->absoluteUri());
     }
 }
