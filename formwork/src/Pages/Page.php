@@ -657,6 +657,9 @@ class Page extends Model implements Stringable
             throw new RuntimeException('Unable to reload, the page has not been loaded yet');
         }
 
+        $app = $this->app;
+        $pageCollectionFactory = $this->pageCollectionFactory;
+
         $path = $this->path;
         $site = $this->site;
 
@@ -664,7 +667,7 @@ class Page extends Model implements Stringable
 
         $this->resetProperties();
 
-        $this->__construct($data, $this->app, $this->pageCollectionFactory);
+        $this->__construct($data, $app, $pageCollectionFactory);
     }
 
     /**

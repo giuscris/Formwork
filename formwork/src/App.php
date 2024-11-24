@@ -17,6 +17,7 @@ use Formwork\Http\Response;
 use Formwork\Images\ImageFactory;
 use Formwork\Languages\Languages;
 use Formwork\Pages\PageCollectionFactory;
+use Formwork\Pages\PageFactory;
 use Formwork\Pages\PaginationFactory;
 use Formwork\Panel\Panel;
 use Formwork\Router\Router;
@@ -190,6 +191,8 @@ final class App
         $container->define(Schemes::class)
             ->loader(SchemesServiceLoader::class)
             ->alias('schemes');
+
+        $container->define(PageFactory::class);
 
         $container->define(PaginationFactory::class);
 

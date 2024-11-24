@@ -11,11 +11,11 @@ use Formwork\Pages\Exceptions\PageNotFoundException;
 use Formwork\Pages\Page;
 use Formwork\Pages\PageCollection;
 use Formwork\Pages\PageCollectionFactory;
+use Formwork\Pages\PageFactory;
 use Formwork\Pages\Traits\PageTraversal;
 use Formwork\Pages\Traits\PageUid;
 use Formwork\Pages\Traits\PageUri;
 use Formwork\Schemes\Schemes;
-use Formwork\Services\Container;
 use Formwork\Templates\Templates;
 use Formwork\Users\Users;
 use Formwork\Utils\Arr;
@@ -105,7 +105,7 @@ class Site extends Model implements Stringable
         array $data,
         protected App $app,
         protected Config $config,
-        protected Container $container,
+        protected PageFactory $pageFactory,
         protected PageCollectionFactory $pageCollectionFactory,
     ) {
         $this->setMultiple($data);
@@ -294,7 +294,7 @@ class Site extends Model implements Stringable
      */
     public function retrievePage(string $path): Page
     {
-        return $this->storage[$path] ?? ($this->storage[$path] = $this->container->build(Page::class, ['data' => ['site' => $this, 'path' => $path]]));
+        return $this->storage[$path] ?? ($this->storage[$path] = $this->pageFactory->make(['site' => $this, 'path' => $path]));
     }
 
     public function retrievePages(string $path, bool $recursive = false): PageCollection

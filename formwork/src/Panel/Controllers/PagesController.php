@@ -15,11 +15,11 @@ use Formwork\Http\RequestMethod;
 use Formwork\Http\Response;
 use Formwork\Http\ResponseStatus;
 use Formwork\Pages\Page;
+use Formwork\Pages\PageFactory;
 use Formwork\Panel\ContentHistory\ContentHistory;
 use Formwork\Panel\ContentHistory\ContentHistoryEvent;
 use Formwork\Parsers\Yaml;
 use Formwork\Router\RouteParams;
-use Formwork\Services\Container;
 use Formwork\Site;
 use Formwork\Utils\Arr;
 use Formwork\Utils\Constraint;
@@ -67,7 +67,7 @@ class PagesController extends AbstractController
     /**
      * Pages@create action
      */
-    public function create(Container $container): Response
+    public function create(PageFactory $pageFactory): Response
     {
         if (!$this->hasPermission('pages.create')) {
             return $this->forward(ErrorsController::class, 'forbidden');
@@ -81,7 +81,7 @@ class PagesController extends AbstractController
             $fields->setValues($requestData)->validate();
 
             // Let's create the page
-            $page = $this->createPage($fields, $container);
+            $page = $this->createPage($fields, $pageFactory);
             $this->panel->notify($this->translate('panel.pages.page.created'), 'success');
         } catch (TranslatedException $e) {
             $this->panel->notify($this->translate($e->getLanguageString()), 'error');
@@ -557,9 +557,9 @@ class PagesController extends AbstractController
     /**
      * Create a new page
      */
-    protected function createPage(FieldCollection $fieldCollection, Container $container): Page
+    protected function createPage(FieldCollection $fieldCollection, PageFactory $pageFactory): Page
     {
-        $page = $container->build(Page::class, ['data' => ['site' => $this->site, 'published' => false]]);
+        $page = $pageFactory->make(['site' => $this->site, 'published' => false]);
 
         $data = $fieldCollection->everyItem()->value()->toArray();
 
