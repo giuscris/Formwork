@@ -10,6 +10,7 @@ use Formwork\Pages\ContentFile;
 use Formwork\Pages\Exceptions\PageNotFoundException;
 use Formwork\Pages\Page;
 use Formwork\Pages\PageCollection;
+use Formwork\Pages\PageCollectionFactory;
 use Formwork\Pages\Traits\PageTraversal;
 use Formwork\Pages\Traits\PageUid;
 use Formwork\Pages\Traits\PageUri;
@@ -105,6 +106,7 @@ class Site extends Model implements Stringable
         protected App $app,
         protected Config $config,
         protected Container $container,
+        protected PageCollectionFactory $pageCollectionFactory,
     ) {
         $this->setMultiple($data);
     }
@@ -138,12 +140,12 @@ class Site extends Model implements Stringable
 
     public function siblings(): PageCollection
     {
-        return $this->siblings ??= new PageCollection([]);
+        return $this->siblings ??= $this->pageCollectionFactory->make([]);
     }
 
     public function inclusiveSiblings(): PageCollection
     {
-        return $this->inclusiveSiblings ??= new PageCollection([$this->route() => $this]);
+        return $this->inclusiveSiblings ??= $this->pageCollectionFactory->make([$this->route() => $this]);
     }
 
     /**
@@ -318,7 +320,7 @@ class Site extends Model implements Stringable
             }
         }
 
-        $pageCollection = new PageCollection($pages);
+        $pageCollection = $this->pageCollectionFactory->make($pages);
 
         return $pageCollection->sortBy('relativePath');
     }

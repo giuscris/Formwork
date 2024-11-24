@@ -20,6 +20,14 @@ class PageCollection extends AbstractCollection implements Paginable
     protected Pagination $pagination;
 
     /**
+     * @param array<int|string, mixed> $data
+     */
+    public function __construct(array $data, protected PaginationFactory $paginationFactory)
+    {
+        parent::__construct($data);
+    }
+
+    /**
      * Return the Pagination object related to the collection
      */
     public function pagination(): Pagination
@@ -34,7 +42,7 @@ class PageCollection extends AbstractCollection implements Paginable
      */
     public function paginate(int $length, int $currentPage): self
     {
-        $pagination = new Pagination($this, $length);
+        $pagination = $this->paginationFactory->make($this, $length);
         $pagination->setCurrentPage($currentPage);
 
         $pageCollection = $this->slice($pagination->offset(), $pagination->length());

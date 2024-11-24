@@ -4,6 +4,7 @@ namespace Formwork\Pages\Traits;
 
 use Formwork\Pages\Page;
 use Formwork\Pages\PageCollection;
+use Formwork\Pages\PageCollectionFactory;
 use Formwork\Site;
 use Formwork\Utils\FileSystem;
 use RuntimeException;
@@ -14,6 +15,8 @@ trait PageTraversal
      * Parent page
      */
     protected Page|Site|null $parent;
+
+    protected PageCollectionFactory $pageCollectionFactory;
 
     /**
      * Collection of page children
@@ -105,7 +108,7 @@ trait PageTraversal
         }
 
         if ($this->contentPath() === null) {
-            return $this->children = new PageCollection();
+            return $this->children = $this->pageCollectionFactory->make([]);
         }
 
         return $this->children = $this->site()->retrievePages($this->contentPath());
@@ -137,7 +140,7 @@ trait PageTraversal
         }
 
         if ($this->contentPath() === null) {
-            return $this->descendants = new PageCollection();
+            return $this->descendants = $this->pageCollectionFactory->make([]);
         }
 
         return $this->descendants = $this->site()->retrievePages($this->contentPath(), recursive: true);
@@ -177,7 +180,7 @@ trait PageTraversal
             $page = $parent;
         }
 
-        return $this->ancestors = new PageCollection($ancestors);
+        return $this->ancestors = $this->pageCollectionFactory->make($ancestors);
     }
 
     /**
@@ -214,7 +217,7 @@ trait PageTraversal
         }
 
         if ($this->contentPath() === null || $this->parent() === null) {
-            return $this->inclusiveSiblings = new PageCollection([$this->route() => $this]);
+            return $this->inclusiveSiblings = $this->pageCollectionFactory->make([$this->route() => $this]);
         }
 
         return $this->inclusiveSiblings = $this->parent()->children();

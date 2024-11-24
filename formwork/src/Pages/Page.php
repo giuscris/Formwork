@@ -178,6 +178,7 @@ class Page extends Model implements Stringable
     public function __construct(
         array $data,
         protected App $app,
+        protected PageCollectionFactory $pageCollectionFactory,
     ) {
         $this->setMultiple($data);
 
@@ -663,7 +664,7 @@ class Page extends Model implements Stringable
 
         $this->resetProperties();
 
-        $this->__construct($data, $this->app);
+        $this->__construct($data, $this->app, $this->pageCollectionFactory);
     }
 
     /**
