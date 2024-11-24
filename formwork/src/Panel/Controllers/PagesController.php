@@ -19,6 +19,7 @@ use Formwork\Panel\ContentHistory\ContentHistory;
 use Formwork\Panel\ContentHistory\ContentHistoryEvent;
 use Formwork\Parsers\Yaml;
 use Formwork\Router\RouteParams;
+use Formwork\Services\Container;
 use Formwork\Site;
 use Formwork\Utils\Arr;
 use Formwork\Utils\Constraint;
@@ -66,7 +67,7 @@ class PagesController extends AbstractController
     /**
      * Pages@create action
      */
-    public function create(): Response
+    public function create(Container $container): Response
     {
         if (!$this->hasPermission('pages.create')) {
             return $this->forward(ErrorsController::class, 'forbidden');
@@ -80,7 +81,7 @@ class PagesController extends AbstractController
             $fields->setValues($requestData)->validate();
 
             // Let's create the page
-            $page = $this->createPage($fields);
+            $page = $this->createPage($fields, $container);
             $this->panel->notify($this->translate('panel.pages.page.created'), 'success');
         } catch (TranslatedException $e) {
             $this->panel->notify($this->translate($e->getLanguageString()), 'error');
@@ -556,9 +557,9 @@ class PagesController extends AbstractController
     /**
      * Create a new page
      */
-    protected function createPage(FieldCollection $fieldCollection): Page
+    protected function createPage(FieldCollection $fieldCollection, Container $container): Page
     {
-        $page = new Page(['site' => $this->site, 'published' => false]);
+        $page = $container->build(Page::class, ['data' => ['site' => $this->site, 'published' => false]]);
 
         $data = $fieldCollection->everyItem()->value()->toArray();
 

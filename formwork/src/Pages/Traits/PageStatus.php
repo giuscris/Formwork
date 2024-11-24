@@ -16,6 +16,8 @@ trait PageStatus
      */
     protected array $data = [];
 
+    protected App $app;
+
     /**
      * Page status
      */
@@ -38,8 +40,8 @@ trait PageStatus
         $now = time();
 
         $formats = [
-            App::instance()->config()->get('system.date.dateFormat'),
-            App::instance()->config()->get('system.date.datetimeFormat'),
+            $this->app->config()->get('system.date.dateFormat'),
+            $this->app->config()->get('system.date.datetimeFormat'),
         ];
 
         if ($publishDate = ($this->data['publishDate'] ?? null)) {
