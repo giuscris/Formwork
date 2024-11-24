@@ -3,8 +3,6 @@
 namespace Formwork\Templates;
 
 use Closure;
-use Formwork\App;
-use Formwork\Assets;
 use Formwork\Schemes\Scheme;
 use Formwork\Site;
 use Formwork\Utils\Constraint;
@@ -17,18 +15,20 @@ use Stringable;
 class Template implements Stringable
 {
     /**
-     * Template assets instance
-     */
-    protected Assets $assets;
-
-    protected string $path;
-
-    /**
      * Create a new Template instance
+     *
+     * @param array<string, mixed>   $vars
+     * @param array<string, Closure> $methods
      */
-    public function __construct(protected string $name, protected Scheme $scheme, protected App $app, protected Site $site, protected ViewFactory $viewFactory)
-    {
-        $this->path = $this->app->config()->get('system.templates.path');
+    public function __construct(
+        protected string $name,
+        protected array $vars,
+        protected string $path,
+        protected array $methods,
+        protected Scheme $scheme,
+        protected Site $site,
+        protected ViewFactory $viewFactory
+    ) {
     }
 
     public function __toString(): string
@@ -54,17 +54,6 @@ class Template implements Stringable
     public function path(): string
     {
         return $this->path;
-    }
-
-    /**
-     * Get Assets instance
-     */
-    public function assets(): Assets
-    {
-        return $this->assets ?? ($this->assets = new Assets(
-            FileSystem::joinPaths($this->path, 'assets'),
-            $this->site->uri('/site/templates/assets/', includeLanguage: false)
-        ));
     }
 
     /**
@@ -94,36 +83,12 @@ class Template implements Stringable
 
         $view = $this->viewFactory->make(
             $this->name,
-            [...$this->defaultVars(), ...$vars, ...$controllerVars],
+            [...$this->vars, ...$vars, ...$controllerVars],
             $this->path,
-            [...$this->defaultMethods()]
+            [...$this->methods]
         );
 
         return $view->render();
-    }
-
-    /**
-     * @return array<string, mixed>
-     */
-    protected function defaultVars(): array
-    {
-        return [
-            'router'    => $this->app->router(),
-            'site'      => $this->site,
-            'csrfToken' => $this->app->getService('csrfToken'),
-        ];
-    }
-
-    /**
-     * Default template methods
-     *
-     * @return array<string, Closure>
-     */
-    protected function defaultMethods(): array
-    {
-        return [
-            'assets' => fn () => $this->assets(),
-        ];
     }
 
     /**
@@ -138,7 +103,7 @@ class Template implements Stringable
         $controllerFile = FileSystem::joinPaths($this->path, 'controllers', $this->name . '.php');
 
         if (FileSystem::exists($controllerFile)) {
-            return (array) Renderer::load($controllerFile, [...$this->defaultVars(), ...$vars], $this);
+            return (array) Renderer::load($controllerFile, [...$this->vars, ...$vars], $this);
         }
 
         return null;

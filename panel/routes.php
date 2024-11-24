@@ -1,6 +1,5 @@
 <?php
 
-use Formwork\App;
 use Formwork\Config\Config;
 use Formwork\Http\JsonResponse;
 use Formwork\Http\RedirectResponse;
@@ -315,7 +314,7 @@ return [
         ],
 
         'panel.register' => [
-            'action' => static function (Request $request, App $app, Site $site, Panel $panel) {
+            'action' => static function (Request $request, Site $site, Panel $panel) {
                 // Register panel if no user exists
                 if ($site->users()->isEmpty()) {
                     if (!$request->isLocalhost()) {

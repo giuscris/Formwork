@@ -2,7 +2,6 @@
 
 namespace Formwork\Users;
 
-use Formwork\App;
 use Formwork\Config\Config;
 use Formwork\Files\FileFactory;
 use Formwork\Http\Request;
@@ -10,6 +9,7 @@ use Formwork\Images\Image;
 use Formwork\Log\Registry;
 use Formwork\Model\Model;
 use Formwork\Panel\Security\Password;
+use Formwork\Schemes\Schemes;
 use Formwork\Users\Exceptions\AuthenticationFailedException;
 use Formwork\Users\Exceptions\UserImageNotFoundException;
 use Formwork\Users\Exceptions\UserNotLoggedException;
@@ -53,9 +53,9 @@ class User extends Model
      *
      * @param array<string, mixed> $data
      */
-    public function __construct(array $data, protected Role $role, protected App $app, protected Config $config, protected Request $request, protected FileFactory $fileFactory)
+    public function __construct(array $data, protected Role $role, protected Schemes $schemes, protected Config $config, protected Request $request, protected FileFactory $fileFactory)
     {
-        $this->scheme = $app->schemes()->get('users.user');
+        $this->scheme = $this->schemes->get('users.user');
 
         $this->fields = $this->scheme->fields();
         $this->fields->setModel($this);

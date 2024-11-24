@@ -207,6 +207,7 @@ final class App
 
         $container->define(Statistics::class)
             ->parameter('path', fn (Config $config) => $config->get('system.statistics.path'))
+            ->parameter('translation', fn (Translations $translations) => $translations->getCurrent())
             ->alias('statistics');
 
         $container->define(FilesCache::class)
