@@ -86,7 +86,7 @@ class Scheme implements Arrayable
 
         $fieldCollection->setMultiple(Arr::map($this->data['fields'] ?? [], fn ($data, $name) => $this->fieldFactory->make($name, $data, $fieldCollection)));
 
-        $layout = new Layout($this->data['layout'] ?? ['type' => 'default', 'sections' => []]);
+        $layout = new Layout($this->data['layout'] ?? ['type' => 'default', 'sections' => []], $this->translations->getCurrent());
 
         $fieldCollection->setLayout($layout);
 
