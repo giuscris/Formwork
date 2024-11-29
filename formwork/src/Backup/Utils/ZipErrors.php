@@ -1,6 +1,6 @@
 <?php
 
-namespace Formwork\Utils;
+namespace Formwork\Backup\Utils;
 
 use Formwork\Traits\StaticClass;
 use ZipArchive;

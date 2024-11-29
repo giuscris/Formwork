@@ -1,8 +1,9 @@
 <?php
 
-namespace Formwork\Utils;
+namespace Formwork\Debug;
 
 use Formwork\Traits\StaticClass;
+use Formwork\Utils\FileSystem;
 use PhpToken;
 
 class CodeDumper

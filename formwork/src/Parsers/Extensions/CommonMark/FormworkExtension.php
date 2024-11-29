@@ -2,7 +2,7 @@
 
 namespace Formwork\Parsers\Extensions\CommonMark;
 
-use Formwork\Site;
+use Formwork\Cms\Site;
 use League\CommonMark\Environment\EnvironmentBuilderInterface;
 use League\CommonMark\Event\DocumentParsedEvent;
 use League\CommonMark\Extension\ConfigurableExtensionInterface;

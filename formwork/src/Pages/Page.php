@@ -2,7 +2,8 @@
 
 namespace Formwork\Pages;
 
-use Formwork\App;
+use Formwork\Cms\App;
+use Formwork\Cms\Site;
 use Formwork\Data\Exceptions\InvalidValueException;
 use Formwork\Files\File;
 use Formwork\Files\FileCollection;
@@ -18,7 +19,6 @@ use Formwork\Pages\Traits\PageTraversal;
 use Formwork\Pages\Traits\PageUid;
 use Formwork\Pages\Traits\PageUri;
 use Formwork\Parsers\Yaml;
-use Formwork\Site;
 use Formwork\Templates\Template;
 use Formwork\Utils\Arr;
 use Formwork\Utils\Date;

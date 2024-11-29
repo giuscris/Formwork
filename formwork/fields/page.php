@@ -1,10 +1,10 @@
 <?php
 
+use Formwork\Cms\Site;
 use Formwork\Fields\Exceptions\ValidationException;
 use Formwork\Fields\Field;
 use Formwork\Pages\Page;
 use Formwork\Pages\PageCollection;
-use Formwork\Site;
 
 return function (Site $site) {
     return [

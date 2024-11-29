@@ -1,5 +1,6 @@
 <?php
 
+use Formwork\Cms\Site;
 use Formwork\Config\Config;
 use Formwork\Http\JsonResponse;
 use Formwork\Http\RedirectResponse;
@@ -9,7 +10,6 @@ use Formwork\Http\ResponseStatus;
 use Formwork\Panel\Controllers\AuthenticationController;
 use Formwork\Panel\Panel;
 use Formwork\Security\CsrfToken;
-use Formwork\Site;
 use Formwork\Translations\Translations;
 use Formwork\Utils\FileSystem;
 use Formwork\Utils\Str;

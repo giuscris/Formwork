@@ -1,6 +1,6 @@
 <?php
 
-use Formwork\App;
+use Formwork\Cms\App;
 use Formwork\Data\Collection;
 use Formwork\Fields\Exceptions\ValidationException;
 use Formwork\Fields\Field;

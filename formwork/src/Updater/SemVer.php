@@ -1,6 +1,6 @@
 <?php
 
-namespace Formwork\Utils;
+namespace Formwork\Updater;
 
 use InvalidArgumentException;
 use Stringable;

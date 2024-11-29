@@ -3,7 +3,7 @@
 namespace Formwork\View;
 
 use Closure;
-use Formwork\App;
+use Formwork\Cms\App;
 use Formwork\Config\Config;
 
 class ViewFactory

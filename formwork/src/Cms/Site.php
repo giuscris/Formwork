@@ -1,6 +1,6 @@
 <?php
 
-namespace Formwork;
+namespace Formwork\Cms;
 
 use Formwork\Config\Config;
 use Formwork\Languages\Languages;

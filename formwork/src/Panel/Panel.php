@@ -2,7 +2,7 @@
 
 namespace Formwork\Panel;
 
-use Formwork\Assets;
+use Formwork\Assets\Assets;
 use Formwork\Config\Config;
 use Formwork\Http\Request;
 use Formwork\Http\Session\MessageType;

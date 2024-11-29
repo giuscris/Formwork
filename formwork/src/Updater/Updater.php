@@ -3,13 +3,12 @@
 namespace Formwork\Updater;
 
 use DateTimeImmutable;
-use Formwork\App;
+use Formwork\Cms\App;
 use Formwork\Config\Config;
 use Formwork\Http\Client;
 use Formwork\Log\Registry;
 use Formwork\Parsers\Json;
 use Formwork\Utils\FileSystem;
-use Formwork\Utils\SemVer;
 use Formwork\Utils\Str;
 use RuntimeException;
 use ZipArchive;

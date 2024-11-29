@@ -3,7 +3,7 @@
 namespace Formwork\Commands;
 
 use DateTimeImmutable;
-use Formwork\App;
+use Formwork\Cms\App;
 use Formwork\Utils\Str;
 use League\CLImate\CLImate;
 use Symfony\Component\Process\PhpExecutableFinder;

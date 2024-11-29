@@ -3,8 +3,8 @@
 namespace Formwork\Templates;
 
 use Closure;
+use Formwork\Cms\Site;
 use Formwork\Schemes\Scheme;
-use Formwork\Site;
 use Formwork\Utils\Constraint;
 use Formwork\Utils\FileSystem;
 use Formwork\View\Exceptions\RenderingException;

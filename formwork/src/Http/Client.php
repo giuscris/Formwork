@@ -2,7 +2,7 @@
 
 namespace Formwork\Http;
 
-use Formwork\App;
+use Formwork\Cms\App;
 use Formwork\Http\Exceptions\ConnectionException;
 use Formwork\Utils\FileSystem;
 use InvalidArgumentException;

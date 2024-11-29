@@ -2,7 +2,7 @@
 
 namespace Formwork\Pages\Traits;
 
-use Formwork\App;
+use Formwork\Cms\App;
 use Formwork\Pages\Page;
 use Formwork\Utils\Date;
 use UnexpectedValueException;

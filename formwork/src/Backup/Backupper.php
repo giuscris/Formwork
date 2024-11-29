@@ -1,10 +1,10 @@
 <?php
 
-namespace Formwork;
+namespace Formwork\Backup;
 
+use Formwork\Backup\Utils\ZipErrors;
 use Formwork\Exceptions\TranslatedException;
 use Formwork\Utils\FileSystem;
-use Formwork\Utils\ZipErrors;
 use ZipArchive;
 
 class Backupper

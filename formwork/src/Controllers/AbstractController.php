@@ -2,7 +2,7 @@
 
 namespace Formwork\Controllers;
 
-use Formwork\App;
+use Formwork\Cms\App;
 use Formwork\Config\Config;
 use Formwork\Http\RedirectResponse;
 use Formwork\Http\Request;

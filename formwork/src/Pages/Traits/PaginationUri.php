@@ -2,9 +2,9 @@
 
 namespace Formwork\Pages\Traits;
 
+use Formwork\Cms\Site;
 use Formwork\Router\Route;
 use Formwork\Router\Router;
-use Formwork\Site;
 use Formwork\Utils\Str;
 use RuntimeException;
 use UnexpectedValueException;

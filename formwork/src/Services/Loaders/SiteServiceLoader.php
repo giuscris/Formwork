@@ -2,12 +2,12 @@
 
 namespace Formwork\Services\Loaders;
 
+use Formwork\Cms\Site;
 use Formwork\Config\Config;
 use Formwork\Languages\Languages;
 use Formwork\Schemes\Schemes;
 use Formwork\Services\Container;
 use Formwork\Services\ResolutionAwareServiceLoaderInterface;
-use Formwork\Site;
 
 class SiteServiceLoader implements ResolutionAwareServiceLoaderInterface
 {

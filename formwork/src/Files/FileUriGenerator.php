@@ -2,11 +2,11 @@
 
 namespace Formwork\Files;
 
+use Formwork\Cms\Site;
 use Formwork\Config\Config;
 use Formwork\Files\Exceptions\FileUriGenerationException;
 use Formwork\Http\Request;
 use Formwork\Router\Router;
-use Formwork\Site;
 use Formwork\Utils\FileSystem;
 use Formwork\Utils\Str;
 use Formwork\Utils\Uri;

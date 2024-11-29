@@ -1,6 +1,6 @@
 <?php
 
-use Formwork\App;
+use Formwork\Cms\App;
 use Formwork\Http\Utils\Header;
 use Formwork\Parsers\Markdown;
 use Formwork\Utils\Date;

@@ -2,6 +2,7 @@
 
 namespace Formwork\Panel\Controllers;
 
+use Formwork\Cms\Site;
 use Formwork\Data\Exceptions\InvalidValueException;
 use Formwork\Exceptions\TranslatedException;
 use Formwork\Fields\FieldCollection;
@@ -20,7 +21,6 @@ use Formwork\Panel\ContentHistory\ContentHistory;
 use Formwork\Panel\ContentHistory\ContentHistoryEvent;
 use Formwork\Parsers\Yaml;
 use Formwork\Router\RouteParams;
-use Formwork\Site;
 use Formwork\Utils\Arr;
 use Formwork\Utils\Constraint;
 use Formwork\Utils\FileSystem;

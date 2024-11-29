@@ -2,10 +2,10 @@
 
 namespace Formwork\Pages;
 
+use Formwork\Cms\Site;
 use Formwork\Data\Pagination as BasePagination;
 use Formwork\Pages\Traits\PaginationUri;
 use Formwork\Router\Router;
-use Formwork\Site;
 
 class Pagination extends BasePagination
 {

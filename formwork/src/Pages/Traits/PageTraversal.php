@@ -2,10 +2,10 @@
 
 namespace Formwork\Pages\Traits;
 
+use Formwork\Cms\Site;
 use Formwork\Pages\Page;
 use Formwork\Pages\PageCollection;
 use Formwork\Pages\PageCollectionFactory;
-use Formwork\Site;
 use Formwork\Utils\FileSystem;
 use RuntimeException;
 

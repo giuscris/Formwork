@@ -1,6 +1,6 @@
 <?php
 
-use Formwork\App;
+use Formwork\Cms\App;
 use Formwork\Languages\LanguageCodes;
 use Formwork\Panel\Utils\DateFormats;
 use Formwork\Utils\MimeType;

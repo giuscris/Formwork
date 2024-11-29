@@ -2,7 +2,7 @@
 
 namespace Formwork\Panel\Controllers;
 
-use Formwork\Backupper;
+use Formwork\Backup\Backupper;
 use Formwork\Data\Collection;
 use Formwork\Http\Response;
 use Formwork\Parsers\Json;

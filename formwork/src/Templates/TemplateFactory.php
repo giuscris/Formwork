@@ -2,8 +2,8 @@
 
 namespace Formwork\Templates;
 
-use Formwork\App;
-use Formwork\Assets;
+use Formwork\Assets\Assets;
+use Formwork\Cms\App;
 use Formwork\Config\Config;
 use Formwork\Schemes\Schemes;
 use Formwork\Security\CsrfToken;

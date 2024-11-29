@@ -2,8 +2,8 @@
 
 namespace Formwork\Pages\Traits;
 
-use Formwork\App;
-use Formwork\Site;
+use Formwork\Cms\App;
+use Formwork\Cms\Site;
 use Formwork\Utils\Path;
 use Formwork\Utils\Uri;
 

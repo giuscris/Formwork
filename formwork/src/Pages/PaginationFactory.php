@@ -2,7 +2,7 @@
 
 namespace Formwork\Pages;
 
-use Formwork\App;
+use Formwork\Cms\App;
 use Formwork\Router\Router;
 
 class PaginationFactory

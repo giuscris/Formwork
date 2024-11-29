@@ -2,6 +2,7 @@
 
 namespace Formwork\Panel\Controllers;
 
+use Formwork\Cms\Site;
 use Formwork\Controllers\AbstractController as BaseAbstractController;
 use Formwork\Panel\Modals\Modal;
 use Formwork\Panel\Modals\ModalCollection;
@@ -11,7 +12,6 @@ use Formwork\Parsers\Json;
 use Formwork\Router\Router;
 use Formwork\Security\CsrfToken;
 use Formwork\Services\Container;
-use Formwork\Site;
 use Formwork\Translations\Translations;
 use Formwork\Utils\Date;
 use Stringable;

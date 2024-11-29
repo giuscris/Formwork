@@ -1,6 +1,6 @@
 <?php
 
-use Formwork\App;
+use Formwork\Cms\App;
 
 const ROOT_PATH = __DIR__;
 const SYSTEM_PATH = ROOT_PATH . '/formwork';

@@ -2,7 +2,7 @@
 
 namespace Formwork\Panel\Controllers;
 
-use Formwork\Backupper;
+use Formwork\Backup\Backupper;
 use Formwork\Cache\AbstractCache;
 use Formwork\Exceptions\TranslatedException;
 use Formwork\Http\JsonResponse;

@@ -1,7 +1,7 @@
 <?php
 
+use Formwork\Cms\Site;
 use Formwork\Fields\Field;
-use Formwork\Site;
 
 return function (Site $site) {
     return [

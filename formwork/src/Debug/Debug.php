@@ -1,13 +1,16 @@
 <?php
 
-namespace Formwork\Utils;
+namespace Formwork\Debug;
 
+use Formwork\Traits\StaticClass;
 use ReflectionReference;
 use UnexpectedValueException;
 use UnitEnum;
 
 class Debug
 {
+    use StaticClass;
+
     protected const int INDENT_SPACES = 2;
 
     protected static string $css = <<<'CSS'

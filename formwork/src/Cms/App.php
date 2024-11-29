@@ -1,6 +1,6 @@
 <?php
 
-namespace Formwork;
+namespace Formwork\Cms;
 
 use BadMethodCallException;
 use ErrorException;

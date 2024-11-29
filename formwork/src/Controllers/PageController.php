@@ -3,6 +3,7 @@
 namespace Formwork\Controllers;
 
 use Formwork\Cache\FilesCache;
+use Formwork\Cms\Site;
 use Formwork\Http\FileResponse;
 use Formwork\Http\RequestMethod;
 use Formwork\Http\Response;
@@ -11,7 +12,6 @@ use Formwork\Pages\Page;
 use Formwork\Router\RouteParams;
 use Formwork\Router\Router;
 use Formwork\Services\Container;
-use Formwork\Site;
 use Formwork\Statistics\Statistics;
 use Formwork\Utils\FileSystem;
 
