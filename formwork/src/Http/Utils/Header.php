@@ -14,24 +14,12 @@ class Header
 
     /**
      * Send an HTTP response status code
-     *
-     * @param bool $send Whether to send status code or return
-     * @param bool $exit Whether to exit from the script after sending the status code
-     *
-     * @return string|null
      */
-    public static function status(ResponseStatus $responseStatus, bool $send = true, bool $exit = false)
+    public static function sendStatus(ResponseStatus $responseStatus): void
     {
         $protocol = $_SERVER['SERVER_PROTOCOL'] ?? 'HTTP/1.1';
         $responseStatus = implode(' ', [$protocol, $responseStatus->value]);
-        if (!$send) {
-            return $responseStatus;
-        }
         header($responseStatus);
-        if ($exit) {
-            exit;
-        }
-        return null;
     }
 
     /**
@@ -60,7 +48,7 @@ class Header
      */
     public static function notFound(): void
     {
-        static::status(ResponseStatus::NotFound);
+        static::sendStatus(ResponseStatus::NotFound);
     }
 
     /**
@@ -73,7 +61,7 @@ class Header
         if ($responseStatus->type() !== ResponseStatusType::Redirection) {
             throw new InvalidArgumentException(sprintf('Invalid response status "%s" for redirection, only 3XX statuses are allowed', $responseStatus->value));
         }
-        static::status($responseStatus);
+        static::sendStatus($responseStatus);
         static::send('Location', $uri);
         exit;
     }

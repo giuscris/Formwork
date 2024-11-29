@@ -90,7 +90,7 @@ class Response implements ResponseInterface
      */
     public function sendStatus(): void
     {
-        Header::status($this->responseStatus);
+        Header::sendStatus($this->responseStatus);
     }
 
     /**
