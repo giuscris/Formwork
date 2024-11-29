@@ -2,6 +2,7 @@
 
 namespace Formwork\Parsers\Extensions\CommonMark;
 
+use Formwork\Site;
 use League\CommonMark\Environment\EnvironmentBuilderInterface;
 use League\CommonMark\Event\DocumentParsedEvent;
 use League\CommonMark\Extension\ConfigurableExtensionInterface;
@@ -13,6 +14,8 @@ class FormworkExtension implements ConfigurableExtensionInterface
     public function configureSchema(ConfigurationBuilderInterface $configurationBuilder): void
     {
         $configurationBuilder->addSchema('formwork', Expect::structure([
+            'site'             => Expect::type(Site::class),
+            'safeMode'         => Expect::bool(true),
             'imageAltProperty' => Expect::string('alt'),
             'baseRoute'        => Expect::string('/'),
         ]));

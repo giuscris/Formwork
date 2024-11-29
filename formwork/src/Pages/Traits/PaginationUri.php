@@ -2,8 +2,9 @@
 
 namespace Formwork\Pages\Traits;
 
-use Formwork\App;
 use Formwork\Router\Route;
+use Formwork\Router\Router;
+use Formwork\Site;
 use Formwork\Utils\Str;
 use RuntimeException;
 use UnexpectedValueException;
@@ -19,6 +20,10 @@ trait PaginationUri
      * Route suffix to make pagination URIs
      */
     protected static string $routeSuffix = '.pagination';
+
+    protected Site $site;
+
+    protected Router $router;
 
     /**
      * Base route (without the pagination)
@@ -39,13 +44,11 @@ trait PaginationUri
             throw new UnexpectedValueException(sprintf('Cannot get the route for page %d, the pagination has only %d pages', $pageNumber, $this->length));
         }
 
-        $router = App::instance()->router();
-
         if ($pageNumber === 1) {
-            return $router->generateWith($this->baseRoute()->getName(), []);
+            return $this->router->generateWith($this->baseRoute()->getName(), []);
         }
 
-        return $router->generateWith($this->paginationRoute()->getName(), [
+        return $this->router->generateWith($this->paginationRoute()->getName(), [
             static::$routeParam => $pageNumber,
         ]);
     }
@@ -55,7 +58,7 @@ trait PaginationUri
      */
     public function uri(int $pageNumber): string
     {
-        return App::instance()->site()->uri($this->route($pageNumber));
+        return $this->site->uri($this->route($pageNumber));
     }
 
     /**
@@ -131,19 +134,17 @@ trait PaginationUri
             return $this->baseRoute;
         }
 
-        $router = App::instance()->router();
-
-        if (!$router->current() instanceof Route) {
+        if (!$this->router->current() instanceof Route) {
             throw new RuntimeException('Cannot generate pagination routes, current route is not defined');
         }
 
-        $routeName = Str::removeEnd($router->current()->getName(), static::$routeSuffix);
+        $routeName = Str::removeEnd($this->router->current()->getName(), static::$routeSuffix);
 
-        if (!$router->routes()->has($routeName)) {
+        if (!$this->router->routes()->has($routeName)) {
             throw new RuntimeException(sprintf('Cannot generate pagination routes, base route "%s" is not defined', $routeName));
         }
 
-        return $this->baseRoute = $router->routes()->get($routeName);
+        return $this->baseRoute = $this->router->routes()->get($routeName);
     }
 
     /**
@@ -155,13 +156,12 @@ trait PaginationUri
             return $this->paginationRoute;
         }
 
-        $router = App::instance()->router();
         $routeName = $this->baseRoute()->getName() . static::$routeSuffix;
 
-        if (!$router->routes()->has($routeName)) {
+        if (!$this->router->routes()->has($routeName)) {
             throw new RuntimeException(sprintf('Cannot generate pagination for route "%s", route "%s" is not defined', $this->baseRoute()->getName(), $routeName));
         }
 
-        return $this->paginationRoute = $router->routes()->get($routeName);
+        return $this->paginationRoute = $this->router->routes()->get($routeName);
     }
 }

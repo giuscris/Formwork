@@ -15,6 +15,7 @@ use Formwork\Http\RequestMethod;
 use Formwork\Http\Response;
 use Formwork\Http\ResponseStatus;
 use Formwork\Pages\Page;
+use Formwork\Pages\PageFactory;
 use Formwork\Panel\ContentHistory\ContentHistory;
 use Formwork\Panel\ContentHistory\ContentHistoryEvent;
 use Formwork\Parsers\Yaml;
@@ -66,7 +67,7 @@ class PagesController extends AbstractController
     /**
      * Pages@create action
      */
-    public function create(): Response
+    public function create(PageFactory $pageFactory): Response
     {
         if (!$this->hasPermission('pages.create')) {
             return $this->forward(ErrorsController::class, 'forbidden');
@@ -80,10 +81,10 @@ class PagesController extends AbstractController
             $fields->setValues($requestData)->validate();
 
             // Let's create the page
-            $page = $this->createPage($fields);
+            $page = $this->createPage($fields, $pageFactory);
             $this->panel->notify($this->translate('panel.pages.page.created'), 'success');
         } catch (TranslatedException $e) {
-            $this->panel->notify($e->getTranslatedMessage(), 'error');
+            $this->panel->notify($this->translate($e->getLanguageString()), 'error');
             return $this->redirectToReferer(default: $this->generateRoute('panel.pages'), base: $this->panel->panelRoot());
         } catch (InvalidValueException $e) {
             $identifier = $e->getIdentifier() ?? 'varMissing';
@@ -176,7 +177,7 @@ class PagesController extends AbstractController
 
                     $this->panel->notify($this->translate('panel.pages.page.edited'), 'success');
                 } catch (TranslatedException $e) {
-                    $this->panel->notify($e->getTranslatedMessage(), 'error');
+                    $this->panel->notify($this->translate($e->getLanguageString()), 'error');
                 } catch (InvalidValueException $e) {
                     $identifier = $e->getIdentifier() ?? 'varMissing';
                     $this->panel->notify($this->translate('panel.pages.page.cannotEdit.' . $identifier), 'error');
@@ -337,7 +338,7 @@ class PagesController extends AbstractController
         $this->panel->notify($this->translate('panel.pages.page.deleted'), 'success');
 
         // Try to redirect to referer unless it's to Pages@edit
-        if ($this->request->referer() !== null && !Str::startsWith(Uri::normalize($this->request->referer()), Uri::make(['path' => $this->panel->uri('/pages/' . $routeParams->get('page') . '/edit/')]))) {
+        if ($this->request->referer() !== null && !Str::startsWith(Uri::normalize($this->request->referer()), Uri::make(['path' => $this->panel->uri('/pages/' . $routeParams->get('page') . '/edit/')], $this->request->baseUri()))) {
             return $this->redirectToReferer(default: $this->generateRoute('panel.pages'), base: $this->panel->panelRoot());
         }
         return $this->redirect($this->generateRoute('panel.pages'));
@@ -363,7 +364,7 @@ class PagesController extends AbstractController
             try {
                 $this->processPageUploads($this->request->files()->getAll(), $page);
             } catch (TranslatedException $e) {
-                $this->panel->notify($this->translate('upload.error', $e->getTranslatedMessage()), 'error');
+                $this->panel->notify($this->translate('upload.error', $this->translate($e->getLanguageString())), 'error');
                 return $this->redirect($this->generateRoute('panel.pages.edit', ['page' => $routeParams->get('page')]));
             }
         }
@@ -444,7 +445,7 @@ class PagesController extends AbstractController
 
         $previousFileRoute = $this->generateRoute('panel.pages.file', ['page' => $routeParams->get('page'), 'filename' => $previousName]);
 
-        if (Str::removeEnd((string) Uri::path($this->request->referer()), '/') === $this->site->uri($previousFileRoute)) {
+        if (Str::removeEnd((string) Uri::path((string) $this->request->referer()), '/') === $this->site->uri($previousFileRoute)) {
             return $this->redirect($this->generateRoute('panel.pages.file', ['page' => $routeParams->get('page'), 'filename' => $newName]));
         }
 
@@ -485,7 +486,7 @@ class PagesController extends AbstractController
             try {
                 $this->processPageUploads($this->request->files()->getAll(), $page, [$page->files()->get($filename)->mimeType()], FileSystem::name($filename), true);
             } catch (TranslatedException $e) {
-                $this->panel->notify($this->translate('upload.error', $e->getTranslatedMessage()), 'error');
+                $this->panel->notify($this->translate('upload.error', $this->translate($e->getLanguageString())), 'error');
                 return $this->redirect($this->generateRoute('panel.pages.edit', ['page' => $routeParams->get('page')]));
             }
         }
@@ -556,9 +557,9 @@ class PagesController extends AbstractController
     /**
      * Create a new page
      */
-    protected function createPage(FieldCollection $fieldCollection): Page
+    protected function createPage(FieldCollection $fieldCollection, PageFactory $pageFactory): Page
     {
-        $page = new Page(['site' => $this->site, 'published' => false]);
+        $page = $pageFactory->make(['site' => $this->site, 'published' => false]);
 
         $data = $fieldCollection->everyItem()->value()->toArray();
 

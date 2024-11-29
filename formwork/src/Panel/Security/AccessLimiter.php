@@ -4,7 +4,6 @@ namespace Formwork\Panel\Security;
 
 use Formwork\Http\Request;
 use Formwork\Log\Registry;
-use Formwork\Utils\Uri;
 
 class AccessLimiter
 {
@@ -33,7 +32,7 @@ class AccessLimiter
         protected Request $request
     ) {
         // Hash visitor IP address followed by current host
-        $this->attemptHash = hash('sha256', $request->ip() . '@' . Uri::host());
+        $this->attemptHash = hash('sha256', $request->ip() . '@' . $request->host());
 
         if ($registry->has($this->attemptHash)) {
             [$this->attempts, $this->lastAttemptTime] = $registry->get($this->attemptHash);

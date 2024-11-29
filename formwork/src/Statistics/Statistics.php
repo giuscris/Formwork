@@ -2,11 +2,11 @@
 
 namespace Formwork\Statistics;
 
-use Formwork\App;
 use Formwork\Http\Request;
 use Formwork\Http\Utils\IpAnonymizer;
 use Formwork\Http\Utils\Visitor;
 use Formwork\Log\Registry;
+use Formwork\Translations\Translation;
 use Formwork\Utils\Arr;
 use Formwork\Utils\Date;
 use Formwork\Utils\FileSystem;
@@ -67,7 +67,7 @@ class Statistics
     /**
      * Create a new Statistics instance
      */
-    public function __construct(string $path, protected App $app, protected Request $request)
+    public function __construct(string $path, protected Request $request, protected Translation $translation)
     {
         if (!FileSystem::exists($path)) {
             FileSystem::createDirectory($path);
@@ -123,7 +123,7 @@ class Statistics
 
         $labels = Arr::map(
             iterator_to_array($this->generateDays($limit)),
-            fn (string $day): string => Date::formatTimestamp(Date::toTimestamp($day, self::DATE_FORMAT), "D\nj M")
+            fn (string $day): string => Date::formatTimestamp(Date::toTimestamp($day, self::DATE_FORMAT), "D\nj M", $this->translation)
         );
 
         return [

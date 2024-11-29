@@ -3,7 +3,6 @@
 namespace Formwork\Schemes;
 
 use Formwork\Parsers\Yaml;
-use Formwork\Services\Container;
 use Formwork\Utils\FileSystem;
 use Formwork\Utils\Str;
 use InvalidArgumentException;
@@ -22,7 +21,7 @@ class Schemes
      */
     protected array $data = [];
 
-    public function __construct(protected Container $container)
+    public function __construct(protected SchemeFactory $schemeFactory)
     {
     }
 
@@ -71,6 +70,6 @@ class Schemes
 
         $data = Yaml::parseFile($this->data[$id]);
 
-        return $this->storage[$id] = $this->container->build(Scheme::class, compact('id', 'data'));
+        return $this->storage[$id] = $this->schemeFactory->make($id, $data);
     }
 }

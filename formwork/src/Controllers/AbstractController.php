@@ -63,7 +63,7 @@ abstract class AbstractController
         string $base = '/'
     ): RedirectResponse {
         if (
-            !in_array($this->request->referer(), [null, Uri::current()], true)
+            !in_array($this->request->referer(), [null, $this->request->absoluteUri()], true)
             && $this->request->validateReferer(Path::join([$this->app->request()->root(), $base]))
         ) {
             return new RedirectResponse($this->request->referer(), $responseStatus, $headers);

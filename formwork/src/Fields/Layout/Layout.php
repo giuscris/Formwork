@@ -2,6 +2,8 @@
 
 namespace Formwork\Fields\Layout;
 
+use Formwork\Translations\Translation;
+
 class Layout
 {
     /**
@@ -17,10 +19,10 @@ class Layout
     /**
      * @param array<string, mixed> $data
      */
-    public function __construct(array $data)
+    public function __construct(array $data, Translation $translation)
     {
         $this->type = $data['type'];
-        $this->sections = new SectionCollection($data['sections'] ?? []);
+        $this->sections = new SectionCollection($data['sections'] ?? [], $translation);
     }
 
     /** Get layout type

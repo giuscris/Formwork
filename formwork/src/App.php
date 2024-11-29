@@ -16,6 +16,9 @@ use Formwork\Http\Request;
 use Formwork\Http\Response;
 use Formwork\Images\ImageFactory;
 use Formwork\Languages\Languages;
+use Formwork\Pages\PageCollectionFactory;
+use Formwork\Pages\PageFactory;
+use Formwork\Pages\PaginationFactory;
 use Formwork\Panel\Panel;
 use Formwork\Router\Router;
 use Formwork\Schemes\Schemes;
@@ -189,6 +192,12 @@ final class App
             ->loader(SchemesServiceLoader::class)
             ->alias('schemes');
 
+        $container->define(PageFactory::class);
+
+        $container->define(PaginationFactory::class);
+
+        $container->define(PageCollectionFactory::class);
+
         $container->define(Site::class)
             ->loader(SiteServiceLoader::class)
             ->alias('site');
@@ -201,6 +210,7 @@ final class App
 
         $container->define(Statistics::class)
             ->parameter('path', fn (Config $config) => $config->get('system.statistics.path'))
+            ->parameter('translation', fn (Translations $translations) => $translations->getCurrent())
             ->alias('statistics');
 
         $container->define(FilesCache::class)

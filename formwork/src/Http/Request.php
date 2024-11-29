@@ -108,14 +108,9 @@ class Request
 
         $defaultPort = self::DEFAULT_PORTS[$scheme];
 
-        return Path::join(
-            [
-                $port !== $defaultPort
-                    ? sprintf('%s://%s:%d/', $scheme, $host, $port)
-                    : sprintf('%s://%s', $scheme, $host),
-                $this->root(),
-            ]
-        );
+        return $port !== $defaultPort
+            ? sprintf('%s://%s:%d/%s/', $scheme, $host, $port, trim($this->root(), '/'))
+            : sprintf('%s://%s/%s/', $scheme, $host, trim($this->root(), '/'));
     }
 
     public function uri(): string
@@ -130,12 +125,7 @@ class Request
 
     public function absoluteUri(): string
     {
-        return Path::join(
-            [
-                $this->baseUri(),
-                $this->uri(),
-            ]
-        );
+        return $this->baseUri() . ltrim($this->uri(), '/');
     }
 
     public function ip(): ?string
@@ -185,7 +175,7 @@ class Request
 
     public function validateReferer(?string $path = null): bool
     {
-        $base = Uri::normalize(Uri::base() . '/' . $path);
+        $base = Uri::normalize(Uri::base($this->uri()) . '/' . $path);
         return Str::startsWith((string) $this->referer(), $base);
     }
 

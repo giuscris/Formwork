@@ -6,6 +6,7 @@ use Formwork\Config\Config;
 use Formwork\Fields\Dynamic\DynamicFieldValue;
 use Formwork\Fields\FieldFactory;
 use Formwork\Languages\Languages;
+use Formwork\Schemes\SchemeFactory;
 use Formwork\Schemes\Schemes;
 use Formwork\Services\Container;
 use Formwork\Services\ResolutionAwareServiceLoaderInterface;
@@ -18,6 +19,8 @@ class SchemesServiceLoader implements ResolutionAwareServiceLoaderInterface
 
     public function load(Container $container): object
     {
+        $container->define(SchemeFactory::class);
+
         $container->define(FieldFactory::class);
 
         DynamicFieldValue::$varsLoader = fn () => $container->call(require $this->config->get('system.fields.dynamic.vars.file'));

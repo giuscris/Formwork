@@ -1,5 +1,6 @@
 <?php
 
+use Formwork\App;
 use Formwork\Fields\Exceptions\ValidationException;
 use Formwork\Fields\Field;
 use Formwork\Parsers\Markdown;
@@ -7,11 +8,18 @@ use Formwork\Site;
 use Formwork\Utils\Constraint;
 use Formwork\Utils\Str;
 
-return function (Site $site) {
+return function (App $app, Site $site) {
     return [
-        'toHTML' => function (Field $field) use ($site): string {
+        'toHTML' => function (Field $field) use ($app, $site): string {
             $currentPage = $site->currentPage();
-            return Markdown::parse((string) $field->value(), ['baseRoute' => $currentPage !== null ? $currentPage->route() : '/']);
+            return Markdown::parse(
+                (string) $field->value(),
+                [
+                    'site'      => $site,
+                    'safeMode'  => $app->config()->get('system.pages.content.safeMode'),
+                    'baseRoute' => $currentPage !== null ? $currentPage->route() : '/',
+                ]
+            );
         },
 
         'toString' => function (Field $field): string {

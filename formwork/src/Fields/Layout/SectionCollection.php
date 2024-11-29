@@ -3,6 +3,7 @@
 namespace Formwork\Fields\Layout;
 
 use Formwork\Data\AbstractCollection;
+use Formwork\Translations\Translation;
 use Formwork\Utils\Arr;
 
 class SectionCollection extends AbstractCollection
@@ -14,8 +15,8 @@ class SectionCollection extends AbstractCollection
     /**
      * @param array<string, array<string, mixed>> $sections
      */
-    public function __construct(array $sections)
+    public function __construct(array $sections, Translation $translation)
     {
-        parent::__construct(Arr::map($sections, fn ($section) => new Section($section)));
+        parent::__construct(Arr::map($sections, fn ($section) => new Section($section, $translation)));
     }
 }

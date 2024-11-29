@@ -10,6 +10,8 @@ use Formwork\Pages\ContentFile;
 use Formwork\Pages\Exceptions\PageNotFoundException;
 use Formwork\Pages\Page;
 use Formwork\Pages\PageCollection;
+use Formwork\Pages\PageCollectionFactory;
+use Formwork\Pages\PageFactory;
 use Formwork\Pages\Traits\PageTraversal;
 use Formwork\Pages\Traits\PageUid;
 use Formwork\Pages\Traits\PageUri;
@@ -103,6 +105,8 @@ class Site extends Model implements Stringable
         array $data,
         protected App $app,
         protected Config $config,
+        protected PageFactory $pageFactory,
+        protected PageCollectionFactory $pageCollectionFactory,
     ) {
         $this->setMultiple($data);
     }
@@ -136,12 +140,12 @@ class Site extends Model implements Stringable
 
     public function siblings(): PageCollection
     {
-        return $this->siblings ??= new PageCollection([]);
+        return $this->siblings ??= $this->pageCollectionFactory->make([]);
     }
 
     public function inclusiveSiblings(): PageCollection
     {
-        return $this->inclusiveSiblings ??= new PageCollection([$this->route() => $this]);
+        return $this->inclusiveSiblings ??= $this->pageCollectionFactory->make([$this->route() => $this]);
     }
 
     /**
@@ -290,7 +294,7 @@ class Site extends Model implements Stringable
      */
     public function retrievePage(string $path): Page
     {
-        return $this->storage[$path] ?? ($this->storage[$path] = new Page(['site' => $this, 'path' => $path]));
+        return $this->storage[$path] ?? ($this->storage[$path] = $this->pageFactory->make(['site' => $this, 'path' => $path]));
     }
 
     public function retrievePages(string $path, bool $recursive = false): PageCollection
@@ -316,7 +320,7 @@ class Site extends Model implements Stringable
             }
         }
 
-        $pageCollection = new PageCollection($pages);
+        $pageCollection = $this->pageCollectionFactory->make($pages);
 
         return $pageCollection->sortBy('relativePath');
     }

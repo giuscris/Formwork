@@ -2,8 +2,8 @@
 
 namespace Formwork\Fields\Layout;
 
-use Formwork\App;
 use Formwork\Data\Traits\DataGetter;
+use Formwork\Translations\Translation;
 use Formwork\Utils\Str;
 
 class Section
@@ -13,7 +13,7 @@ class Section
     /**
      * @param array<string, mixed> $data
      */
-    public function __construct(array $data)
+    public function __construct(array $data, protected Translation $translation)
     {
         $this->data = $data;
     }
@@ -31,7 +31,6 @@ class Section
      */
     public function label(): string
     {
-        $translation = App::instance()->translations()->getCurrent();
-        return Str::interpolate($this->get('label', ''), fn ($key) => $translation->translate($key));
+        return Str::interpolate($this->get('label', ''), fn ($key) => $this->translation->translate($key));
     }
 }

@@ -2,12 +2,11 @@
 
 namespace Formwork\Files;
 
-use Formwork\App;
 use Formwork\Data\Contracts\Arrayable;
 use Formwork\Files\Exceptions\FileUriGenerationException;
 use Formwork\Model\Attributes\ReadonlyModelProperty;
 use Formwork\Model\Model;
-use Formwork\Parsers\Yaml;
+use Formwork\Schemes\Scheme;
 use Formwork\Utils\FileSystem;
 use Formwork\Utils\MimeType;
 use Formwork\Utils\Str;
@@ -16,9 +15,9 @@ use Stringable;
 
 class File extends Model implements Arrayable, Stringable
 {
-    protected const string MODEL_IDENTIFIER = 'file';
+    public const string SCHEME_IDENTIFIER = 'files.file';
 
-    protected const string SCHEME_IDENTIFIER = 'files.file';
+    protected const string MODEL_IDENTIFIER = 'file';
 
     /**
      * File name
@@ -79,7 +78,6 @@ class File extends Model implements Arrayable, Stringable
     {
         $this->name = basename($path);
         $this->extension = FileSystem::extension($path);
-        $this->loadData();
     }
 
     public function __toString(): string
@@ -208,6 +206,14 @@ class File extends Model implements Arrayable, Stringable
         return $this->uriGenerator->generate($this);
     }
 
+    public function absoluteUri(): string
+    {
+        if (!isset($this->uriGenerator)) {
+            throw new FileUriGenerationException('Cannot generate file absolute uri: generator not set');
+        }
+        return $this->uriGenerator->generateAbsolute($this);
+    }
+
     public function toArray(): array
     {
         return [
@@ -220,18 +226,10 @@ class File extends Model implements Arrayable, Stringable
         ];
     }
 
-    private function loadData(): void
+    public function setScheme(Scheme $scheme): void
     {
-        $app = App::instance();
-
-        $this->scheme = $app->schemes()->get(static::SCHEME_IDENTIFIER);
-        $this->fields = $this->scheme->fields();
-
-        $metadataFile = $this->path . $app->config()->get('system.files.metadataExtension');
-
-        $this->data = FileSystem::exists($metadataFile) ? Yaml::parseFile($metadataFile) : [];
-
-        $this->fields->setValues($this->data);
+        $this->scheme = $scheme;
+        $this->fields = $scheme->fields();
     }
 
     /**

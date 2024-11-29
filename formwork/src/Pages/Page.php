@@ -175,8 +175,11 @@ class Page extends Model implements Stringable
     /**
      * @param array<string, mixed> $data
      */
-    public function __construct(array $data = [])
-    {
+    public function __construct(
+        array $data,
+        protected App $app,
+        protected PageCollectionFactory $pageCollectionFactory,
+    ) {
         $this->setMultiple($data);
 
         $this->loadFiles();
@@ -494,8 +497,13 @@ class Page extends Model implements Stringable
             $num = $this->num();
 
             if ($mode === 'date' && $num !== null) {
+                $formats = [
+                    $this->app->config()->get('system.date.dateFormat'),
+                    $this->app->config()->get('system.date.datetimeFormat'),
+                ];
+
                 $timestamp = isset($this->data['publishDate'])
-                    ? Date::toTimestamp($this->data['publishDate'])
+                    ? Date::toTimestamp($this->data['publishDate'], $formats)
                     : $this->contentFile()?->lastModifiedTime();
 
                 if ($num === (int) date(self::DATE_NUM_FORMAT, $timestamp)) {
@@ -649,6 +657,9 @@ class Page extends Model implements Stringable
             throw new RuntimeException('Unable to reload, the page has not been loaded yet');
         }
 
+        $app = $this->app;
+        $pageCollectionFactory = $this->pageCollectionFactory;
+
         $path = $this->path;
         $site = $this->site;
 
@@ -656,7 +667,7 @@ class Page extends Model implements Stringable
 
         $this->resetProperties();
 
-        $this->__construct($data);
+        $this->__construct($data, $app, $pageCollectionFactory);
     }
 
     /**
@@ -698,7 +709,7 @@ class Page extends Model implements Stringable
             throw new UnexpectedValueException('Unexpected missing parent content path');
         }
 
-        $config = App::instance()->config();
+        $config = $this->app->config();
 
         $language ??= $this->language();
 
@@ -804,7 +815,7 @@ class Page extends Model implements Stringable
          */
         $languages = [];
 
-        $config = App::instance()->config();
+        $config = $this->app->config();
 
         $site = $this->site;
 
@@ -837,7 +848,7 @@ class Page extends Model implements Stringable
                         continue;
                     }
                     if (in_array($extension, $config->get('system.files.allowedExtensions'), true)) {
-                        $files[] = App::instance()->getService(FileFactory::class)->make(FileSystem::joinPaths($this->path, $file));
+                        $files[] = $this->app->getService(FileFactory::class)->make(FileSystem::joinPaths($this->path, $file));
                     }
                 }
             }

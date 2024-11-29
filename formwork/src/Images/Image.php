@@ -34,14 +34,13 @@ use Formwork\Images\Transform\TransformCollection;
 use Formwork\Model\Attributes\ReadonlyModelProperty;
 use Formwork\Utils\FileSystem;
 use Formwork\Utils\MimeType;
-use Formwork\Utils\Uri;
 use RuntimeException;
 
 class Image extends File
 {
-    protected const string MODEL_IDENTIFIER = 'image';
+    public const string SCHEME_IDENTIFIER = 'files.image';
 
-    protected const string SCHEME_IDENTIFIER = 'files.image';
+    protected const string MODEL_IDENTIFIER = 'image';
 
     #[ReadonlyModelProperty]
     protected AbstractHandler $handler;
@@ -67,11 +66,6 @@ class Image extends File
     public function path(): string
     {
         return $this->process()->path;
-    }
-
-    public function absoluteUri(): string
-    {
-        return Uri::resolveRelative($this->uri());
     }
 
     public function mimeType(): string
