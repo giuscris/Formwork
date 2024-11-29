@@ -23,7 +23,7 @@ $extensions = [
     'image/tiff'    => ['tiff', 'tif'],
     'text/html'     => ['html', 'htm'],
     'text/markdown' => ['md', 'markdown'],
-    'text/yaml'     => ['yaml', 'yaml'],
+    'text/yaml'     => ['yaml', 'yml'],
 ];
 
 foreach ($json as $mimeType => $data) {
@@ -69,10 +69,10 @@ if ($content === false) {
 
 $content = preg_replace([
     '/Last updated: \d{4}-\d{2}-\d{2}\n/',
-    '/protected const MIME_TYPES = \[.*?\];/s',
+    '/protected const array MIME_TYPES = \[.*?\];/s',
 ], [
     sprintf("Last updated: %s\n", date('Y-m-d')),
-    sprintf("protected const MIME_TYPES = [\n%s\n    ];", implode("\n", $lines)),
+    sprintf("protected const array MIME_TYPES = [\n%s\n    ];", implode("\n", $lines)),
 ], $content);
 
 file_put_contents($file, $content);

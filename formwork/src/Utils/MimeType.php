@@ -24,7 +24,7 @@ class MimeType
     /**
      * Extension to MIME type mapping
      *
-     * Last updated: 2024-11-09
+     * Last updated: 2024-11-29
      *
      * @see scripts/update-mime-types.php To update this list
      *
@@ -1179,6 +1179,7 @@ class MimeType
         'vcs'                      => 'text/x-vcalendar',
         'vcf'                      => 'text/x-vcard',
         'yaml'                     => 'text/yaml',
+        'yml'                      => 'text/yaml',
         '3gp'                      => 'video/3gpp',
         '3g2'                      => 'video/3gpp2',
         'h261'                     => 'video/h261',
