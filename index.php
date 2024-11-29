@@ -7,5 +7,4 @@ const SYSTEM_PATH = ROOT_PATH . '/formwork';
 
 require SYSTEM_PATH . '/bootstrap.php';
 
-$formwork = new App();
-$formwork->run();
+(new App())->run();

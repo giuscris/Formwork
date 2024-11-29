@@ -7,8 +7,8 @@ if (!version_compare(PHP_VERSION, '8.3.0', '>=')) {
 }
 
 // Check if Composer autoloader is available
-if (file_exists($autoload = ROOT_PATH . '/vendor/autoload.php')) {
-    require $autoload;
+if (file_exists(ROOT_PATH . '/vendor/autoload.php')) {
+    require ROOT_PATH . '/vendor/autoload.php';
 } else {
     require __DIR__ . '/views/errors/install.php';
     exit;
