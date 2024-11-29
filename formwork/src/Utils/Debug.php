@@ -157,7 +157,7 @@ class Debug
         echo '<script>__formwork_dump_goto(window.location.hash.slice(1))</script>';
     }
 
-    public static function dd(mixed ...$data): void
+    public static function dd(mixed ...$data): never
     {
         static::dump(...$data);
         exit;

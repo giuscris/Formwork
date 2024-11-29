@@ -56,7 +56,7 @@ class Header
      *
      * @param ResponseStatus $responseStatus Redirect HTTP response status code
      */
-    public static function redirect(string $uri, ResponseStatus $responseStatus = ResponseStatus::Found): void
+    public static function redirect(string $uri, ResponseStatus $responseStatus = ResponseStatus::Found): never
     {
         if ($responseStatus->type() !== ResponseStatusType::Redirection) {
             throw new InvalidArgumentException(sprintf('Invalid response status "%s" for redirection, only 3XX statuses are allowed', $responseStatus->value));
