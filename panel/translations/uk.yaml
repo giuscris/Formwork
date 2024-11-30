@@ -1,0 +1,319 @@
+panel.backup.backup: Резервне копіювання
+panel.backup.deleted: Резервну копію видалено
+panel.backup.error.cannotDelete: Неможливо видалити резервну копію. %s.
+panel.backup.error.cannotDelete.invalidFilename: Невірне ім’я файлу резервної копії
+panel.backup.error.cannotDownload: Неможливо завантажити резервну копію. %s.
+panel.backup.error.cannotDownload.invalidFilename: Невірне ім’я файлу резервної копії
+panel.backup.error.cannotMake: Неможливо створити резервну копію. %s.
+panel.backup.ready: Резервна копія готова. Починаємо завантаження...
+panel.cache.clear: Очистити кеш
+panel.cache.clear.images: Очистити кеш зображень
+panel.cache.clear.pages: Очистити кеш сторінок
+panel.cache.cleared: Кеш очищено
+panel.cache.cleared.images: Кеш зображень очищено
+panel.cache.cleared.pages: Кеш сторінок очищено
+panel.cache.error: Неможливо очистити кеш
+panel.dashboard.dashboard: Панель керування
+panel.dashboard.lastModifiedPages: Останні відредаговані сторінки
+panel.dashboard.quickActions: Швидкі дії
+panel.dashboard.statistics: Статистика
+panel.dashboard.statistics.uniqueVisitors: Унікальні відвідувачі
+panel.dashboard.statistics.visits: Візити
+panel.dashboard.welcome: Ласкаво просимо
+panel.dragToReorder: Перетягніть, щоб змінити порядок
+panel.editor.bold: Жирний
+panel.editor.bulletList: Список з маркерами
+panel.editor.code: Код
+panel.editor.decreaseIndent: Зменшити відступ
+panel.editor.heading1: Заголовок 1
+panel.editor.heading2: Заголовок 2
+panel.editor.heading3: Заголовок 3
+panel.editor.heading4: Заголовок 4
+panel.editor.heading5: Заголовок 5
+panel.editor.heading6: Заголовок 6
+panel.editor.image: Зображення
+panel.editor.increaseIndent: Збільшити відступ
+panel.editor.italic: Курсив
+panel.editor.link: Посилання
+panel.editor.numberedList: Нумерований список
+panel.editor.paragraph: Абзац
+panel.editor.quote: Цитата
+panel.editor.redo: Повторити
+panel.editor.summary: Опис
+panel.editor.toggleMarkdown: Перемкнути Markdown
+panel.editor.undo: Скасувати
+panel.errors.action.reportToGithub: Повідомити про помилку на GitHub
+panel.errors.action.returnToDashboard: Повернутися до панелі керування
+panel.errors.error.forbidden.description: У вас немає дозволу на доступ до цієї сторінки.
+panel.errors.error.forbidden.heading: Ой, потрібен дозвіл!
+panel.errors.error.forbidden.status: Заборонено
+panel.errors.error.internalServerError.description: Формворк зіткнувся з помилкою при обробці вашого запиту. Будь ласка, перевірте конфігурацію Формворк або журнали сервера на наявність помилок.
+panel.errors.error.internalServerError.heading: Ой, щось пішло не так!
+panel.errors.error.internalServerError.status: Внутрішня помилка сервера
+panel.errors.error.notFound.description: Сторінка не існує або запит є недійсним.
+panel.errors.error.notFound.heading: Ой, сторінка не знайдена!
+panel.errors.error.notFound.status: Не знайдено
+panel.files.actions: Дії
+panel.files.metadata.updated: Метадані файлу оновлено
+panel.files.viewAsList: Переглядати як список
+panel.files.viewAsThumbnails: Переглядати як ескізи
+panel.login.attempt.failed: Не вдалося увійти! Спробуйте ще раз.
+panel.login.attempt.tooMany: Забагато спроб входу. Будь ласка, спробуйте через %d хвилин.
+panel.login.loggedOut: Ви вийшли з системи
+panel.login.login: Увійти
+panel.login.logout: Вийти
+panel.login.password: Пароль
+panel.login.suspiciousRequestDetected: Виявлено підозрілий запит, і з міркувань безпеки ви вийшли з системи. Будь ласка, увійдіть знову.
+panel.login.username: Ім'я користувача
+panel.manage: Керувати
+panel.modal.action.cancel: Скасувати
+panel.modal.action.continue: Продовжити
+panel.modal.action.delete: Видалити
+panel.modal.action.rename: Перейменувати
+panel.modal.action.save: Зберегти
+panel.modal.action.uploadFile: Завантажити файл
+panel.modal.images.noImages: Тут немає зображень
+panel.modal.images.noImages.upload: Будь ласка, завантажте зображення
+panel.modal.images.title: Виберіть зображення
+panel.modal.link.title: Вставити посилання
+panel.modal.link.uri: URI
+panel.navigation.toggle: Перемкнути навігацію
+panel.options.options: Опції
+panel.options.site: Сайт
+panel.options.system: Система
+panel.options.system.adminPanel: Панель адміністратора
+panel.options.system.adminPanel.defaultColorScheme: Колірна схема за замовчуванням
+panel.options.system.adminPanel.defaultColorScheme.dark: Темна
+panel.options.system.adminPanel.defaultColorScheme.light: Світла
+panel.options.system.adminPanel.defaultLanguage: Мова за замовчуванням
+panel.options.system.adminPanel.logoutRedirectsTo: Перенаправлення після виходу
+panel.options.system.adminPanel.logoutRedirectsTo.home: Головна
+panel.options.system.adminPanel.logoutRedirectsTo.login: Вхід
+panel.options.system.adminPanel.sessionTimeout: Часова сесія
+panel.options.system.backup: Резервне копіювання
+panel.options.system.backup.backupFilesToKeep: Кількість резервних копій для збереження на сервері
+panel.options.system.cache: Кеш
+panel.options.system.cache.disabled: Вимкнено
+panel.options.system.cache.enabled: Увімкнено
+panel.options.system.cache.time: Час кешу
+panel.options.system.content: Вміст
+panel.options.system.content.safeMode: Безпечний режим
+panel.options.system.content.safeMode.description: Безпечний режим забороняє використання HTML тегів у полях Markdown, щоб уникнути вразливостей безпеки. Навіть якщо вимкнено, потенційно небезпечні теги, такі як `<script>` та `<style>`, перетворюються на текст.
+panel.options.system.content.safeMode.disabled: Вимкнено
+panel.options.system.content.safeMode.enabled: Увімкнено
+panel.options.system.dateAndTime: Дата та час
+panel.options.system.dateAndTime.dateFormat: Формат дати
+panel.options.system.dateAndTime.firstWeekday: Перший день тижня
+panel.options.system.dateAndTime.firstWeekday.monday: Понеділок
+panel.options.system.dateAndTime.firstWeekday.sunday: Неділя
+panel.options.system.dateAndTime.hourFormat: Формат години
+panel.options.system.dateAndTime.timezone: Часова зона
+panel.options.system.debug: Налагодження
+panel.options.system.debug.editorUri: URI редактора
+panel.options.system.debug.editorUri.description: Використовуйте `{{filename}}` та `{{line}}` для побудови URI для відкриття редактора коду
+panel.options.system.debug.mode: Режим налагодження
+panel.options.system.debug.mode.description: Режим налагодження відкриває інформацію про помилки і повинен бути вимкнений у продуктивному середовищі, оскільки може розкрити конфіденційну інформацію
+panel.options.system.debug.mode.disabled: Вимкнено
+panel.options.system.debug.mode.enabled: Увімкнено
+panel.options.system.files: Файли
+panel.options.system.files.allowedExtensions: Дозволені розширення
+panel.options.system.files.allowedExtensions.noExtensions: Без розширень (файли не дозволені)
+panel.options.system.images: Зображення
+panel.options.system.images.clearCacheByDefault: Очистити кеш зображень за замовчуванням
+panel.options.system.images.clearCacheByDefault.disabled: Вимкнено
+panel.options.system.images.clearCacheByDefault.enabled: Увімкнено
+panel.options.system.images.jpegQuality: Якість JPEG
+panel.options.system.images.jpegSaveProgressive: Зберігати зображення JPEG як прогресивні
+panel.options.system.images.jpegSaveProgressive.disabled: Вимкнено
+panel.options.system.images.jpegSaveProgressive.enabled: Увімкнено
+panel.options.system.images.pngCompressionLevel: Рівень стиснення PNG
+panel.options.system.images.webpQuality: Якість WebP
+panel.options.system.languages: Мови
+panel.options.system.languages.availableLanguages: Доступні мови
+panel.options.system.languages.availableLanguages.noLanguages: Мови не доступні
+panel.options.system.languages.preferredLanguage: Використовувати мову браузера за замовчуванням
+panel.options.system.languages.preferredLanguage.disabled: Вимкнено
+panel.options.system.languages.preferredLanguage.enabled: Увімкнено
+panel.options.system.uploads.processImages: Обробляти (оптимізувати) завантажені зображення
+panel.options.system.uploads.processImages.disabled: Вимкнено
+panel.options.system.uploads.processImages.enabled: Увімкнено
+panel.options.updated: Опції оновлено
+panel.pages.changes.continue: Продовжити без збереження
+panel.pages.changes.detected: Зміни виявлено
+panel.pages.changes.detected.prompt: У вас є незбережені зміни. Ви впевнені, що хочете покинути цю сторінку?
+panel.pages.changeSlug: Редагувати slug
+panel.pages.changeSlug.generate: Генерувати з назви
+panel.pages.deleteFile: Видалити файл
+panel.pages.deleteFile.prompt: Ви впевнені, що хочете видалити цей файл? Цю дію не можна скасувати.
+panel.pages.deletePage: Видалити сторінку
+panel.pages.deletePage.prompt: Ви впевнені, що хочете видалити цю сторінку? Цю дію не можна скасувати.
+panel.pages.editPage: Редагувати сторінку %s
+panel.pages.file.backToPage: Назад до сторінки
+panel.pages.file.exif: EXIF
+panel.pages.file.info: Інформація
+panel.pages.file.info.image.colorDepth: Глибина кольору
+panel.pages.file.info.image.colorNumber: Кількість кольорів
+panel.pages.file.info.image.colorProfile: Колірний профіль
+panel.pages.file.info.image.colorSpace: Колірний простір
+panel.pages.file.info.image.dimensions: Розміри
+panel.pages.file.info.image.dimensions.widthByHeightPixels: '%d × %d пікселів'
+panel.pages.file.info.image.exif.aperture: Діафрагма
+panel.pages.file.info.image.exif.camera: Камера
+panel.pages.file.info.image.exif.creationDateAndTime: Дата та час створення
+panel.pages.file.info.image.exif.exposureCompensation: Компенсація експозиції
+panel.pages.file.info.image.exif.exposureProgram: Програма експозиції
+panel.pages.file.info.image.exif.exposureTime: Час експозиції
+panel.pages.file.info.image.exif.flash: Спалах
+panel.pages.file.info.image.exif.focalLength: Фокусна відстань
+panel.pages.file.info.image.exif.lensModel: Модель об'єктива
+panel.pages.file.info.image.exif.meteringMode: Режим замірів
+panel.pages.file.info.image.exif.sensitivity: Чутливість
+panel.pages.file.info.image.exif.whiteBalance: Баланс білого
+panel.pages.file.info.image.frames: '%d кадрів'
+panel.pages.file.info.image.framesCount: Кількість кадрів
+panel.pages.file.info.image.repeats: '%d повторів'
+panel.pages.file.info.image.repeatsCount: Кількість повторів
+panel.pages.file.info.image.resolution: Роздільна здатність
+panel.pages.file.info.lastModifiedTime: Час останнього редагування
+panel.pages.file.info.mimeType: MIME тип
+panel.pages.file.info.size: Розмір
+panel.pages.file.info.uri: URI
+panel.pages.file.position: Позиція
+panel.pages.file.preview: Попередній перегляд
+panel.pages.history.event.created: Сторінка створена %s %s.
+panel.pages.history.event.edited: Сторінка відредагована %s %s.
+panel.pages.languages: Мови
+panel.pages.languages.addLanguage: Додати %s
+panel.pages.languages.editLanguage: Редагувати %s
+panel.pages.newPage: Нова сторінка
+panel.pages.newPage.site: Сайт
+panel.pages.next: Наступна сторінка
+panel.pages.nextFile: Наступний файл
+panel.pages.page: Сторінка
+panel.pages.page.actions: Дії
+panel.pages.page.cannotChangeNum: Немає можливості змінити номер сторінки
+panel.pages.page.cannotCreate: Неможливо створити сторінку
+panel.pages.page.cannotCreate.alreadyExists: Неможливо створити сторінку, сторінка з таким URI вже існує
+panel.pages.page.cannotCreate.invalidParent: Неможливо створити сторінку, недійсна батьківська сторінка
+panel.pages.page.cannotCreate.invalidSlug: Неможливо створити сторінку, slug сторінки повинен містити лише літери та цифри, розділені дефісами
+panel.pages.page.cannotCreate.invalidTemplate: Неможливо створити сторінку, недійсна шаблон
+panel.pages.page.cannotCreate.varMissing: Неможливо створити сторінку, відсутня змінна
+panel.pages.page.cannotDelete.invalidLanguage: 'Неможливо видалити сторінку, недійсна мова: %s'
+panel.pages.page.cannotDelete.notDeletable: Неможливо видалити сторінку, сторінка не може бути видалена
+panel.pages.page.cannotDelete.pageNotFound: Неможливо видалити сторінку, сторінка не знайдена
+panel.pages.page.cannotDeleteFile.fileNotFound: Неможливо видалити файл, файл не знайдено
+panel.pages.page.cannotDeleteFile.pageNotFound: Неможливо видалити файл, сторінка не знайдена
+panel.pages.page.cannotEdit.alreadyExists: Неможливо редагувати сторінку, сторінка з таким URI вже існує
+panel.pages.page.cannotEdit.indexOrErrorPageSlug: Неможливо редагувати slug сторінки індексу та помилок
+panel.pages.page.cannotEdit.invalidLanguage: 'Неможливо редагувати сторінку, недійсна мова: %s'
+panel.pages.page.cannotEdit.invalidParent: Неможливо редагувати сторінку, недійсна батьківська сторінка
+panel.pages.page.cannotEdit.invalidSlug: Неможливо редагувати slug сторінки, він повинен містити лише літери та цифри, розділені дефісами
+panel.pages.page.cannotEdit.invalidTemplate: Неможливо редагувати сторінку, недійсна шаблон
+panel.pages.page.cannotEdit.pageNotFound: Неможливо редагувати сторінку, сторінка не знайдена
+panel.pages.page.cannotEdit.varMissing: Неможливо редагувати сторінку, відсутня змінна
+panel.pages.page.cannotGetFileInfo.fileNotFound: Неможливо отримати інформацію про файл, файл не знайдено
+panel.pages.page.cannotGetFileInfo.pageNotFound: Неможливо отримати інформацію про файл, сторінка не знайдена
+panel.pages.page.cannotMove: Неможливо перемістити сторінку
+panel.pages.page.cannotPreview.pageNotFound: Неможливо попередньо переглянути сторінку, сторінка не знайдена
+panel.pages.page.cannotPreview.parentChanged: Неможливо попередньо переглянути сторінку, батьківська сторінка змінилася
+panel.pages.page.cannotRenameFile.fileAlreadyExists: Неможливо перейменувати файл, файл з таким іменем вже існує
+panel.pages.page.cannotRenameFile.fileNotFound: Неможливо перейменувати файл, файл не знайдено
+panel.pages.page.cannotRenameFile.pageNotFound: Неможливо перейменувати файл, сторінка не знайдена
+panel.pages.page.cannotReplaceFile.fileNotFound: Неможливо замінити файл, файл не знайдено
+panel.pages.page.cannotReplaceFile.multipleFiles: Неможливо замінити файл, надано кілька файлів
+panel.pages.page.cannotReplaceFile.pageNotFound: Неможливо замінити файл, сторінка не знайдена
+panel.pages.page.cannotUploadFile.pageNotFound: Неможливо завантажити файл, сторінка не знайдена
+panel.pages.page.created: Сторінка створена!
+panel.pages.page.deleted: Сторінка видалена
+panel.pages.page.edited: Сторінка відредагована
+panel.pages.page.fileDeleted: Файл видалено
+panel.pages.page.fileRenamed: Файл перейменовано
+panel.pages.page.lastModified: Останнє редагування
+panel.pages.page.moved: Сторінка переміщена!
+panel.pages.page.notFound: Сторінка не знайдена
+panel.pages.page.status: Статус
+panel.pages.pages: Сторінки
+panel.pages.pages.collapseAll: Згорнути всі
+panel.pages.pages.expandAll: Розгорнути всі
+panel.pages.pages.reorder: Переставити
+panel.pages.pages.search: Пошук сторінок...
+panel.pages.preview: Попередній перегляд
+panel.pages.previewFile: Попередній перегляд
+panel.pages.previous: Попередня сторінка
+panel.pages.previousFile: Попередній файл
+panel.pages.publish: Опублікувати
+panel.pages.renameFile: Перейменувати файл
+panel.pages.renameFile.name: Назва
+panel.pages.replaceFile: Замінити файл
+panel.pages.save: Зберегти
+panel.pages.saveOnly: Зберегти без публікації
+panel.pages.toggleChildren: Перемкнути дочірні сторінки
+panel.pages.viewPage: Переглянути сторінку
+panel.panel: Панель адміністратора
+panel.register.createUser: Formwork встановлено, але користувачів не знайдено. Зареєструйте користувача зараз.
+panel.register.register: Зареєструвати нового користувача
+panel.request.error.postMaxSize: HTTP POST запит перевищує максимальний дозволений розмір
+panel.sections.toggle: Перемкнути розділ
+panel.statistics.monthlyUniqueVisitors: Унікальні відвідувачі за місяць
+panel.statistics.monthlyVisits: Відвідування за місяць
+panel.statistics.statistics: Статистика
+panel.statistics.totalVisits: Загальна кількість відвідувань
+panel.statistics.totalVisits.percentTotal: '% від загальної кількості'
+panel.statistics.totalVisits.uri: URI
+panel.statistics.totalVisits.visits: Відвідування
+panel.statistics.weeklyUniqueVisitors: Унікальні відвідувачі за тиждень
+panel.statistics.weeklyVisits: Відвідування за тиждень
+panel.tools.backup.actions: Дії
+panel.tools.backup.date: Дата
+panel.tools.backup.delete: Видалити резервну копію
+panel.tools.backup.file: Файл
+panel.tools.backup.size: Розмір
+panel.tools.backups: Резервні копії
+panel.tools.info: Інформація
+panel.tools.latestBackup: 'Остання резервна копія:'
+panel.tools.latestBackups: Останні резервні копії
+panel.tools.tools: Інструменти
+panel.tools.updates: Оновлення
+panel.updates.availableForInstall: доступне для встановлення
+panel.updates.check: Перевірити оновлення
+panel.updates.install: Встановити
+panel.updates.installed: Оновлення встановлено!
+panel.updates.installPrompt: Бажаєте встановити оновлення?
+panel.updates.latestVersionAvailable: це остання доступна версія
+panel.updates.status.cannotCheck: Неможливо перевірити наявність оновлень. Спробуйте пізніше.
+panel.updates.status.cannotInstall: Неможливо встановити оновлення
+panel.updates.status.cannotMakeBackup: Неможливо створити резервну копію перед оновленням
+panel.updates.status.checking: Перевірка оновлень...
+panel.updates.status.found: Знайдено оновлення
+panel.updates.status.installing: Встановлення оновлень...
+panel.updates.status.upToDate: Актуально!
+panel.uploader.uploaded: Файл завантажено
+panel.user.actions: Дії
+panel.user.image.actions: Дії
+panel.user.image.cannotDelete.defaultImage: Неможливо видалити зображення за замовчуванням користувача
+panel.user.image.delete: Видалити зображення користувача
+panel.user.image.delete.prompt: Ви впевнені, що хочете видалити зображення користувача? Цю дію не можна скасувати.
+panel.user.image.deleted: Зображення користувача видалено
+panel.user.image.uploaded: Зображення користувача завантажено
+panel.user.lastAccess: Останній доступ
+panel.users.deleteUser: Видалити користувача
+panel.users.deleteUser.prompt: Ви впевнені, що хочете видалити цього користувача? Цю дію не можна скасувати.
+panel.users.newUser: Новий користувач
+panel.users.newUser.password.suggestion: щонайменше 8 символів
+panel.users.newUser.username.suggestion: від 3 до 20 літер, цифр та дефісів
+panel.users.nextUser: Наступний користувач
+panel.users.options: Налаштування
+panel.users.previousUser: Попередній користувач
+panel.users.user.cannotChangePassword: Неможливо змінити пароль іншого користувача. Ця дія заборонена.
+panel.users.user.cannotChangeRole: Неможливо змінити роль %s. Ця дія заборонена.
+panel.users.user.cannotCreate.alreadyExists: Неможливо створити користувача, користувач з таким ім'ям вже існує
+panel.users.user.cannotCreate.varMissing: Неможливо створити користувача, відсутня змінна
+panel.users.user.cannotDelete: Неможливо видалити користувача. Ви повинні бути адміністратором, і користувач не повинен бути в системі.
+panel.users.user.cannotEdit: Неможливо редагувати користувача %s. Ця дія заборонена.
+panel.users.user.created: Користувача створено
+panel.users.user.deleted: Користувача видалено
+panel.users.user.edited: Дані користувача оновлено
+panel.users.user.notFound: Користувача не знайдено
+panel.users.userProfile: '%s профіль користувача'
+panel.users.users: Користувачі
+panel.viewSite: Переглянути сайт

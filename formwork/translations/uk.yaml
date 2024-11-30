@@ -1,0 +1,110 @@
+date.distance.ago: '%s тому'
+date.distance.in: 'через %s'
+date.duration.days: ['день', 'дні']
+date.duration.hours: ['година', 'години']
+date.duration.minutes: ['хвилина', 'хвилини']
+date.duration.months: ['місяць', 'місяці']
+date.duration.seconds: ['секунда', 'секунди']
+date.duration.weeks: ['тиждень', 'тижні']
+date.duration.years: ['рік', 'роки']
+date.months.long: ['Січень', 'Лютий', 'Березень', 'Квітень', 'Травень', 'Червень', 'Липень', 'Серпень', 'Вересень', 'Жовтень', 'Листопад', 'Грудень']
+date.months.short: ['Січ', 'Лют', 'Бер', 'Квіт', 'Трав', 'Чер', 'Лип', 'Сер', 'Вер', 'Жов', 'Лис', 'Гру']
+date.never: ніколи
+date.noDate: Без дати
+date.now: зараз
+date.today: Сьогодні
+date.weekdays.long: ['Неділя', 'Понеділок', 'Вівторок', 'Середа', 'Четвер', 'П’ятниця', 'Субота']
+date.weekdays.short: ['Нд', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб']
+fields.array.add: Додати
+fields.array.remove: Видалити
+fields.file.uploadLabel: <strong>Натисніть</strong> щоб вибрати файл для завантаження або <strong>перетягніть</strong> його сюди
+fields.select.empty: Немає відповідних варіантів
+file.metadata: Метадані
+file.metadata.alternativeText: Альтернативний текст
+page.attributes: Атрибути
+page.cacheable: Можна кешувати
+page.content: Вміст
+page.files: Файли
+page.image: Зображення
+page.listed: Перераховані
+page.listed.description: Перераховані сторінки видимі в меню
+page.noImage: Без зображення
+page.none: (Немає)
+page.noTags: Немає тегів
+page.notListed: Не перераховано
+page.notRoutable: Не маршрутизовано
+page.options: Опції
+page.page: Сторінка
+page.parent: Батьківська сторінка
+page.postsPerPage: Публікацій на сторінку
+page.publishDate: Дата публікації
+page.routable: Маршрутизовано
+page.routable.description: Маршрутизовані сторінки доступні за їх адресою
+page.slug: Слаг
+page.slug.suggestion: лише літери, цифри та дефіси
+page.status.notPublished: Не опубліковано
+page.status.published: Опубліковано
+page.status.published.description: Опубліковані сторінки видимі на сайті та доступні за їх адресою
+page.summary: Опис
+page.tags: Теги
+page.template: Шаблон
+page.text: Текст
+page.title: Назва
+page.unpublishDate: Дата зняття публікації
+site.advanced: Розширені опції
+site.advanced.aliases: Псевдоніми
+site.advanced.aliases.alias: Псевдонім
+site.advanced.aliases.route: Маршрут
+site.advanced.metadata: HTML метадані
+site.advanced.metadata.content: Вміст
+site.advanced.metadata.name: Назва
+site.info: Інформація
+site.info.author: Автор
+site.info.description: Опис
+site.info.language: Мова
+site.info.title: Назва
+site.maintenance: Обслуговування
+site.maintenance.enabled: Режим обслуговування
+site.maintenance.enabled.disabled: Вимкнено
+site.maintenance.enabled.enabled: Увімкнено
+site.maintenance.page: Сторінка обслуговування
+site.pages: Сторінки
+site.pages.defaultTemplate: Шаблон за замовчуванням
+upload.error: Неможливо завантажити файл. %s.
+upload.error.alreadyExists: Файл з такою назвою вже існує
+upload.error.cannotMoveToDestination: Не вдалося перемістити завантажений файл до призначеного місця
+upload.error.cannotWrite: Не вдалося записати файл на диск
+upload.error.destinationTooLong: Шлях призначення занадто довгий
+upload.error.fileName: Невірна назва файлу
+upload.error.fileNameTooLong: Назва файлу занадто довга
+upload.error.hiddenFiles: Не можна завантажити приховані файли, що починаються з крапки
+upload.error.mimeType: Тип файлу не дозволено
+upload.error.noFile: Файл не було завантажено
+upload.error.noTemp: Відсутня тимчасова папка
+upload.error.partial: Завантажено лише частину файлу
+upload.error.phpExtension: Завантаження файлу зупинено розширенням
+upload.error.size: Завантажений файл перевищує максимальний розмір
+user.colorScheme: Колірна схема
+user.colorScheme.auto: Авто
+user.colorScheme.dark: Темна
+user.colorScheme.light: Світла
+user.email: Електронна пошта
+user.fullname: Повне ім'я
+user.image: Зображення
+user.language: Мова
+user.password: Пароль
+user.password.placeholder: Введіть новий пароль для зміни...
+user.role: Роль
+user.role.admin: Адміністратор
+user.role.user: Користувач
+user.user: Користувач
+user.username: Ім'я користувача
+zip.error.alreadyExists: Архів вже існує
+zip.error.cannotOpen: Неможливо відкрити архів
+zip.error.cannotRead: Неможливо прочитати архів
+zip.error.inconsistentArchive: Невірний архів
+zip.error.invalidArgument: Невірний аргумент
+zip.error.memoryFailure: Збій пам'яті
+zip.error.notFound: Архів не знайдено
+zip.error.notZipArchive: Це не ZIP архів
+zip.error.unspecified: Не зазначена помилка
