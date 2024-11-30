@@ -1,0 +1,319 @@
+panel.backup.backup: Kopia zapasowa
+panel.backup.deleted: Kopia zapasowa usunięta
+panel.backup.error.cannotDelete: Nie można usunąć kopii zapasowej. %s.
+panel.backup.error.cannotDelete.invalidFilename: Nieprawidłowy plik kopii zapasowej
+panel.backup.error.cannotDownload: Nie można pobrać kopii zapasowej. %s.
+panel.backup.error.cannotDownload.invalidFilename: Nieprawidłowy plik kopii zapasowej
+panel.backup.error.cannotMake: Nie można utworzyć kopii zapasowej. %s.
+panel.backup.ready: Kopia zapasowa gotowa. Rozpoczynanie pobierania...
+panel.cache.clear: Wyczyść pamięć podręczną
+panel.cache.clear.images: Wyczyść pamięć podręczną obrazów
+panel.cache.clear.pages: Wyczyść pamięć podręczną stron
+panel.cache.cleared: Pamięć podręczna wyczyszczona
+panel.cache.cleared.images: Pamięć podręczna obrazów wyczyszczona
+panel.cache.cleared.pages: Pamięć podręczna stron wyczyszczona
+panel.cache.error: Nie można wyczyścić pamięci podręcznej
+panel.dashboard.dashboard: Kokpit
+panel.dashboard.lastModifiedPages: Ostatnio edytowane strony
+panel.dashboard.quickActions: Szybkie akcje
+panel.dashboard.statistics: Statystyki
+panel.dashboard.statistics.uniqueVisitors: Unikalni odwiedzający
+panel.dashboard.statistics.visits: Wizyty
+panel.dashboard.welcome: Witaj
+panel.dragToReorder: Przeciągnij, aby zmienić kolejność
+panel.editor.bold: Pogrubienie
+panel.editor.bulletList: Lista punktowana
+panel.editor.code: Kod
+panel.editor.decreaseIndent: Zmniejsz wcięcie
+panel.editor.heading1: Nagłówek 1
+panel.editor.heading2: Nagłówek 2
+panel.editor.heading3: Nagłówek 3
+panel.editor.heading4: Nagłówek 4
+panel.editor.heading5: Nagłówek 5
+panel.editor.heading6: Nagłówek 6
+panel.editor.image: Obraz
+panel.editor.increaseIndent: Zwiększ wcięcie
+panel.editor.italic: Kursywa
+panel.editor.link: Link
+panel.editor.numberedList: Lista numerowana
+panel.editor.paragraph: Akapit
+panel.editor.quote: Cytat
+panel.editor.redo: Ponów
+panel.editor.summary: Podsumowanie
+panel.editor.toggleMarkdown: Przełącz Markdown
+panel.editor.undo: Cofnij
+panel.errors.action.reportToGithub: Zgłoś problem na GitHubie
+panel.errors.action.returnToDashboard: Powrót do kokpitu
+panel.errors.error.forbidden.description: Nie masz uprawnień do dostępu do tej strony.
+panel.errors.error.forbidden.heading: Ups, wymagane uprawnienia!
+panel.errors.error.forbidden.status: Zabronione
+panel.errors.error.internalServerError.description: Formwork napotkał błąd podczas obsługi twojego żądania. Sprawdź konfigurację Formwork lub dziennik serwera w poszukiwaniu błędów.
+panel.errors.error.internalServerError.heading: Ups, coś poszło nie tak!
+panel.errors.error.internalServerError.status: Błąd wewnętrzny serwera
+panel.errors.error.notFound.description: Strona nie istnieje lub żądanie jest nieprawidłowe.
+panel.errors.error.notFound.heading: Ups, nie znaleziono strony!
+panel.errors.error.notFound.status: Nie znaleziono
+panel.files.actions: Akcje
+panel.files.metadata.updated: Metadane pliku zaktualizowane
+panel.files.viewAsList: Wyświetl jako lista
+panel.files.viewAsThumbnails: Wyświetl jako miniatury
+panel.login.attempt.failed: Próba logowania nieudana! Spróbuj ponownie.
+panel.login.attempt.tooMany: Zbyt wiele prób logowania. Spróbuj ponownie za %d minut.
+panel.login.loggedOut: Zostałeś wylogowany
+panel.login.login: Zaloguj się
+panel.login.logout: Wyloguj się
+panel.login.password: Hasło
+panel.login.suspiciousRequestDetected: Wykryto podejrzane żądanie, dlatego z powodów bezpieczeństwa zostałeś wylogowany. Zaloguj się ponownie.
+panel.login.username: Nazwa użytkownika
+panel.manage: Zarządzaj
+panel.modal.action.cancel: Anuluj
+panel.modal.action.continue: Kontynuuj
+panel.modal.action.delete: Usuń
+panel.modal.action.rename: Zmień nazwę
+panel.modal.action.save: Zapisz
+panel.modal.action.uploadFile: Prześlij plik
+panel.modal.images.noImages: Nie ma tu żadnych obrazów
+panel.modal.images.noImages.upload: Prześlij obrazy
+panel.modal.images.title: Wybierz obraz
+panel.modal.link.title: Wstaw link
+panel.modal.link.uri: URI
+panel.navigation.toggle: Przełącz nawigację
+panel.options.options: Opcje
+panel.options.site: Witryna
+panel.options.system: System
+panel.options.system.adminPanel: Panel administracyjny
+panel.options.system.adminPanel.defaultColorScheme: Domyślny schemat kolorów
+panel.options.system.adminPanel.defaultColorScheme.dark: Ciemny
+panel.options.system.adminPanel.defaultColorScheme.light: Jasny
+panel.options.system.adminPanel.defaultLanguage: Domyślny język
+panel.options.system.adminPanel.logoutRedirectsTo: Przekierowanie po wylogowaniu
+panel.options.system.adminPanel.logoutRedirectsTo.home: Strona główna
+panel.options.system.adminPanel.logoutRedirectsTo.login: Strona logowania
+panel.options.system.adminPanel.sessionTimeout: Limit czasu sesji
+panel.options.system.backup: Kopia zapasowa
+panel.options.system.backup.backupFilesToKeep: Liczba kopii zapasowych do przechowywania na serwerze
+panel.options.system.cache: Pamięć podręczna
+panel.options.system.cache.disabled: Wyłączona
+panel.options.system.cache.enabled: Włączona
+panel.options.system.cache.time: Czas pamięci podręcznej
+panel.options.system.content: Zawartość
+panel.options.system.content.safeMode: Tryb bezpieczny
+panel.options.system.content.safeMode.description: Tryb bezpieczny uniemożliwia używanie tagów HTML w polach Markdown, aby uniknąć luk w zabezpieczeniach. Nawet jeśli jest wyłączony, potencjalnie niebezpieczne tagi, takie jak `<script>` i `<style>`, są konwertowane na tekst
+panel.options.system.content.safeMode.disabled: Wyłączony
+panel.options.system.content.safeMode.enabled: Włączony
+panel.options.system.dateAndTime: Data i czas
+panel.options.system.dateAndTime.dateFormat: Format daty
+panel.options.system.dateAndTime.firstWeekday: Pierwszy dzień tygodnia
+panel.options.system.dateAndTime.firstWeekday.monday: Poniedziałek
+panel.options.system.dateAndTime.firstWeekday.sunday: Niedziela
+panel.options.system.dateAndTime.hourFormat: Format godziny
+panel.options.system.dateAndTime.timezone: Strefa czasowa
+panel.options.system.debug: Debugowanie
+panel.options.system.debug.editorUri: URI edytora
+panel.options.system.debug.editorUri.description: Użyj `{{filename}}` i `{{line}}`, aby zbudować URI do otwarcia edytora kodu
+panel.options.system.debug.mode: Tryb debugowania
+panel.options.system.debug.mode.description: Tryb debugowania ujawnia informacje o błędach i powinien być wyłączony w produkcji, ponieważ może ujawniać wrażliwe dane
+panel.options.system.debug.mode.disabled: Wyłączony
+panel.options.system.debug.mode.enabled: Włączony
+panel.options.system.files: Pliki
+panel.options.system.files.allowedExtensions: Dozwolone rozszerzenia
+panel.options.system.files.allowedExtensions.noExtensions: Brak rozszerzeń (brak plików)
+panel.options.system.images: Obrazy
+panel.options.system.images.clearCacheByDefault: Domyślnie wyczyść pamięć podręczną obrazów
+panel.options.system.images.clearCacheByDefault.disabled: Wyłączone
+panel.options.system.images.clearCacheByDefault.enabled: Włączone
+panel.options.system.images.jpegQuality: Jakość JPEG
+panel.options.system.images.jpegSaveProgressive: Zapisuj obrazy JPEG jako progresywne
+panel.options.system.images.jpegSaveProgressive.disabled: Wyłączone
+panel.options.system.images.jpegSaveProgressive.enabled: Włączone
+panel.options.system.images.pngCompressionLevel: Poziom kompresji PNG
+panel.options.system.images.webpQuality: Jakość WebP
+panel.options.system.languages: Języki
+panel.options.system.languages.availableLanguages: Dostępne języki
+panel.options.system.languages.availableLanguages.noLanguages: Brak języków
+panel.options.system.languages.preferredLanguage: Użyj preferowanego języka przeglądarki
+panel.options.system.languages.preferredLanguage.disabled: Wyłączone
+panel.options.system.languages.preferredLanguage.enabled: Włączone
+panel.options.system.uploads.processImages: Przetwarzaj (optymalizuj) przesyłane obrazy
+panel.options.system.uploads.processImages.disabled: Wyłączone
+panel.options.system.uploads.processImages.enabled: Włączone
+panel.options.updated: Opcje zaktualizowane
+panel.pages.changes.continue: Kontynuuj bez zapisywania
+panel.pages.changes.detected: Wykryto zmiany
+panel.pages.changes.detected.prompt: Masz niezapisane zmiany. Czy na pewno chcesz opuścić tę stronę?
+panel.pages.changeSlug: Edytuj slug
+panel.pages.changeSlug.generate: Generuj z tytułu
+panel.pages.deleteFile: Usuń plik
+panel.pages.deleteFile.prompt: Czy na pewno chcesz usunąć ten plik? Ta akcja jest nieodwracalna.
+panel.pages.deletePage: Usuń stronę
+panel.pages.deletePage.prompt: Czy na pewno chcesz usunąć tę stronę? Ta akcja jest nieodwracalna.
+panel.pages.editPage: Edytuj stronę %s
+panel.pages.file.backToPage: Powrót do strony
+panel.pages.file.exif: EXIF
+panel.pages.file.info: Informacje
+panel.pages.file.info.image.colorDepth: Głębokość kolorów
+panel.pages.file.info.image.colorNumber: Liczba kolorów
+panel.pages.file.info.image.colorProfile: Profil kolorów
+panel.pages.file.info.image.colorSpace: Przestrzeń kolorów
+panel.pages.file.info.image.dimensions: Wymiary
+panel.pages.file.info.image.dimensions.widthByHeightPixels: '%d × %d pikseli'
+panel.pages.file.info.image.exif.aperture: Przysłona
+panel.pages.file.info.image.exif.camera: Aparat
+panel.pages.file.info.image.exif.creationDateAndTime: Data i czas utworzenia
+panel.pages.file.info.image.exif.exposureCompensation: Korekcja ekspozycji
+panel.pages.file.info.image.exif.exposureProgram: Program ekspozycji
+panel.pages.file.info.image.exif.exposureTime: Czas naświetlania
+panel.pages.file.info.image.exif.flash: Lampa błyskowa
+panel.pages.file.info.image.exif.focalLength: Długość ogniskowa
+panel.pages.file.info.image.exif.lensModel: Model obiektywu
+panel.pages.file.info.image.exif.meteringMode: Tryb pomiaru
+panel.pages.file.info.image.exif.sensitivity: Czułość
+panel.pages.file.info.image.exif.whiteBalance: Balans bieli
+panel.pages.file.info.image.frames: '%d klatek'
+panel.pages.file.info.image.framesCount: Liczba klatek
+panel.pages.file.info.image.repeats: '%d powtórzeń'
+panel.pages.file.info.image.repeatsCount: Liczba powtórzeń
+panel.pages.file.info.image.resolution: Rozdzielczość
+panel.pages.file.info.lastModifiedTime: Czas ostatniej modyfikacji
+panel.pages.file.info.mimeType: Typ MIME
+panel.pages.file.info.size: Rozmiar
+panel.pages.file.info.uri: URI
+panel.pages.file.position: Pozycja
+panel.pages.file.preview: Podgląd
+panel.pages.history.event.created: Strona utworzona przez %s %s.
+panel.pages.history.event.edited: Strona edytowana przez %s %s.
+panel.pages.languages: Języki
+panel.pages.languages.addLanguage: Dodaj %s
+panel.pages.languages.editLanguage: Edytuj %s
+panel.pages.newPage: Nowa strona
+panel.pages.newPage.site: Witryna
+panel.pages.next: Następna strona
+panel.pages.nextFile: Następny plik
+panel.pages.page: Strona
+panel.pages.page.actions: Akcje
+panel.pages.page.cannotChangeNum: Nie można zmienić numeru strony
+panel.pages.page.cannotCreate: Nie można utworzyć strony
+panel.pages.page.cannotCreate.alreadyExists: Nie można utworzyć strony, strona o tym samym URI już istnieje
+panel.pages.page.cannotCreate.invalidParent: Nie można utworzyć strony, nieprawidłowa strona nadrzędna
+panel.pages.page.cannotCreate.invalidSlug: Nie można utworzyć strony, slug strony musi zawierać tylko litery i cyfry oddzielone myślnikami
+panel.pages.page.cannotCreate.invalidTemplate: Nie można utworzyć strony, nieprawidłowy szablon
+panel.pages.page.cannotCreate.varMissing: Nie można utworzyć strony, brak zmiennej
+panel.pages.page.cannotDelete.invalidLanguage: 'Nie można usunąć strony, nieprawidłowy język: %s'
+panel.pages.page.cannotDelete.notDeletable: Nie można usunąć strony, strona nie jest do usunięcia
+panel.pages.page.cannotDelete.pageNotFound: Nie można usunąć strony, strona nie została znaleziona
+panel.pages.page.cannotDeleteFile.fileNotFound: Nie można usunąć pliku, plik nie został znaleziony
+panel.pages.page.cannotDeleteFile.pageNotFound: Nie można usunąć pliku, strona nie została znaleziona
+panel.pages.page.cannotEdit.alreadyExists: Nie można edytować strony, strona o tym samym URI już istnieje
+panel.pages.page.cannotEdit.indexOrErrorPageSlug: Nie można edytować slug strony dla strony indeksu lub strony błędu
+panel.pages.page.cannotEdit.invalidLanguage: 'Nie można edytować strony, nieprawidłowy język: %s'
+panel.pages.page.cannotEdit.invalidParent: Nie można edytować strony, nieprawidłowa strona nadrzędna
+panel.pages.page.cannotEdit.invalidSlug: Nie można edytować slug strony, musi zawierać tylko litery i cyfry oddzielone myślnikami
+panel.pages.page.cannotEdit.invalidTemplate: Nie można edytować strony, nieprawidłowy szablon
+panel.pages.page.cannotEdit.pageNotFound: Nie można edytować strony, strona nie została znaleziona
+panel.pages.page.cannotEdit.varMissing: Nie można edytować strony, brak zmiennej
+panel.pages.page.cannotGetFileInfo.fileNotFound: Nie można pobrać informacji o pliku, plik nie został znaleziony
+panel.pages.page.cannotGetFileInfo.pageNotFound: Nie można pobrać informacji o pliku, strona nie została znaleziona
+panel.pages.page.cannotMove: Nie można przenieść strony
+panel.pages.page.cannotPreview.pageNotFound: Nie można wyświetlić podglądu strony, strona nie została znaleziona
+panel.pages.page.cannotPreview.parentChanged: Nie można wyświetlić podglądu strony, strona nadrzędna została zmieniona
+panel.pages.page.cannotRenameFile.fileAlreadyExists: Nie można zmienić nazwy pliku, plik o tej samej nazwie już istnieje
+panel.pages.page.cannotRenameFile.fileNotFound: Nie można zmienić nazwy pliku, plik nie został znaleziony
+panel.pages.page.cannotRenameFile.pageNotFound: Nie można zmienić nazwy pliku, strona nie została znaleziona
+panel.pages.page.cannotReplaceFile.fileNotFound: Nie można zamienić pliku, plik nie został znaleziony
+panel.pages.page.cannotReplaceFile.multipleFiles: Nie można zamienić pliku, podano wiele plików
+panel.pages.page.cannotReplaceFile.pageNotFound: Nie można zamienić pliku, strona nie została znaleziona
+panel.pages.page.cannotUploadFile.pageNotFound: Nie można przesłać pliku, strona nie została znaleziona
+panel.pages.page.created: Strona utworzona!
+panel.pages.page.deleted: Strona usunięta
+panel.pages.page.edited: Strona edytowana
+panel.pages.page.fileDeleted: Plik usunięty
+panel.pages.page.fileRenamed: Plik zmieniony
+panel.pages.page.lastModified: Ostatnia modyfikacja
+panel.pages.page.moved: Strona przeniesiona!
+panel.pages.page.notFound: Strona nie została znaleziona
+panel.pages.page.status: Status
+panel.pages.pages: Strony
+panel.pages.pages.collapseAll: Zwiń wszystkie
+panel.pages.pages.expandAll: Rozwiń wszystkie
+panel.pages.pages.reorder: Zmień kolejność
+panel.pages.pages.search: Szukaj stron...
+panel.pages.preview: Podgląd
+panel.pages.previewFile: Podgląd
+panel.pages.previous: Poprzednia strona
+panel.pages.previousFile: Poprzedni plik
+panel.pages.publish: Publikuj
+panel.pages.renameFile: Zmień nazwę pliku
+panel.pages.renameFile.name: Nazwa
+panel.pages.replaceFile: Zamień plik
+panel.pages.save: Zapisz
+panel.pages.saveOnly: Zapisz bez publikowania
+panel.pages.toggleChildren: Przełącz strony podrzędne
+panel.pages.viewPage: Wyświetl stronę
+panel.panel: Panel administracyjny
+panel.register.createUser: Formwork jest zainstalowany, ale nie znaleziono żadnych użytkowników. Zarejestruj teraz użytkownika.
+panel.register.register: Zarejestruj nowego użytkownika
+panel.request.error.postMaxSize: Żądanie HTTP POST przekracza maksymalny dozwolony rozmiar
+panel.sections.toggle: Przełącz sekcję
+panel.statistics.monthlyUniqueVisitors: Miesięczni unikalni odwiedzający
+panel.statistics.monthlyVisits: Miesięczne wizyty
+panel.statistics.statistics: Statystyki
+panel.statistics.totalVisits: Łączna liczba wizyt
+panel.statistics.totalVisits.percentTotal: '% łączny'
+panel.statistics.totalVisits.uri: URI
+panel.statistics.totalVisits.visits: Wizyty
+panel.statistics.weeklyUniqueVisitors: Tygodniowi unikalni odwiedzający
+panel.statistics.weeklyVisits: Tygodniowe wizyty
+panel.tools.backup.actions: Akcje
+panel.tools.backup.date: Data
+panel.tools.backup.delete: Usuń kopię zapasową
+panel.tools.backup.file: Plik
+panel.tools.backup.size: Rozmiar
+panel.tools.backups: Kopie zapasowe
+panel.tools.info: Informacje
+panel.tools.latestBackup: 'Ostatnia kopia zapasowa:'
+panel.tools.latestBackups: Ostatnie kopie zapasowe
+panel.tools.tools: Narzędzia
+panel.tools.updates: Aktualizacje
+panel.updates.availableForInstall: jest dostępna do zainstalowania
+panel.updates.check: Sprawdź aktualizacje
+panel.updates.install: Zainstaluj
+panel.updates.installed: Aktualizacja zainstalowana!
+panel.updates.installPrompt: Czy chcesz zainstalować aktualizację?
+panel.updates.latestVersionAvailable: jest najnowszą dostępną wersją
+panel.updates.status.cannotCheck: Nie można sprawdzić aktualizacji. Spróbuj ponownie później.
+panel.updates.status.cannotInstall: Nie można zainstalować aktualizacji
+panel.updates.status.cannotMakeBackup: Nie można utworzyć kopii zapasowej przed aktualizacją
+panel.updates.status.checking: Sprawdzanie aktualizacji...
+panel.updates.status.found: Znaleziono aktualizacje
+panel.updates.status.installing: Instalowanie aktualizacji...
+panel.updates.status.upToDate: Aktualne!
+panel.uploader.uploaded: Plik przesłany
+panel.user.actions: Akcje
+panel.user.image.actions: Akcje
+panel.user.image.cannotDelete.defaultImage: Nie można usunąć domyślnego obrazu użytkownika
+panel.user.image.delete: Usuń obraz użytkownika
+panel.user.image.delete.prompt: Czy na pewno chcesz usunąć obraz użytkownika? Ta operacja jest nieodwracalna.
+panel.user.image.deleted: Obraz użytkownika usunięty
+panel.user.image.uploaded: Obraz użytkownika przesłany
+panel.user.lastAccess: Ostatni dostęp
+panel.users.deleteUser: Usuń użytkownika
+panel.users.deleteUser.prompt: Czy na pewno chcesz usunąć tego użytkownika? Ta operacja jest nieodwracalna.
+panel.users.newUser: Nowy użytkownik
+panel.users.newUser.password.suggestion: co najmniej 8 znaków
+panel.users.newUser.username.suggestion: od 3 do 20 liter, cyfr i myślników
+panel.users.nextUser: Następny użytkownik
+panel.users.options: Opcje
+panel.users.previousUser: Poprzedni użytkownik
+panel.users.user.cannotChangePassword: Nie można zmienić hasła innego użytkownika. Ta operacja jest niedozwolona.
+panel.users.user.cannotChangeRole: Nie można zmienić roli użytkownika %s. Ta operacja jest niedozwolona.
+panel.users.user.cannotCreate.alreadyExists: Nie można utworzyć użytkownika, użytkownik o tej samej nazwie już istnieje
+panel.users.user.cannotCreate.varMissing: Nie można utworzyć użytkownika, brak zmiennej
+panel.users.user.cannotDelete: Nie można usunąć użytkownika. Musisz być administratorem, a użytkownik nie może być zalogowany.
+panel.users.user.cannotEdit: Nie można edytować użytkownika %s. Ta operacja jest niedozwolona.
+panel.users.user.created: Użytkownik utworzony
+panel.users.user.deleted: Użytkownik usunięty
+panel.users.user.edited: Dane użytkownika zaktualizowane
+panel.users.user.notFound: Użytkownik nie został znaleziony
+panel.users.userProfile: Profil użytkownika '%s'
+panel.users.users: Użytkownicy
+panel.viewSite: Wyświetl stronę

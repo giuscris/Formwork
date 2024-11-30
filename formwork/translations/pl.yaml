@@ -1,0 +1,110 @@
+date.distance.ago: '%s temu'
+date.distance.in: 'za %s'
+date.duration.days: ['dzień', 'dni']
+date.duration.hours: ['godzina', 'godzin']
+date.duration.minutes: ['minuta', 'minut']
+date.duration.months: ['miesiąc', 'miesięcy']
+date.duration.seconds: ['sekunda', 'sekund']
+date.duration.weeks: ['tydzień', 'tygodni']
+date.duration.years: ['rok', 'lat']
+date.months.long: ['Styczeń', 'Luty', 'Marzec', 'Kwiecień', 'Maj', 'Czerwiec', 'Lipiec', 'Sierpień', 'Wrzesień', 'Październik', 'Listopad', 'Grudzień']
+date.months.short: ['Sty', 'Lut', 'Mar', 'Kwi', 'Maj', 'Cze', 'Lip', 'Sie', 'Wrz', 'Paź', 'Lis', 'Gru']
+date.never: nigdy
+date.noDate: Brak daty
+date.now: teraz
+date.today: Dziś
+date.weekdays.long: ['Niedziela', 'Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota']
+date.weekdays.short: ['Ndz', 'Pon', 'Wt', 'Śr', 'Czw', 'Pt', 'Sob']
+fields.array.add: Dodaj
+fields.array.remove: Usuń
+fields.file.uploadLabel: <strong>Kliknij</strong>, aby wybrać plik do przesłania, lub <strong>przeciągnij</strong> go tutaj
+fields.select.empty: Brak pasujących opcji
+file.metadata: Metadane
+file.metadata.alternativeText: Tekst alternatywny
+page.attributes: Atrybuty
+page.cacheable: Do pamięci podręcznej
+page.content: Zawartość
+page.files: Pliki
+page.image: Obraz
+page.listed: W menu
+page.listed.description: Strony widoczne w menu
+page.noImage: Brak obrazu
+page.none: (Brak)
+page.noTags: Brak tagów
+page.notListed: Poza menu
+page.notRoutable: Niedostępna
+page.options: Opcje
+page.page: Strona
+page.parent: Strona nadrzędna
+page.postsPerPage: Posty na stronę
+page.publishDate: Data publikacji
+page.routable: Dostępna
+page.routable.description: Strony dostępne pod adresem URL
+page.slug: Slug
+page.slug.suggestion: tylko litery, cyfry i myślniki
+page.status.notPublished: Nieopublikowana
+page.status.published: Opublikowana
+page.status.published.description: Opublikowane strony są widoczne na stronie i dostępne pod adresem
+page.summary: Podsumowanie
+page.tags: Tagi
+page.template: Szablon
+page.text: Tekst
+page.title: Tytuł
+page.unpublishDate: Data wycofania publikacji
+site.advanced: Zaawansowane opcje
+site.advanced.aliases: Alias
+site.advanced.aliases.alias: Alias
+site.advanced.aliases.route: Trasa
+site.advanced.metadata: Metadane HTML
+site.advanced.metadata.content: Zawartość
+site.advanced.metadata.name: Nazwa
+site.info: Informacje
+site.info.author: Autor
+site.info.description: Opis
+site.info.language: Język
+site.info.title: Tytuł
+site.maintenance: Tryb konserwacji
+site.maintenance.enabled: Tryb konserwacji
+site.maintenance.enabled.disabled: Wyłączony
+site.maintenance.enabled.enabled: Włączony
+site.maintenance.page: Strona konserwacyjna
+site.pages: Strony
+site.pages.defaultTemplate: Domyślny szablon
+upload.error: Nie można przesłać pliku. %s.
+upload.error.alreadyExists: Plik o tej samej nazwie już istnieje
+upload.error.cannotMoveToDestination: Nie udało się przenieść pliku do miejsca docelowego
+upload.error.cannotWrite: Nie udało się zapisać pliku na dysku
+upload.error.destinationTooLong: Zbyt długa ścieżka docelowa
+upload.error.fileName: Nieprawidłowa nazwa pliku
+upload.error.fileNameTooLong: Zbyt długa nazwa pliku
+upload.error.hiddenFiles: Nie można przesyłać ukrytych plików zaczynających się od kropki
+upload.error.mimeType: Niedozwolony typ pliku
+upload.error.noFile: Nie przesłano żadnego pliku
+upload.error.noTemp: Brak folderu tymczasowego
+upload.error.partial: Plik został przesłany tylko częściowo
+upload.error.phpExtension: Przesyłanie pliku zatrzymane przez rozszerzenie
+upload.error.size: Rozmiar pliku przekracza maksymalny dozwolony
+user.colorScheme: Schemat kolorów
+user.colorScheme.auto: Automatyczny
+user.colorScheme.dark: Ciemny
+user.colorScheme.light: Jasny
+user.email: Email
+user.fullname: Pełne imię i nazwisko
+user.image: Obraz
+user.language: Język
+user.password: Hasło
+user.password.placeholder: Wpisz nowe hasło, aby je zmienić...
+user.role: Rola
+user.role.admin: Administrator
+user.role.user: Użytkownik
+user.user: Użytkownik
+user.username: Nazwa użytkownika
+zip.error.alreadyExists: Archiwum już istnieje
+zip.error.cannotOpen: Nie można otworzyć archiwum
+zip.error.cannotRead: Nie można odczytać archiwum
+zip.error.inconsistentArchive: Niespójne archiwum
+zip.error.invalidArgument: Nieprawidłowy argument
+zip.error.memoryFailure: Błąd pamięci
+zip.error.notFound: Archiwum nie znaleziono
+zip.error.notZipArchive: Nie jest to archiwum ZIP
+zip.error.unspecified: Nieokreślony błąd
