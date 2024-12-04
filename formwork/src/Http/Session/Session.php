@@ -8,6 +8,7 @@ use Formwork\Data\Traits\DataMultipleGetter;
 use Formwork\Data\Traits\DataMultipleSetter;
 use Formwork\Http\Request;
 use Formwork\Http\Utils\Cookie;
+use Formwork\Http\Utils\Header;
 use Formwork\Utils\Str;
 use InvalidArgumentException;
 use RuntimeException;
@@ -87,6 +88,8 @@ class Session implements Arrayable
             'cache_expire'    => 0,
             'use_strict_mode' => true,
         ]);
+
+        Header::send('Cache-Control', 'no-store, no-cache, must-revalidate');
 
         if (($id = session_id()) === false) {
             throw new RuntimeException('Cannot get session id');
