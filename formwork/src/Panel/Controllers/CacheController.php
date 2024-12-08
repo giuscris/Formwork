@@ -37,6 +37,9 @@ class CacheController extends AbstractController
         }
     }
 
+    /**
+     * Clear pages cache
+     */
     private function clearPagesCache(AbstractCache $cache): void
     {
         if ($this->config->get('system.cache.enabled')) {
@@ -44,6 +47,9 @@ class CacheController extends AbstractController
         }
     }
 
+    /**
+     * Clear images cache
+     */
     private function clearImagesCache(): void
     {
         $path = $this->config->get('system.images.processPath');

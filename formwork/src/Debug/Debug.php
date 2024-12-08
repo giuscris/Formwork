@@ -11,8 +11,14 @@ class Debug
 {
     use StaticClass;
 
+    /**
+     * Number of spaces for each indentation level
+     */
     protected const int INDENT_SPACES = 2;
 
+    /**
+     * CSS styles for debug output
+     */
     protected static string $css = <<<'CSS'
         .__formwork-dump {
             position: relative;
@@ -100,6 +106,9 @@ class Debug
         }
         CSS;
 
+    /**
+     * JavaScript for debug output
+     */
     protected static string $js = <<<'JS'
         function __formwork_dump_toggle(self, recursive = true) {
             const ref = document.getElementById(self.dataset.target);
@@ -137,14 +146,25 @@ class Debug
         JS;
 
     /**
+     * References to objects to avoid infinite recursion
+     *
      * @var array<int>
      */
     protected static array $refs = [];
 
+    /**
+     * Counter for unique IDs
+     */
     protected static int $counter = 0;
 
+    /**
+     * Whether CSS styles have been dumped
+     */
     protected static bool $stylesDumped = false;
 
+    /**
+     * Dump data
+     */
     public static function dump(mixed ...$data): void
     {
         if (!headers_sent()) {
@@ -160,17 +180,26 @@ class Debug
         echo '<script>__formwork_dump_goto(window.location.hash.slice(1))</script>';
     }
 
+    /**
+     * Dump data and exit
+     */
     public static function dd(mixed ...$data): never
     {
         static::dump(...$data);
         exit;
     }
 
+    /**
+     * Dump data to string
+     */
     public static function dumpToString(mixed $data): string
     {
         return sprintf('<pre class="__formwork-dump">%s</pre>', static::outputData($data));
     }
 
+    /**
+     * Output data
+     */
     protected static function outputData(mixed $data, int $indent = 0): string
     {
         switch (gettype($data)) {

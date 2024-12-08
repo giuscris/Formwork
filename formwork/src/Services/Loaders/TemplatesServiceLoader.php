@@ -11,8 +11,10 @@ use Formwork\Utils\FileSystem;
 
 class TemplatesServiceLoader implements ServiceLoaderInterface
 {
-    public function __construct(protected Config $config, protected TemplateFactory $templateFactory)
-    {
+    public function __construct(
+        protected Config $config,
+        protected TemplateFactory $templateFactory,
+    ) {
     }
 
     public function load(Container $container): Templates

@@ -517,7 +517,7 @@ class Page extends Model implements Stringable
 
             $num = match ($mode) {
                 'date'  => date(self::DATE_NUM_FORMAT),
-                default => 1 + max([0, ...$this->parent()->children()->everyItem()->num()->values()])
+                default => 1 + max([0, ...$this->parent()->children()->everyItem()->num()->values()]),
             };
         }
 

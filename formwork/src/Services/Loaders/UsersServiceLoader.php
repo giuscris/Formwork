@@ -24,7 +24,7 @@ class UsersServiceLoader implements ServiceLoaderInterface
         protected Container $container,
         protected Config $config,
         protected Translations $translations,
-        protected UserFactory $userFactory
+        protected UserFactory $userFactory,
     ) {
     }
 

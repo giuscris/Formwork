@@ -59,8 +59,12 @@ class View
      * @param array<string, mixed>   $vars
      * @param array<string, Closure> $methods
      */
-    public function __construct(protected string $name, protected array $vars, protected string $path, array $methods = [])
-    {
+    public function __construct(
+        protected string $name,
+        protected array $vars,
+        protected string $path,
+        array $methods = [],
+    ) {
         $this->file = $this->getFile($this->name);
 
         if (!FileSystem::exists($this->file)) {

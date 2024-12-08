@@ -13,21 +13,37 @@ use UnexpectedValueException;
 class ServeCommand
 {
     /**
+     * Current request data for the server process
+     *
      * @var array<mixed>
      */
     protected array $requestData;
 
+    /**
+     * PHP process
+     */
     protected Process $process;
 
+    /**
+     * CLImate instance
+     */
     protected CLImate $climate;
 
+    /**
+     * Server start time
+     */
     protected float $startTime;
 
-    public function __construct(protected string $host = '127.0.0.1', protected int $port = 8000)
-    {
+    public function __construct(
+        protected string $host = '127.0.0.1',
+        protected int $port = 8000,
+    ) {
         $this->climate = new CLImate();
     }
 
+    /**
+     * Start the server
+     */
     public function start(): void
     {
         $this->startTime = microtime(true);
@@ -47,6 +63,8 @@ class ServeCommand
     }
 
     /**
+     * Handle server output
+     *
      * @param list<string> $lines
      */
     protected function handleOutput(array $lines): void
@@ -136,6 +154,8 @@ class ServeCommand
     }
 
     /**
+     * Split request message into parts
+     *
      * @return list<?string>
      */
     protected function splitMessage(string $message): array
@@ -145,6 +165,9 @@ class ServeCommand
         return $matches;
     }
 
+    /**
+     * Colorize status code
+     */
     protected function colorStatus(int $status): string
     {
         if ($status <= 299) {
@@ -163,6 +186,9 @@ class ServeCommand
         throw new UnexpectedValueException(sprintf('Unexpected status code %d', $status));
     }
 
+    /**
+     * Format time interval
+     */
     protected function formatTime(float $dt): string
     {
         if ($dt > 60) {

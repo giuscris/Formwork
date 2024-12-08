@@ -8,24 +8,33 @@ use RuntimeException;
 
 class FileResponse extends Response
 {
+    /**
+     * Chunk size for file streaming
+     */
     protected const int CHUNK_SIZE = 512 * 1024;
 
+    /**
+     * File size in bytes
+     */
     protected int $fileSize;
 
+    /**
+     * Offset for partial content responses
+     */
     protected int $offset = 0;
 
+    /**
+     * Length of partial content responses
+     */
     protected int $length;
 
-    /**
-     * @inheritdoc
-     */
     public function __construct(
         protected string $path,
         ResponseStatus $responseStatus = ResponseStatus::OK,
         array $headers = [],
         bool $download = false,
         protected bool $autoEtag = false,
-        protected bool $autoLastModified = false
+        protected bool $autoLastModified = false,
     ) {
         $this->fileSize = FileSystem::fileSize($path);
 
@@ -38,9 +47,6 @@ class FileResponse extends Response
         parent::__construct('', $responseStatus, $headers);
     }
 
-    /**
-     * @inheritdoc
-     */
     public function send(): void
     {
         parent::cleanOutputBuffers();

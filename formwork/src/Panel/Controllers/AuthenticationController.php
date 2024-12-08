@@ -15,6 +15,9 @@ use Formwork\Utils\FileSystem;
 
 class AuthenticationController extends AbstractController
 {
+    /**
+     * Session key used to store the URI to redirect to after login
+     */
     public const string SESSION_REDIRECT_KEY = '_formwork_redirect_to';
 
     /**

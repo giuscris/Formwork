@@ -6,11 +6,14 @@ use Formwork\Config\Config;
 
 class ImageFactory
 {
-    public function __construct(protected Config $config)
-    {
+    public function __construct(
+        protected Config $config,
+    ) {
     }
 
     /**
+     * Create a new Image instance
+     *
      * @param array<string, mixed> $options
      */
     public function make(string $path, array $options = []): Image

@@ -7,8 +7,11 @@ class CompiledRoute
     /**
      * @param list<string> $params
      */
-    public function __construct(protected string $path, protected string $regex, protected array $params)
-    {
+    public function __construct(
+        protected string $path,
+        protected string $regex,
+        protected array $params,
+    ) {
     }
 
     /**

@@ -20,8 +20,14 @@ class Cookie
      */
     public const string SAMESITE_LAX = 'Lax';
 
+    /**
+     * 'None' value for SameSite attribute
+     */
     public const string SAMESITE_NONE = 'None';
 
+    /**
+     * Regex pattern for invalid cookie name characters
+     */
     protected const string INVALID_NAME_CHARACTERS = '/[\x00-\x20.()<>@,;:\"\/[\]?={}]|[^\x21-\x7e]/';
 
     /**
@@ -63,6 +69,9 @@ class Cookie
         return static::removeSetCookieHeader($name) !== null;
     }
 
+    /**
+     * Validate a cookie name
+     */
     protected static function validateName(string $name): bool
     {
         if (preg_match(self::INVALID_NAME_CHARACTERS, $name, $matches, PREG_OFFSET_CAPTURE)) {
@@ -73,6 +82,9 @@ class Cookie
         return true;
     }
 
+    /**
+     * Remove a 'Set-Cookie' header from headers list
+     */
     protected static function removeSetCookieHeader(string $name): ?string
     {
         $cookies = Arr::filter(headers_list(), function ($header) use ($name, &$result) {

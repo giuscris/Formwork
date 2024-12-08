@@ -11,8 +11,12 @@ class Pagination extends BasePagination
 {
     use PaginationUri;
 
-    public function __construct(PageCollection $pageCollection, int $length, protected Site $site, protected Router $router)
-    {
+    public function __construct(
+        PageCollection $pageCollection,
+        int $length,
+        protected Site $site,
+        protected Router $router,
+    ) {
         parent::__construct($pageCollection, $length);
     }
 }

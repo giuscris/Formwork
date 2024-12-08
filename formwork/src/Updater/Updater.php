@@ -74,11 +74,10 @@ class Updater
      */
     protected bool $upToDate;
 
-    /**
-     * Create a new Updater instance
-     */
-    public function __construct(protected App $app, protected Config $config)
-    {
+    public function __construct(
+        protected App $app,
+        protected Config $config,
+    ) {
         $this->options = $config->get('system.updates');
 
         $this->registry = new Registry($this->options['registryFile']);

@@ -42,8 +42,11 @@ class DynamicFieldValue
      * @param string $uncomputedValue Uncomputed value
      * @param Field  $field           Field to which the value belongs
      */
-    public function __construct(protected string $key, protected string $uncomputedValue, protected Field $field)
-    {
+    public function __construct(
+        protected string $key,
+        protected string $uncomputedValue,
+        protected Field $field,
+    ) {
     }
 
     /**

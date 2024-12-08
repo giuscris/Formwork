@@ -85,8 +85,10 @@ class Router
      */
     protected RouteParams $params;
 
-    public function __construct(protected Container $container, protected Request $request)
-    {
+    public function __construct(
+        protected Container $container,
+        protected Request $request,
+    ) {
         $this->routes = new RouteCollection();
         $this->filters = new RouteFilterCollection();
         $this->params = new RouteParams([]);
@@ -368,8 +370,6 @@ class Router
      *
      * @param list<string>            $names
      * @param array<int, string|null> $matches
-     *
-     * @internal
      */
     protected function buildParams(array $names, array $matches): RouteParams
     {
@@ -421,8 +421,6 @@ class Router
 
     /**
      * Validate param separator
-     *
-     * @internal
      */
     protected function validateSeparator(?string $separator, string $param): string
     {
@@ -437,8 +435,6 @@ class Router
      * Validate param name
      *
      * @param list<string> $params
-     *
-     * @internal
      */
     protected function validateParamName(?string $param, array $params): string
     {
@@ -457,8 +453,6 @@ class Router
      * Match current HTTP method with the given ones
      *
      * @param list<string> $methods
-     *
-     * @internal
      */
     protected function matchMethods(array $methods): bool
     {
@@ -476,8 +470,6 @@ class Router
      * Match current request type (HTTP, XHR) with the given ones
      *
      * @param list<string> $types
-     *
-     * @internal
      */
     protected function matchTypes(array $types): bool
     {
@@ -486,8 +478,6 @@ class Router
 
     /**
      * Match prefix with current request
-     *
-     * @internal
      */
     protected function matchPrefix(?string $prefix): bool
     {
@@ -496,8 +486,6 @@ class Router
 
     /**
      * Match route filter requirements
-     *
-     * @internal
      */
     protected function matchFilter(RouteFilter $routeFilter): bool
     {
@@ -508,8 +496,6 @@ class Router
 
     /**
      * Match route requirements
-     *
-     * @internal
      */
     protected function matchRoute(Route $route): bool
     {

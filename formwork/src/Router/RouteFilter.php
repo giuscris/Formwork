@@ -49,8 +49,10 @@ class RouteFilter
     /**
      * @param callable|string $action
      */
-    public function __construct(protected string $name, $action)
-    {
+    public function __construct(
+        protected string $name,
+        $action,
+    ) {
         $this->action = $action;
     }
 

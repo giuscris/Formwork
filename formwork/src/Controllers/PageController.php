@@ -21,11 +21,14 @@ class PageController extends AbstractController
         private readonly Container $container,
         protected readonly Router $router,
         protected readonly Site $site,
-        protected readonly FilesCache $filesCache
+        protected readonly FilesCache $filesCache,
     ) {
         $this->container->call(parent::__construct(...));
     }
 
+    /**
+     * PageController@load action
+     */
     public function load(RouteParams $routeParams, Statistics $statistics): Response
     {
         $trackable = $this->config->get('system.statistics.enabled');
@@ -97,11 +100,17 @@ class PageController extends AbstractController
         return $this->getPageResponse($this->site->errorPage());
     }
 
+    /**
+     * PageController@error action
+     */
     public function error(): Response
     {
         return $this->getPageResponse($this->site->errorPage());
     }
 
+    /**
+     * Get a response for a page
+     */
     protected function getPageResponse(Page $page): Response
     {
         if ($this->site->currentPage() === null) {
@@ -148,6 +157,9 @@ class PageController extends AbstractController
         return $response;
     }
 
+    /**
+     * Return whether the request is cacheable
+     */
     private function isRequestCacheable(): bool
     {
         return in_array($this->request->method(), [RequestMethod::GET, RequestMethod::HEAD]);

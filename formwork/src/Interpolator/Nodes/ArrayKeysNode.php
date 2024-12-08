@@ -4,9 +4,6 @@ namespace Formwork\Interpolator\Nodes;
 
 class ArrayKeysNode extends AbstractNode
 {
-    /**
-     * @inheritdoc
-     */
     public const string TYPE = 'array keys';
 
     /**

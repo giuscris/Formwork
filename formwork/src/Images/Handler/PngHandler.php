@@ -158,6 +158,8 @@ class PngHandler extends AbstractHandler
     }
 
     /**
+     * Get color space and alpha channel from color type
+     *
      * @return array{ColorSpace, bool}
      */
     protected function getColorSpaceAndAlpha(int $colorType): array
@@ -172,22 +174,30 @@ class PngHandler extends AbstractHandler
         };
     }
 
+    /**
+     * Encode a PNG chunk
+     */
     protected function encodeChunk(string $name, string $data): string
     {
         return pack('N', strlen($data)) . $name . $data . pack('N', crc32($name . $data));
     }
 
     /**
+     * Decode a PNG color profile chunk
+     *
      * @return array{name: string, value: string}
      */
     protected function decodeProfile(string $data): array
     {
         $name = $this->unpack('Z*', $data)[1];
         $value = gzuncompress(substr($data, strlen($name) + 2))
-            ?: throw new UnexpectedValueException('Invalid profile string');
+            ?: throw new UnexpectedValueException('Invalid color profile string');
         return ['name' => $name, 'value' => $value];
     }
 
+    /**
+     * Encode a PNG color profile chunk
+     */
     protected function encodeProfile(string $name, string $value): string
     {
         return trim($name) . "\x0\x0" . gzcompress($value);
@@ -212,6 +222,8 @@ class PngHandler extends AbstractHandler
     }
 
     /**
+     * Unpack data from binary string
+     *
      * @return array<int|string, mixed>
      */
     private function unpack(string $format, string $string, int $offset = 0): array

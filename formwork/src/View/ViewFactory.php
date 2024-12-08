@@ -11,11 +11,16 @@ class ViewFactory
     /**
      * @param array<string, Closure> $methods
      */
-    public function __construct(protected array $methods, protected App $app, protected Config $config)
-    {
+    public function __construct(
+        protected array $methods,
+        protected App $app,
+        protected Config $config,
+    ) {
     }
 
     /**
+     * Create a new View instance
+     *
      * @param array<string, mixed>   $vars
      * @param array<string, Closure> $methods
      */
@@ -28,6 +33,8 @@ class ViewFactory
     }
 
     /**
+     * Set view methods
+     *
      * @param array<string, Closure>|Closure $methods
      */
     public function setMethods(Closure|array $methods): void
@@ -36,6 +43,8 @@ class ViewFactory
     }
 
     /**
+     * Get default view variables
+     *
      * @return array<string, mixed>
      */
     public function defaults(): array

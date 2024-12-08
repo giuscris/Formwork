@@ -19,8 +19,9 @@ class TokenStream
     /**
      * @param list<Token> $tokens
      */
-    public function __construct(protected array $tokens)
-    {
+    public function __construct(
+        protected array $tokens,
+    ) {
         $this->count = count($tokens);
     }
 

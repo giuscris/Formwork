@@ -57,8 +57,10 @@ class Image extends File
     /**
      * @param array<string, mixed> $options
      */
-    public function __construct(string $path, protected array $options)
-    {
+    public function __construct(
+        string $path,
+        protected array $options,
+    ) {
         parent::__construct($path);
         $this->transforms = new TransformCollection();
     }
@@ -89,30 +91,45 @@ class Image extends File
         return $this->mimeType;
     }
 
+    /**
+     * Rotate image by a given angle in degrees
+     */
     public function rotate(float $angle): self
     {
         $this->transforms->add(new Rotate($angle));
         return $this;
     }
 
+    /**
+     * Flip image horizontally
+     */
     public function flipHorizontal(): self
     {
         $this->transforms->add(new Flip(FlipDirection::Horizontal));
         return $this;
     }
 
+    /**
+     * Flip image vertically
+     */
     public function flipVertical(): self
     {
         $this->transforms->add(new Flip(FlipDirection::Vertical));
         return $this;
     }
 
+    /**
+     * Flip image both horizontally and vertically
+     */
     public function flipBoth(): self
     {
         $this->transforms->add(new Flip(FlipDirection::Both));
         return $this;
     }
 
+    /**
+     * Scale image by a given factor
+     */
     public function scale(float $factor): self
     {
         $this->transforms->add(new Scale($factor));
@@ -120,6 +137,8 @@ class Image extends File
     }
 
     /**
+     * Resize image to a given width and height
+     *
      * @param int<1, max> $width
      * @param int<1, max> $height
      */
@@ -133,6 +152,8 @@ class Image extends File
     }
 
     /**
+     * Resize image to a square of a given size
+     *
      * @param int<1, max>|null $size
      */
     public function square(?int $size = null, ResizeMode|string $mode = ResizeMode::Cover): self
@@ -142,6 +163,8 @@ class Image extends File
     }
 
     /**
+     * Crop image to a given width and height starting from a given origin
+     *
      * @param int<0, max> $originX
      * @param int<0, max> $originY
      * @param int<1, max> $width
@@ -153,66 +176,99 @@ class Image extends File
         return $this;
     }
 
+    /**
+     * Blur image by a given amount using a given mode
+     */
     public function blur(int $amount, BlurMode $blurMode = BlurMode::Mean): self
     {
         $this->transforms->add(new Blur($amount, $blurMode));
         return $this;
     }
 
+    /**
+     * Adjust image brightness by a given amount
+     */
     public function brightness(int $amount): self
     {
         $this->transforms->add(new Brightness($amount));
         return $this;
     }
 
+    /**
+     * Colorize image with a given color
+     */
     public function colorize(int $red, int $green, int $blue, int $alpha = 0): self
     {
         $this->transforms->add(new Colorize($red, $green, $blue, $alpha));
         return $this;
     }
 
+    /**
+     * Adjust image contrast by a given amount
+     */
     public function contrast(int $amount): self
     {
         $this->transforms->add(new Contrast($amount));
         return $this;
     }
 
+    /**
+     * Desaturate image
+     */
     public function desaturate(): self
     {
         $this->transforms->add(new Desaturate());
         return $this;
     }
 
+    /**
+     * Detect edges in the image
+     */
     public function edgedetect(): self
     {
         $this->transforms->add(new EdgeDetect());
         return $this;
     }
 
+    /**
+     * Emboss image
+     */
     public function emboss(): self
     {
         $this->transforms->add(new Emboss());
         return $this;
     }
 
+    /**
+     * Invert image colors
+     */
     public function invert(): self
     {
         $this->transforms->add(new Invert());
         return $this;
     }
 
+    /**
+     * Pixelate image by a given amount
+     */
     public function pixelate(int $amount): self
     {
         $this->transforms->add(new Pixelate($amount));
         return $this;
     }
 
+    /**
+     * Sharpen image
+     */
     public function sharpen(): self
     {
         $this->transforms->add(new Sharpen());
         return $this;
     }
 
+    /**
+     * Smoothen image
+     */
     public function smoothen(): self
     {
         $this->transforms->add(new Smoothen());
@@ -303,6 +359,9 @@ class Image extends File
         $this->saveAs($this->path);
     }
 
+    /**
+     * Perform image processing and return a new Image instance
+     */
     public function process(?string $mimeType = null, bool $forceCache = false): Image
     {
         $mimeType ??= $this->mimeType();
@@ -337,26 +396,41 @@ class Image extends File
         return $image;
     }
 
+    /**
+     * Convert image to GIF
+     */
     public function toGif(): Image
     {
         return $this->process('image/gif');
     }
 
+    /**
+     * Convert image to JPEG
+     */
     public function toJpeg(): Image
     {
         return $this->process('image/jpeg');
     }
 
+    /**
+     * Convert image to PNG
+     */
     public function toPng(): Image
     {
         return $this->process('image/png');
     }
 
+    /**
+     * Convert image to WebP
+     */
     public function toWebp(): Image
     {
         return $this->process('image/webp');
     }
 
+    /**
+     * Save image to a given path with a given MIME type
+     */
     public function saveAs(string $path, ?string $mimeType = null): void
     {
         $handler = match ($mimeType ?? $this->mimeType()) {
@@ -365,7 +439,7 @@ class Image extends File
             'image/gif'     => GifHandler::class,
             'image/webp'    => WebpHandler::class,
             'image/svg+xml' => SvgHandler::class,
-            default         => throw new RuntimeException(sprintf('Unsupported image type %s', $mimeType))
+            default         => throw new RuntimeException(sprintf('Unsupported image type %s', $mimeType)),
         };
 
         if (!$this->handler()->supportsTransforms()) {
@@ -396,6 +470,9 @@ class Image extends File
         ];
     }
 
+    /**
+     * Get image hash based on its path, transforms and format
+     */
     protected function getHash(?string $mimeType = null): string
     {
         $mimeType ??= $this->mimeType();
@@ -406,12 +483,15 @@ class Image extends File
             'image/webp'    => $mimeType . $this->options['webpQuality'] . $this->options['preserveColorProfile'] . $this->options['preserveExifData'],
             'image/gif'     => $mimeType . $this->options['gifColors'],
             'image/svg+xml' => $mimeType,
-            default         => throw new RuntimeException(sprintf('Unsupported image type %s', $mimeType))
+            default         => throw new RuntimeException(sprintf('Unsupported image type %s', $mimeType)),
         };
 
         return substr(hash('sha256', $this->path . $this->transforms->getSpecifier() . $format . FileSystem::lastModifiedTime($this->path)), 0, 32);
     }
 
+    /**
+     * Get handler for the image
+     */
     protected function handler(): AbstractHandler
     {
         if (!isset($this->handler)) {
@@ -435,6 +515,9 @@ class Image extends File
         };
     }
 
+    /**
+     * Initialize image
+     */
     protected function initialize(): void
     {
         if (!extension_loaded('gd')) {

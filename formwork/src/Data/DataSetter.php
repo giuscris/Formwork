@@ -14,8 +14,6 @@ final class DataSetter implements Arrayable
     use DataMultipleSetter;
 
     /**
-     * Create a new instance
-     *
      * @param array<string, mixed> $data
      */
     public function __construct(array $data)

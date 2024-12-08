@@ -11,8 +11,9 @@ class CsrfToken
      */
     protected const string SESSION_KEY_PREFIX = '_formwork_csrf_tokens';
 
-    public function __construct(protected Request $request)
-    {
+    public function __construct(
+        protected Request $request,
+    ) {
     }
 
     /**

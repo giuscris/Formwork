@@ -11,8 +11,11 @@ use Formwork\Services\ResolutionAwareServiceLoaderInterface;
 
 class SiteServiceLoader implements ResolutionAwareServiceLoaderInterface
 {
-    public function __construct(protected Config $config, protected Languages $languages, protected Schemes $schemes)
-    {
+    public function __construct(
+        protected Config $config,
+        protected Languages $languages,
+        protected Schemes $schemes,
+    ) {
     }
 
     public function load(Container $container): Site

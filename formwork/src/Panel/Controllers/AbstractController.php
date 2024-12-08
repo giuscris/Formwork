@@ -27,7 +27,7 @@ abstract class AbstractController extends BaseAbstractController
         protected readonly Translations $translations,
         protected readonly ModalFactory $modalFactory,
         protected readonly Site $site,
-        protected readonly Panel $panel
+        protected readonly Panel $panel,
     ) {
         $this->container->call(parent::__construct(...));
 
@@ -35,6 +35,8 @@ abstract class AbstractController extends BaseAbstractController
     }
 
     /**
+     * Generate a route by name
+     *
      * @param array<string, mixed> $params
      */
     protected function generateRoute(string $name, array $params = []): string
@@ -42,6 +44,9 @@ abstract class AbstractController extends BaseAbstractController
         return $this->router->generate($name, $params);
     }
 
+    /**
+     * Get translated string by key
+     */
     protected function translate(string $key, int|float|string|Stringable ...$arguments): string
     {
         return $this->translations->getCurrent()->translate($key, ...$arguments);

@@ -52,6 +52,6 @@ return $config
         'single_line_empty_body' => false,
         'single_quote' => true,
         'string_implicit_backslashes' => true,
-        'trailing_comma_in_multiline' => true,
+        'trailing_comma_in_multiline' => ['after_heredoc' => true, 'elements' => ['array_destructuring', 'arrays', 'match', 'parameters']],
     ])
     ->setFinder($finder);

@@ -10,8 +10,11 @@ use UnexpectedValueException;
 
 class Resize extends AbstractTransform
 {
-    final public function __construct(protected int $width, protected int $height, protected ResizeMode $resizeMode = ResizeMode::Cover)
-    {
+    final public function __construct(
+        protected int $width,
+        protected int $height,
+        protected ResizeMode $resizeMode = ResizeMode::Cover,
+    ) {
         if ($width <= 0) {
             throw new InvalidArgumentException('$width must be greater than 0');
         }

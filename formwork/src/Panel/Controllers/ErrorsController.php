@@ -10,6 +10,9 @@ use Throwable;
 
 class ErrorsController extends AbstractController implements ErrorsControllerInterface
 {
+    /**
+     * ErrorsController@error action
+     */
     public function error(ResponseStatus $responseStatus = ResponseStatus::InternalServerError, ?Throwable $throwable = null): Response
     {
         return $this->makeErrorResponse($responseStatus, 'internalServerError', [
@@ -19,7 +22,7 @@ class ErrorsController extends AbstractController implements ErrorsControllerInt
     }
 
     /**
-     * Errors@notFound action
+     * ErrorsController@notFound action
      */
     public function notFound(): Response
     {
@@ -30,7 +33,7 @@ class ErrorsController extends AbstractController implements ErrorsControllerInt
     }
 
     /**
-     * Errors@internalServerError action
+     * ErrorsController@internalServerError action
      */
     public function internalServerError(Throwable $throwable): Response
     {
@@ -41,7 +44,7 @@ class ErrorsController extends AbstractController implements ErrorsControllerInt
     }
 
     /**
-     * Errors@forbidden action
+     * ErrorsController@forbidden action
      */
     public function forbidden(): Response
     {

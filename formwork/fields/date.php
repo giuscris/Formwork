@@ -17,7 +17,7 @@ return function (App $app): array {
                 $format = match (strtolower($type)) {
                     'pattern' => Date::patternToFormat($format),
                     'date'    => $format,
-                    default   => throw new InvalidArgumentException('Invalid date format type')
+                    default   => throw new InvalidArgumentException('Invalid date format type'),
                 };
             }
             return $field->isEmpty() ? '' : Date::formatTimestamp($field->toTimestamp(), $format, $translation);

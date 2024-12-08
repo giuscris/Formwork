@@ -8,19 +8,39 @@ use UnexpectedValueException;
 
 class ExifReader
 {
+    /**
+     * Header for little-endian EXIF data
+     */
     protected const string EXIF_LITTLE_ENDIAN = 'II';
 
+    /**
+     * Header for big-endian EXIF data
+     */
     protected const string EXIF_BIG_ENDIAN = 'MM';
 
+    /**
+     * Header for ASCII-encoded EXIF strings
+     */
     protected const string EXIF_ENCODING_ASCII = "ASCII\x00\x00\x00";
 
+    /**
+     * Header for JIS-encoded EXIF strings
+     */
     protected const string EXIF_ENCODING_JIS = "JIS\x00\x00\x00\x00\x00";
 
+    /**
+     * Header for Unicode-encoded EXIF strings
+     */
     protected const string EXIF_ENCODING_UNICODE = "UNICODE\x00";
 
+    /**
+     * Header for undefined-encoded EXIF strings
+     */
     protected const string EXIF_ENCODING_UNDEFINED = "\x00\x00\x00\x00\x00\x00\x00\x00";
 
     /**
+     * Ignored EXIF sections
+     *
      * @var list<string>
      */
     protected const array IGNORED_SECTIONS = [
@@ -38,6 +58,8 @@ class ExifReader
     ];
 
     /**
+     * Mapping of undefined EXIF tags to known EXIF tags
+     *
      * @var array<string, string>
      */
     protected const array UNDEFINED_TAGS_TO_EXIF_TAGS = [
@@ -67,6 +89,8 @@ class ExifReader
     ];
 
     /**
+     * Mapping of EXIF tags to aliases
+     *
      * @var array<string, string>
      */
     protected const array TAG_ALIASES = [
@@ -78,6 +102,8 @@ class ExifReader
     ];
 
     /**
+     * EXIF data table
+     *
      * @var array<string, array<string, mixed>>
      */
     protected static array $ExifTable;
@@ -88,6 +114,8 @@ class ExifReader
     }
 
     /**
+     * Read EXIF data from a string
+     *
      * @return array<string, mixed>
      */
     public function read(string &$data): array
@@ -179,6 +207,8 @@ class ExifReader
     }
 
     /**
+     * Read EXIF tags from a string
+     *
      * @return array<string, mixed>
      */
     protected function readTagsFromString(string $data): array
@@ -204,6 +234,9 @@ class ExifReader
         return $exif;
     }
 
+    /**
+     * Parse EXIF binary value
+     */
     protected function parseBinary(string $value): string
     {
         for ($i = 0; $i < strlen($value); $i++) {
@@ -217,6 +250,8 @@ class ExifReader
     }
 
     /**
+     * Parse EXIF coordinates value
+     *
      * @param array{string, string, string} $value
      */
     protected function parseCoordinates(array $value, ?string $cardinalRef): float
@@ -229,11 +264,17 @@ class ExifReader
         return $direction * ($degrees + $minutes / 60 + $seconds / 3600);
     }
 
+    /**
+     * Parse EXIF datetime value
+     */
     protected function parseDateTime(string $value, ?string $subseconds, ?string $timeoffset): ?ExifDateTime
     {
         return ExifDateTime::createFromExifData($value, $subseconds, $timeoffset) ?: null;
     }
 
+    /**
+     * Parse EXIF rational value
+     */
     protected function parseRational(string $value): float
     {
         [$num, $den] = explode('/', $value . '/1');
@@ -243,6 +284,9 @@ class ExifReader
         return (int) $num / (int) $den;
     }
 
+    /**
+     * Parse EXIF text value
+     */
     protected function parseText(string &$value, string $byteOrder): ?string
     {
         $encoding = $this->getTextEncoding($value, $byteOrder);
@@ -253,6 +297,9 @@ class ExifReader
         return $text === false ? null : rtrim($text, "\x00");
     }
 
+    /**
+     * Get text encoding of an EXIF string
+     */
     protected function getTextEncoding(string &$value, string $byteOrder): string
     {
         return match (substr($value, 0, 8)) {
@@ -264,6 +311,9 @@ class ExifReader
         };
     }
 
+    /**
+     * Parse EXIF version value
+     */
     protected function parseVersion(string $value): string
     {
         return sprintf('%d.%d', substr($value, 0, 2), substr($value, 2, 2));

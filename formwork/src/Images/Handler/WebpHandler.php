@@ -14,14 +14,29 @@ use UnexpectedValueException;
 
 class WebpHandler extends AbstractHandler
 {
+    /**
+     * RIFF header
+     */
     protected const string RIFF_HEADER = 'RIFF';
 
+    /**
+     * VP8X no flags
+     */
     protected const int NO_FLAG = 0b00000000;
 
+    /**
+     * VP8X alpha flag
+     */
     protected const int ALPHA_FLAG = 0b00010000;
 
+    /**
+     * VP8X ICC flag
+     */
     protected const int ICC_FLAG = 0b00100000;
 
+    /**
+     * VP8X EXIF flag
+     */
     protected const int EXIF_FLAG = 0b00001000;
 
     public function getInfo(): ImageInfo
@@ -204,14 +219,20 @@ class WebpHandler extends AbstractHandler
         }
     }
 
+    /**
+     * Update RIFF header
+     */
     protected function updateRIFFHeader(): void
     {
         if (!str_starts_with($this->data, self::RIFF_HEADER)) {
-            throw new InvalidArgumentException('Invalid WEBP data');
+            throw new InvalidArgumentException('Invalid WebP data');
         }
         $this->data = substr_replace($this->data, pack('V', strlen($this->data) - 8), 4, 4);
     }
 
+    /**
+     * Encode a WebP chunk
+     */
     protected function encodeChunk(string $type, string $data): string
     {
         $length = strlen($data);
@@ -239,6 +260,9 @@ class WebpHandler extends AbstractHandler
         $this->setVP8XChunk();
     }
 
+    /**
+     * Set VP8X chunk
+     */
     protected function setVP8XChunk(): void
     {
         if (!str_contains(substr($this->data, 12), 'VP8X')) {
@@ -252,6 +276,8 @@ class WebpHandler extends AbstractHandler
     }
 
     /**
+     * Unpack data from a binary string
+     *
      * @return array<int|string, mixed>
      */
     private function unpack(string $format, string $string, int $offset = 0): array

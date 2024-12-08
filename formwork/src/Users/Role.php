@@ -7,8 +7,12 @@ use Formwork\Utils\Str;
 
 class Role
 {
-    public function __construct(protected string $id, protected string $title, protected Permissions $permissions, protected Translations $translations)
-    {
+    public function __construct(
+        protected string $id,
+        protected string $title,
+        protected Permissions $permissions,
+        protected Translations $translations,
+    ) {
     }
 
     /**

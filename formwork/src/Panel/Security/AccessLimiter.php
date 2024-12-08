@@ -22,14 +22,11 @@ class AccessLimiter
      */
     protected int $lastAttemptTime;
 
-    /**
-     * Create a new AccessLimiter instance
-     */
     public function __construct(
         protected Registry $registry,
         protected int $limit,
         protected int $resetTime,
-        protected Request $request
+        protected Request $request,
     ) {
         // Hash visitor IP address followed by current host
         $this->attemptHash = hash('sha256', $request->ip() . '@' . $request->host());

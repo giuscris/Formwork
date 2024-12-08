@@ -30,8 +30,6 @@ class Languages
     protected ?Language $preferred = null;
 
     /**
-     * Create a new Languages instance
-     *
      * @param array{available?: array<string>, default?: Language|string|null, current?: Language|string|null, requested?: Language|string|null, preferred?: Language|string|null} $options
      */
     public function __construct(array $options = [])

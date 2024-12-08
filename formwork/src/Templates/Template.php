@@ -15,8 +15,6 @@ use Stringable;
 class Template implements Stringable
 {
     /**
-     * Create a new Template instance
-     *
      * @param array<string, mixed>   $vars
      * @param array<string, Closure> $methods
      */
@@ -27,7 +25,7 @@ class Template implements Stringable
         protected array $methods,
         protected Scheme $scheme,
         protected Site $site,
-        protected ViewFactory $viewFactory
+        protected ViewFactory $viewFactory,
     ) {
     }
 
@@ -36,21 +34,33 @@ class Template implements Stringable
         return $this->name;
     }
 
+    /**
+     * Get template name
+     */
     public function name(): string
     {
         return $this->name;
     }
 
+    /**
+     * Get template scheme
+     */
     public function scheme(): Scheme
     {
         return $this->scheme;
     }
 
+    /**
+     * Get template title
+     */
     public function title(): string
     {
         return $this->scheme->title();
     }
 
+    /**
+     * Get template path
+     */
     public function path(): string
     {
         return $this->path;

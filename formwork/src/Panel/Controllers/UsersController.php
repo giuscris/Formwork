@@ -212,6 +212,9 @@ class UsersController extends AbstractController
         ]));
     }
 
+    /**
+     * Users@images action
+     */
     public function images(RouteParams $routeParams): Response
     {
         $path = FileSystem::joinPaths($this->config->get('system.users.paths.images'), $routeParams->get('image'));
@@ -318,6 +321,8 @@ class UsersController extends AbstractController
     }
 
     /**
+     * Get previous and next user of a given user
+     *
      * @return array{previousUser: ?User, nextUser: ?User}
      */
     protected function getPreviousAndNextUser(User $user): array

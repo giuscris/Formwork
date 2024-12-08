@@ -10,13 +10,16 @@ use UnexpectedValueException;
 trait PageStatus
 {
     /**
+     * App instance
+     */
+    protected App $app;
+
+    /**
      * Page data
      *
      * @var array<string, mixed>
      */
     protected array $data = [];
-
-    protected App $app;
 
     /**
      * Page status
@@ -62,7 +65,7 @@ trait PageStatus
 
         $this->status = match (true) {
             $published  => Page::PAGE_STATUS_PUBLISHED,
-            !$published => Page::PAGE_STATUS_NOT_PUBLISHED
+            !$published => Page::PAGE_STATUS_NOT_PUBLISHED,
         };
 
         return $this->status;

@@ -18,10 +18,19 @@ class Model implements Arrayable
     use DataMultipleGetter;
     use DataMultipleSetter;
 
+    /**
+     * Identifier used to reference the model
+     */
     protected const string MODEL_IDENTIFIER = 'model';
 
+    /**
+     * Model scheme
+     */
     protected Scheme $scheme;
 
+    /**
+     * Model fields
+     */
     protected FieldCollection $fields;
 
     /**
@@ -36,16 +45,25 @@ class Model implements Arrayable
         throw new BadMethodCallException(sprintf('Call to undefined method %s::%s()', static::class, $name));
     }
 
+    /**
+     * Return the model identifier
+     */
     public function getModelIdentifier(): string
     {
         return static::MODEL_IDENTIFIER;
     }
 
+    /**
+     * Return the model scheme
+     */
     public function scheme(): Scheme
     {
         return $this->scheme;
     }
 
+    /**
+     * Return the model fields
+     */
     public function fields(): FieldCollection
     {
         return $this->fields;
@@ -138,6 +156,8 @@ class Model implements Arrayable
     }
 
     /**
+     * Return the model data
+     *
      * @return array<string, mixed>
      */
     public function data(): array
@@ -145,6 +165,9 @@ class Model implements Arrayable
         return $this->data;
     }
 
+    /**
+     * Return whether a property has the `ReadonlyModelProperty` attribute
+     */
     private function isReadonly(string $property): bool
     {
         $attributes = (new ReflectionProperty($this, $property))->getAttributes(ReadonlyModelProperty::class, ReflectionAttribute::IS_INSTANCEOF);

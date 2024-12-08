@@ -612,6 +612,9 @@ class PagesController extends AbstractController
         return $page;
     }
 
+    /**
+     * Update file metadata
+     */
     protected function updateFileMetadata(File $file, FieldCollection $fieldCollection): void
     {
         $data = $file->data();
@@ -674,6 +677,8 @@ class PagesController extends AbstractController
     }
 
     /**
+     * Get previous and next page helper
+     *
      * @return array{previousPage: ?Page, nextPage: ?Page}
      */
     protected function getPreviousAndNextPage(Page $page): array
@@ -699,6 +704,8 @@ class PagesController extends AbstractController
     }
 
     /**
+     * Get previous and next file helper
+     *
      * @return array{previousFile: ?File, nextFile: ?File}
      */
     protected function getPreviousAndNextFile(FileCollection $fileCollection, File $file): array

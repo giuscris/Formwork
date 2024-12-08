@@ -25,15 +25,26 @@ class Scheme implements Arrayable
      */
     protected string $path;
 
+    /**
+     * Scheme title
+     */
     protected string $title;
 
+    /**
+     * Scheme options
+     */
     protected SchemeOptions $options;
 
     /**
      * @param array<string, mixed> $data
      */
-    public function __construct(protected string $id, array $data, protected Translations $translations, protected Schemes $schemes, protected FieldFactory $fieldFactory)
-    {
+    public function __construct(
+        protected string $id,
+        array $data,
+        protected Translations $translations,
+        protected Schemes $schemes,
+        protected FieldFactory $fieldFactory,
+    ) {
         $this->data = $data;
 
         if (isset($this->data['extend'])) {
@@ -43,6 +54,9 @@ class Scheme implements Arrayable
         $this->options = new SchemeOptions($this->data['options'] ?? []);
     }
 
+    /**
+     * Get scheme options
+     */
     public function options(): SchemeOptions
     {
         return $this->options;
@@ -93,6 +107,9 @@ class Scheme implements Arrayable
         return $fieldCollection;
     }
 
+    /**
+     * Extend the scheme with another scheme
+     */
     protected function extend(Scheme $scheme): void
     {
         if ($scheme->id === $this->id) {
@@ -102,6 +119,9 @@ class Scheme implements Arrayable
         $this->data = array_replace_recursive($scheme->data, $this->data);
     }
 
+    /**
+     * Translate a value
+     */
     protected function translate(mixed $value, Translation $translation): mixed
     {
         $language = $translation->code();

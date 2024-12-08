@@ -20,11 +20,9 @@ class Registry
      */
     protected bool $saved = false;
 
-    /**
-     * Create a new Registry instance
-     */
-    public function __construct(protected string $filename)
-    {
+    public function __construct(
+        protected string $filename,
+    ) {
         if (FileSystem::exists($this->filename)) {
             $this->storage = Json::parseFile($filename);
             $this->saved = true;

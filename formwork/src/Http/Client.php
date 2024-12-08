@@ -90,6 +90,8 @@ class Client
     }
 
     /**
+     * Fetch headers from a URI
+     *
      * @param array<string, mixed> $options
      */
     public function fetchHeaders(string $uri, array $options = []): ResponseHeaders

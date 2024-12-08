@@ -48,12 +48,17 @@ class ImageInfo implements Arrayable
         }
     }
 
+    /**
+     * Get image MIME type
+     */
     public function mimeType(): string
     {
         return $this->mimeType;
     }
 
     /**
+     * Get image width
+     *
      * @return int<1, max>
      */
     public function width(): int
@@ -62,6 +67,8 @@ class ImageInfo implements Arrayable
     }
 
     /**
+     * Get image height
+     *
      * @return int<1, max>
      */
     public function height(): int
@@ -69,36 +76,57 @@ class ImageInfo implements Arrayable
         return $this->height;
     }
 
+    /**
+     * Get image color space
+     */
     public function colorSpace(): ?ColorSpace
     {
         return $this->colorSpace;
     }
 
+    /**
+     * Get image color depth
+     */
     public function colorDepth(): ?int
     {
         return $this->colorDepth;
     }
 
+    /**
+     * Get image number of colors
+     */
     public function colorNumber(): ?int
     {
         return $this->colorNumber;
     }
 
+    /**
+     * Return whether image has an alpha channel
+     */
     public function hasAlphaChannel(): bool
     {
         return $this->hasAlphaChannel;
     }
 
+    /**
+     * Return whether image is animated
+     */
     public function isAnimation(): bool
     {
         return $this->isAnimation;
     }
 
+    /**
+     * Get number of animation frames
+     */
     public function animationFrames(): ?int
     {
         return $this->animationFrames;
     }
 
+    /**
+     * Get animation repeat count
+     */
     public function animationRepeatCount(): ?int
     {
         return $this->animationRepeatCount;

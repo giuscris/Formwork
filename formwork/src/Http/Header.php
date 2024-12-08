@@ -11,9 +11,12 @@ class Header
 {
     use StaticClass;
 
-    // for=1;proto=2, for=1212;proto=343, for=12;proto
-    // [[['for', 1], ['proto', 2], [['for', 1212], ['proto', 343]], [['for', 12], ['proto', true]]];
     /**
+     * Split a header string into tokens
+     *
+     * For example, the header string `for=1;proto=2, for=1212;proto=343, for=12;proto` becomes the array:
+     * `[[['for', 1], ['proto', 2], [['for', 1212], ['proto', 343]], [['for', 12], ['proto', true]]];`
+     *
      * @return list<mixed>
      */
     public static function split(string $header, string $separators): array
@@ -31,9 +34,11 @@ class Header
         }, []);
     }
 
-    // [['for', 1], ['proto', 122], ['moo']]
-    // ['for' => 1, 'proto => 122, 'moo' => true]
     /**
+     * Combine tokens into an associative array
+     *
+     * For example, the array `[['for', 1], ['proto', 122], ['moo']]` becomes the array `['for' => 1, 'proto' => 122, 'moo' => true]`
+     *
      * @param list<mixed> $tokens
      *
      * @return array<string, mixed>
@@ -54,6 +59,8 @@ class Header
     }
 
     /**
+     * Parse a header string containing quality values
+     *
      * @return array<float>
      */
     public static function parseQualityValues(string $header): array
@@ -70,6 +77,9 @@ class Header
         return $result;
     }
 
+    /**
+     * Fix a header name
+     */
     public static function fixHeaderName(string $name): string
     {
         return str_replace('_', '-', ucwords(strtolower($name), '_-'));
@@ -79,9 +89,11 @@ class Header
      * @param array<string, string> $headers
      *
      * @return array<string, string>
+     *
+     * Fix header names
      */
     public static function fixHeaderNames(array $headers): array
     {
-        return Arr::mapKeys($headers, fn (string $key) => static::fixHeaderName($key));
+        return Arr::mapKeys($headers, static::fixHeaderName(...));
     }
 }

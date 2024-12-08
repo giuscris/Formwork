@@ -10,6 +10,9 @@ class CodeDumper
 {
     use StaticClass;
 
+    /**
+     * CSS styles for code highlighting
+     */
     protected static string $css = <<<'CSS'
             .__formwork-code {
                 position: relative;
@@ -63,8 +66,14 @@ class CodeDumper
             }
         CSS;
 
+    /**
+     * Whether CSS styles have been dumped
+     */
     protected static bool $stylesDumped = false;
 
+    /**
+     * Dump a file line with context
+     */
     public static function dumpLine(string $file, int $line, int $contextLines = 5): void
     {
         if (!static::$stylesDumped) {
@@ -75,6 +84,8 @@ class CodeDumper
     }
 
     /**
+     * Highlight a line in a code snippet
+     *
      * @see https://github.com/nette/tracy/blob/v2.10.7/src/Tracy/BlueScreen/CodeHighlighter.php Some parts are taken from `nette/tracy` code highlighter with adaptations
      */
     protected static function highlightLine(string $html, int $line, int $contextLines = 5): string
@@ -130,6 +141,8 @@ class CodeDumper
     }
 
     /**
+     * Highlight PHP code
+     *
      * @see https://github.com/nette/tracy/blob/v2.10.7/src/Tracy/BlueScreen/CodeHighlighter.php Some parts are taken from `nette/tracy` code highlighter with adaptations
      */
     protected static function highlightPhpCode(string $code): string

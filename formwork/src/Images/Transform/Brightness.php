@@ -9,17 +9,12 @@ use InvalidArgumentException;
 
 class Brightness extends AbstractTransform
 {
-    protected int $amount;
-
-    protected string $mode;
-
-    final public function __construct(int $amount)
-    {
+    final public function __construct(
+        protected int $amount,
+    ) {
         if (!Constraint::isInIntegerRange($amount, -255, 255)) {
             throw new InvalidArgumentException(sprintf('$amount value must be in range -255-+255, %d given', $amount));
         }
-
-        $this->amount = $amount;
     }
 
     public static function fromArray(array $data): static

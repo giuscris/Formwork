@@ -15,8 +15,10 @@ class UserCollection extends AbstractCollection
     /**
      * @param array<string, User> $data
      */
-    public function __construct(array $data, protected RoleCollection $roleCollection)
-    {
+    public function __construct(
+        array $data,
+        protected RoleCollection $roleCollection,
+    ) {
         parent::__construct($data);
     }
 

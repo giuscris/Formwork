@@ -8,8 +8,9 @@ use RuntimeException;
 
 class Rotate extends AbstractTransform
 {
-    final public function __construct(protected float $angle)
-    {
+    final public function __construct(
+        protected float $angle,
+    ) {
     }
 
     public static function fromArray(array $data): static

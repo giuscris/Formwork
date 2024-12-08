@@ -77,7 +77,7 @@ class Constraint
         int|float $start = PHP_FLOAT_MIN,
         int|float $end = PHP_FLOAT_MAX,
         bool $includeMin = true,
-        bool $includeMax = true
+        bool $includeMax = true,
     ): bool {
         if ($start > $end) {
             [$start, $end] = [$end, $start];
@@ -95,7 +95,7 @@ class Constraint
         int $end = PHP_INT_MAX,
         int $step = 1,
         bool $includeMin = true,
-        bool $includeMax = true
+        bool $includeMax = true,
     ): bool {
         return static::isInRange($value, $start, $end, $includeMin, $includeMax)
             && (($value - min($start, $end)) % $step === 0);
@@ -116,6 +116,8 @@ class Constraint
     }
 
     /**
+     * Return whether an array value has the specified keys
+     *
      * @param array<string, mixed> $value
      * @param array<string>        $keys
      */

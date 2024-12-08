@@ -223,6 +223,8 @@ class ToolsController extends AbstractController
     }
 
     /**
+     * Get headers from current request
+     *
      * @return array<string, string>
      */
     protected function getHeaders(): array
@@ -257,6 +259,8 @@ class ToolsController extends AbstractController
     }
 
     /**
+     * Get required PHP extensions from composer.json
+     *
      * @return list<string>
      */
     protected function getRequiredExtensions(): array

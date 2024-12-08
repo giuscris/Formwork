@@ -8,6 +8,9 @@ enum ColorScheme: string
     case Dark = 'dark';
     case Auto = 'auto';
 
+    /**
+     * Get compatible schemes for the current scheme
+     */
     public function getCompatibleSchemes(): string
     {
         return match ($this) {

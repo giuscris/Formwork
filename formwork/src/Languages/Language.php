@@ -16,8 +16,9 @@ class Language implements Stringable
      */
     protected ?string $nativeName = null;
 
-    public function __construct(protected string $code)
-    {
+    public function __construct(
+        protected string $code,
+    ) {
         if (LanguageCodes::hasCode($code)) {
             $this->name = LanguageCodes::codeToName($code);
             $this->nativeName = LanguageCodes::codeToNativeName($code);

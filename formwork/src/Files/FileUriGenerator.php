@@ -14,10 +14,17 @@ use RuntimeException;
 
 class FileUriGenerator
 {
-    public function __construct(protected Config $config, protected Router $router, protected Request $request, protected Site $site)
-    {
+    public function __construct(
+        protected Config $config,
+        protected Router $router,
+        protected Request $request,
+        protected Site $site,
+    ) {
     }
 
+    /**
+     * Generate URI for the given File
+     */
     public function generate(File $file): string
     {
         $path = $file->path();

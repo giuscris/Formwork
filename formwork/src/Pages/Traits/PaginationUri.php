@@ -21,8 +21,14 @@ trait PaginationUri
      */
     protected static string $routeSuffix = '.pagination';
 
+    /**
+     * Site instance
+     */
     protected Site $site;
 
+    /**
+     * Router instance
+     */
     protected Router $router;
 
     /**

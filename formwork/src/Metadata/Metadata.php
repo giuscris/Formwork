@@ -24,11 +24,10 @@ class Metadata implements Stringable
      */
     protected ?string $prefix = null;
 
-    /**
-     * Create a new Metadata instance
-     */
-    public function __construct(string $name, protected string $content)
-    {
+    public function __construct(
+        string $name,
+        protected string $content,
+    ) {
         $this->name = strtolower($name);
         if (($prefix = Str::before($name, ':')) === '') {
             return;

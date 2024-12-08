@@ -4,9 +4,6 @@ namespace Formwork\Interpolator\Nodes;
 
 class ArgumentsNode extends AbstractNode
 {
-    /**
-     * @inheritdoc
-     */
     public const string TYPE = 'arguments';
 
     /**

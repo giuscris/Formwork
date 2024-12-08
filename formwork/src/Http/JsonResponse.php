@@ -7,9 +7,6 @@ use Formwork\Parsers\Json;
 
 class JsonResponse extends Response
 {
-    /**
-     * @inheritdoc
-     */
     public function __construct(string $data, ResponseStatus $responseStatus = ResponseStatus::OK, array $headers = [])
     {
         $headers += [

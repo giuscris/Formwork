@@ -8,20 +8,26 @@ use UnexpectedValueException;
 
 class WebpDecoder implements DecoderInterface
 {
+    /**
+     * RIFF header
+     */
     protected const string RIFF_HEADER = 'RIFF';
 
+    /**
+     * WebP file header
+     */
     protected const string WEBP_HEADER = 'WEBP';
 
     public function decode(string &$data): Generator
     {
         if (!str_starts_with($data, self::RIFF_HEADER)) {
-            throw new InvalidArgumentException('Invalid WEBP data');
+            throw new InvalidArgumentException('Invalid WebP data');
         }
 
         $position = strlen(self::RIFF_HEADER) + 4;
 
         if (strpos($data, self::WEBP_HEADER, $position) !== $position) {
-            throw new InvalidArgumentException('Invalid WEBP data');
+            throw new InvalidArgumentException('Invalid WebP data');
         }
 
         $position += strlen(self::WEBP_HEADER);

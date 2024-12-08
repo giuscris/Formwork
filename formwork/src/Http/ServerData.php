@@ -8,6 +8,8 @@ use Formwork\Utils\Str;
 class ServerData extends RequestData
 {
     /**
+     * Get headers from server data
+     *
      * @internal
      *
      * @return array<string, string>

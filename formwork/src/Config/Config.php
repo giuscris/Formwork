@@ -11,28 +11,45 @@ use Formwork\Utils\FileSystem;
 
 class Config implements ArraySerializable
 {
+    /**
+     * Regex pattern for config interpolation
+     */
     protected const string INTERPOLATION_REGEX = '/\$(?!\$)\{([%a-z._]+)\}/i';
 
+    /**
+     * Whether the config has been resolved
+     */
     protected bool $resolved = false;
 
     /**
      * @param array<string, mixed> $config
      * @param array<string, mixed> $defaults
      */
-    final public function __construct(protected array $config = [], protected array $defaults = [])
-    {
+    final public function __construct(
+        protected array $config = [],
+        protected array $defaults = [],
+    ) {
     }
 
+    /**
+     * Check if a key exists in the config
+     */
     public function has(string $key): bool
     {
         return Arr::has($this->config, $key);
     }
 
+    /**
+     * Check if a key exists in the defaults
+     */
     public function hasDefaults(string $key): bool
     {
         return Arr::has($this->defaults, $key);
     }
 
+    /**
+     * Get a value from the config
+     */
     public function get(string $key, mixed $default = null): mixed
     {
         if (!$this->resolved) {
@@ -41,6 +58,9 @@ class Config implements ArraySerializable
         return Arr::get($this->config, $key, $default);
     }
 
+    /**
+     * Get a value from the defaults
+     */
     public function getDefaults(string $key, mixed $default = null): mixed
     {
         if (!$this->resolved) {
@@ -49,6 +69,9 @@ class Config implements ArraySerializable
         return Arr::get($this->defaults, $key, $default);
     }
 
+    /**
+     * Load config from a path
+     */
     public function loadFromPath(string $path, bool $defaultConfig = false): void
     {
         foreach (FileSystem::listFiles($path) as $file) {
@@ -56,6 +79,9 @@ class Config implements ArraySerializable
         }
     }
 
+    /**
+     * Load config from a file
+     */
     public function loadFile(string $path, bool $defaultConfig = false): void
     {
         if (FileSystem::isReadable($path) && FileSystem::extension($path) === 'yaml') {
@@ -69,6 +95,8 @@ class Config implements ArraySerializable
     }
 
     /**
+     * Resolve config values with the given variables
+     *
      * @param array<string, string> $vars
      */
     public function resolve(array $vars = []): void

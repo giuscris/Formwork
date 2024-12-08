@@ -22,8 +22,10 @@ class PageCollection extends AbstractCollection implements Paginable
     /**
      * @param array<int|string, mixed> $data
      */
-    public function __construct(array $data, protected PaginationFactory $paginationFactory)
-    {
+    public function __construct(
+        array $data,
+        protected PaginationFactory $paginationFactory,
+    ) {
         parent::__construct($data);
     }
 
@@ -50,24 +52,30 @@ class PageCollection extends AbstractCollection implements Paginable
         return $pageCollection;
     }
 
-    /**
-     * @return array<string, mixed>
-     */
     public function pluck(string $key, mixed $default = null): array
     {
         return $this->everyItem()->get($key, $default)->toArray();
     }
 
+    /**
+     * Get all the listed pages in the collection
+     */
     public function listed(): static
     {
         return $this->filterBy('listed');
     }
 
+    /**
+     * Get all the published pages in the collection
+     */
     public function published(): static
     {
         return $this->filterBy('status', 'published');
     }
 
+    /**
+     * Get all the pages in the collection which allow children
+     */
     public function allowingChildren(): static
     {
         return $this->filterBy('allowChildren');
@@ -77,7 +85,7 @@ class PageCollection extends AbstractCollection implements Paginable
      * Search pages in the collection
      *
      * @param string $query Query to search for
-     * @param int    $min   Minimum query length (default: 4)
+     * @param int    $min   Minimum query length
      */
     public function search(string $query, int $min = 4): static
     {
@@ -125,51 +133,81 @@ class PageCollection extends AbstractCollection implements Paginable
         return $pageCollection->filterBy('score')->sortBy('score', direction: SORT_DESC);
     }
 
+    /**
+     * Get all the pages in the collection without the children of the specified one
+     */
     public function withoutChildren(Page $page): static
     {
         return $this->difference($page->children());
     }
 
+    /**
+     * Get all the pages in the collection without the specified one and its children
+     */
     public function withoutPageAndChildren(Page $page): static
     {
         return $this->without($page)->difference($page->children());
     }
 
+    /**
+     * Get all the pages in the collection without the descendants of the specified one
+     */
     public function withoutDescendants(Page $page): static
     {
         return $this->difference($page->descendants());
     }
 
+    /**
+     * Get all the pages in the collection without the specified one and its descendants
+     */
     public function withoutPageAndDescendants(Page $page): static
     {
         return $this->without($page)->difference($page->descendants());
     }
 
+    /**
+     * Get all the pages in the collection without the parent of the specified one
+     */
     public function withoutParent(Page $page): static
     {
         return $this->without($page->parent());
     }
 
+    /**
+     * Get all the pages in the collection without the specified one and its parent
+     */
     public function withoutPageAndParent(Page $page): static
     {
         return $this->without($page)->without($page->parent());
     }
 
+    /**
+     * Get all the pages in the collection without the ancestors of the specified one
+     */
     public function withoutAncestors(Page $page): static
     {
         return $this->difference($page->ancestors());
     }
 
+    /**
+     * Get all the pages in the collection without the specified one and its ancestors
+     */
     public function withoutPageAndAncestors(Page $page): static
     {
         return $this->without($page)->difference($page->ancestors());
     }
 
+    /**
+     * Get all the pages in the collection without the siblings of the specified one
+     */
     public function withoutSiblings(Page $page): static
     {
         return $this->difference($page->siblings());
     }
 
+    /**
+     * Get all the pages in the collection without the specified one and its siblings
+     */
     public function withoutPageAndSiblings(Page $page): static
     {
         return $this->without($page)->difference($page->siblings());

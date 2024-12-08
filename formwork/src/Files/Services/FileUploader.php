@@ -21,12 +21,16 @@ class FileUploader
      */
     protected array $allowedMimeTypes;
 
-    public function __construct(protected Config $config, protected FileFactory $fileFactory)
-    {
+    public function __construct(
+        protected Config $config,
+        protected FileFactory $fileFactory,
+    ) {
         $this->allowedMimeTypes = Arr::map($this->config->get('system.files.allowedExtensions'), fn (string $ext) => MimeType::fromExtension($ext));
     }
 
     /**
+     * Get allowed MIME types
+     *
      * @return array<string>
      */
     public function allowedMimeTypes(): array
@@ -35,6 +39,8 @@ class FileUploader
     }
 
     /**
+     * Upload a file to the destination and return the corresponding File instance
+     *
      * @param ?array<string> $allowedMimeTypes
      */
     public function upload(UploadedFile $uploadedFile, string $destinationPath, ?string $name = null, bool $overwrite = false, ?array $allowedMimeTypes = null): File

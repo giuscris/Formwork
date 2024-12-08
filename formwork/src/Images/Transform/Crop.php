@@ -10,8 +10,12 @@ use UnexpectedValueException;
 
 class Crop extends AbstractTransform
 {
-    final public function __construct(protected int $originX, protected int $originY, protected int $width, protected int $height)
-    {
+    final public function __construct(
+        protected int $originX,
+        protected int $originY,
+        protected int $width,
+        protected int $height,
+    ) {
         if ($originX < 0) {
             throw new InvalidArgumentException('$originX must be greater than or equal to 0');
         }

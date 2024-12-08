@@ -7,6 +7,8 @@ class SvgReference
     public const string NAMESPACE_URI = 'http://www.w3.org/2000/svg';
 
     /**
+     * Allowed SVG elements
+     *
      * @var list<string>
      */
     public const array ALLOWED_ELEMENTS = [
@@ -81,6 +83,8 @@ class SvgReference
     ];
 
     /**
+     * Allowed SVG attributes
+     *
      * @var list<string>
      */
     public const array ALLOWED_ATTRIBUTES = [
@@ -305,6 +309,8 @@ class SvgReference
     ];
 
     /**
+     * URI attributes
+     *
      * @var list<string>
      */
     public const array URI_ATTRIBUTES = [

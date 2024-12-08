@@ -21,6 +21,9 @@ trait PageUri
      */
     abstract public function canonicalRoute(): ?string;
 
+    /**
+     * Get the site the page belongs to
+     */
     abstract public function site(): Site;
 
     /**

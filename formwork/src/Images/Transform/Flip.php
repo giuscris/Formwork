@@ -18,8 +18,9 @@ class Flip extends AbstractTransform
         'Both'       => IMG_FLIP_BOTH,
     ];
 
-    final public function __construct(protected FlipDirection $flipDirection)
-    {
+    final public function __construct(
+        protected FlipDirection $flipDirection,
+    ) {
     }
 
     public static function fromArray(array $data): static

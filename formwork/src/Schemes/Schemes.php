@@ -21,8 +21,9 @@ class Schemes
      */
     protected array $data = [];
 
-    public function __construct(protected SchemeFactory $schemeFactory)
-    {
+    public function __construct(
+        protected SchemeFactory $schemeFactory,
+    ) {
     }
 
     /**

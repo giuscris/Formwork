@@ -133,8 +133,6 @@ class Path
 
     /**
      * Return drive letter from $path after removing it
-     *
-     * @internal
      */
     protected static function dropDriveLetter(string &$path): string
     {

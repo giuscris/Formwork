@@ -14,13 +14,14 @@ class Response implements ResponseInterface
     protected ResponseHeaders $headers;
 
     /**
-     * Create a new Response instance
-     *
      * @param string         $content        Response content
      * @param ResponseStatus $responseStatus Response HTTP status
      */
-    public function __construct(protected string $content, protected ResponseStatus $responseStatus = ResponseStatus::OK, array $headers = [])
-    {
+    public function __construct(
+        protected string $content,
+        protected ResponseStatus $responseStatus = ResponseStatus::OK,
+        array $headers = [],
+    ) {
         $headers += [
             'Content-Length' => (string) strlen($content),
             'Content-Type'   => Header::make(['text/html', 'charset' => 'utf-8']),
@@ -160,11 +161,17 @@ class Response implements ResponseInterface
         }
     }
 
+    /**
+     * Return whether response requires empty content
+     */
     protected function requiresEmptyContent(): bool
     {
         return in_array($this->responseStatus, [ResponseStatus::NoContent, ResponseStatus::NotModified], true);
     }
 
+    /**
+     * Flush response content
+     */
     protected function flush(): void
     {
         if (function_exists('fastcgi_finish_request')) {

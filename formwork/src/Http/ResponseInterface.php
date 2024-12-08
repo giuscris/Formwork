@@ -7,8 +7,6 @@ use Formwork\Data\Contracts\ArraySerializable;
 interface ResponseInterface extends ArraySerializable
 {
     /**
-     * Create a new Response instance
-     *
      * @param array<string, string> $headers
      */
     public function __construct(string $content, ResponseStatus $responseStatus = ResponseStatus::OK, array $headers = []);

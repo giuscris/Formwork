@@ -46,8 +46,10 @@ class Route
      */
     protected string $prefix = '';
 
-    public function __construct(protected string $name, protected string $path)
-    {
+    public function __construct(
+        protected string $name,
+        protected string $path,
+    ) {
     }
 
     /**

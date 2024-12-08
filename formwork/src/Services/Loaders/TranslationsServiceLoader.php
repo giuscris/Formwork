@@ -10,8 +10,10 @@ use Formwork\Translations\Translations;
 
 class TranslationsServiceLoader implements ResolutionAwareServiceLoaderInterface
 {
-    public function __construct(protected Config $config, protected Languages $languages)
-    {
+    public function __construct(
+        protected Config $config,
+        protected Languages $languages,
+    ) {
     }
 
     public function load(Container $container): object

@@ -43,6 +43,8 @@ abstract class AbstractController
     }
 
     /**
+     * Create a redirect response
+     *
      * @param array<string, string> $headers
      */
     protected function redirect(string $route, ResponseStatus $responseStatus = ResponseStatus::Found, array $headers = []): RedirectResponse
@@ -52,7 +54,7 @@ abstract class AbstractController
     }
 
     /**
-     * Redirect to the referer page
+     * Create a redirect response to the referer page
      *
      * @param array<string, string> $headers
      */
@@ -60,7 +62,7 @@ abstract class AbstractController
         ResponseStatus $responseStatus = ResponseStatus::Found,
         array $headers = [],
         string $default = '/',
-        string $base = '/'
+        string $base = '/',
     ): RedirectResponse {
         if (
             !in_array($this->request->referer(), [null, $this->request->absoluteUri()], true)

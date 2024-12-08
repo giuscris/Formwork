@@ -13,10 +13,19 @@ use UnexpectedValueException;
 
 class JpegHandler extends AbstractHandler
 {
+    /**
+     * Maximum number of bytes in a segment
+     */
     protected const int MAX_BYTES_IN_SEGMENT = 65533;
 
+    /**
+     * Image EXIF header
+     */
     protected const string EXIF_HEADER = "Exif\x00\x00";
 
+    /**
+     * Image ICC profile header
+     */
     protected const string ICC_PROFILE_HEADER = "ICC_PROFILE\x00";
 
     public function getInfo(): ImageInfo
@@ -173,6 +182,9 @@ class JpegHandler extends AbstractHandler
         }
     }
 
+    /**
+     * Get color space from number of components
+     */
     protected function getColorSpace(int $components): ColorSpace
     {
         return match ($components) {
@@ -183,6 +195,9 @@ class JpegHandler extends AbstractHandler
         };
     }
 
+    /**
+     * Encode ICC profile data into JPEG segments
+     */
     protected function encodeColorProfile(string $data): string
     {
         $maxChunkSize = self::MAX_BYTES_IN_SEGMENT - strlen(self::ICC_PROFILE_HEADER) - 4;
@@ -197,6 +212,9 @@ class JpegHandler extends AbstractHandler
         return implode('', $chunks);
     }
 
+    /**
+     * Encode EXIF data into JPEG segments
+     */
     protected function encodeExifData(string $data): string
     {
         $value = self::EXIF_HEADER . $data;
@@ -222,6 +240,8 @@ class JpegHandler extends AbstractHandler
     }
 
     /**
+     * Unpack data from binary string
+     *
      * @return array<int|string, mixed>
      */
     private function unpack(string $format, string $string, int $offset = 0): array

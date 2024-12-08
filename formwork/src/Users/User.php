@@ -49,12 +49,16 @@ class User extends Model
     protected ?int $lastAccess = null;
 
     /**
-     * Create a new User instance
-     *
      * @param array<string, mixed> $data
      */
-    public function __construct(array $data, protected Role $role, protected Schemes $schemes, protected Config $config, protected Request $request, protected FileFactory $fileFactory)
-    {
+    public function __construct(
+        array $data,
+        protected Role $role,
+        protected Schemes $schemes,
+        protected Config $config,
+        protected Request $request,
+        protected FileFactory $fileFactory,
+    ) {
         $this->scheme = $this->schemes->get('users.user');
 
         $this->fields = $this->scheme->fields();
@@ -97,16 +101,25 @@ class User extends Model
         return $this->image = $file;
     }
 
-    public function hasDefaultImage(): bool
+    /**
+     * Return whether the user has the default image
+     */
+    public function hasDefaultImageh(): bool
     {
         return $this->image()->path() === FileSystem::joinPaths($this->config->get('system.panel.paths.assets'), 'images/user-image.svg');
     }
 
+    /**
+     * Return user role
+     */
     public function role(): Role
     {
         return $this->role;
     }
 
+    /**
+     * Return user color scheme
+     */
     public function colorScheme(): ColorScheme
     {
         return ColorScheme::from($this->data['colorScheme']);
@@ -125,7 +138,7 @@ class User extends Model
      */
     public function authenticate(
         #[SensitiveParameter]
-        string $password
+        string $password,
     ): void {
         if (!$this->verifyPassword($password)) {
             throw new AuthenticationFailedException(sprintf('Authentication failed for user "%s"', $this->username()));
@@ -139,7 +152,7 @@ class User extends Model
      */
     public function verifyPassword(
         #[SensitiveParameter]
-        string $password
+        string $password,
     ): bool {
         return Password::verify($password, $this->hash());
     }

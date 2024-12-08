@@ -46,8 +46,9 @@ class Tokenizer implements TokenizerInterface
      */
     protected int $position = 0;
 
-    public function __construct(protected string $input)
-    {
+    public function __construct(
+        protected string $input,
+    ) {
         $this->length = strlen($input);
     }
 

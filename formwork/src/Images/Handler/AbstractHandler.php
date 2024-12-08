@@ -2,10 +2,7 @@
 
 namespace Formwork\Images\Handler;
 
-use Formwork\Images\ColorProfile\ColorProfile;
 use Formwork\Images\Decoder\DecoderInterface;
-use Formwork\Images\Exif\ExifData;
-use Formwork\Images\ImageInfo;
 use Formwork\Images\Transform\TransformCollection;
 use Formwork\Utils\FileSystem;
 use GdImage;
@@ -17,22 +14,20 @@ abstract class AbstractHandler implements HandlerInterface
     protected DecoderInterface $decoder;
 
     /**
+     * Handler options
+     *
      * @var array<string, mixed>
      */
     protected array $options;
 
-    /**
-     * @param array<string, mixed> $options
-     */
-    public function __construct(protected string $data, array $options = [])
-    {
+    public function __construct(
+        protected string $data,
+        array $options = [],
+    ) {
         $this->decoder = $this->getDecoder();
         $this->options = [...$this->defaults(), ...$options];
     }
 
-    /**
-     * @param array<string, mixed> $options
-     */
     public static function fromPath(string $path, array $options = []): static
     {
         return new static(FileSystem::read($path), $options);
@@ -45,69 +40,6 @@ abstract class AbstractHandler implements HandlerInterface
         return $static;
     }
 
-    /**
-     * Get image info as an array
-     */
-    abstract public function getInfo(): ImageInfo;
-
-    abstract public function supportsTransforms(): bool;
-
-    abstract public static function supportsColorProfile(): bool;
-
-    /**
-     * Return whether the image has a color profile
-     */
-    abstract public function hasColorProfile(): bool;
-
-    /**
-     * Get color profile
-     *
-     * @throws RuntimeException if the image has no color profile
-     */
-    abstract public function getColorProfile(): ?ColorProfile;
-
-    /**
-     * Set color profile
-     *
-     * @throws RuntimeException if the image has no color profile
-     */
-    abstract public function setColorProfile(ColorProfile $colorProfile): void;
-
-    /**
-     * Remove color profile
-     *
-     * @throws RuntimeException if the image has no color profile
-     */
-    abstract public function removeColorProfile(): void;
-
-    abstract public static function supportsExifData(): bool;
-
-    /**
-     * Return whether the image has Exif data
-     */
-    abstract public function hasExifData(): bool;
-
-    /**
-     * Get EXIF data
-     *
-     * @throws RuntimeException if the image does not support EXIF data
-     */
-    abstract public function getExifData(): ?ExifData;
-
-    /**
-     * Set EXIF data
-     *
-     * @throws RuntimeException if the image does not support EXIF data
-     */
-    abstract public function setExifData(ExifData $exifData): void;
-
-    /**
-     * Remove EXIF data
-     *
-     * @throws RuntimeException if the image does not support EXIF data
-     */
-    abstract public function removeExifData(): void;
-
     public function getData(): string
     {
         return $this->data;
@@ -118,9 +50,6 @@ abstract class AbstractHandler implements HandlerInterface
         return strlen($this->data);
     }
 
-    /**
-     * Save image in a different path
-     */
     public function saveAs(string $path): void
     {
         FileSystem::write($path, $this->data);
@@ -199,8 +128,14 @@ abstract class AbstractHandler implements HandlerInterface
      */
     abstract protected function getDecoder(): DecoderInterface;
 
+    /**
+     * Set image data from a GD image
+     */
     abstract protected function setDataFromGdImage(GdImage $gdImage): void;
 
+    /**
+     * Get image as a GD image
+     */
     protected function toGdImage(): GdImage
     {
         if (($image = imagecreatefromstring($this->data)) === false) {

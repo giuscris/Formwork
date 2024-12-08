@@ -12,10 +12,17 @@ use Formwork\Utils\FileSystem;
 
 class TemplateFactory
 {
-    public function __construct(protected Container $container, protected App $app, protected Config $config, protected Schemes $schemes)
-    {
+    public function __construct(
+        protected Container $container,
+        protected App $app,
+        protected Config $config,
+        protected Schemes $schemes,
+    ) {
     }
 
+    /**
+     * Create a new Template instance
+     */
     public function make(string $name): Template
     {
         $path = $this->config->get('system.templates.path');

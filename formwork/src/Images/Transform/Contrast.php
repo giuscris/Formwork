@@ -9,15 +9,12 @@ use InvalidArgumentException;
 
 class Contrast extends AbstractTransform
 {
-    protected int $amount;
-
-    final public function __construct(int $amount)
-    {
+    final public function __construct(
+        protected int $amount,
+    ) {
         if (!Constraint::isInIntegerRange($amount, -100, 100)) {
             throw new InvalidArgumentException(sprintf('$amount value must be in range -100-+100, %d given', $amount));
         }
-
-        $this->amount = $amount;
     }
 
     public static function fromArray(array $data): static

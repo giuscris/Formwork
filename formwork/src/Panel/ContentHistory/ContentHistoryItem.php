@@ -9,20 +9,29 @@ class ContentHistoryItem implements ArraySerializable
     final public function __construct(
         protected ContentHistoryEvent $contentHistoryEvent,
         protected string $user,
-        protected int $time
+        protected int $time,
     ) {
     }
 
+    /**
+     * Get the event of the history item
+     */
     public function event(): ContentHistoryEvent
     {
         return $this->contentHistoryEvent;
     }
 
+    /**
+     * Get the user of the history item
+     */
     public function user(): string
     {
         return $this->user;
     }
 
+    /**
+     * Get the time of the history item
+     */
     public function time(): int
     {
         return $this->time;

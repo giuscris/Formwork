@@ -38,23 +38,43 @@ class UploadedFile
         UPLOAD_ERR_EXTENSION  => 'upload.error.phpExtension',
     ];
 
+    /**
+     * Client file name
+     */
     protected string $clientName;
 
+    /**
+     * Client file full path
+     */
     protected string $clientFullPath;
 
+    /**
+     * MIME type sent by the client
+     */
     protected string $clientMimeType;
 
+    /**
+     * Temporary file path
+     */
     protected string $tempPath;
 
+    /**
+     * File size in bytes
+     */
     protected int $size;
 
+    /**
+     * Uploader error code
+     */
     protected int $error;
 
     /**
      * @param array{name: string, full_path: string, type: string, tmp_name: string, error: string, size: string} $data
      */
-    public function __construct(protected string $fieldName, array $data)
-    {
+    public function __construct(
+        protected string $fieldName,
+        array $data,
+    ) {
         $this->clientName = $data['name'];
         $this->clientFullPath = $data['full_path'];
         $this->clientMimeType = $data['type'];
@@ -63,61 +83,101 @@ class UploadedFile
         $this->size = (int) $data['size'];
     }
 
+    /**
+     * Get the name of the field used to upload the file
+     */
     public function fieldName(): string
     {
         return $this->fieldName;
     }
 
+    /**
+     * Get the client file name
+     */
     public function clientName(): string
     {
         return $this->clientName;
     }
 
+    /**
+     * Get the client file full path
+     */
     public function clientFullPath(): string
     {
         return $this->clientFullPath;
     }
 
+    /**
+     * Get the MIME type sent by the client. Never trust this value without checking it
+     */
     public function clientMimeType(): string
     {
         return $this->clientMimeType;
     }
 
+    /**
+     * Get the temporary file path
+     */
     public function tempPath(): string
     {
         return $this->tempPath;
     }
 
+    /**
+     * Get the uploader error code
+     */
     public function error(): int
     {
         return $this->error;
     }
 
+    /**
+     * Get the file size in bytes
+     */
     public function size(): int
     {
         return $this->size;
     }
 
+    /**
+     * Return whether there is no file uploaded
+     */
     public function isEmpty(): bool
     {
         return $this->error === UPLOAD_ERR_NO_FILE;
     }
 
+    /**
+     * Return whether the file has been uploaded
+     */
     public function isUploaded(): bool
     {
         return $this->error === UPLOAD_ERR_OK;
     }
 
+    /**
+     * Get the human-readable error message
+     */
     public function getErrorMessage(): string
     {
         return self::ERROR_MESSAGES[$this->error];
     }
 
+    /**
+     * Get the error translation string
+     */
     public function getErrorTranslationString(): string
     {
         return self::ERROR_TRANSLATION_STRINGS[$this->error];
     }
 
+    /**
+     * Move the uploaded file to a destination
+     *
+     * @param string $destination Destination path
+     * @param string $filename    Destination file name
+     * @param bool   $overwrite   Whether to overwrite the file if it already exists
+     */
     public function move(string $destination, string $filename, bool $overwrite = false): bool
     {
         if ($this->error !== UPLOAD_ERR_OK) {

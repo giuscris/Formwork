@@ -8,28 +8,48 @@ use LogicException;
 class ServiceDefinition
 {
     /**
+     * Service parameters
+     *
      * @var array<string, mixed>
      */
     protected array $parameters = [];
 
+    /**
+     * Optional loader class name
+     */
     protected ?string $loader = null;
 
+    /**
+     * Whether the service is lazy
+     */
     protected bool $lazy = true;
 
-    public function __construct(protected string $name, protected ?object $object, protected Container $container)
-    {
+    public function __construct(
+        protected string $name,
+        protected ?object $object,
+        protected Container $container,
+    ) {
     }
 
+    /**
+     * Get service name
+     */
     public function getName(): string
     {
         return $this->name;
     }
 
+    /**
+     * Get service object
+     */
     public function getObject(): ?object
     {
         return $this->object;
     }
 
+    /**
+     * Set a parameter for the service
+     */
     public function parameter(string $name, mixed $value): self
     {
         Arr::set($this->parameters, $name, $value);
@@ -37,6 +57,8 @@ class ServiceDefinition
     }
 
     /**
+     * Get service parameters
+     *
      * @return array<string, mixed>
      */
     public function getParameters(): array
@@ -44,6 +66,9 @@ class ServiceDefinition
         return $this->parameters;
     }
 
+    /**
+     * Set a loader for the service
+     */
     public function loader(string $className): self
     {
         if (isset($this->object)) {
@@ -53,17 +78,26 @@ class ServiceDefinition
         return $this;
     }
 
+    /**
+     * Get service loader
+     */
     public function getLoader(): ?string
     {
         return $this->loader;
     }
 
+    /**
+     * Set service alias
+     */
     public function alias(string $alias): self
     {
         $this->container->alias($alias, $this->name);
         return $this;
     }
 
+    /**
+     * Set service laziness
+     */
     public function lazy(bool $lazy): self
     {
         $this->lazy = $lazy;

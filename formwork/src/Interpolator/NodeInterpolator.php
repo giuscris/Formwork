@@ -18,8 +18,10 @@ class NodeInterpolator
     /**
      * @param array<string, mixed> $vars
      */
-    public function __construct(protected AbstractNode $node, protected array $vars)
-    {
+    public function __construct(
+        protected AbstractNode $node,
+        protected array $vars,
+    ) {
     }
 
     /**

@@ -13,8 +13,6 @@ class MetadataCollection extends AbstractCollection
     protected bool $mutable = true;
 
     /**
-     * Create a new Metadata instance
-     *
      * @param array<Metadata> $data
      */
     public function __construct(array $data)

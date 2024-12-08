@@ -9,11 +9,16 @@ use Formwork\Utils\FileSystem;
 
 class FieldFactory
 {
-    public function __construct(protected Container $container, protected Config $config, protected Translations $translations)
-    {
+    public function __construct(
+        protected Container $container,
+        protected Config $config,
+        protected Translations $translations,
+    ) {
     }
 
     /**
+     * Create a new Field instance
+     *
      * @param array<string, mixed> $data
      */
     public function make(string $name, array $data = [], ?FieldCollection $parentFieldCollection = null): Field

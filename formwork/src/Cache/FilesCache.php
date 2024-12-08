@@ -11,16 +11,15 @@ class FilesCache extends AbstractCache
      * @param string $path       Cache path
      * @param int    $defaultTtl Cached data time-to-live
      */
-    public function __construct(protected string $path, protected int $defaultTtl)
-    {
+    public function __construct(
+        protected string $path,
+        protected int $defaultTtl,
+    ) {
         if (!FileSystem::exists($this->path)) {
             FileSystem::createDirectory($this->path, recursive: true);
         }
     }
 
-    /**
-     * @inheritdoc
-     */
     public function fetch(string $key): mixed
     {
         if ($this->has($key)) {
@@ -33,18 +32,12 @@ class FilesCache extends AbstractCache
         return null;
     }
 
-    /**
-     * @inheritdoc
-     */
     public function save(string $key, mixed $value, ?int $ttl = null): void
     {
         $cacheItem = new CacheItem($value, time() + ($ttl ?? $this->defaultTtl), time());
         Php::encodeToFile($cacheItem, $this->getFile($key));
     }
 
-    /**
-     * @inheritdoc
-     */
     public function delete(string $key): void
     {
         if ($this->has($key)) {
@@ -52,26 +45,17 @@ class FilesCache extends AbstractCache
         }
     }
 
-    /**
-     * @inheritdoc
-     */
     public function clear(): void
     {
         FileSystem::delete($this->path, recursive: true);
         FileSystem::createDirectory($this->path, recursive: true);
     }
 
-    /**
-     * @inheritdoc
-     */
     public function has(string $key): bool
     {
         return FileSystem::exists($this->getFile($key)) && !$this->hasExpired($key);
     }
 
-    /**
-     * @inheritdoc
-     */
     public function cachedTime(string $key): ?int
     {
         return $this->has($key) ? FileSystem::lastModifiedTime($this->getFile($key)) : null;

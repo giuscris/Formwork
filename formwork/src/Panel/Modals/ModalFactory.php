@@ -11,10 +11,17 @@ use Formwork\Utils\FileSystem;
 
 class ModalFactory
 {
-    public function __construct(protected Container $container, protected Config $config, protected Translations $translations, protected FieldFactory $fieldFactory)
-    {
+    public function __construct(
+        protected Container $container,
+        protected Config $config,
+        protected Translations $translations,
+        protected FieldFactory $fieldFactory,
+    ) {
     }
 
+    /**
+     * Create a new Modal instance
+     */
     public function make(string $id): Modal
     {
         $path = FileSystem::joinPaths($this->config->get('system.panel.paths.modals'), $id . '.yaml');

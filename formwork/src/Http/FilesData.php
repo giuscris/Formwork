@@ -7,6 +7,9 @@ use Formwork\Utils\Arr;
 
 class FilesData extends RequestData
 {
+    /**
+     * Return whether all uploaded files are empty
+     */
     public function isEmpty(): bool
     {
         if (parent::isEmpty()) {
@@ -16,6 +19,8 @@ class FilesData extends RequestData
     }
 
     /**
+     * Get all uploaded files
+     *
      * @return array<UploadedFile>
      */
     public function getAll(): array

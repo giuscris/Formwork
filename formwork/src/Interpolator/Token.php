@@ -36,8 +36,11 @@ class Token implements Stringable
      */
     public const string TYPE_END = 'end';
 
-    public function __construct(protected string $type, protected ?string $value, protected int $position)
-    {
+    public function __construct(
+        protected string $type,
+        protected ?string $value,
+        protected int $position,
+    ) {
     }
 
     public function __toString(): string

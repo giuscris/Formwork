@@ -4,13 +4,13 @@ namespace Formwork\Interpolator\Nodes;
 
 class IdentifierNode extends AbstractNode
 {
-    /**
-     * @inheritdoc
-     */
     public const string TYPE = 'identifier';
 
-    public function __construct(string $value, protected ?ArgumentsNode $argumentsNode, protected ?AbstractNode $node)
-    {
+    public function __construct(
+        string $value,
+        protected ?ArgumentsNode $argumentsNode,
+        protected ?AbstractNode $node,
+    ) {
         $this->value = $value;
     }
 

@@ -50,8 +50,6 @@ abstract class AbstractCollection implements Arrayable, Countable, Iterator
     protected bool $mutable = false;
 
     /**
-     * Create a new Collection instance
-     *
      * @param array<int|string, mixed> $data
      */
     public function __construct(array $data = [])
@@ -358,7 +356,7 @@ abstract class AbstractCollection implements Arrayable, Countable, Iterator
         int $type = SORT_NATURAL,
         array|callable|null $sortBy = null,
         bool $caseSensitive = false,
-        ?bool $preserveKeys = null
+        ?bool $preserveKeys = null,
     ): static {
         $collection = $this->clone();
         $collection->data = Arr::sort(
@@ -429,7 +427,7 @@ abstract class AbstractCollection implements Arrayable, Countable, Iterator
         int $direction = SORT_ASC,
         int $type = SORT_NATURAL,
         bool $caseSensitive = false,
-        bool $preserveKeys = true
+        bool $preserveKeys = true,
     ): static {
         return $this->sort($direction, $type, $this->pluck($key), $caseSensitive, $preserveKeys);
     }

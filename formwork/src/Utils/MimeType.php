@@ -1322,6 +1322,8 @@ class MimeType
     }
 
     /**
+     * Get an array of extensions associated to the corresponding MIME type
+     *
      * @return array<string, string>
      */
     public static function extensionTypes(): array

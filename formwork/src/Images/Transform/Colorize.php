@@ -9,16 +9,12 @@ use InvalidArgumentException;
 
 class Colorize extends AbstractTransform
 {
-    protected int $red;
-
-    protected int $green;
-
-    protected int $blue;
-
-    protected int $alpha;
-
-    final public function __construct(int $red, int $green, int $blue, int $alpha)
-    {
+    final public function __construct(
+        protected int $red,
+        protected int $green,
+        protected int $blue,
+        protected int $alpha,
+    ) {
         if (!Constraint::isInIntegerRange($red, 0, 255)) {
             throw new InvalidArgumentException(sprintf('$red value must be in range 0-255, %d given', $red));
         }
@@ -34,11 +30,6 @@ class Colorize extends AbstractTransform
         if (!Constraint::isInIntegerRange($alpha, 0, 127)) {
             throw new InvalidArgumentException(sprintf('$alpha value must be in range 0-127, %d given', $alpha));
         }
-
-        $this->red = $red;
-        $this->green = $green;
-        $this->blue = $blue;
-        $this->alpha = $alpha;
     }
 
     public static function fromArray(array $data): static

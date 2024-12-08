@@ -5,7 +5,7 @@ namespace Formwork\Cache;
 abstract class AbstractCache
 {
     /**
-     * Return cached resource
+     * Fetch cached resource
      */
     abstract public function fetch(string $key): mixed;
 

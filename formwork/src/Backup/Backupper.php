@@ -15,12 +15,10 @@ class Backupper
     protected const string DATE_FORMAT = 'YmdHis';
 
     /**
-     * Return a new Backupper instance
-     *
      * @param array<mixed> $options
      */
     public function __construct(
-        protected array $options
+        protected array $options,
     ) {
     }
 

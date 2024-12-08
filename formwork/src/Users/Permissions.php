@@ -22,8 +22,6 @@ class Permissions
     ];
 
     /**
-     * Create a new Permissions instance
-     *
      * @param array<string, bool> $permissions
      */
     public function __construct(array $permissions)

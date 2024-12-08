@@ -35,6 +35,9 @@ class Site extends Model implements Stringable
      */
     protected ?string $path = null;
 
+    /**
+     * Site content path
+     */
     protected ?string $contentPath = null;
 
     /**
@@ -97,8 +100,6 @@ class Site extends Model implements Stringable
     protected array $routeAliases;
 
     /**
-     * Create a new Site instance
-     *
      * @param array<string, mixed> $data
      */
     public function __construct(
@@ -424,11 +425,17 @@ class Site extends Model implements Stringable
         return false;
     }
 
+    /**
+     * Return defined schemes
+     */
     public function schemes(): Schemes
     {
         return $this->app->schemes();
     }
 
+    /**
+     * Load site dependencies
+     */
     public function load(): void
     {
         $this->scheme = $this->app->schemes()->get('config.site');
@@ -463,11 +470,17 @@ class Site extends Model implements Stringable
         return $this->storage;
     }
 
+    /**
+     * Set site path
+     */
     protected function setPath(string $path): void
     {
         $this->path = $this->data['path'] = FileSystem::normalizePath($path . '/');
     }
 
+    /**
+     * Set site content path
+     */
     protected function setContentPath(string $path): void
     {
         $this->contentPath = FileSystem::normalizePath($path . '/');

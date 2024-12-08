@@ -19,8 +19,6 @@ class RequestData implements Arrayable, Countable, Iterator
     use DataMultipleGetter;
 
     /**
-     * Create a new instance
-     *
      * @param array<string, mixed> $data
      */
     public function __construct(array $data)

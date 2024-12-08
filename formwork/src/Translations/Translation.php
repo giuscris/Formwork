@@ -12,10 +12,15 @@ class Translation
     /**
      * @param array<string, list<string>|string> $data
      */
-    public function __construct(protected string $code, protected array $data)
-    {
+    public function __construct(
+        protected string $code,
+        protected array $data,
+    ) {
     }
 
+    /**
+     * Set the fallback translation
+     */
     public function setFallback(?Translation $fallbackTranslation): void
     {
         $this->fallback = $fallbackTranslation;

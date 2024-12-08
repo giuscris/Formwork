@@ -25,8 +25,6 @@ class Php extends AbstractEncoder
     protected const array UNENCODABLE_CLASSES = [\Closure::class, \Reflector::class, \ReflectionGenerator::class, \ReflectionType::class, \IteratorIterator::class, \RecursiveIteratorIterator::class];
 
     /**
-     * @inheritdoc
-     *
      * @param array<string, mixed> $options
      */
     public static function parse(string $data, array $options = []): never
@@ -35,8 +33,6 @@ class Php extends AbstractEncoder
     }
 
     /**
-     * @inheritdoc
-     *
      * @param array<string, mixed> $options
      */
     public static function parseFile(string $file, array $options = []): mixed
@@ -45,8 +41,6 @@ class Php extends AbstractEncoder
     }
 
     /**
-     * @inheritdoc
-     *
      * @param array<mixed>         $data
      * @param array<string, mixed> $options
      */
@@ -56,8 +50,6 @@ class Php extends AbstractEncoder
     }
 
     /**
-     * @inheritdoc
-     *
      * @param array<string, mixed> $options
      */
     public static function encodeToFile(mixed $data, string $file, array $options = []): bool

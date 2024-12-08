@@ -21,8 +21,10 @@ class ModalButton implements Arrayable
     /**
      * @param array<string, mixed> $data
      */
-    public function __construct(array $data, protected Translation $translation)
-    {
+    public function __construct(
+        array $data,
+        protected Translation $translation,
+    ) {
         $this->data = [...$this->defaults(), ...$data];
 
         if ($this->data['label'] === null) {

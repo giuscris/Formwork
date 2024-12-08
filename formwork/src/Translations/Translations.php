@@ -26,8 +26,9 @@ class Translations
      */
     protected Translation $current;
 
-    public function __construct(protected Config $config)
-    {
+    public function __construct(
+        protected Config $config,
+    ) {
     }
 
     /**

@@ -7,8 +7,9 @@ use GdImage;
 
 class Pixelate extends AbstractTransform
 {
-    final public function __construct(protected int $amount)
-    {
+    final public function __construct(
+        protected int $amount,
+    ) {
     }
 
     public static function fromArray(array $data): static

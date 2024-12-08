@@ -15,10 +15,17 @@ class FileFactory
     /**
      * @param array<string, array{class-string, string}|class-string> $associations
      */
-    public function __construct(protected Container $container, protected Config $config, protected Schemes $schemes, protected array $associations = [])
-    {
+    public function __construct(
+        protected Container $container,
+        protected Config $config,
+        protected Schemes $schemes,
+        protected array $associations = [],
+    ) {
     }
 
+    /**
+     * Create a new File instance
+     */
     public function make(string $path): File
     {
         $mimeType = FileSystem::mimeType($path);

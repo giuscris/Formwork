@@ -4,16 +4,15 @@ namespace Formwork\Interpolator\Nodes;
 
 class ArrayNode extends AbstractNode
 {
-    /**
-     * @inheritdoc
-     */
     public const string TYPE = 'array';
 
     /**
      * @param list<mixed> $value
      */
-    public function __construct(array $value, protected ArrayKeysNode $arrayKeysNode)
-    {
+    public function __construct(
+        array $value,
+        protected ArrayKeysNode $arrayKeysNode,
+    ) {
         $this->value = $value;
     }
 

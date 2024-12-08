@@ -19,44 +19,67 @@ use UnexpectedValueException;
 class DomSanitizer
 {
     /**
+     * Allowed elements
+     *
      * @var list<string>
      */
     protected array $allowedElements = [];
 
     /**
+     * Allowed attributes
+     *
      * @var list<string>
      */
     protected array $allowedAttributes = [];
 
     /**
+     * URI attributes
+     *
      * @var list<string>
      */
     protected array $uriAttributes = [];
 
     /**
+     * Allowed URI schemes
+     *
      * @var list<string>
      */
     protected array $allowedUriSchemes = ['http', 'https'];
 
     /**
+     * Element sanitizers
+     *
      * @var array<string, class-string<DomSanitizer>>
      */
     protected array $elementSanitizers = [];
 
+    /**
+     * Method used to sanitize elements
+     */
     protected SanitizeElementsMethod $sanitizeElementsMethod = SanitizeElementsMethod::Remove;
 
+    /**
+     * Whether to allow external URIs
+     */
     protected bool $allowExternalUris = true;
 
-    public function __construct(protected DomParserInterface $domParser = new Html5Parser())
-    {
+    public function __construct(
+        protected DomParserInterface $domParser = new Html5Parser(),
+    ) {
     }
 
+    /**
+     * Set the method used to sanitize elements
+     */
     public function sanitizeElementsMethod(SanitizeElementsMethod $sanitizeElementsMethod): static
     {
         $this->sanitizeElementsMethod = $sanitizeElementsMethod;
         return $this;
     }
 
+    /**
+     * Disallow external URIs
+     */
     public function disallowExternalUris(): static
     {
         $this->allowExternalUris = false;
@@ -64,6 +87,8 @@ class DomSanitizer
     }
 
     /**
+     * Set the allowed elements
+     *
      * @param list<string> $elements
      */
     public function allowedElements(array $elements): static
@@ -73,6 +98,8 @@ class DomSanitizer
     }
 
     /**
+     * Set the allowed attributes
+     *
      * @param list<string> $attributes
      */
     public function allowedAttributes(array $attributes): static
@@ -82,6 +109,8 @@ class DomSanitizer
     }
 
     /**
+     * Set the allowed URI schemes
+     *
      * @param list<string> $schemes
      */
     public function allowedUriSchemes(array $schemes): static
@@ -90,6 +119,9 @@ class DomSanitizer
         return $this;
     }
 
+    /**
+     * Sanitize a string containing markup
+     */
     public function sanitize(string $data): string
     {
         if (!$this->isValidData($data)) {
@@ -107,22 +139,33 @@ class DomSanitizer
         return $this->domParser->serialize($dom);
     }
 
+    /**
+     * Return whether data is valid Unicode
+     */
     protected function isValidData(string $data): bool
     {
         return $data === '' || preg_match('//u', $data);
     }
 
+    /**
+     * Return whether a DOM document fragment is valid
+     */
     protected function isValidDocument(?DOMDocumentFragment $domDocumentFragment): bool
     {
         return $domDocumentFragment !== null;
     }
 
+    /**
+     * Sanitize a DOM document fragment
+     */
     protected function sanitizeDocumentFragment(DOMDocumentFragment $domDocumentFragment): void
     {
         $this->sanitizeNodes($domDocumentFragment->childNodes);
     }
 
     /**
+     * Sanitize a DOM node list
+     *
      * @param DOMNodeList<DOMNode> $domNodeList
      */
     protected function sanitizeNodes(DOMNodeList $domNodeList): void
@@ -138,6 +181,9 @@ class DomSanitizer
         }
     }
 
+    /**
+     * Sanitize a DOM element
+     */
     protected function sanitizeNode(DOMElement $domElement): void
     {
         if (!in_array($domElement->nodeName, $this->allowedElements, true)) {
@@ -167,6 +213,9 @@ class DomSanitizer
         }
     }
 
+    /**
+     * Sanitize a DOM element attributes
+     */
     protected function sanitizeNodeAttributes(DOMElement $domElement): void
     {
         $attributes = $domElement->attributes;
@@ -198,6 +247,9 @@ class DomSanitizer
         }
     }
 
+    /**
+     * Sanitize a URI by removing invalid characters and decoding HTML entities
+     */
     protected function sanitizeUri(string $uri): string
     {
         $uri = urldecode($uri);

@@ -28,8 +28,13 @@ final class SemVer implements Stringable
      */
     protected const array PRERELEASE_TAGS = ['dev', 'alpha', 'beta', 'RC', 'pl'];
 
-    public function __construct(protected int $major = 0, protected int $minor = 0, protected int $patch = 0, protected ?string $prerelease = null, protected ?string $buildMetadata = null)
-    {
+    public function __construct(
+        protected int $major = 0,
+        protected int $minor = 0,
+        protected int $patch = 0,
+        protected ?string $prerelease = null,
+        protected ?string $buildMetadata = null,
+    ) {
         if ($this->major < 0 || $this->minor < 0 || $this->patch < 0) {
             throw new InvalidArgumentException('$major, $minor and $patch arguments must be non-negative integers');
         }

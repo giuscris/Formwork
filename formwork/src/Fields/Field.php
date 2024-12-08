@@ -50,14 +50,15 @@ class Field implements Arrayable, Stringable
     protected Translation $translation;
 
     /**
-     * Create a new Field instance
-     *
      * @param string               $name                  Field name
      * @param array<string, mixed> $data
      * @param ?FieldCollection     $parentFieldCollection Parent field collection
      */
-    public function __construct(protected string $name, array $data = [], protected ?FieldCollection $parentFieldCollection = null)
-    {
+    public function __construct(
+        protected string $name,
+        array $data = [],
+        protected ?FieldCollection $parentFieldCollection = null,
+    ) {
         $this->setMultiple($data);
 
         if ($this->has('fields')) {
@@ -362,8 +363,6 @@ class Field implements Arrayable, Stringable
     }
 
     /**
-     * @inheritdoc
-     *
      * @param array<mixed> $arguments
      */
     protected function callMethod(string $method, array $arguments = []): mixed

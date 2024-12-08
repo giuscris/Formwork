@@ -27,8 +27,6 @@ class ResponseHeaders implements Arrayable, Countable, Iterator
     }
 
     /**
-     * Create a new instance
-     *
      * @param array<string, mixed> $data
      */
     public function __construct(array $data)
@@ -66,6 +64,8 @@ class ResponseHeaders implements Arrayable, Countable, Iterator
     }
 
     /**
+     * Initialize headers
+     *
      * @param array<string, string> $headers
      */
     protected function initialize(array $headers): void

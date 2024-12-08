@@ -16,6 +16,9 @@ trait PageTraversal
      */
     protected Page|Site|null $parent;
 
+    /**
+     * Page collection factory
+     */
     protected PageCollectionFactory $pageCollectionFactory;
 
     /**
@@ -58,6 +61,9 @@ trait PageTraversal
      */
     abstract public function isSite(): bool;
 
+    /**
+     * Get the site the page belongs to
+     */
     abstract public function site(): Site;
 
     /**

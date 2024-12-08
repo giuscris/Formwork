@@ -32,46 +32,79 @@ class Request
      */
     protected const array FORWARDED_DIRECTIVES = ['for', 'host', 'proto', 'port'];
 
+    /**
+     * Request input data. Corresponds to `$_POST`
+     */
     protected RequestData $input;
 
+    /**
+     * Request query data. Corresponds to `$_GET`
+     */
     protected RequestData $query;
 
+    /**
+     * Request cookies data. Corresponds to `$_COOKIE`
+     */
     protected RequestData $cookies;
 
+    /**
+     * Request files data. Corresponds to a normalized version of `$_FILES`
+     */
     protected FilesData $files;
 
+    /**
+     * Request server data. Corresponds to `$_SERVER`
+     */
     protected ServerData $server;
 
+    /**
+     * Request headers data
+     */
     protected HeadersData $headers;
 
+    /**
+     * Session associated with the request
+     */
     protected Session $session;
 
     /**
+     * List of trusted proxies
+     *
      * @var list<string>
      */
     protected array $trustedProxies = [];
 
     /**
+     * Forwarded directives
+     *
      * @var array<array<string, string>>
      */
     protected array $forwardedDirectives;
 
     /**
+     * Accepted MIME types with quality values
+     *
      * @var array<string, float>
      */
     protected array $mimeTypes;
 
     /**
+     * Accepted charsets with quality values
+     *
      * @var array<string, float>
      */
     protected array $charsets;
 
     /**
+     * Accepted encodings with quality values
+     *
      * @var array<string, float>
      */
     protected array $encodings;
 
     /**
+     * Accepted languages with quality values
+     *
      * @var array<string, float>
      */
     protected array $languages;
@@ -88,16 +121,25 @@ class Request
         $this->initialize($input, $query, $cookies, $files, $server);
     }
 
+    /**
+     * Get request method
+     */
     public function method(): RequestMethod
     {
         return RequestMethod::from($this->server->get('REQUEST_METHOD', 'GET'));
     }
 
+    /**
+     * Get request root relative to the current script location
+     */
     public function root(): string
     {
         return '/' . ltrim(preg_replace('~[^/]+$~', '', $this->server->get('SCRIPT_NAME', '')), '/');
     }
 
+    /**
+     * Get request base URI
+     */
     public function baseUri(): string
     {
         $scheme = $this->isSecure() ? 'https' : 'http';
@@ -113,6 +155,9 @@ class Request
             : sprintf('%s://%s/%s/', $scheme, $host, trim($this->root(), '/'));
     }
 
+    /**
+     * Get the request URI
+     */
     public function uri(): string
     {
         $uri = urldecode((string) $this->server->get('REQUEST_URI'));
@@ -123,11 +168,17 @@ class Request
         return $uri;
     }
 
+    /**
+     * Get the request absolute URI
+     */
     public function absoluteUri(): string
     {
         return $this->baseUri() . ltrim($this->uri(), '/');
     }
 
+    /**
+     * Get request IP address
+     */
     public function ip(): ?string
     {
         $ip = $this->server->get('REMOTE_ADDR');
@@ -139,6 +190,9 @@ class Request
         return $ip;
     }
 
+    /**
+     * Get the request host name
+     */
     public function host(): ?string
     {
         $host = $this->headers->get('Host');
@@ -150,6 +204,9 @@ class Request
         return $host;
     }
 
+    /**
+     * Get the request port
+     */
     public function port(): ?int
     {
         $port = (int) $this->server->get('SERVER_PORT', 80);
@@ -161,6 +218,9 @@ class Request
         return $port;
     }
 
+    /**
+     * Get the request content length
+     */
     public function contentLength(): ?int
     {
         return $this->server->has('CONTENT_LENGTH')
@@ -168,24 +228,33 @@ class Request
             : null;
     }
 
+    /**
+     * Get the request referer
+     */
     public function referer(): ?string
     {
         return $this->headers->get('Referer');
     }
 
+    /**
+     * Validate the request referer, optionally checking a specific path
+     */
     public function validateReferer(?string $path = null): bool
     {
         $base = Uri::normalize(Uri::base($this->uri()) . '/' . $path);
         return Str::startsWith((string) $this->referer(), $base);
     }
 
+    /**
+     * Get the request server protocol
+     */
     public function protocol(): ?string
     {
         return $this->server->get('SERVER_PROTOCOL');
     }
 
     /**
-     * Get request user agent
+     * Get the request user agent
      */
     public function userAgent(): ?string
     {
@@ -193,6 +262,8 @@ class Request
     }
 
     /**
+     * Get accepted MIME types with quality values
+     *
      * @return array<float>
      */
     public function mimeTypes(): array
@@ -201,6 +272,8 @@ class Request
     }
 
     /**
+     * Get accepted encodings with quality values
+     *
      * @return array<float>
      */
     public function encodings(): array
@@ -209,6 +282,8 @@ class Request
     }
 
     /**
+     * Get accepted languages with quality values
+     *
      * @return array<float>
      */
     public function languages(): array
@@ -249,17 +324,25 @@ class Request
         return in_array($this->ip(), self::LOCALHOST_IP_ADDRESSES, true);
     }
 
+    /**
+     * Return whether a request is an XMLHttpRequest
+     */
     public function isXmlHttpRequest(): bool
     {
         return strtolower((string) $this->headers->get('X-Requested-With')) === 'xmlhttprequest';
     }
 
+    /**
+     * Get the request type
+     */
     public function type(): RequestType
     {
         return $this->isXmlHttpRequest() ? RequestType::XmlHttpRequest : RequestType::Http;
     }
 
     /**
+     * Set trusted proxies
+     *
      * @param list<string> $proxies
      */
     public function setTrustedProxies(array $proxies): void
@@ -267,11 +350,17 @@ class Request
         $this->trustedProxies = $proxies;
     }
 
+    /**
+     * Return whether a request comes from a trusted proxy
+     */
     public function isFromTrustedProxy(): bool
     {
         return in_array($this->server->get('REMOTE_ADDR', ''), $this->trustedProxies, true);
     }
 
+    /**
+     * Create a new Request instance from PHP globals
+     */
     public static function fromGlobals(): Request
     {
         return new self(
@@ -283,41 +372,65 @@ class Request
         );
     }
 
+    /**
+     * Geth the request input data. Corresponds to `$_POST`
+     */
     public function input(): RequestData
     {
         return $this->input;
     }
 
+    /**
+     * Get the request query data. Corresponds to `$_GET`
+     */
     public function query(): RequestData
     {
         return $this->query;
     }
 
+    /**
+     * Get the request cookies data. Corresponds to `$_COOKIE`
+     */
     public function cookies(): RequestData
     {
         return $this->cookies;
     }
 
+    /**
+     * Get the request files data. Corresponds to a normalized version of `$_FILES`
+     */
     public function files(): FilesData
     {
         return $this->files;
     }
 
+    /**
+     * Get the request server data. Corresponds to `$_SERVER`
+     */
     public function server(): ServerData
     {
         return $this->server;
     }
 
+    /**
+     * Get the request headers data
+     */
     public function headers(): HeadersData
     {
         return $this->headers;
     }
 
+    /**
+     * Get the session associated to the request or create a new one
+     */
     public function session(): Session
     {
         return $this->session ??= new Session($this);
     }
 
+    /**
+     * Get the request session ID
+     */
     public function hasPreviousSession(): bool
     {
         $sessionName = $this->session()->name();
@@ -325,6 +438,8 @@ class Request
     }
 
     /**
+     * Initialize request data
+     *
      * @param array<string, string> $input
      * @param array<string, string> $query
      * @param array<string, string> $cookies
@@ -342,6 +457,8 @@ class Request
     }
 
     /**
+     * Get forwarded directives
+     *
      * @return array<array<string, string>>
      */
     protected function getForwardedDirectives(): array
@@ -368,6 +485,8 @@ class Request
     }
 
     /**
+     * Get a forwarded directive
+     *
      * @return list<string>
      */
     protected function getForwardedDirective(string $name): array
@@ -390,6 +509,8 @@ class Request
     }
 
     /**
+     * Normalize files data
+     *
      * @param array<mixed> $files
      */
     protected function prepareFiles(array $files): FilesData

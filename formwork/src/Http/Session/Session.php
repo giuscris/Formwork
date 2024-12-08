@@ -25,22 +25,44 @@ class Session implements Arrayable
         remove as protected baseRemove;
     }
 
+    /**
+     * Session name used for cookies
+     */
     protected const string SESSION_NAME = 'formwork_session';
 
+    /**
+     * Key used to store messages in session data
+     */
     protected const string SESSION_MESSAGES_KEY = '_formwork_messages';
 
+    /**
+     * Regex pattern for session IDs
+     */
     protected const string SESSION_ID_REGEX = '/^[a-z0-9,-]{22,256}$/i';
 
+    /**
+     * Session messages
+     */
     protected Messages $messages;
 
+    /**
+     * Session name
+     */
     protected string $name = self::SESSION_NAME;
 
+    /**
+     * Whether the session has been started
+     */
     protected bool $started = false;
 
+    /**
+     * Session duration in seconds
+     */
     protected int $duration = 0;
 
-    public function __construct(protected Request $request)
-    {
+    public function __construct(
+        protected Request $request,
+    ) {
         if (!extension_loaded('session')) {
             throw new RuntimeException('Sessions extension not available');
         }
@@ -50,6 +72,9 @@ class Session implements Arrayable
         }
     }
 
+    /**
+     * Check if a session with a given ID exists
+     */
     public function exists(string $id): bool
     {
         if (!$this->started) {
@@ -65,6 +90,9 @@ class Session implements Arrayable
         return false;
     }
 
+    /**
+     * Start the session
+     */
     public function start(): void
     {
         if (session_status() === PHP_SESSION_ACTIVE) {
@@ -102,6 +130,9 @@ class Session implements Arrayable
         $this->started = true;
     }
 
+    /**
+     * Save session data
+     */
     public function save(): void
     {
         if (!$this->started) {
@@ -113,6 +144,9 @@ class Session implements Arrayable
         $this->started = false;
     }
 
+    /**
+     * Destroy the session
+     */
     public function destroy(): void
     {
         session_destroy();
@@ -122,6 +156,9 @@ class Session implements Arrayable
         $this->started = false;
     }
 
+    /**
+     * Regenerate the session ID
+     */
     public function regenerate(bool $preserveData = true): void
     {
         $data = [];
@@ -149,16 +186,25 @@ class Session implements Arrayable
         }
     }
 
+    /**
+     * Return whether the session has been started
+     */
     public function isStarted(): bool
     {
         return $this->started;
     }
 
+    /**
+     * Get the session name
+     */
     public function name(): string
     {
         return $this->name;
     }
 
+    /**
+     * Set the session name
+     */
     public function setName(string $name): void
     {
         if ($this->started) {
@@ -168,6 +214,9 @@ class Session implements Arrayable
         $this->name = $name;
     }
 
+    /**
+     * Set the session duration
+     */
     public function setDuration(int $duration): void
     {
         $this->duration = $duration;
@@ -180,6 +229,9 @@ class Session implements Arrayable
         }
     }
 
+    /**
+     * Get session messages
+     */
     public function messages(): Messages
     {
         if (!$this->started) {
@@ -195,6 +247,9 @@ class Session implements Arrayable
         return $this->messages = new Messages($this->data[self::SESSION_MESSAGES_KEY]);
     }
 
+    /**
+     * Return whether the session has the given key
+     */
     public function has(string $key): bool
     {
         if (!$this->started) {
@@ -208,6 +263,9 @@ class Session implements Arrayable
         return $this->baseHas($key);
     }
 
+    /**
+     * Get the session value for the given key
+     */
     public function get(string $key, mixed $default = null): mixed
     {
         if (!$this->started) {
@@ -221,6 +279,9 @@ class Session implements Arrayable
         return $this->baseGet($key, $default);
     }
 
+    /**
+     * Remove the session value for the given key
+     */
     public function remove(string $key): void
     {
         if (!$this->started) {
@@ -234,6 +295,9 @@ class Session implements Arrayable
         $this->baseRemove($key);
     }
 
+    /**
+     * Set the session value for the given key
+     */
     public function set(string $key, mixed $value): void
     {
         if (!$this->started) {
@@ -248,6 +312,8 @@ class Session implements Arrayable
     }
 
     /**
+     * Get the session cookie options
+     *
      * @return array{expires: int, path: string, secure: bool, httpOnly: bool, sameSite: Cookie::SAMESITE_LAX|Cookie::SAMESITE_NONE|Cookie::SAMESITE_STRICT}
      */
     protected function getCookieOptions(): array

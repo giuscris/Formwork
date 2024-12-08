@@ -9,7 +9,7 @@ use UnexpectedValueException;
 class GifDecoder implements DecoderInterface
 {
     /**
-     * GIF headers
+     * GIF file headers
      *
      * @var array<string>
      */
@@ -99,6 +99,9 @@ class GifDecoder implements DecoderInterface
         }
     }
 
+    /**
+     * Seek the end of a block
+     */
     protected function seekBlockEnd(string &$data, int $position): int
     {
         while ($position < strlen($data)) {
@@ -112,6 +115,8 @@ class GifDecoder implements DecoderInterface
     }
 
     /**
+     * Parse logical screen descriptor
+     *
      * @return array<string, int>
      */
     protected function parseLogicalScreenDescriptor(string $data): array
@@ -130,6 +135,8 @@ class GifDecoder implements DecoderInterface
     }
 
     /**
+     * Parse image descriptor
+     *
      * @return array<string, int>
      */
     protected function parseImageDescriptor(string $data): array
@@ -147,12 +154,17 @@ class GifDecoder implements DecoderInterface
         ];
     }
 
+    /**
+     * Get the size of a color table
+     */
     protected function getColorTableSize(int $ctsize): int
     {
         return 3 * 2 ** ($ctsize + 1);
     }
 
     /**
+     * Unpack data from a binary string
+     *
      * @return array<int|string, mixed>
      */
     private function unpack(string $format, string $string, int $offset = 0): array

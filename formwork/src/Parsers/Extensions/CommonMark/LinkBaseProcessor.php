@@ -10,8 +10,9 @@ use League\Config\ConfigurationInterface;
 
 class LinkBaseProcessor
 {
-    public function __construct(protected ConfigurationInterface $configuration)
-    {
+    public function __construct(
+        protected ConfigurationInterface $configuration,
+    ) {
     }
 
     public function __invoke(DocumentParsedEvent $documentParsedEvent): void

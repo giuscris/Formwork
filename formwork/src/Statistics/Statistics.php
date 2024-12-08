@@ -64,11 +64,11 @@ class Statistics
      */
     protected Registry $pageViewsRegistry;
 
-    /**
-     * Create a new Statistics instance
-     */
-    public function __construct(string $path, protected Request $request, protected Translation $translation)
-    {
+    public function __construct(
+        string $path,
+        protected Request $request,
+        protected Translation $translation,
+    ) {
         if (!FileSystem::exists($path)) {
             FileSystem::createDirectory($path);
         }
@@ -136,6 +136,8 @@ class Statistics
     }
 
     /**
+     * Return page views
+     *
      * @return array<string, int>
      */
     public function getPageViews(): array
@@ -144,6 +146,8 @@ class Statistics
     }
 
     /**
+     * Return visits
+     *
      * @return array<string, int>
      */
     public function getVisits(int $limit = self::CHART_LIMIT): array
@@ -152,6 +156,8 @@ class Statistics
     }
 
     /**
+     * Return unique visits
+     *
      * @return array<string, int>
      */
     public function getUniqueVisits(int $limit = self::CHART_LIMIT): array
@@ -160,6 +166,8 @@ class Statistics
     }
 
     /**
+     * Interpolate visits
+     *
      * @param array<string, int> $visits
      *
      * @return array<string, int>
@@ -174,6 +182,8 @@ class Statistics
     }
 
     /**
+     * Generate days
+     *
      * @return Generator<int, string>
      */
     private function generateDays(int $limit): Generator

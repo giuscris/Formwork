@@ -21,8 +21,14 @@ class FieldCollection extends AbstractCollection
      */
     protected Layout $layout;
 
+    /**
+     * Fields model
+     */
     protected ?Model $model = null;
 
+    /**
+     * Set fields layout
+     */
     public function setLayout(Layout $layout): void
     {
         $this->layout = $layout;
@@ -36,6 +42,9 @@ class FieldCollection extends AbstractCollection
         return $this->layout;
     }
 
+    /**
+     * Set fields model
+     */
     public function setModel(?Model $model): void
     {
         $this->model = $model;
@@ -49,9 +58,6 @@ class FieldCollection extends AbstractCollection
         return $this->model;
     }
 
-    /**
-     * @inheritdoc
-     */
     public function pluck(string $key, mixed $default = null): array
     {
         return $this->everyItem()->get($key, $default)->toArray();
@@ -102,6 +108,9 @@ class FieldCollection extends AbstractCollection
         return $this;
     }
 
+    /**
+     * Set field values from a Request
+     */
     public function setValuesFromRequest(Request $request, mixed $default = null): static
     {
         return $this->setValues([

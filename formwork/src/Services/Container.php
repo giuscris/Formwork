@@ -13,31 +13,44 @@ use ReflectionNamedType;
 class Container
 {
     /**
+     * Defined services
+     *
      * @var array<string, ServiceDefinition>
      */
     protected array $defined;
 
     /**
+     * Resolved services
+     *
      * @var array<string, object>
      */
     protected array $resolved;
 
     /**
+     * Service aliases
+     *
      * @var array<string, string>
      */
     protected array $aliases;
 
     /**
+     * Stack of services being resolved
+     *
      * @var list<string>
      */
     private array $resolveStack = [];
 
+    /**
+     * Define a new service
+     */
     public function define(string $name, ?object $object = null): ServiceDefinition
     {
         return $this->defined[$name] = new ServiceDefinition($name, $object, $this);
     }
 
     /**
+     * Build a new instance of a class, resolving its dependencies and passing static parameters
+     *
      * @template T of object
      *
      * @param class-string<T>      $class
@@ -59,6 +72,8 @@ class Container
     }
 
     /**
+     * Call a closure, resolving its dependencies and passing static parameters
+     *
      * @param array<string, mixed> $parameters
      */
     public function call(Closure $closure, array $parameters = []): mixed
@@ -68,6 +83,9 @@ class Container
         return $closure(...$arguments);
     }
 
+    /**
+     * Alias a service to another service
+     */
     public function alias(string $alias, string $target): void
     {
         if ($alias === $target) {
@@ -77,6 +95,8 @@ class Container
     }
 
     /**
+     * Get a service instance, resolving it if needed
+     *
      * @template T of object
      *
      * @param class-string<T>|string $name
@@ -96,6 +116,9 @@ class Container
         return $this->resolved[$name] ??= $this->resolve($name);
     }
 
+    /**
+     * Return whether a service is defined
+     */
     public function has(string $name): bool
     {
         if (isset($this->aliases[$name])) {
@@ -106,6 +129,9 @@ class Container
         return isset($this->defined[$name]);
     }
 
+    /**
+     * Return whether a service is resolved
+     */
     public function isResolved(string $name): bool
     {
         if (isset($this->aliases[$name])) {
@@ -116,6 +142,9 @@ class Container
         return isset($this->resolved[$name]);
     }
 
+    /**
+     * Resolve a service
+     */
     public function resolve(string $name): object
     {
         if (isset($this->aliases[$name])) {
@@ -186,6 +215,8 @@ class Container
     }
 
     /**
+     * Build arguments for a function or method
+     *
      * @param array<string, mixed> $parameters
      *
      * @return list<mixed>

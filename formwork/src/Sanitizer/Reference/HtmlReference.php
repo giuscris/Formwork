@@ -5,6 +5,8 @@ namespace Formwork\Sanitizer\Reference;
 class HtmlReference
 {
     /**
+     * Allowed HTML elements
+     *
      * @var list<string>
      */
     public const array ALLOWED_ELEMENTS = [
@@ -139,6 +141,8 @@ class HtmlReference
     ];
 
     /**
+     * Allowed HTML attributes
+     *
      * @var list<string>
      */
     public const array ALLOWED_ATTRIBUTES = [
@@ -359,6 +363,8 @@ class HtmlReference
     ];
 
     /**
+     * URI attributes
+     *
      * @var list<string>
      */
     public const array URI_ATTRIBUTES = [

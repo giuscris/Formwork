@@ -111,7 +111,7 @@ class Date
             fn (array $matches): string => match (true) {
                 isset($matches['invalid']) => '',
                 isset($matches['escaped']) => '[' . str_replace('\\', '', $matches['escaped']) . ']',
-                default                    => $map[$matches[0]] ?? ''
+                default                    => $map[$matches[0]] ?? '',
             },
             $format
         ) ?? throw new RuntimeException(sprintf('Format conversion failed with error: %s', preg_last_error_msg()));
@@ -129,7 +129,7 @@ class Date
             fn (array $matches): string => match (true) {
                 isset($matches['invalid']) => '',
                 isset($matches['escaped']) => addcslashes($matches['escaped'], 'A..Za..z'),
-                default                    => self::PATTERN_TO_DATE_FORMAT[$matches[0]] ?? ''
+                default                    => self::PATTERN_TO_DATE_FORMAT[$matches[0]] ?? '',
             },
             $pattern
         ) ?? throw new RuntimeException(sprintf('Format conversion failed with error: %s', preg_last_error_msg()));
@@ -148,7 +148,7 @@ class Date
                 'D'     => $translation->getStrings('date.weekdays.short')[(int) $dateTime->format('w')],
                 'l'     => $translation->getStrings('date.weekdays.long')[(int) $dateTime->format('w')],
                 'r'     => static::formatDateTime($dateTime, DateTime::RFC2822, $translation),
-                default => $dateTime->format($matches[1] ?? $matches[0])
+                default => $dateTime->format($matches[1] ?? $matches[0]),
             },
             $format
         ) ?? throw new RuntimeException(sprintf('Date formatting failed with error: %s', preg_last_error_msg()));

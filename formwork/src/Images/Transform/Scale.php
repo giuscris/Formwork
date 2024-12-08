@@ -9,8 +9,9 @@ use UnexpectedValueException;
 
 class Scale extends AbstractTransform
 {
-    final public function __construct(protected float $factor)
-    {
+    final public function __construct(
+        protected float $factor,
+    ) {
         if ($factor <= 0) {
             throw new InvalidArgumentException('Scale factor must be greater than 0');
         }

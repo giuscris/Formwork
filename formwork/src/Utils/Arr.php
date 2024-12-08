@@ -603,7 +603,7 @@ class Arr
         int $type = SORT_NATURAL,
         array|callable|null $sortBy = null,
         bool $caseSensitive = false,
-        bool $preserveKeys = true
+        bool $preserveKeys = true,
     ): array {
         if (!in_array($direction, [SORT_ASC, SORT_DESC], true)) {
             throw new UnexpectedValueException(sprintf('%s() only accepts SORT_ASC and SORT_DESC as "direction" option', __METHOD__));

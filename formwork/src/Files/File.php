@@ -15,8 +15,14 @@ use Stringable;
 
 class File extends Model implements Arrayable, Stringable
 {
+    /**
+     * File scheme identifier
+     */
     public const string SCHEME_IDENTIFIER = 'files.file';
 
+    /**
+     * Model identifier
+     */
     protected const string MODEL_IDENTIFIER = 'file';
 
     /**
@@ -70,12 +76,11 @@ class File extends Model implements Arrayable, Stringable
     protected FileUriGenerator $uriGenerator;
 
     /**
-     * Create a new File instance
-     *
      * @param string $path File path
      */
-    public function __construct(protected string $path)
-    {
+    public function __construct(
+        protected string $path,
+    ) {
         $this->name = basename($path);
         $this->extension = FileSystem::extension($path);
     }
@@ -193,11 +198,17 @@ class File extends Model implements Arrayable, Stringable
         throw new RuntimeException('Cannot calculate file hash');
     }
 
+    /**
+     * Set URI generator
+     */
     public function setUriGenerator(FileUriGenerator $uriGenerator): void
     {
         $this->uriGenerator = $uriGenerator;
     }
 
+    /**
+     * Get file URI
+     */
     public function uri(): string
     {
         if (!isset($this->uriGenerator)) {
@@ -206,6 +217,9 @@ class File extends Model implements Arrayable, Stringable
         return $this->uriGenerator->generate($this);
     }
 
+    /**
+     * Get file absolute URI
+     */
     public function absoluteUri(): string
     {
         if (!isset($this->uriGenerator)) {
@@ -226,6 +240,9 @@ class File extends Model implements Arrayable, Stringable
         ];
     }
 
+    /**
+     * Set file scheme
+     */
     public function setScheme(Scheme $scheme): void
     {
         $this->scheme = $scheme;

@@ -14,8 +14,9 @@ use Formwork\Interpolator\Nodes\StringNode;
 
 class Parser implements ParserInterface
 {
-    public function __construct(protected TokenStream $tokenStream)
-    {
+    public function __construct(
+        protected TokenStream $tokenStream,
+    ) {
     }
 
     /**

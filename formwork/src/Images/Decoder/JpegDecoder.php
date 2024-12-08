@@ -44,6 +44,9 @@ class JpegDecoder implements DecoderInterface
         }
     }
 
+    /**
+     * Seek the end of a segment
+     */
     protected function seekSegmentEnd(string &$data, int $position): int
     {
         while ($position < strlen($data)) {
@@ -61,6 +64,8 @@ class JpegDecoder implements DecoderInterface
     }
 
     /**
+     * Unpack data from a binary string
+     *
      * @return array<int|string, mixed>
      */
     private function unpack(string $format, string $string, int $offset = 0): array

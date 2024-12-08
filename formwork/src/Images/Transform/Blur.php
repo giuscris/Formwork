@@ -34,15 +34,13 @@ class Blur extends AbstractTransform
         ],
     ];
 
-    protected int $amount;
-
-    final public function __construct(int $amount, protected BlurMode $blurMode)
-    {
+    final public function __construct(
+        protected int $amount,
+        protected BlurMode $blurMode,
+    ) {
         if (!Constraint::isInIntegerRange($amount, 0, 100)) {
             throw new InvalidArgumentException(sprintf('$amount value must be in range 0-100, %d given', $amount));
         }
-
-        $this->amount = $amount;
     }
 
     public static function fromArray(array $data): static

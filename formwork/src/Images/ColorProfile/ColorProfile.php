@@ -8,17 +8,26 @@ use UnexpectedValueException;
 
 class ColorProfile
 {
+    /**
+     * File signature for ICC profiles
+     */
     protected const string ICC_PROFILE_SIGNATURE = 'acsp';
 
+    /**
+     * Offset of the color profile signature
+     */
     protected const int ICC_PROFILE_SIGNATURE_OFFSET = 36;
 
     /**
+     * Color profile tags
+     *
      * @var array<string, mixed>
      */
     protected array $tags;
 
-    public function __construct(protected string $data)
-    {
+    public function __construct(
+        protected string $data,
+    ) {
         if (strpos($this->data, self::ICC_PROFILE_SIGNATURE) !== self::ICC_PROFILE_SIGNATURE_OFFSET) {
             throw new InvalidArgumentException('Invalid ICC profile data');
         }
@@ -26,21 +35,33 @@ class ColorProfile
         $this->tags = $this->getTags();
     }
 
+    /**
+     * Get the name of the color profile
+     */
     public function name(): string
     {
         return $this->getTagValue('desc', '');
     }
 
+    /**
+     * Get the copyright string of the color profile
+     */
     public function copyright(): string
     {
         return $this->getTagValue('cprt', '');
     }
 
+    /**
+     * Get the color profile version
+     */
     public function profileVersion(): string
     {
         return sprintf('%u.%u.%u', ord($this->data[8]), (ord($this->data[9]) & 0xf0) >> 4, ord($this->data[9]) & 0x0f);
     }
 
+    /**
+     * Get the color profile device class
+     */
     public function deviceClass(): DeviceClass
     {
         $deviceClass = substr($this->data, 12, 4);
@@ -57,6 +78,9 @@ class ColorProfile
         };
     }
 
+    /**
+     * Get the color profile color space
+     */
     public function colorSpace(): ColorSpace
     {
         $colorSpace = trim(substr($this->data, 16, 4));
@@ -90,16 +114,25 @@ class ColorProfile
         };
     }
 
+    /**
+     * Get the color profile connection space
+     */
     public function connectionSpace(): string
     {
         return trim(substr($this->data, 20, 4));
     }
 
+    /**
+     * Get the color profile primary platform
+     */
     public function primaryPlatform(): string
     {
         return substr($this->data, 40, 4);
     }
 
+    /**
+     * Get the color profile rendering intent
+     */
     public function renderingIntent(): RenderingIntent
     {
         $renderingIntent = $this->unpack('N', $this->data, 64)[1];
@@ -112,22 +145,33 @@ class ColorProfile
         };
     }
 
+    /**
+     * Get the color profile data
+     */
     public function getData(): string
     {
         return $this->data;
     }
 
+    /**
+     * Export the color profile to a file
+     */
     public function export(string $path): void
     {
         FileSystem::write($path, $this->data);
     }
 
+    /**
+     * Create a ColorProfile instance from a file
+     */
     public static function fromFile(string $path): ColorProfile
     {
         return new self(FileSystem::read($path));
     }
 
     /**
+     * Get the color profile tags
+     *
      * @return array<string, mixed>
      */
     protected function getTags(): array
@@ -146,6 +190,9 @@ class ColorProfile
         return $tags;
     }
 
+    /**
+     * Get the value of a tag
+     */
     protected function getTagValue(string $name, ?string $default = null): mixed
     {
         if (!isset($this->tags[$name])) {
@@ -164,6 +211,8 @@ class ColorProfile
     }
 
     /**
+     * Parse a multi-lingual Unicode string
+     *
      * @return array<string, string>
      */
     protected function parseMlucString(string $data): array
@@ -189,6 +238,8 @@ class ColorProfile
     }
 
     /**
+     * Unpack data from a binary string
+     *
      * @return array<int|string, mixed>
      */
     private function unpack(string $format, string $string, int $offset = 0): array

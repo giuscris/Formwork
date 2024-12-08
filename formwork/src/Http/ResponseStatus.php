@@ -81,16 +81,25 @@ enum ResponseStatus: string
     case NotExtended = '510 Not Extended';
     case NetworkAuthenticationRequired = '511 Network Authentication Required';
 
+    /**
+     * Get the status code
+     */
     public function code(): int
     {
         return (int) explode(' ', $this->value, 2)[0];
     }
 
+    /**
+     * Get the status message
+     */
     public function message(): string
     {
         return explode(' ', $this->value, 2)[1];
     }
 
+    /**
+     * Get the response status from a status code
+     */
     public static function fromCode(int $code): ResponseStatus
     {
         foreach (self::cases() as $case) {
@@ -102,6 +111,9 @@ enum ResponseStatus: string
         throw new InvalidArgumentException('HTTP status code not found');
     }
 
+    /**
+     * Get the response status type
+     */
     public function type(): ResponseStatusType
     {
         $code = $this->code();

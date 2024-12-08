@@ -11,6 +11,8 @@ class Messages implements Arrayable
 
     /**
      * @var array<string, list<string>>
+     *
+     * Session messages data
      */
     protected array $data = [];
 
@@ -22,12 +24,17 @@ class Messages implements Arrayable
         $this->data = &$data;
     }
 
+    /**
+     * Return whether there are messages of a given type
+     */
     public function has(MessageType $messageType): bool
     {
         return !empty($this->data[$messageType->value]);
     }
 
     /**
+     * Get messages of a given type
+     *
      * @return list<string>
      */
     public function get(MessageType $messageType): array
@@ -38,6 +45,8 @@ class Messages implements Arrayable
     }
 
     /**
+     * Get messages of all types
+     *
      * @return array<string, list<string>>
      */
     public function getAll(): array
@@ -48,6 +57,8 @@ class Messages implements Arrayable
     }
 
     /**
+     * Set messages of a given type
+     *
      * @param list<string>|string $messages
      */
     public function set(MessageType $messageType, string|array $messages): void
@@ -55,6 +66,9 @@ class Messages implements Arrayable
         $this->data[$messageType->value] = (array) $messages;
     }
 
+    /**
+     * Add a message of a given type
+     */
     public function add(MessageType $messageType, string $message): void
     {
         if (empty($this->data[$messageType->value])) {
@@ -63,11 +77,17 @@ class Messages implements Arrayable
         $this->data[$messageType->value][] = $message;
     }
 
+    /**
+     * Remove messages of a given type
+     */
     public function remove(MessageType $messageType): void
     {
         unset($this->data[$messageType->value]);
     }
 
+    /**
+     * Remove all messages
+     */
     public function removeAll(): void
     {
         $this->data = [];

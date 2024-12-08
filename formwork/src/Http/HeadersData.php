@@ -13,6 +13,8 @@ class HeadersData extends RequestData
     }
 
     /**
+     * Initialize headers data
+     *
      * @param array<string, string> $headers
      */
     protected function initialize(array $headers): void

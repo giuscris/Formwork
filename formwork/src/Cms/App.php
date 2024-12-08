@@ -52,11 +52,11 @@ final class App
      */
     public const string VERSION = '2.0.0-beta.2';
 
+    /**
+     * App services container
+     */
     protected Container $container;
 
-    /**
-     * Create a new Formwork instance
-     */
     public function __construct()
     {
         $this->initializeSingleton();
@@ -75,36 +75,57 @@ final class App
         throw new BadMethodCallException(sprintf('Call to undefined method %s::%s()', self::class, $name));
     }
 
+    /**
+     * Get Config instance
+     */
     public function config(): Config
     {
         return $this->container->get(Config::class);
     }
 
+    /**
+     * Get Router instance
+     */
     public function router(): Router
     {
         return $this->container->get(Router::class);
     }
 
+    /**
+     * Get Site instance
+     */
     public function site(): Site
     {
         return $this->container->get(Site::class);
     }
 
+    /**
+     * Get Request instance
+     */
     public function request(): Request
     {
         return $this->container->get(Request::class);
     }
 
+    /**
+     * Get Schemes instance
+     */
     public function schemes(): Schemes
     {
         return $this->container->get(Schemes::class);
     }
 
+    /**
+     * Get Translations instance
+     */
     public function translations(): Translations
     {
         return $this->container->get(Translations::class);
     }
 
+    /**
+     * Get Panel instance
+     */
     public function panel(): Panel
     {
         return $this->container->get(Panel::class);
@@ -155,6 +176,9 @@ final class App
         return $response;
     }
 
+    /**
+     * Define app services
+     */
     protected function loadServices(Container $container): void
     {
         $container->define(Container::class, $container);
@@ -258,6 +282,9 @@ final class App
         $this->router()->loadFromFile($this->config()->get('system.routes.files.system'));
     }
 
+    /**
+     * Load error handler
+     */
     protected function loadErrorHandler(): void
     {
         ini_set('display_errors', 0);

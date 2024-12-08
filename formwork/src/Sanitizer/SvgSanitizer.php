@@ -19,8 +19,9 @@ class SvgSanitizer extends DomSanitizer
 
     protected array $uriAttributes = SvgReference::URI_ATTRIBUTES;
 
-    public function __construct(protected DomParserInterface $domParser = new PhpDomParser())
-    {
+    public function __construct(
+        protected DomParserInterface $domParser = new PhpDomParser(),
+    ) {
     }
 
     protected function isValidDocument(?DOMDocumentFragment $domDocumentFragment): bool

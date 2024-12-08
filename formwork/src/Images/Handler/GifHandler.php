@@ -14,6 +14,9 @@ use UnexpectedValueException;
 
 class GifHandler extends AbstractHandler
 {
+    /**
+     * Netscape GIF extension header
+     */
     protected const string NETSCAPE_EXT_HEADER = "!\xff\x0bNETSCAPE2.0";
 
     public function getInfo(): ImageInfo
@@ -156,6 +159,8 @@ class GifHandler extends AbstractHandler
     }
 
     /**
+     * Unpack data from a binary string
+     *
      * @return array<int|string, mixed>
      */
     private function unpack(string $format, string $string, int $offset = 0): array

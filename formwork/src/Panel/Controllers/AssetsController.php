@@ -9,6 +9,9 @@ use Formwork\Utils\FileSystem;
 
 class AssetsController extends AbstractController
 {
+    /**
+     * AssetsController@asset action
+     */
     public function asset(RouteParams $routeParams): Response
     {
         $path = FileSystem::joinPaths($this->config->get('system.panel.paths.assets'), $routeParams->get('type'), $routeParams->get('file'));

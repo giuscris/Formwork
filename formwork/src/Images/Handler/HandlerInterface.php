@@ -16,9 +16,16 @@ interface HandlerInterface
      */
     public function __construct(string $data, array $options = []);
 
-    public static function fromPath(string $path): HandlerInterface;
+    /**
+     * Create an image handler from the given file path
+     *
+     * @param array<string, mixed> $options
+     */
+    public static function fromPath(string $path, array $options = []): HandlerInterface;
 
     /**
+     * Create an image handler from a GD image
+     *
      * @param array<string, mixed> $options
      */
     public static function fromGdImage(GdImage $gdImage, array $options = []): HandlerInterface;
@@ -28,8 +35,14 @@ interface HandlerInterface
      */
     public function getInfo(): ImageInfo;
 
+    /**
+     * Return whether the image handler supports transforms
+     */
     public function supportsTransforms(): bool;
 
+    /**
+     * Return whether the image supports color profiles
+     */
     public static function supportsColorProfile(): bool;
 
     /**
@@ -47,7 +60,7 @@ interface HandlerInterface
     /**
      * Set color profile
      *
-     * @throws RuntimeException if the image has no color profile
+     * @throws RuntimeException if the image does not support color profile
      */
     public function setColorProfile(ColorProfile $colorProfile): void;
 
@@ -58,6 +71,9 @@ interface HandlerInterface
      */
     public function removeColorProfile(): void;
 
+    /**
+     * Return whether the image handler supports EXIF data
+     */
     public static function supportsExifData(): bool;
 
     /**
@@ -86,19 +102,30 @@ interface HandlerInterface
      */
     public function removeExifData(): void;
 
+    /**
+     * Get image data
+     */
     public function getData(): string;
 
+    /**
+     * Get image size in bytes
+     */
     public function getSize(): int;
 
     /**
-     * Save image in a different path
+     * Save image to a different path
      */
     public function saveAs(string $path): void;
 
     /**
+     * Get handler default options
+     *
      * @return array<string, mixed>
      */
     public function defaults(): array;
 
+    /**
+     * Process image with optional transforms and different handler
+     */
     public function process(?TransformCollection $transformCollection = null, ?string $handler = null): self;
 }

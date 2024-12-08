@@ -9,6 +9,9 @@ use Formwork\Utils\FileSystem;
 
 class AssetsController extends AbstractController
 {
+    /**
+     * AssetsController@asset action
+     */
     public function asset(RouteParams $routeParams): Response
     {
         $path = FileSystem::joinPaths($this->config->get('system.images.processPath'), $routeParams->get('id'), $routeParams->get('name'));
@@ -20,6 +23,9 @@ class AssetsController extends AbstractController
         return $this->forward(PageController::class, 'error');
     }
 
+    /**
+     * AssetsController@template action
+     */
     public function template(RouteParams $routeParams): Response
     {
         $path = FileSystem::joinPaths($this->config->get('system.templates.path'), 'assets', $routeParams->get('file'));

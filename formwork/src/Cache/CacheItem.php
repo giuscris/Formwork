@@ -7,7 +7,7 @@ class CacheItem implements CacheItemInterface
     public function __construct(
         protected mixed $value,
         protected int $expirationTime,
-        protected int $cachedTime
+        protected int $cachedTime,
     ) {
     }
 

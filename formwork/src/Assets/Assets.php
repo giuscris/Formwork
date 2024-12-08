@@ -17,9 +17,6 @@ class Assets
      */
     protected string $baseUri;
 
-    /**
-     * Create a new Assets instance
-     */
     public function __construct(string $basePath, string $baseUri)
     {
         $this->basePath = FileSystem::normalizePath($basePath);

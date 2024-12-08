@@ -15,18 +15,24 @@ class ExifData implements Arrayable
      */
     protected array $tags;
 
-    public function __construct(protected string $data)
-    {
+    public function __construct(
+        protected string $data,
+    ) {
         $this->reader = new ExifReader();
         $this->tags = $this->reader->read($this->data);
     }
 
+    /**
+     * Get raw EXIF data
+     */
     public function getData(): string
     {
         return $this->data;
     }
 
     /**
+     * Get EXIF tags
+     *
      * @return array<string, mixed>
      */
     public function getTags(): array
@@ -40,6 +46,8 @@ class ExifData implements Arrayable
     }
 
     /**
+     * Get parsed EXIF tags
+     *
      * @return Generator<string, mixed>
      */
     public function parsedTags(): Generator
@@ -49,12 +57,17 @@ class ExifData implements Arrayable
         }
     }
 
+    /**
+     * Check if a tag exists
+     */
     public function has(string $key): bool
     {
         return array_key_exists($key, $this->tags);
     }
 
     /**
+     * Check if multiple tags exist
+     *
      * @param list<string> $keys
      */
     public function hasMultiple(array $keys): bool
@@ -67,11 +80,17 @@ class ExifData implements Arrayable
         return true;
     }
 
+    /**
+     * Get raw value of a tag
+     */
     public function getRaw(string $key, mixed $default = null): mixed
     {
         return $this->has($key) ? $this->tags[$key][0] : $default;
     }
 
+    /**
+     * Get parsed value of a tag
+     */
     public function get(string $key, mixed $default = null): mixed
     {
         return $this->has($key)
@@ -79,17 +98,26 @@ class ExifData implements Arrayable
             : $default;
     }
 
+    /**
+     * Return whether the image has geolocation data
+     */
     public function hasPositionData(): bool
     {
         return $this->hasMultiple(['GPSLatitude', 'GPSLongitude']);
     }
 
+    /**
+     * Get the original date and time of the image
+     */
     public function dateTimeOriginal(): ?ExifDateTime
     {
         /** @var ExifDateTime|null */
         return $this->get('DateTimeOriginal');
     }
 
+    /**
+     * Get the make and model of the camera
+     */
     public function makeAndModel(): ?string
     {
         $make = (string) $this->get('Make');
@@ -102,31 +130,49 @@ class ExifData implements Arrayable
         return $make . ' ' . Str::after($model, $make . ' ');
     }
 
+    /**
+     * Get the lens model
+     */
     public function lensModel(): ?string
     {
         return $this->get('LensModel') ? str_replace('f/', 'ƒ/', (string) $this->get('LensModel')) : null;
     }
 
+    /**
+     * Get the lens focal length
+     */
     public function focalLength(): ?string
     {
         return $this->get('FocalLength') ? $this->get('FocalLength') . ' mm' : null;
     }
 
+    /**
+     * Get the exposure time
+     */
     public function exposureTime(): ?string
     {
         return $this->get('ExposureTime') ? $this->get('ExposureTime') . ' s' : null;
     }
 
+    /**
+     * Get the aperture
+     */
     public function aperture(): ?string
     {
         return $this->get('FNumber') ? 'ƒ/' . $this->get('FNumber') : null;
     }
 
+    /**
+     * Get the ISO sensitivity
+     */
     public function photographicSensitivity(): ?string
     {
         return $this->get('PhotographicSensitivity') ? 'ISO ' . $this->get('PhotographicSensitivity') : null;
     }
 
+    /**
+     * Get the exposure compensation
+     */
     public function exposureCompensation(): ?string
     {
         /** @var float|null */
@@ -134,6 +180,9 @@ class ExifData implements Arrayable
         return $compensation ? round($compensation, 2) . ' EV' : null;
     }
 
+    /**
+     * Get the exposure program
+     */
     public function exposureProgram(): ?string
     {
         /** @var int */
@@ -152,17 +201,25 @@ class ExifData implements Arrayable
         };
     }
 
+    /**
+     * Get if the photo is captured with auto white balance
+     */
     public function hasAutoWhiteBalance(): ?bool
     {
         return $this->has('WhiteBalance') ? $this->getRaw('WhiteBalance') === 0 : null;
     }
 
+    /**
+     * Get if the flash has fired
+     */
     public function hasFlashFired(): ?bool
     {
         return $this->has('Flash') ? (bool) ($this->getRaw('Flash') % 2) : null;
     }
 
     /**
+     * Get the metering mode
+     *
      * @return 'average'|'evaluative'|'partial'|'spot'|null
      */
     public function meteringMode(): ?string
@@ -184,6 +241,9 @@ class ExifData implements Arrayable
         return 'partial';
     }
 
+    /**
+     * Get the image color space
+     */
     public function colorSpace(): ?string
     {
         return $this->get('ColorSpace');

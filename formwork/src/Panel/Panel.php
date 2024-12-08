@@ -24,13 +24,10 @@ final class Panel
      */
     protected Assets $assets;
 
-    /**
-     * Create a new Panel instance
-     */
     public function __construct(
         protected Config $config,
         protected Request $request,
-        protected Users $users
+        protected Users $users,
     ) {
     }
 
