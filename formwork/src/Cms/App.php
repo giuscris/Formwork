@@ -65,7 +65,7 @@ final class App
     }
 
     /**
-     * @param array<string, mixed> $arguments
+     * @param list<mixed> $arguments
      */
     public function __call(string $name, array $arguments): mixed
     {

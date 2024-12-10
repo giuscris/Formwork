@@ -363,7 +363,7 @@ class Field implements Arrayable, Stringable
     }
 
     /**
-     * @param array<mixed> $arguments
+     * @param list<mixed> $arguments
      */
     protected function callMethod(string $method, array $arguments = []): mixed
     {

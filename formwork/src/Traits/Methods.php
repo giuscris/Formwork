@@ -15,7 +15,7 @@ trait Methods
     protected array $methods = [];
 
     /**
-     * @param array<mixed> $arguments
+     * @param list<mixed> $arguments
      */
     public function __call(string $name, array $arguments): mixed
     {
@@ -36,7 +36,7 @@ trait Methods
     /**
      * Call a method defined in the `$method` property
      *
-     * @param array<mixed> $arguments
+     * @param list<mixed> $arguments
      */
     protected function callMethod(string $method, array $arguments)
     {

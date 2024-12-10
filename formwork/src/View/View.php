@@ -269,7 +269,7 @@ class View
     }
 
     /**
-     * @param array<mixed> $arguments
+     * @param list<mixed> $arguments
      */
     protected function callMethod(string $method, array $arguments): mixed
     {
