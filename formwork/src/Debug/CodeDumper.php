@@ -6,14 +6,14 @@ use Formwork\Traits\StaticClass;
 use Formwork\Utils\FileSystem;
 use PhpToken;
 
-class CodeDumper
+final class CodeDumper
 {
     use StaticClass;
 
     /**
      * CSS styles for code highlighting
      */
-    protected static string $css = <<<'CSS'
+    private static string $css = <<<'CSS'
             .__formwork-code {
                 position: relative;
                 z-index: 10000;
@@ -69,7 +69,7 @@ class CodeDumper
     /**
      * Whether CSS styles have been dumped
      */
-    protected static bool $stylesDumped = false;
+    private static bool $stylesDumped = false;
 
     /**
      * Dump a file line with context
@@ -80,7 +80,7 @@ class CodeDumper
             echo '<style>' . static::$css . '</style>';
             static::$stylesDumped = true;
         }
-        echo '<pre class="__formwork-code">', static::highlightLine(static::highlightPhpCode(FileSystem::read($file)), $line, $contextLines), '</pre>';
+        echo '<pre class="__formwork-code">', self::highlightLine(self::highlightPhpCode(FileSystem::read($file)), $line, $contextLines), '</pre>';
     }
 
     /**
@@ -88,7 +88,7 @@ class CodeDumper
      *
      * @see https://github.com/nette/tracy/blob/v2.10.7/src/Tracy/BlueScreen/CodeHighlighter.php Some parts are taken from `nette/tracy` code highlighter with adaptations
      */
-    protected static function highlightLine(string $html, int $line, int $contextLines = 5): string
+    private static function highlightLine(string $html, int $line, int $contextLines = 5): string
     {
         $html = str_replace("\r\n", "\n", $html);
         $lines = explode("\n", $html);
@@ -145,7 +145,7 @@ class CodeDumper
      *
      * @see https://github.com/nette/tracy/blob/v2.10.7/src/Tracy/BlueScreen/CodeHighlighter.php Some parts are taken from `nette/tracy` code highlighter with adaptations
      */
-    protected static function highlightPhpCode(string $code): string
+    private static function highlightPhpCode(string $code): string
     {
         $code = str_replace("\r\n", "\n", $code);
         $code = (string) preg_replace('/(__halt_compiler\s*\(\)\s*;).*/is', '$1', $code);

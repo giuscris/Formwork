@@ -10,7 +10,7 @@ use Formwork\Images\Handler\Exceptions\UnsupportedFeatureException;
 use Formwork\Images\ImageInfo;
 use GdImage;
 
-class SvgHandler extends AbstractHandler
+final class SvgHandler extends AbstractHandler
 {
     public function getInfo(): ImageInfo
     {

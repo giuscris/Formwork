@@ -28,7 +28,7 @@ use Formwork\Utils\Str;
 use Formwork\Utils\Uri;
 use UnexpectedValueException;
 
-class PagesController extends AbstractController
+final class PagesController extends AbstractController
 {
     /**
      * Pages@index action
@@ -557,7 +557,7 @@ class PagesController extends AbstractController
     /**
      * Create a new page
      */
-    protected function createPage(FieldCollection $fieldCollection, PageFactory $pageFactory): Page
+    private function createPage(FieldCollection $fieldCollection, PageFactory $pageFactory): Page
     {
         $page = $pageFactory->make(['site' => $this->site, 'published' => false]);
 
@@ -579,7 +579,7 @@ class PagesController extends AbstractController
     /**
      * Update a page
      */
-    protected function updatePage(Page $page, RequestData $requestData, FieldCollection $fieldCollection, bool $force = false): Page
+    private function updatePage(Page $page, RequestData $requestData, FieldCollection $fieldCollection, bool $force = false): Page
     {
         foreach ($fieldCollection as $field) {
             if ($field->type() === 'upload') {
@@ -615,7 +615,7 @@ class PagesController extends AbstractController
     /**
      * Update file metadata
      */
-    protected function updateFileMetadata(File $file, FieldCollection $fieldCollection): void
+    private function updateFileMetadata(File $file, FieldCollection $fieldCollection): void
     {
         $data = $file->data();
 
@@ -648,7 +648,7 @@ class PagesController extends AbstractController
      * @param array<UploadedFile> $files
      * @param list<string>        $mimeTypes
      */
-    protected function processPageUploads(array $files, Page $page, ?array $mimeTypes = null, ?string $name = null, bool $overwrite = false): void
+    private function processPageUploads(array $files, Page $page, ?array $mimeTypes = null, ?string $name = null, bool $overwrite = false): void
     {
         $fileUploader = $this->app->getService(FileUploader::class);
 
@@ -668,7 +668,7 @@ class PagesController extends AbstractController
      *
      * @param string $parent Page URI or '.' for site
      */
-    protected function resolveParent(string $parent): Page|Site
+    private function resolveParent(string $parent): Page|Site
     {
         if ($parent === '.') {
             return $this->site;
@@ -681,7 +681,7 @@ class PagesController extends AbstractController
      *
      * @return array{previousPage: ?Page, nextPage: ?Page}
      */
-    protected function getPreviousAndNextPage(Page $page): array
+    private function getPreviousAndNextPage(Page $page): array
     {
         $inclusiveSiblings = $page->inclusiveSiblings();
 
@@ -708,7 +708,7 @@ class PagesController extends AbstractController
      *
      * @return array{previousFile: ?File, nextFile: ?File}
      */
-    protected function getPreviousAndNextFile(FileCollection $fileCollection, File $file): array
+    private function getPreviousAndNextFile(FileCollection $fileCollection, File $file): array
     {
         $fileIndex = $fileCollection->indexOf($file);
 

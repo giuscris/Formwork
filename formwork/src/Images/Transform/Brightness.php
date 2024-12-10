@@ -7,19 +7,19 @@ use Formwork\Utils\Constraint;
 use GdImage;
 use InvalidArgumentException;
 
-class Brightness extends AbstractTransform
+final class Brightness extends AbstractTransform
 {
-    final public function __construct(
-        protected int $amount,
+    public function __construct(
+        private int $amount,
     ) {
         if (!Constraint::isInIntegerRange($amount, -255, 255)) {
             throw new InvalidArgumentException(sprintf('$amount value must be in range -255-+255, %d given', $amount));
         }
     }
 
-    public static function fromArray(array $data): static
+    public static function fromArray(array $data): self
     {
-        return new static($data['amount']);
+        return new self($data['amount']);
     }
 
     public function apply(GdImage $gdImage, ImageInfo $imageInfo): GdImage

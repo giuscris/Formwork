@@ -5,29 +5,29 @@ namespace Formwork\Utils;
 use Formwork\Traits\StaticClass;
 use RuntimeException;
 
-class Text
+final class Text
 {
     use StaticClass;
 
     /**
      * Regex matching whitespace characters
      */
-    protected const string WHITESPACE_REGEX = '/[\s\xb\p{Z}]+/u';
+    private const string WHITESPACE_REGEX = '/[\s\xb\p{Z}]+/u';
 
     /**
      * Normalized whitespace sequence
      */
-    protected const string WHITESPACE_SEQUENCE = ' ';
+    private const string WHITESPACE_SEQUENCE = ' ';
 
     /**
      * Default sequence appended when text is truncated
      */
-    protected const string DEFAULT_ELLIPSIS_SEQUENCE = '…';
+    private const string DEFAULT_ELLIPSIS_SEQUENCE = '…';
 
     /**
      * Default words per minute used to determine reading time
      */
-    protected const int DEFAULT_WORDS_PER_MINUTE = 180;
+    private const int DEFAULT_WORDS_PER_MINUTE = 180;
 
     /**
      * Normalize whitespace of a given text
@@ -45,7 +45,7 @@ class Text
      */
     public static function splitWords(string $text, ?int $limit = null): array
     {
-        return explode(self::WHITESPACE_SEQUENCE, static::normalizeWhitespace($text), $limit ?? PHP_INT_MAX);
+        return explode(self::WHITESPACE_SEQUENCE, self::normalizeWhitespace($text), $limit ?? PHP_INT_MAX);
     }
 
     /**
@@ -53,7 +53,7 @@ class Text
      */
     public static function countWords(string $text): int
     {
-        return count(static::splitWords($text));
+        return count(self::splitWords($text));
     }
 
     /**
@@ -65,7 +65,7 @@ class Text
             throw new RuntimeException(sprintf('%s() requires the extension "mbstring" to be enabled', __METHOD__));
         }
 
-        $text = static::normalizeWhitespace($text);
+        $text = self::normalizeWhitespace($text);
 
         if ($length >= mb_strlen($text)) {
             return $text;
@@ -80,7 +80,7 @@ class Text
      */
     public static function truncateWords(string $text, int $count, string $ellipsis = self::DEFAULT_ELLIPSIS_SEQUENCE): string
     {
-        $words = static::splitWords($text);
+        $words = self::splitWords($text);
         $result = implode(self::WHITESPACE_SEQUENCE, array_slice($words, 0, $count));
         return count($words) <= $count ? $result : $result . $ellipsis;
     }
@@ -90,6 +90,6 @@ class Text
      */
     public static function readingTime(string $text, int $wordsPerMinute = self::DEFAULT_WORDS_PER_MINUTE): int
     {
-        return max(1, (int) round(static::countWords($text) / $wordsPerMinute));
+        return max(1, (int) round(self::countWords($text) / $wordsPerMinute));
     }
 }

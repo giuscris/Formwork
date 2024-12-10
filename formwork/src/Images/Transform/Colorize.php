@@ -7,13 +7,13 @@ use Formwork\Utils\Constraint;
 use GdImage;
 use InvalidArgumentException;
 
-class Colorize extends AbstractTransform
+final class Colorize extends AbstractTransform
 {
-    final public function __construct(
-        protected int $red,
-        protected int $green,
-        protected int $blue,
-        protected int $alpha,
+    public function __construct(
+        private int $red,
+        private int $green,
+        private int $blue,
+        private int $alpha,
     ) {
         if (!Constraint::isInIntegerRange($red, 0, 255)) {
             throw new InvalidArgumentException(sprintf('$red value must be in range 0-255, %d given', $red));
@@ -32,9 +32,9 @@ class Colorize extends AbstractTransform
         }
     }
 
-    public static function fromArray(array $data): static
+    public static function fromArray(array $data): self
     {
-        return new static($data['red'], $data['green'], $data['blue'], $data['alpha']);
+        return new self($data['red'], $data['green'], $data['blue'], $data['alpha']);
     }
 
     public function apply(GdImage $gdImage, ImageInfo $imageInfo): GdImage

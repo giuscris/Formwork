@@ -6,14 +6,14 @@ use Generator;
 use InvalidArgumentException;
 use UnexpectedValueException;
 
-class GifDecoder implements DecoderInterface
+final class GifDecoder implements DecoderInterface
 {
     /**
      * GIF file headers
      *
      * @var array<string>
      */
-    protected const array GIF_HEADERS = ['GIF87a', 'GIF89a'];
+    private const array GIF_HEADERS = ['GIF87a', 'GIF89a'];
 
     public function decode(string &$data): Generator
     {
@@ -102,7 +102,7 @@ class GifDecoder implements DecoderInterface
     /**
      * Seek the end of a block
      */
-    protected function seekBlockEnd(string &$data, int $position): int
+    private function seekBlockEnd(string &$data, int $position): int
     {
         while ($position < strlen($data)) {
             if ($data[$position] === "\x00") {
@@ -119,7 +119,7 @@ class GifDecoder implements DecoderInterface
      *
      * @return array<string, int>
      */
-    protected function parseLogicalScreenDescriptor(string $data): array
+    private function parseLogicalScreenDescriptor(string $data): array
     {
         return [
             'width'    => $this->unpack('v', $data, 0)[1],
@@ -139,7 +139,7 @@ class GifDecoder implements DecoderInterface
      *
      * @return array<string, int>
      */
-    protected function parseImageDescriptor(string $data): array
+    private function parseImageDescriptor(string $data): array
     {
         return [
             'left'    => $this->unpack('v', $data, 0)[1],
@@ -157,7 +157,7 @@ class GifDecoder implements DecoderInterface
     /**
      * Get the size of a color table
      */
-    protected function getColorTableSize(int $ctsize): int
+    private function getColorTableSize(int $ctsize): int
     {
         return 3 * 2 ** ($ctsize + 1);
     }

@@ -7,18 +7,18 @@ use Formwork\Exceptions\TranslatedException;
 use Formwork\Utils\FileSystem;
 use ZipArchive;
 
-class Backupper
+final class Backupper
 {
     /**
      * Date format used in backup archive name
      */
-    protected const string DATE_FORMAT = 'YmdHis';
+    private const string DATE_FORMAT = 'YmdHis';
 
     /**
      * @param array<mixed> $options
      */
     public function __construct(
-        protected array $options,
+        private array $options,
     ) {
     }
 
@@ -90,7 +90,7 @@ class Backupper
     /**
      * Return whether a file is copiable in the backup archive
      */
-    protected function isCopiable(string $file): bool
+    private function isCopiable(string $file): bool
     {
         foreach ($this->options['ignore'] as $pattern) {
             if (fnmatch($pattern, $file)) {
@@ -103,7 +103,7 @@ class Backupper
     /**
      * Delete old backups
      */
-    protected function deleteOldBackups(): void
+    private function deleteOldBackups(): void
     {
         $backups = [];
 

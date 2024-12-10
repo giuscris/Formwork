@@ -5,11 +5,11 @@ namespace Formwork\Pages;
 use Formwork\Cms\App;
 use Formwork\Router\Router;
 
-class PaginationFactory
+final class PaginationFactory
 {
     public function __construct(
-        protected App $app,
-        protected Router $router,
+        private App $app,
+        private Router $router,
     ) {
     }
 

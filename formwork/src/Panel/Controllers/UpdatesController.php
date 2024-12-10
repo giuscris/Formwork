@@ -11,7 +11,7 @@ use Formwork\Http\ResponseStatus;
 use Formwork\Updater\Updater;
 use RuntimeException;
 
-class UpdatesController extends AbstractController
+final class UpdatesController extends AbstractController
 {
     /**
      * Updates@check action

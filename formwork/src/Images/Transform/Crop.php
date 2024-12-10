@@ -8,13 +8,13 @@ use InvalidArgumentException;
 use RuntimeException;
 use UnexpectedValueException;
 
-class Crop extends AbstractTransform
+final class Crop extends AbstractTransform
 {
-    final public function __construct(
-        protected int $originX,
-        protected int $originY,
-        protected int $width,
-        protected int $height,
+    public function __construct(
+        private int $originX,
+        private int $originY,
+        private int $width,
+        private int $height,
     ) {
         if ($originX < 0) {
             throw new InvalidArgumentException('$originX must be greater than or equal to 0');
@@ -30,9 +30,9 @@ class Crop extends AbstractTransform
         }
     }
 
-    public static function fromArray(array $data): static
+    public static function fromArray(array $data): self
     {
-        return new static($data['originX'], $data['originY'], $data['width'], $data['height']);
+        return new self($data['originX'], $data['originY'], $data['width'], $data['height']);
     }
 
     public function apply(GdImage $gdImage, ImageInfo $imageInfo): GdImage
@@ -65,7 +65,7 @@ class Crop extends AbstractTransform
         return $destinationImage;
     }
 
-    protected function enableTransparency(GdImage $gdImage): void
+    private function enableTransparency(GdImage $gdImage): void
     {
         if (($transparent = imagecolorallocatealpha($gdImage, 0, 0, 0, 127)) === false) {
             throw new RuntimeException('Cannot allocate transparent color');

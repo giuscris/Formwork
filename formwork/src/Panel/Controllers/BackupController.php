@@ -13,7 +13,7 @@ use Formwork\Utils\Date;
 use Formwork\Utils\FileSystem;
 use RuntimeException;
 
-class BackupController extends AbstractController
+final class BackupController extends AbstractController
 {
     /**
      * Backup@make action

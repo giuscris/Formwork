@@ -4,7 +4,7 @@ namespace Formwork\Parsers;
 
 use Symfony\Component\Yaml\Yaml as SymfonyYaml;
 
-class Yaml extends AbstractEncoder
+final class Yaml extends AbstractEncoder
 {
     /**
      * Parse a YAML string

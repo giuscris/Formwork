@@ -11,7 +11,7 @@ use GdImage;
 use RuntimeException;
 use UnexpectedValueException;
 
-class PngHandler extends AbstractHandler
+final class PngHandler extends AbstractHandler
 {
     public function getInfo(): ImageInfo
     {
@@ -157,52 +157,6 @@ class PngHandler extends AbstractHandler
         }
     }
 
-    /**
-     * Get color space and alpha channel from color type
-     *
-     * @return array{ColorSpace, bool}
-     */
-    protected function getColorSpaceAndAlpha(int $colorType): array
-    {
-        return match ($colorType) {
-            0       => [ColorSpace::Grayscale, false],
-            2       => [ColorSpace::RGB, false],
-            3       => [ColorSpace::Palette, false],
-            4       => [ColorSpace::Grayscale, true],
-            6       => [ColorSpace::RGB, true],
-            default => throw new UnexpectedValueException('Invalid color space'),
-        };
-    }
-
-    /**
-     * Encode a PNG chunk
-     */
-    protected function encodeChunk(string $name, string $data): string
-    {
-        return pack('N', strlen($data)) . $name . $data . pack('N', crc32($name . $data));
-    }
-
-    /**
-     * Decode a PNG color profile chunk
-     *
-     * @return array{name: string, value: string}
-     */
-    protected function decodeProfile(string $data): array
-    {
-        $name = $this->unpack('Z*', $data)[1];
-        $value = gzuncompress(substr($data, strlen($name) + 2))
-            ?: throw new UnexpectedValueException('Invalid color profile string');
-        return ['name' => $name, 'value' => $value];
-    }
-
-    /**
-     * Encode a PNG color profile chunk
-     */
-    protected function encodeProfile(string $name, string $value): string
-    {
-        return trim($name) . "\x0\x0" . gzcompress($value);
-    }
-
     protected function getDecoder(): PngDecoder
     {
         return new PngDecoder();
@@ -219,6 +173,52 @@ class PngHandler extends AbstractHandler
         }
 
         $this->data = ob_get_clean() ?: throw new UnexpectedValueException('Unexpected empty image data');
+    }
+
+    /**
+     * Get color space and alpha channel from color type
+     *
+     * @return array{ColorSpace, bool}
+     */
+    private function getColorSpaceAndAlpha(int $colorType): array
+    {
+        return match ($colorType) {
+            0       => [ColorSpace::Grayscale, false],
+            2       => [ColorSpace::RGB, false],
+            3       => [ColorSpace::Palette, false],
+            4       => [ColorSpace::Grayscale, true],
+            6       => [ColorSpace::RGB, true],
+            default => throw new UnexpectedValueException('Invalid color space'),
+        };
+    }
+
+    /**
+     * Encode a PNG chunk
+     */
+    private function encodeChunk(string $name, string $data): string
+    {
+        return pack('N', strlen($data)) . $name . $data . pack('N', crc32($name . $data));
+    }
+
+    /**
+     * Decode a PNG color profile chunk
+     *
+     * @return array{name: string, value: string}
+     */
+    private function decodeProfile(string $data): array
+    {
+        $name = $this->unpack('Z*', $data)[1];
+        $value = gzuncompress(substr($data, strlen($name) + 2))
+            ?: throw new UnexpectedValueException('Invalid color profile string');
+        return ['name' => $name, 'value' => $value];
+    }
+
+    /**
+     * Encode a PNG color profile chunk
+     */
+    private function encodeProfile(string $name, string $value): string
+    {
+        return trim($name) . "\x0\x0" . gzcompress($value);
     }
 
     /**

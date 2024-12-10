@@ -5,15 +5,15 @@ namespace Formwork\Images\Transform;
 use Formwork\Images\ImageInfo;
 use GdImage;
 
-class EdgeDetect extends AbstractTransform
+final class EdgeDetect extends AbstractTransform
 {
-    final public function __construct()
+    public function __construct()
     {
     }
 
-    public static function fromArray(array $data): static
+    public static function fromArray(array $data): self
     {
-        return new static();
+        return new self();
     }
 
     public function apply(GdImage $gdImage, ImageInfo $imageInfo): GdImage

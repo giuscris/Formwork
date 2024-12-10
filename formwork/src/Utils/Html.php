@@ -5,7 +5,7 @@ namespace Formwork\Utils;
 use Formwork\Traits\StaticClass;
 use InvalidArgumentException;
 
-class Html
+final class Html
 {
     use StaticClass;
 
@@ -16,7 +16,7 @@ class Html
      *
      * @var list<string>
      */
-    protected const array VOID_ELEMENTS = [
+    private const array VOID_ELEMENTS = [
         'area',
         'base',
         'br',
@@ -81,7 +81,7 @@ class Html
     {
         $attributes = [];
         foreach ($data as $key => $value) {
-            $attributes[] = static::attribute($key, $value);
+            $attributes[] = self::attribute($key, $value);
         }
         return implode(' ', array_filter($attributes));
     }
@@ -94,19 +94,19 @@ class Html
     public static function tag(string $name, array $attributes = [], ?string ...$content): string
     {
         $name = strtolower($name);
-        $attributes = static::attributes($attributes);
+        $attributes = self::attributes($attributes);
         $html = '<' . $name;
         if ($attributes !== '') {
             $html .= ' ' . $attributes;
         }
         $html .= '>';
         if ($content !== []) {
-            if (static::isVoid($name)) {
+            if (self::isVoid($name)) {
                 throw new InvalidArgumentException(sprintf('Cannot set tag content, <%s> is a void element', $name));
             }
             $html .= implode('', $content);
         }
-        if (!static::isVoid($name)) {
+        if (!self::isVoid($name)) {
             $html .= '</' . $name . '>';
         }
         return $html;

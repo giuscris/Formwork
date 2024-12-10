@@ -55,7 +55,7 @@ final class App
     /**
      * App services container
      */
-    protected Container $container;
+    private Container $container;
 
     public function __construct()
     {
@@ -179,7 +179,7 @@ final class App
     /**
      * Define app services
      */
-    protected function loadServices(Container $container): void
+    private function loadServices(Container $container): void
     {
         $container->define(Container::class, $container);
 
@@ -270,7 +270,7 @@ final class App
     /**
      * Load routes
      */
-    protected function loadRoutes(): void
+    private function loadRoutes(): void
     {
         if ($this->config()->get('system.panel.enabled')) {
             $this->router()->loadFromFile(
@@ -285,7 +285,7 @@ final class App
     /**
      * Load error handler
      */
-    protected function loadErrorHandler(): void
+    private function loadErrorHandler(): void
     {
         ini_set('display_errors', 0);
 

@@ -11,22 +11,22 @@ use GdImage;
 use RuntimeException;
 use UnexpectedValueException;
 
-class JpegHandler extends AbstractHandler
+final class JpegHandler extends AbstractHandler
 {
     /**
      * Maximum number of bytes in a segment
      */
-    protected const int MAX_BYTES_IN_SEGMENT = 65533;
+    private const int MAX_BYTES_IN_SEGMENT = 65533;
 
     /**
      * Image EXIF header
      */
-    protected const string EXIF_HEADER = "Exif\x00\x00";
+    private const string EXIF_HEADER = "Exif\x00\x00";
 
     /**
      * Image ICC profile header
      */
-    protected const string ICC_PROFILE_HEADER = "ICC_PROFILE\x00";
+    private const string ICC_PROFILE_HEADER = "ICC_PROFILE\x00";
 
     public function getInfo(): ImageInfo
     {
@@ -182,45 +182,6 @@ class JpegHandler extends AbstractHandler
         }
     }
 
-    /**
-     * Get color space from number of components
-     */
-    protected function getColorSpace(int $components): ColorSpace
-    {
-        return match ($components) {
-            1       => ColorSpace::Grayscale,
-            3       => ColorSpace::RGB,
-            4       => ColorSpace::CMYK,
-            default => throw new UnexpectedValueException('Invalid color space'),
-        };
-    }
-
-    /**
-     * Encode ICC profile data into JPEG segments
-     */
-    protected function encodeColorProfile(string $data): string
-    {
-        $maxChunkSize = self::MAX_BYTES_IN_SEGMENT - strlen(self::ICC_PROFILE_HEADER) - 4;
-        $chunks = str_split($data, $maxChunkSize);
-        $count = count($chunks);
-
-        for ($i = 0; $i < $count; $i++) {
-            $value = self::ICC_PROFILE_HEADER . pack('CC', $i + 1, $count) . $chunks[$i];
-            $chunks[$i] = "\xff\xe2" . pack('n', strlen($value) + 2) . $value;
-        }
-
-        return implode('', $chunks);
-    }
-
-    /**
-     * Encode EXIF data into JPEG segments
-     */
-    protected function encodeExifData(string $data): string
-    {
-        $value = self::EXIF_HEADER . $data;
-        return "\xff\xe1" . pack('n', strlen($value) + 2) . $value;
-    }
-
     protected function getDecoder(): JpegDecoder
     {
         return new JpegDecoder();
@@ -237,6 +198,45 @@ class JpegHandler extends AbstractHandler
         }
 
         $this->data = ob_get_clean() ?: throw new UnexpectedValueException('Unexpected empty image data');
+    }
+
+    /**
+     * Get color space from number of components
+     */
+    private function getColorSpace(int $components): ColorSpace
+    {
+        return match ($components) {
+            1       => ColorSpace::Grayscale,
+            3       => ColorSpace::RGB,
+            4       => ColorSpace::CMYK,
+            default => throw new UnexpectedValueException('Invalid color space'),
+        };
+    }
+
+    /**
+     * Encode ICC profile data into JPEG segments
+     */
+    private function encodeColorProfile(string $data): string
+    {
+        $maxChunkSize = self::MAX_BYTES_IN_SEGMENT - strlen(self::ICC_PROFILE_HEADER) - 4;
+        $chunks = str_split($data, $maxChunkSize);
+        $count = count($chunks);
+
+        for ($i = 0; $i < $count; $i++) {
+            $value = self::ICC_PROFILE_HEADER . pack('CC', $i + 1, $count) . $chunks[$i];
+            $chunks[$i] = "\xff\xe2" . pack('n', strlen($value) + 2) . $value;
+        }
+
+        return implode('', $chunks);
+    }
+
+    /**
+     * Encode EXIF data into JPEG segments
+     */
+    private function encodeExifData(string $data): string
+    {
+        $value = self::EXIF_HEADER . $data;
+        return "\xff\xe1" . pack('n', strlen($value) + 2) . $value;
     }
 
     /**

@@ -5,19 +5,19 @@ namespace Formwork\Utils;
 use Formwork\Traits\StaticClass;
 use InvalidArgumentException;
 
-class Path
+final class Path
 {
     use StaticClass;
 
     /**
      * Default path separator (forward slash)
      */
-    protected const string DEFAULT_SEPARATOR = '/';
+    private const string DEFAULT_SEPARATOR = '/';
 
     /**
      * Regex matching multiple separators (forward and backward slash) to split paths into segments
      */
-    protected const string SEPARATORS_REGEX = '~[/\\\]+~';
+    private const string SEPARATORS_REGEX = '~[/\\\]+~';
 
     /**
      * Return whether a path is absolute
@@ -40,10 +40,10 @@ class Path
      */
     public static function normalize(string $path, string $separator = self::DEFAULT_SEPARATOR): string
     {
-        if (!static::isSeparator($separator)) {
+        if (!self::isSeparator($separator)) {
             throw new InvalidArgumentException('$separator must be a valid directory separator');
         }
-        return static::dropDriveLetter($path) . implode($separator, static::split($path));
+        return self::dropDriveLetter($path) . implode($separator, self::split($path));
     }
 
     /**
@@ -75,10 +75,10 @@ class Path
      */
     public static function join(array $paths, string $separator = self::DEFAULT_SEPARATOR): string
     {
-        if (!static::isSeparator($separator)) {
+        if (!self::isSeparator($separator)) {
             throw new InvalidArgumentException('$separator must be a valid directory separator');
         }
-        return static::normalize(implode($separator, $paths), $separator);
+        return self::normalize(implode($separator, $paths), $separator);
     }
 
     /**
@@ -86,18 +86,18 @@ class Path
      */
     public static function resolve(string $path, string $base, string $separator = self::DEFAULT_SEPARATOR): string
     {
-        if (!static::isSeparator($separator)) {
+        if (!self::isSeparator($separator)) {
             throw new InvalidArgumentException('$separator must be a valid directory separator');
         }
-        $pathDriveLetter = static::dropDriveLetter($path);
-        $baseDriveLetter = static::dropDriveLetter($base);
-        if (static::isAbsolute($path)) {
+        $pathDriveLetter = self::dropDriveLetter($path);
+        $baseDriveLetter = self::dropDriveLetter($base);
+        if (self::isAbsolute($path)) {
             if ($pathDriveLetter === '') {
                 $pathDriveLetter = $baseDriveLetter;
             }
-            return $pathDriveLetter . static::normalize($path, $separator);
+            return $pathDriveLetter . self::normalize($path, $separator);
         }
-        return $baseDriveLetter . static::join([$base, $path], $separator);
+        return $baseDriveLetter . self::join([$base, $path], $separator);
     }
 
     /**
@@ -105,22 +105,22 @@ class Path
      */
     public static function makeRelative(string $path, string $base, string $separator = self::DEFAULT_SEPARATOR): string
     {
-        if (!static::isAbsolute($path)) {
+        if (!self::isAbsolute($path)) {
             throw new InvalidArgumentException('$path must be an absolute path');
         }
-        if (!static::isAbsolute($base)) {
+        if (!self::isAbsolute($base)) {
             throw new InvalidArgumentException('$base must be an absolute path');
         }
-        if (!static::isSeparator($separator)) {
+        if (!self::isSeparator($separator)) {
             throw new InvalidArgumentException('$separator must be a valid directory separator');
         }
-        $pathDriveLetter = static::dropDriveLetter($path);
-        $baseDriveLetter = static::dropDriveLetter($base);
+        $pathDriveLetter = self::dropDriveLetter($path);
+        $baseDriveLetter = self::dropDriveLetter($base);
         if ($pathDriveLetter !== '' && $baseDriveLetter !== '' && strcasecmp($pathDriveLetter, $baseDriveLetter) !== 0) {
             throw new InvalidArgumentException('$path and $base must have a compatible drive letter');
         }
-        $pathSegments = static::split($path);
-        $baseSegments = static::split($base);
+        $pathSegments = self::split($path);
+        $baseSegments = self::split($base);
         if (end($baseSegments) === '') {
             array_pop($baseSegments);
         }
@@ -134,7 +134,7 @@ class Path
     /**
      * Return drive letter from $path after removing it
      */
-    protected static function dropDriveLetter(string &$path): string
+    private static function dropDriveLetter(string &$path): string
     {
         $letter = '';
         if (strlen($path) >= 2 && ctype_alpha($path[0]) && $path[1] === ':') {

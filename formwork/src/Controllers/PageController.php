@@ -15,13 +15,13 @@ use Formwork\Services\Container;
 use Formwork\Statistics\Statistics;
 use Formwork\Utils\FileSystem;
 
-class PageController extends AbstractController
+final class PageController extends AbstractController
 {
     public function __construct(
-        private readonly Container $container,
-        protected readonly Router $router,
-        protected readonly Site $site,
-        protected readonly FilesCache $filesCache,
+        private Container $container,
+        private Router $router,
+        private Site $site,
+        private FilesCache $filesCache,
     ) {
         $this->container->call(parent::__construct(...));
     }
@@ -111,7 +111,7 @@ class PageController extends AbstractController
     /**
      * Get a response for a page
      */
-    protected function getPageResponse(Page $page): Response
+    private function getPageResponse(Page $page): Response
     {
         if ($this->site->currentPage() === null) {
             $this->site->setCurrentPage($page);

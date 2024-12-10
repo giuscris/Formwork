@@ -5,28 +5,28 @@ namespace Formwork\Panel\Security;
 use Formwork\Http\Request;
 use Formwork\Log\Registry;
 
-class AccessLimiter
+final class AccessLimiter
 {
     /**
      * Hash which identifies the visitor which make attempts
      */
-    protected string $attemptHash;
+    private string $attemptHash;
 
     /**
      * The number of access attempts
      */
-    protected int $attempts = 0;
+    private int $attempts = 0;
 
     /**
      * Time of last valid attempt
      */
-    protected int $lastAttemptTime;
+    private int $lastAttemptTime;
 
     public function __construct(
-        protected Registry $registry,
-        protected int $limit,
-        protected int $resetTime,
-        protected Request $request,
+        private Registry $registry,
+        private int $limit,
+        private int $resetTime,
+        Request $request,
     ) {
         // Hash visitor IP address followed by current host
         $this->attemptHash = hash('sha256', $request->ip() . '@' . $request->host());

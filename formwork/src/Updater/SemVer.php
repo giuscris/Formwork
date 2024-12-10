@@ -12,28 +12,28 @@ final class SemVer implements Stringable
      *
      * @see https://semver.org/
      */
-    protected const string SEMVER_REGEX = '/^(?P<major>0|[1-9]\d*)\.(?P<minor>0|[1-9]\d*)\.(?P<patch>0|[1-9]\d*)(?:-(?P<prerelease>(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+(?P<buildmetadata>[0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$/';
+    private const string SEMVER_REGEX = '/^(?P<major>0|[1-9]\d*)\.(?P<minor>0|[1-9]\d*)\.(?P<patch>0|[1-9]\d*)(?:-(?P<prerelease>(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+(?P<buildmetadata>[0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$/';
 
     /**
      * Valid operators to compare versions
      *
      * @var list<string>
      */
-    protected const array COMPARISON_OPERATORS = ['<', '<=', '==', '>=', '>', '!=', '~', '^'];
+    private const array COMPARISON_OPERATORS = ['<', '<=', '==', '>=', '>', '!=', '~', '^'];
 
     /**
      * Valid prerelease tags, compatible with version_compare()
      *
      * @var list<string>
      */
-    protected const array PRERELEASE_TAGS = ['dev', 'alpha', 'beta', 'RC', 'pl'];
+    private const array PRERELEASE_TAGS = ['dev', 'alpha', 'beta', 'RC', 'pl'];
 
     public function __construct(
-        protected int $major = 0,
-        protected int $minor = 0,
-        protected int $patch = 0,
-        protected ?string $prerelease = null,
-        protected ?string $buildMetadata = null,
+        private int $major = 0,
+        private int $minor = 0,
+        private int $patch = 0,
+        private ?string $prerelease = null,
+        private ?string $buildMetadata = null,
     ) {
         if ($this->major < 0 || $this->minor < 0 || $this->patch < 0) {
             throw new InvalidArgumentException('$major, $minor and $patch arguments must be non-negative integers');
@@ -206,7 +206,7 @@ final class SemVer implements Stringable
     /**
      * Normalize prerelease tag
      */
-    protected function normalizePrerelease(string $prerelease): string
+    private function normalizePrerelease(string $prerelease): string
     {
         $parts = explode('.', $prerelease, 2);
 

@@ -4,17 +4,13 @@ namespace Formwork\Services\Loaders;
 
 use Formwork\Cms\Site;
 use Formwork\Config\Config;
-use Formwork\Languages\Languages;
-use Formwork\Schemes\Schemes;
 use Formwork\Services\Container;
 use Formwork\Services\ResolutionAwareServiceLoaderInterface;
 
-class SiteServiceLoader implements ResolutionAwareServiceLoaderInterface
+final class SiteServiceLoader implements ResolutionAwareServiceLoaderInterface
 {
     public function __construct(
-        protected Config $config,
-        protected Languages $languages,
-        protected Schemes $schemes,
+        private Config $config,
     ) {
     }
 

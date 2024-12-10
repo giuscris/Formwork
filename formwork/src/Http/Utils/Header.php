@@ -8,7 +8,7 @@ use Formwork\Traits\StaticClass;
 use InvalidArgumentException;
 use RuntimeException;
 
-class Header
+final class Header
 {
     use StaticClass;
 
@@ -40,7 +40,7 @@ class Header
      */
     public static function contentType(string $mimeType): void
     {
-        static::send('Content-Type', $mimeType);
+        self::send('Content-Type', $mimeType);
     }
 
     /**
@@ -48,7 +48,7 @@ class Header
      */
     public static function notFound(): void
     {
-        static::sendStatus(ResponseStatus::NotFound);
+        self::sendStatus(ResponseStatus::NotFound);
     }
 
     /**
@@ -61,8 +61,8 @@ class Header
         if ($responseStatus->type() !== ResponseStatusType::Redirection) {
             throw new InvalidArgumentException(sprintf('Invalid response status "%s" for redirection, only 3XX statuses are allowed', $responseStatus->value));
         }
-        static::sendStatus($responseStatus);
-        static::send('Location', $uri);
+        self::sendStatus($responseStatus);
+        self::send('Location', $uri);
         exit;
     }
 

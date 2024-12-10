@@ -7,19 +7,19 @@ use DOMElement;
 use Formwork\Traits\StaticClass;
 use RuntimeException;
 
-class MimeType
+final class MimeType
 {
     use StaticClass;
 
     /**
      * Default MIME type for unknown files
      */
-    protected const string DEFAULT_MIME_TYPE = 'application/octet-stream';
+    private const string DEFAULT_MIME_TYPE = 'application/octet-stream';
 
     /**
      * @var list<key-of<MimeType::MIME_TYPES>>
      */
-    protected const array SAFE_PLAINTEXT_EXTENSIONS = ['css', 'js', 'html', 'htm', 'md', 'markdown', 'yaml', 'yml', 'json'];
+    private const array SAFE_PLAINTEXT_EXTENSIONS = ['css', 'js', 'html', 'htm', 'md', 'markdown', 'yaml', 'yml', 'json'];
 
     /**
      * Extension to MIME type mapping
@@ -30,7 +30,7 @@ class MimeType
      *
      * @var array<string, string>
      */
-    protected const array MIME_TYPES = [
+    private const array MIME_TYPES = [
         'ez'                       => 'application/andrew-inset',
         'appinstaller'             => 'application/appinstaller',
         'aw'                       => 'application/applixware',
@@ -1268,17 +1268,17 @@ class MimeType
             $extension = FileSystem::extension($file);
 
             if ($mimeType === 'text/plain' && in_array($extension, self::SAFE_PLAINTEXT_EXTENSIONS, true)) {
-                $mimeType = static::fromExtension($extension);
+                $mimeType = self::fromExtension($extension);
             }
 
             // Fix type for CSS files with text/x-asm MIME type
             if ($mimeType === 'text/x-asm' && $extension === 'css') {
-                $mimeType = static::fromExtension($extension);
+                $mimeType = self::fromExtension($extension);
             }
 
             // Fix type for SVG images without XML declaration
             if ($mimeType === 'image/svg') {
-                $mimeType = static::fromExtension('svg');
+                $mimeType = self::fromExtension('svg');
             }
 
             // Fix wrong type for image/svg+xml
@@ -1287,7 +1287,7 @@ class MimeType
                 $domDocument->load($file, LIBXML_NOERROR);
                 $node = $domDocument->documentElement;
                 if ($node instanceof DOMElement && $node->nodeName === 'svg') {
-                    $mimeType = static::fromExtension('svg');
+                    $mimeType = self::fromExtension('svg');
                 }
             }
 
@@ -1296,7 +1296,7 @@ class MimeType
                 $domDocument = new DOMDocument();
                 $domDocument->load($file, LIBXML_NOERROR);
                 $node = $domDocument->documentElement;
-                $mimeType = $node instanceof DOMElement ? static::fromExtension('svg') : null;
+                $mimeType = $node instanceof DOMElement ? self::fromExtension('svg') : null;
             }
         }
 
@@ -1318,7 +1318,7 @@ class MimeType
      */
     public static function toExtension(string $mimeType): ?string
     {
-        return static::getAssociatedExtensions($mimeType)[0] ?? null;
+        return self::getAssociatedExtensions($mimeType)[0] ?? null;
     }
 
     /**

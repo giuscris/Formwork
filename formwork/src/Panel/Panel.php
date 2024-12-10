@@ -17,17 +17,17 @@ use Formwork\Utils\Uri;
 
 final class Panel
 {
-    protected const string CSRF_TOKEN_NAME = 'panel';
+    private const string CSRF_TOKEN_NAME = 'panel';
 
     /**
      * Assets instance
      */
-    protected Assets $assets;
+    private Assets $assets;
 
     public function __construct(
-        protected Config $config,
-        protected Request $request,
-        protected Users $users,
+        private Config $config,
+        private Request $request,
+        private Users $users,
     ) {
     }
 

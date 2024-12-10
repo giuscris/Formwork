@@ -21,7 +21,7 @@ abstract class AbstractController extends BaseAbstractController
     protected ModalCollection $modals;
 
     public function __construct(
-        private readonly Container $container,
+        private Container $container,
         protected readonly Router $router,
         protected readonly CsrfToken $csrfToken,
         protected readonly Translations $translations,

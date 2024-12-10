@@ -11,7 +11,7 @@ use League\CommonMark\Extension\CommonMark\Node\Inline\Image;
 use League\CommonMark\Extension\Table\TableExtension;
 use League\CommonMark\MarkdownConverter;
 
-class Markdown extends AbstractParser
+final class Markdown extends AbstractParser
 {
     /**
      * Parse a Markdown string

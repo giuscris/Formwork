@@ -6,7 +6,7 @@ use Formwork\Traits\StaticClass;
 use Formwork\Utils\Arr;
 use InvalidArgumentException;
 
-class Cookie
+final class Cookie
 {
     use StaticClass;
 
@@ -28,7 +28,7 @@ class Cookie
     /**
      * Regex pattern for invalid cookie name characters
      */
-    protected const string INVALID_NAME_CHARACTERS = '/[\x00-\x20.()<>@,;:\"\/[\]?={}]|[^\x21-\x7e]/';
+    private const string INVALID_NAME_CHARACTERS = '/[\x00-\x20.()<>@,;:\"\/[\]?={}]|[^\x21-\x7e]/';
 
     /**
      * Send a cookie
@@ -37,11 +37,11 @@ class Cookie
      */
     public static function send(string $name, string $value, array $options = []): bool
     {
-        $options = [...static::defaults(), ...$options];
+        $options = [...self::defaults(), ...$options];
 
-        static::validateName($name);
+        self::validateName($name);
 
-        static::removeSetCookieHeader($name);
+        self::removeSetCookieHeader($name);
 
         return setcookie($name, $value, [
             'expires'  => $options['expires'],
@@ -60,19 +60,19 @@ class Cookie
      */
     public static function remove(string $name, array $options = [], bool $forceSend = false): bool
     {
-        static::validateName($name);
+        self::validateName($name);
 
         if ($forceSend || isset($_COOKIE[$name])) {
-            return static::send($name, '', [...static::defaults(), ...$options, 'expires' => time() - 3600]);
+            return self::send($name, '', [...self::defaults(), ...$options, 'expires' => time() - 3600]);
         }
 
-        return static::removeSetCookieHeader($name) !== null;
+        return self::removeSetCookieHeader($name) !== null;
     }
 
     /**
      * Validate a cookie name
      */
-    protected static function validateName(string $name): bool
+    private static function validateName(string $name): bool
     {
         if (preg_match(self::INVALID_NAME_CHARACTERS, $name, $matches, PREG_OFFSET_CAPTURE)) {
             [$character, $position] = $matches[0];
@@ -85,7 +85,7 @@ class Cookie
     /**
      * Remove a 'Set-Cookie' header from headers list
      */
-    protected static function removeSetCookieHeader(string $name): ?string
+    private static function removeSetCookieHeader(string $name): ?string
     {
         $cookies = Arr::filter(headers_list(), function ($header) use ($name, &$result) {
             if (preg_match('/^Set-Cookie: (?<name>[^=]+)=/', $header, $matches, PREG_UNMATCHED_AS_NULL)) {
@@ -112,7 +112,7 @@ class Cookie
      *
      * @return array{expires: int, path: string, domain: string, secure: bool, httpOnly: bool, sameSite: self::SAMESITE_LAX|self::SAMESITE_NONE|self::SAMESITE_STRICT}
      */
-    protected static function defaults(): array
+    private static function defaults(): array
     {
         return [
             'expires'  => 0,

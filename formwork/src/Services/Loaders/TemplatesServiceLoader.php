@@ -9,11 +9,11 @@ use Formwork\Templates\TemplateFactory;
 use Formwork\Templates\Templates;
 use Formwork\Utils\FileSystem;
 
-class TemplatesServiceLoader implements ServiceLoaderInterface
+final class TemplatesServiceLoader implements ServiceLoaderInterface
 {
     public function __construct(
-        protected Config $config,
-        protected TemplateFactory $templateFactory,
+        private Config $config,
+        private TemplateFactory $templateFactory,
     ) {
     }
 

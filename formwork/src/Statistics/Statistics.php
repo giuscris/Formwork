@@ -12,62 +12,62 @@ use Formwork\Utils\Date;
 use Formwork\Utils\FileSystem;
 use Generator;
 
-class Statistics
+final class Statistics
 {
     /**
      * Date format
      */
-    protected const string DATE_FORMAT = 'Ymd';
+    private const string DATE_FORMAT = 'Ymd';
 
     /**
      * Number of days displayed in the statistics chart
      */
-    protected const int CHART_LIMIT = 7;
+    private const int CHART_LIMIT = 7;
 
     /**
      * Visits registry filename
      */
-    protected const string VISITS_FILENAME = 'visits.json';
+    private const string VISITS_FILENAME = 'visits.json';
 
     /**
      * Unique visits registry filename
      */
-    protected const string UNIQUE_VISITS_FILENAME = 'uniqueVisits.json';
+    private const string UNIQUE_VISITS_FILENAME = 'uniqueVisits.json';
 
     /**
      * Visitors registry filename
      */
-    protected const string VISITORS_FILENAME = 'visitors.json';
+    private const string VISITORS_FILENAME = 'visitors.json';
 
     /**
      * Page views registry filename
      */
-    protected const string PAGE_VIEWS_FILENAME = 'pageViews.json';
+    private const string PAGE_VIEWS_FILENAME = 'pageViews.json';
 
     /**
      * Visits registry
      */
-    protected Registry $visitsRegistry;
+    private Registry $visitsRegistry;
 
     /**
      * Unique visits registry
      */
-    protected Registry $uniqueVisitsRegistry;
+    private Registry $uniqueVisitsRegistry;
 
     /**
      * Visitors registry
      */
-    protected Registry $visitorsRegistry;
+    private Registry $visitorsRegistry;
 
     /**
      * Page views registry
      */
-    protected Registry $pageViewsRegistry;
+    private Registry $pageViewsRegistry;
 
     public function __construct(
         string $path,
-        protected Request $request,
-        protected Translation $translation,
+        private Request $request,
+        private Translation $translation,
     ) {
         if (!FileSystem::exists($path)) {
             FileSystem::createDirectory($path);

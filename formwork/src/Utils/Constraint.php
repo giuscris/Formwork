@@ -4,7 +4,7 @@ namespace Formwork\Utils;
 
 use Formwork\Traits\StaticClass;
 
-class Constraint
+final class Constraint
 {
     use StaticClass;
 
@@ -97,7 +97,7 @@ class Constraint
         bool $includeMin = true,
         bool $includeMax = true,
     ): bool {
-        return static::isInRange($value, $start, $end, $includeMin, $includeMax)
+        return self::isInRange($value, $start, $end, $includeMin, $includeMax)
             && (($value - min($start, $end)) % $step === 0);
     }
 
@@ -107,7 +107,7 @@ class Constraint
     public static function isOfType(mixed $value, string $type, bool $unionTypes = false): bool
     {
         if ($unionTypes) {
-            return Arr::some(explode('|', $type), fn ($type) => static::isOfType($value, $type, unionTypes: false));
+            return Arr::some(explode('|', $type), fn ($type) => self::isOfType($value, $type, unionTypes: false));
         }
         if (is_object($value)) {
             return $value instanceof $type;

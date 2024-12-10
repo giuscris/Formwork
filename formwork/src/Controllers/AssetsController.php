@@ -7,7 +7,7 @@ use Formwork\Http\Response;
 use Formwork\Router\RouteParams;
 use Formwork\Utils\FileSystem;
 
-class AssetsController extends AbstractController
+final class AssetsController extends AbstractController
 {
     /**
      * AssetsController@asset action

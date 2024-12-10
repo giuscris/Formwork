@@ -7,7 +7,7 @@ use DOMElement;
 use Generator;
 use InvalidArgumentException;
 
-class SvgDecoder implements DecoderInterface
+final class SvgDecoder implements DecoderInterface
 {
     public function decode(string &$data): Generator
     {

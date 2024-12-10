@@ -7,7 +7,7 @@ use Formwork\Http\Response;
 use Formwork\Http\ResponseStatus;
 use Throwable;
 
-class ErrorsController extends AbstractController implements ErrorsControllerInterface
+final class ErrorsController extends AbstractController implements ErrorsControllerInterface
 {
     /**
      * ErrorsController@error action

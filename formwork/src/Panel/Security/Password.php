@@ -4,7 +4,7 @@ namespace Formwork\Panel\Security;
 
 use Formwork\Traits\StaticClass;
 
-class Password
+final class Password
 {
     use StaticClass;
 

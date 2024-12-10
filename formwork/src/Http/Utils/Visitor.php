@@ -6,7 +6,7 @@ use Formwork\Http\Request;
 use Formwork\Traits\StaticClass;
 use Jaybizzle\CrawlerDetect\CrawlerDetect;
 
-class Visitor
+final class Visitor
 {
     use StaticClass;
 
@@ -24,7 +24,7 @@ class Visitor
      */
     public static function isBrowser(Request $request): bool
     {
-        return !static::isBot($request);
+        return !self::isBot($request);
     }
 
     /**

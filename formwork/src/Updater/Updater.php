@@ -13,36 +13,36 @@ use Formwork\Utils\Str;
 use RuntimeException;
 use ZipArchive;
 
-class Updater
+final class Updater
 {
     /**
      * GitHub repository from which updates are retrieved
      */
-    protected const string REPOSITORY = 'getformwork/formwork';
+    private const string REPOSITORY = 'getformwork/formwork';
 
     /**
      * GitHub API latest release URI
      */
-    protected const string API_RELEASE_URI = 'https://api.github.com/repos/' . self::REPOSITORY . '/releases/latest';
+    private const string API_RELEASE_URI = 'https://api.github.com/repos/' . self::REPOSITORY . '/releases/latest';
 
     /**
      * Updater options
      *
      * @var array<string, mixed>
      */
-    protected array $options = [];
+    private array $options = [];
 
     /**
      * Updates registry
      */
-    protected Registry $registry;
+    private Registry $registry;
 
     /**
      * Updates registry default data
      *
      * @var array{lastCheck: ?int, lastUpdate: ?int, etag: ?string, release: ?array{name: string, tag: string, date: int, archive: string}, upToDate: bool}
      */
-    protected array $registryDefaults = [
+    private array $registryDefaults = [
         'lastCheck'  => null,
         'lastUpdate' => null,
         'etag'       => null,
@@ -53,30 +53,25 @@ class Updater
     /**
      * HTTP Client to make requests
      */
-    protected Client $client;
+    private Client $client;
 
     /**
      * Array containing release information
      *
      * @var array{name: string, tag: string, date: int, archive: string}
      */
-    protected array $release;
+    private array $release;
 
     /**
      * Headers to send in HTTP(S) requests
      *
      * @var array<string, string>
      */
-    protected array $headers;
-
-    /**
-     * Whether Formwork is up-to-date
-     */
-    protected bool $upToDate;
+    private array $headers;
 
     public function __construct(
-        protected App $app,
-        protected Config $config,
+        private App $app,
+        Config $config,
     ) {
         $this->options = $config->get('system.updates');
 
@@ -219,7 +214,7 @@ class Updater
     /**
      * Load latest release data
      */
-    protected function loadRelease(): void
+    private function loadRelease(): void
     {
         if (isset($this->release)) {
             return;
@@ -259,7 +254,7 @@ class Updater
      *
      * @return array<string, string>
      */
-    protected function getHeaders(): array
+    private function getHeaders(): array
     {
         return $this->headers ?? ($this->headers = $this->client->fetchHeaders($this->release['archive'])->toArray());
     }
@@ -267,7 +262,7 @@ class Updater
     /**
      * Return whether a version is installable based on the current version of Formwork
      */
-    protected function isVersionInstallable(string $version): bool
+    private function isVersionInstallable(string $version): bool
     {
         $semVer = SemVer::fromString($this->app::VERSION);
         $new = SemVer::fromString($version);
@@ -277,7 +272,7 @@ class Updater
     /**
      * Return whether a file is copiable or not
      */
-    protected function isCopiable(string $file): bool
+    private function isCopiable(string $file): bool
     {
         foreach ($this->options['ignore'] as $pattern) {
             if (fnmatch($pattern, $file)) {
@@ -294,7 +289,7 @@ class Updater
      *
      * @return array<string>
      */
-    protected function findDeletableFiles(array $installedFiles): array
+    private function findDeletableFiles(array $installedFiles): array
     {
         $list = [];
         foreach ($installedFiles as $installedFile) {
@@ -315,7 +310,7 @@ class Updater
     /**
      * Initialize registry data
      */
-    protected function initializeRegistry(): void
+    private function initializeRegistry(): void
     {
         foreach ($this->registryDefaults as $key => $value) {
             $this->registry->set($key, $value);

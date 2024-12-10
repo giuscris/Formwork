@@ -10,13 +10,13 @@ use Formwork\Security\CsrfToken;
 use Formwork\Services\Container;
 use Formwork\Utils\FileSystem;
 
-class TemplateFactory
+final class TemplateFactory
 {
     public function __construct(
-        protected Container $container,
-        protected App $app,
-        protected Config $config,
-        protected Schemes $schemes,
+        private Container $container,
+        private App $app,
+        private Config $config,
+        private Schemes $schemes,
     ) {
     }
 

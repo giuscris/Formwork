@@ -5,7 +5,7 @@ namespace Formwork\Backup\Utils;
 use Formwork\Traits\StaticClass;
 use ZipArchive;
 
-class ZipErrors
+final class ZipErrors
 {
     use StaticClass;
 

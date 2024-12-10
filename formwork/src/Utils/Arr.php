@@ -8,7 +8,7 @@ use Stringable;
 use Traversable;
 use UnexpectedValueException;
 
-class Arr
+final class Arr
 {
     use StaticClass;
 
@@ -141,7 +141,7 @@ class Arr
      */
     public static function splice(array &$array, int $offset, ?int $length = null, array $replacement = []): array
     {
-        if (!static::isAssociative($replacement)) {
+        if (!self::isAssociative($replacement)) {
             return array_splice($array, $offset, $length, $replacement);
         }
 
@@ -181,7 +181,7 @@ class Arr
     public static function moveItem(array &$array, int $fromIndex, int $toIndex): void
     {
         if ($toIndex !== $fromIndex) {
-            static::splice($array, $toIndex, 0, static::splice($array, $fromIndex, 1));
+            self::splice($array, $toIndex, 0, self::splice($array, $fromIndex, 1));
         }
     }
 
@@ -301,7 +301,7 @@ class Arr
             if (!is_array($array2[$key])) {
                 continue;
             }
-            $array1[$key] = static::appendMissing($array1[$key], $array2[$key]);
+            $array1[$key] = self::appendMissing($array1[$key], $array2[$key]);
         }
         return $array1 + $array2;
     }
@@ -432,7 +432,7 @@ class Arr
      */
     public static function reject(array $array, callable $callback): array
     {
-        return static::filter($array, fn ($value, $key) => !$callback($value, $key));
+        return self::filter($array, fn ($value, $key) => !$callback($value, $key));
     }
 
     /**
@@ -503,7 +503,7 @@ class Arr
      */
     public static function pluck(array $array, string $key, mixed $default = null): array
     {
-        return static::map($array, fn ($value) => static::get(static::from($value), $key, $default));
+        return self::map($array, fn ($value) => self::get(self::from($value), $key, $default));
     }
 
     /**
@@ -522,7 +522,7 @@ class Arr
     {
         $result = [];
 
-        foreach (static::map($array, $callback) as $key => $value) {
+        foreach (self::map($array, $callback) as $key => $value) {
             // Try to cast objects to string as `$value` will be used as key
             // in the resulting array
             if ($value instanceof Stringable) {
@@ -572,7 +572,7 @@ class Arr
             }
 
             if ($depth > 1) {
-                $value = static::flatten($value, $depth - 1);
+                $value = self::flatten($value, $depth - 1);
             }
             foreach ($value as $val) {
                 $result[] = $val;

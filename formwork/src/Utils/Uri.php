@@ -5,7 +5,7 @@ namespace Formwork\Utils;
 use Formwork\Traits\StaticClass;
 use InvalidArgumentException;
 
-class Uri
+final class Uri
 {
     use StaticClass;
 
@@ -14,19 +14,14 @@ class Uri
      *
      * @var array<string, int>
      */
-    protected const array DEFAULT_PORTS = ['http' => 80, 'https' => 443];
-
-    /**
-     * Current URI
-     */
-    protected static ?string $current = null;
+    private const array DEFAULT_PORTS = ['http' => 80, 'https' => 443];
 
     /**
      * Get the scheme of current or a given URI
      */
     public static function scheme(string $uri): ?string
     {
-        $scheme = static::parseComponent($uri, PHP_URL_SCHEME);
+        $scheme = self::parseComponent($uri, PHP_URL_SCHEME);
         return $scheme !== null ? strtolower((string) $scheme) : null;
     }
 
@@ -35,7 +30,7 @@ class Uri
      */
     public static function host(string $uri): ?string
     {
-        $host = static::parseComponent($uri, PHP_URL_HOST);
+        $host = self::parseComponent($uri, PHP_URL_HOST);
         return $host !== null ? strtolower((string) $host) : null;
     }
 
@@ -44,7 +39,7 @@ class Uri
      */
     public static function port(string $uri): ?int
     {
-        return static::parseComponent($uri, PHP_URL_PORT);
+        return self::parseComponent($uri, PHP_URL_PORT);
     }
 
     /**
@@ -60,7 +55,7 @@ class Uri
      */
     public static function isDefaultPort(int $port, string $scheme): bool
     {
-        return $port === static::getDefaultPort($scheme);
+        return $port === self::getDefaultPort($scheme);
     }
 
     /**
@@ -68,7 +63,7 @@ class Uri
      */
     public static function path(string $uri): ?string
     {
-        return static::parseComponent($uri, PHP_URL_PATH);
+        return self::parseComponent($uri, PHP_URL_PATH);
     }
 
     /**
@@ -76,7 +71,7 @@ class Uri
      */
     public static function absolutePath(string $uri): string
     {
-        return static::base($uri) . static::path($uri);
+        return self::base($uri) . self::path($uri);
     }
 
     /**
@@ -84,7 +79,7 @@ class Uri
      */
     public static function query(string $uri): ?string
     {
-        return static::parseComponent($uri, PHP_URL_QUERY);
+        return self::parseComponent($uri, PHP_URL_QUERY);
     }
 
     /**
@@ -92,7 +87,7 @@ class Uri
      */
     public static function fragment(string $uri): ?string
     {
-        return static::parseComponent($uri, PHP_URL_FRAGMENT);
+        return self::parseComponent($uri, PHP_URL_FRAGMENT);
     }
 
     /**
@@ -100,7 +95,7 @@ class Uri
      */
     public static function base(string $uri): string
     {
-        return sprintf('%s://%s%s', static::scheme($uri), static::host($uri), static::port($uri) !== null ? ':' . static::port($uri) : '');
+        return sprintf('%s://%s%s', self::scheme($uri), self::host($uri), self::port($uri) !== null ? ':' . self::port($uri) : '');
     }
 
     /**
@@ -110,7 +105,7 @@ class Uri
      */
     public static function queryToArray(string $uri): array
     {
-        parse_str(static::query($uri) ?? '', $array);
+        parse_str(self::query($uri) ?? '', $array);
         return $array;
     }
 
@@ -123,12 +118,12 @@ class Uri
     public static function parse(string $uri): array
     {
         return [
-            'scheme'   => static::scheme($uri),
-            'host'     => static::host($uri),
-            'port'     => static::port($uri),
-            'path'     => static::path($uri),
-            'query'    => static::query($uri),
-            'fragment' => static::fragment($uri),
+            'scheme'   => self::scheme($uri),
+            'host'     => self::host($uri),
+            'port'     => self::port($uri),
+            'path'     => self::path($uri),
+            'query'    => self::query($uri),
+            'fragment' => self::fragment($uri),
         ];
     }
 
@@ -142,13 +137,13 @@ class Uri
     public static function make(array $parts, string $uri, bool $forcePort = false): string
     {
         $givenParts = array_keys($parts);
-        $parts = [...static::parse($uri), ...$parts];
+        $parts = [...self::parse($uri), ...$parts];
         $result = '';
         if (!empty($parts['host'])) {
             $scheme = strtolower($parts['scheme'] ?? 'http');
-            $port = $parts['port'] ?? static::getDefaultPort($scheme);
+            $port = $parts['port'] ?? self::getDefaultPort($scheme);
             $result = $scheme . '://' . strtolower($parts['host']);
-            if ($forcePort || (in_array('port', $givenParts, true) && !static::isDefaultPort($port, $scheme))) {
+            if ($forcePort || (in_array('port', $givenParts, true) && !self::isDefaultPort($port, $scheme))) {
                 $result .= ':' . $port;
             }
         }
@@ -175,7 +170,7 @@ class Uri
     public static function normalize(string $uri): string
     {
         // TODO: we should not force trailing slash, avoid this in 2.0
-        return Str::append(static::make([], $uri), '/');
+        return Str::append(self::make([], $uri), '/');
     }
 
     /**
@@ -183,7 +178,7 @@ class Uri
      */
     public static function removeQuery(string $uri): string
     {
-        return static::make(['query' => ''], $uri);
+        return self::make(['query' => ''], $uri);
     }
 
     /**
@@ -191,7 +186,7 @@ class Uri
      */
     public static function removeFragment(string $uri): string
     {
-        return static::make(['fragment' => ''], $uri);
+        return self::make(['fragment' => ''], $uri);
     }
 
     /**
@@ -200,20 +195,20 @@ class Uri
     public static function resolveRelative(string $uri, string $base): string
     {
         if (Str::startsWith($uri, '#')) {
-            return static::make(['fragment' => $uri], $base);
+            return self::make(['fragment' => $uri], $base);
         }
-        $uriPath = (string) static::path($uri);
-        $basePath = (string) static::path($base);
+        $uriPath = (string) self::path($uri);
+        $basePath = (string) self::path($base);
         if (!Str::endsWith($basePath, '/')) {
             $basePath = dirname($basePath);
         }
-        return static::make(['path' => Path::resolve($uriPath, $basePath)], $base);
+        return self::make(['path' => Path::resolve($uriPath, $basePath)], $base);
     }
 
     /**
      * Parse URI component, throwing an exception when the URI is invalid
      */
-    protected static function parseComponent(string $uri, int $component): mixed
+    private static function parseComponent(string $uri, int $component): mixed
     {
         $result = parse_url($uri, $component);
         if ($result === false) {

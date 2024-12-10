@@ -6,7 +6,7 @@ use Formwork\Http\Response;
 use Formwork\Parsers\Json;
 use Formwork\Statistics\Statistics;
 
-class StatisticsController extends AbstractController
+final class StatisticsController extends AbstractController
 {
     /**
      * Statistics@index action

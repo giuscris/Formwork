@@ -18,15 +18,14 @@ use Formwork\Updater\Updater;
 use Formwork\Utils\FileSystem;
 use Formwork\View\ViewFactory;
 
-class PanelServiceLoader implements ResolutionAwareServiceLoaderInterface
+final class PanelServiceLoader implements ResolutionAwareServiceLoaderInterface
 {
     public function __construct(
-        protected Container $container,
-        protected Config $config,
-        protected ViewFactory $viewFactory,
-        protected Request $request,
-        protected Schemes $schemes,
-        protected Translations $translations,
+        private Config $config,
+        private ViewFactory $viewFactory,
+        private Request $request,
+        private Schemes $schemes,
+        private Translations $translations,
     ) {
     }
 

@@ -6,7 +6,7 @@ use Generator;
 use InvalidArgumentException;
 use UnexpectedValueException;
 
-class JpegDecoder implements DecoderInterface
+final class JpegDecoder implements DecoderInterface
 {
     public function decode(string &$data): Generator
     {
@@ -47,7 +47,7 @@ class JpegDecoder implements DecoderInterface
     /**
      * Seek the end of a segment
      */
-    protected function seekSegmentEnd(string &$data, int $position): int
+    private function seekSegmentEnd(string &$data, int $position): int
     {
         while ($position < strlen($data)) {
             $position = strpos($data, "\xff", $position);

@@ -10,33 +10,33 @@ use Symfony\Component\Process\PhpExecutableFinder;
 use Symfony\Component\Process\Process;
 use UnexpectedValueException;
 
-class ServeCommand
+final class ServeCommand
 {
     /**
      * Current request data for the server process
      *
      * @var array<mixed>
      */
-    protected array $requestData;
+    private array $requestData;
 
     /**
      * PHP process
      */
-    protected Process $process;
+    private Process $process;
 
     /**
      * CLImate instance
      */
-    protected CLImate $climate;
+    private CLImate $climate;
 
     /**
      * Server start time
      */
-    protected float $startTime;
+    private float $startTime;
 
     public function __construct(
-        protected string $host = '127.0.0.1',
-        protected int $port = 8000,
+        private string $host = '127.0.0.1',
+        private int $port = 8000,
     ) {
         $this->climate = new CLImate();
     }
@@ -67,7 +67,7 @@ class ServeCommand
      *
      * @param list<string> $lines
      */
-    protected function handleOutput(array $lines): void
+    private function handleOutput(array $lines): void
     {
         foreach ($lines as $line) {
             if (!preg_match('/^\[(.+)\] (.+)$/', $line, $matches, PREG_UNMATCHED_AS_NULL)) {
@@ -158,7 +158,7 @@ class ServeCommand
      *
      * @return list<?string>
      */
-    protected function splitMessage(string $message): array
+    private function splitMessage(string $message): array
     {
         preg_match('/^([0-9.]+):(\d+) (.+)$/', $message, $matches, PREG_UNMATCHED_AS_NULL);
         array_shift($matches);
@@ -168,7 +168,7 @@ class ServeCommand
     /**
      * Colorize status code
      */
-    protected function colorStatus(int $status): string
+    private function colorStatus(int $status): string
     {
         if ($status <= 299) {
             return "<blue>{$status}</blue>";
@@ -189,7 +189,7 @@ class ServeCommand
     /**
      * Format time interval
      */
-    protected function formatTime(float $dt): string
+    private function formatTime(float $dt): string
     {
         if ($dt > 60) {
             $m = floor($dt / 60); // minutes

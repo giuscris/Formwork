@@ -4,10 +4,10 @@ namespace Formwork\Images;
 
 use Formwork\Config\Config;
 
-class ImageFactory
+final class ImageFactory
 {
     public function __construct(
-        protected Config $config,
+        private Config $config,
     ) {
     }
 

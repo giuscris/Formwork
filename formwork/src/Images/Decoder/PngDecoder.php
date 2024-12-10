@@ -6,12 +6,12 @@ use Generator;
 use InvalidArgumentException;
 use UnexpectedValueException;
 
-class PngDecoder implements DecoderInterface
+final class PngDecoder implements DecoderInterface
 {
     /**
      * PNG file header
      */
-    protected const string PNG_HEADER = "\x89PNG\x0d\x0a\x1a\x0a";
+    private const string PNG_HEADER = "\x89PNG\x0d\x0a\x1a\x0a";
 
     public function decode(string &$data): Generator
     {

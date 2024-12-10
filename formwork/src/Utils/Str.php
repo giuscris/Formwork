@@ -7,7 +7,7 @@ use Formwork\Traits\StaticClass;
 use RuntimeException;
 use UnexpectedValueException;
 
-class Str
+final class Str
 {
     use StaticClass;
 
@@ -16,7 +16,7 @@ class Str
      *
      * @var array<string, string>
      */
-    protected const array SLUG_TRANSLATE_MAP = [
+    private const array SLUG_TRANSLATE_MAP = [
         '\t' => '',
         '\r' => '',
         '!'  => '',
@@ -140,7 +140,7 @@ class Str
     /**
      * Regex to match interpolated sequences in strings
      */
-    protected const string INTERPOLATION_REGEX = '/(\\\)?{{([\-._a-z]+)\\\?}}/i';
+    private const string INTERPOLATION_REGEX = '/(\\\)?{{([\-._a-z]+)\\\?}}/i';
 
     /**
      * Return whether $haystack string starts with $needle
@@ -227,7 +227,7 @@ class Str
      */
     public static function escapeAttr(string $string): string
     {
-        return str_replace(['&lt;', '&gt;'], ['<', '>'], static::escape($string));
+        return str_replace(['&lt;', '&gt;'], ['<', '>'], self::escape($string));
     }
 
     /**
@@ -252,7 +252,7 @@ class Str
      */
     public static function append(string $string, string $suffix): string
     {
-        return static::endsWith($string, $suffix) ? $string : $string . $suffix;
+        return self::endsWith($string, $suffix) ? $string : $string . $suffix;
     }
 
     /**
@@ -260,7 +260,7 @@ class Str
      */
     public static function prepend(string $string, string $prefix): string
     {
-        return static::startsWith($string, $prefix) ? $string : $prefix . $string;
+        return self::startsWith($string, $prefix) ? $string : $prefix . $string;
     }
 
     /**
@@ -268,7 +268,7 @@ class Str
      */
     public static function wrap(string $string, string $wrap): string
     {
-        return static::append(static::prepend($string, $wrap), $wrap);
+        return self::append(self::prepend($string, $wrap), $wrap);
     }
 
     /**
@@ -276,7 +276,7 @@ class Str
      */
     public static function removeStart(string $haystack, string $needle): string
     {
-        return static::startsWith($haystack, $needle) ? substr($haystack, strlen($needle)) : $haystack;
+        return self::startsWith($haystack, $needle) ? substr($haystack, strlen($needle)) : $haystack;
     }
 
     /**
@@ -284,7 +284,7 @@ class Str
      */
     public static function removeEnd(string $haystack, string $needle): string
     {
-        return static::endsWith($haystack, $needle) ? substr($haystack, 0, -strlen($needle)) : $haystack;
+        return self::endsWith($haystack, $needle) ? substr($haystack, 0, -strlen($needle)) : $haystack;
     }
 
     /**

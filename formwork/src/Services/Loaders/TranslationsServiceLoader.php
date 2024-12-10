@@ -8,11 +8,11 @@ use Formwork\Services\Container;
 use Formwork\Services\ResolutionAwareServiceLoaderInterface;
 use Formwork\Translations\Translations;
 
-class TranslationsServiceLoader implements ResolutionAwareServiceLoaderInterface
+final class TranslationsServiceLoader implements ResolutionAwareServiceLoaderInterface
 {
     public function __construct(
-        protected Config $config,
-        protected Languages $languages,
+        private Config $config,
+        private Languages $languages,
     ) {
     }
 

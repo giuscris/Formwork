@@ -4,10 +4,10 @@ namespace Formwork\Users;
 
 use Formwork\Services\Container;
 
-class UserFactory
+final class UserFactory
 {
     public function __construct(
-        protected Container $container,
+        private Container $container,
     ) {
     }
 

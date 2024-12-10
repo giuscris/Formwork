@@ -6,7 +6,7 @@ use Formwork\Config\Config;
 use Formwork\Services\Container;
 use Formwork\Services\ServiceLoaderInterface;
 
-class ConfigServiceLoader implements ServiceLoaderInterface
+final class ConfigServiceLoader implements ServiceLoaderInterface
 {
     public function load(Container $container): Config
     {

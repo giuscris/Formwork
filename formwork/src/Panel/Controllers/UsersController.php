@@ -19,7 +19,7 @@ use Formwork\Users\User;
 use Formwork\Utils\Arr;
 use Formwork\Utils\FileSystem;
 
-class UsersController extends AbstractController
+final class UsersController extends AbstractController
 {
     /**
      * Users@index action
@@ -229,7 +229,7 @@ class UsersController extends AbstractController
     /**
      * Update user data from POST request
      */
-    protected function updateUser(User $user, FieldCollection $fieldCollection): void
+    private function updateUser(User $user, FieldCollection $fieldCollection): void
     {
         $userData = $user->data();
 
@@ -277,7 +277,7 @@ class UsersController extends AbstractController
      *
      * @param array<string> $mimeTypes
      */
-    protected function uploadUserImage(User $user, UploadedFile $uploadedFile, array $mimeTypes): ?string
+    private function uploadUserImage(User $user, UploadedFile $uploadedFile, array $mimeTypes): ?string
     {
         $imagesPath = FileSystem::joinPaths($this->config->get('system.users.paths.images'));
 
@@ -307,7 +307,7 @@ class UsersController extends AbstractController
     /**
      * Delete the image of a given user
      */
-    protected function deleteUserImage(User $user): void
+    private function deleteUserImage(User $user): void
     {
         if ($user->hasDefaultImage()) {
             throw new TranslatedException('Cannot delete default user image', 'panel.user.image.cannotDelete.defaultImage');
@@ -325,7 +325,7 @@ class UsersController extends AbstractController
      *
      * @return array{previousUser: ?User, nextUser: ?User}
      */
-    protected function getPreviousAndNextUser(User $user): array
+    private function getPreviousAndNextUser(User $user): array
     {
         $users = $this->site->users()->sortBy('username');
 

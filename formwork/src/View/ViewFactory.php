@@ -6,15 +6,15 @@ use Closure;
 use Formwork\Cms\App;
 use Formwork\Config\Config;
 
-class ViewFactory
+final class ViewFactory
 {
     /**
      * @param array<string, Closure> $methods
      */
     public function __construct(
-        protected array $methods,
-        protected App $app,
-        protected Config $config,
+        private array $methods,
+        private App $app,
+        private Config $config,
     ) {
     }
 

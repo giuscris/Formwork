@@ -4,10 +4,10 @@ namespace Formwork\Pages;
 
 use Formwork\Services\Container;
 
-class PageFactory
+final class PageFactory
 {
     public function __construct(
-        protected Container $container,
+        private Container $container,
     ) {
     }
 

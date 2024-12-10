@@ -2,10 +2,10 @@
 
 namespace Formwork\Data;
 
-class CollectionDataProxy
+final class CollectionDataProxy
 {
     public function __construct(
-        protected AbstractCollection $collection,
+        private AbstractCollection $collection,
     ) {
     }
 

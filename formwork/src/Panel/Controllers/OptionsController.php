@@ -11,14 +11,14 @@ use Formwork\Utils\Arr;
 use Formwork\Utils\FileSystem;
 use UnexpectedValueException;
 
-class OptionsController extends AbstractController
+final class OptionsController extends AbstractController
 {
     /**
      * All options tabs
      *
      * @var list<string>
      */
-    protected array $tabs = ['site', 'system'];
+    private array $tabs = ['site', 'system'];
 
     /**
      * Options@index action
@@ -130,7 +130,7 @@ class OptionsController extends AbstractController
      * @param array<string, mixed> $options
      * @param array<string, mixed> $defaults
      */
-    protected function updateOptions(string $type, FieldCollection $fieldCollection, array $options, array $defaults): bool
+    private function updateOptions(string $type, FieldCollection $fieldCollection, array $options, array $defaults): bool
     {
         $old = $options;
         $options = [];

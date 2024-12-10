@@ -7,14 +7,14 @@ use Formwork\Utils\Constraint;
 use GdImage;
 use InvalidArgumentException;
 
-class Blur extends AbstractTransform
+final class Blur extends AbstractTransform
 {
     /**
      * Convolution kernels used for image effects
      *
      * @var array<string, array<list<float>>>
      */
-    protected const array CONVOLUTION_KERNELS = [
+    private const array CONVOLUTION_KERNELS = [
         BlurMode::Smooth->value => [
             [0.075, 0.125, 0.075],
             [0.125, 0.200, 0.125],
@@ -34,18 +34,18 @@ class Blur extends AbstractTransform
         ],
     ];
 
-    final public function __construct(
-        protected int $amount,
-        protected BlurMode $blurMode,
+    public function __construct(
+        private int $amount,
+        private BlurMode $blurMode,
     ) {
         if (!Constraint::isInIntegerRange($amount, 0, 100)) {
             throw new InvalidArgumentException(sprintf('$amount value must be in range 0-100, %d given', $amount));
         }
     }
 
-    public static function fromArray(array $data): static
+    public static function fromArray(array $data): self
     {
-        return new static($data['amount'], $data['mode']);
+        return new self($data['amount'], $data['mode']);
     }
 
     public function apply(GdImage $gdImage, ImageInfo $imageInfo): GdImage

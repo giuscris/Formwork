@@ -5,10 +5,14 @@ declare(strict_types=1);
 use Rector\CodeQuality\Rector\FuncCall\CompactToVariablesRector;
 use Rector\CodeQuality\Rector\Identical\FlipTypeControlToUseExclusiveTypeRector;
 use Rector\Config\RectorConfig;
+use Rector\Naming\Rector\Class_\RenamePropertyToMatchTypeRector;
 use Rector\Php74\Rector\Closure\ClosureToArrowFunctionRector;
 use Rector\Php80\Rector\Switch_\ChangeSwitchToMatchRector;
 use Rector\Php81\Rector\FuncCall\NullToStrictStringFuncCallArgRector;
+use Rector\Php81\Rector\Property\ReadOnlyPropertyRector;
 use Rector\Php83\Rector\ClassMethod\AddOverrideAttributeToOverriddenMethodsRector;
+use Rector\Privatization\Rector\ClassMethod\PrivatizeFinalClassMethodRector;
+use Rector\Privatization\Rector\Property\PrivatizeFinalClassPropertyRector;
 
 return RectorConfig::configure()
     ->withPhpSets(php83: true)
@@ -16,6 +20,10 @@ return RectorConfig::configure()
     ->withImportNames(importShortClasses: false)
     ->withPaths([
         dirname(__DIR__),
+    ])
+    ->withRules([
+        PrivatizeFinalClassPropertyRector::class,
+        PrivatizeFinalClassMethodRector::class,
     ])
     ->withSkip([
         __DIR__ . '/views',
@@ -29,4 +37,6 @@ return RectorConfig::configure()
         FlipTypeControlToUseExclusiveTypeRector::class,
         NullToStrictStringFuncCallArgRector::class,
         AddOverrideAttributeToOverriddenMethodsRector::class,
+        ReadOnlyPropertyRector::class,
+        RenamePropertyToMatchTypeRector::class,
     ]);

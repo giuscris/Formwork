@@ -8,12 +8,12 @@ use InvalidArgumentException;
 use RuntimeException;
 use UnexpectedValueException;
 
-class Resize extends AbstractTransform
+final class Resize extends AbstractTransform
 {
-    final public function __construct(
-        protected int $width,
-        protected int $height,
-        protected ResizeMode $resizeMode = ResizeMode::Cover,
+    public function __construct(
+        private int $width,
+        private int $height,
+        private ResizeMode $resizeMode = ResizeMode::Cover,
     ) {
         if ($width <= 0) {
             throw new InvalidArgumentException('$width must be greater than 0');
@@ -24,9 +24,9 @@ class Resize extends AbstractTransform
         }
     }
 
-    public static function fromArray(array $data): static
+    public static function fromArray(array $data): self
     {
-        return new static($data['width'], $data['height'], $data['mode']);
+        return new self($data['width'], $data['height'], $data['mode']);
     }
 
     public function apply(GdImage $gdImage, ImageInfo $imageInfo): GdImage
@@ -123,7 +123,7 @@ class Resize extends AbstractTransform
         return $destinationImage;
     }
 
-    protected function enableTransparency(GdImage $gdImage): void
+    private function enableTransparency(GdImage $gdImage): void
     {
         if (($transparent = imagecolorallocatealpha($gdImage, 0, 0, 0, 127)) === false) {
             throw new RuntimeException('Cannot allocate transparent color');

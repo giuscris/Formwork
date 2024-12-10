@@ -8,7 +8,7 @@ use Formwork\Http\Response;
 use Formwork\Http\ResponseStatus;
 use Throwable;
 
-class ErrorsController extends AbstractController implements ErrorsControllerInterface
+final class ErrorsController extends AbstractController implements ErrorsControllerInterface
 {
     /**
      * ErrorsController@error action
@@ -60,7 +60,7 @@ class ErrorsController extends AbstractController implements ErrorsControllerInt
      * @param array<mixed>         $action
      * @param array<string, mixed> $data
      */
-    protected function makeErrorResponse(ResponseStatus $responseStatus, string $name, array $action, array $data = []): Response
+    private function makeErrorResponse(ResponseStatus $responseStatus, string $name, array $action, array $data = []): Response
     {
         Response::cleanOutputBuffers();
 
@@ -82,7 +82,7 @@ class ErrorsController extends AbstractController implements ErrorsControllerInt
     /**
      * Make a URI to a new GitHub issue with pre-filled data from an (uncaught) exception
      */
-    protected function makeGitHubIssueUri(?Throwable $throwable): string
+    private function makeGitHubIssueUri(?Throwable $throwable): string
     {
         if ($throwable === null) {
             return 'https://github.com/getformwork/formwork/issues/';

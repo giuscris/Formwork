@@ -14,17 +14,16 @@ use Formwork\Users\UserFactory;
 use Formwork\Users\Users;
 use Formwork\Utils\FileSystem;
 
-class UsersServiceLoader implements ServiceLoaderInterface
+final class UsersServiceLoader implements ServiceLoaderInterface
 {
-    protected RoleCollection $roleCollection;
+    private RoleCollection $roleCollection;
 
-    protected Users $users;
+    private Users $users;
 
     public function __construct(
-        protected Container $container,
-        protected Config $config,
-        protected Translations $translations,
-        protected UserFactory $userFactory,
+        private Config $config,
+        private Translations $translations,
+        private UserFactory $userFactory,
     ) {
     }
 
@@ -35,7 +34,7 @@ class UsersServiceLoader implements ServiceLoaderInterface
         return $this->users;
     }
 
-    protected function loadRoles(): void
+    private function loadRoles(): void
     {
         $this->roleCollection = new RoleCollection();
         foreach (FileSystem::listFiles($path = $this->config->get('system.users.paths.roles')) as $file) {
@@ -49,7 +48,7 @@ class UsersServiceLoader implements ServiceLoaderInterface
         }
     }
 
-    protected function loadUsers(): void
+    private function loadUsers(): void
     {
         $this->users = new Users([], $this->roleCollection);
         foreach (FileSystem::listFiles($path = $this->config->get('system.users.paths.accounts')) as $file) {

@@ -6,7 +6,7 @@ use Formwork\Http\Response;
 use Formwork\Parsers\Json;
 use Formwork\Statistics\Statistics;
 
-class DashboardController extends AbstractController
+final class DashboardController extends AbstractController
 {
     /**
      * Dashboard@index action

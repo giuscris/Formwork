@@ -10,16 +10,16 @@ use Formwork\Services\Container;
 use Formwork\Utils\FileSystem;
 use RuntimeException;
 
-class FileFactory
+final class FileFactory
 {
     /**
      * @param array<string, array{class-string, string}|class-string> $associations
      */
     public function __construct(
-        protected Container $container,
-        protected Config $config,
-        protected Schemes $schemes,
-        protected array $associations = [],
+        private Container $container,
+        private Config $config,
+        private Schemes $schemes,
+        private array $associations = [],
     ) {
     }
 

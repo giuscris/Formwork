@@ -14,7 +14,7 @@ use Formwork\Users\User;
 use Formwork\Utils\FileSystem;
 use RuntimeException;
 
-class RegisterController extends AbstractController
+final class RegisterController extends AbstractController
 {
     /**
      * Register@register action

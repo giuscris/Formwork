@@ -7,19 +7,19 @@ use ReflectionReference;
 use UnexpectedValueException;
 use UnitEnum;
 
-class Debug
+final class Debug
 {
     use StaticClass;
 
     /**
      * Number of spaces for each indentation level
      */
-    protected const int INDENT_SPACES = 2;
+    private const int INDENT_SPACES = 2;
 
     /**
      * CSS styles for debug output
      */
-    protected static string $css = <<<'CSS'
+    private static string $css = <<<'CSS'
         .__formwork-dump {
             position: relative;
             z-index: 10000;
@@ -109,7 +109,7 @@ class Debug
     /**
      * JavaScript for debug output
      */
-    protected static string $js = <<<'JS'
+    private static string $js = <<<'JS'
         function __formwork_dump_toggle(self, recursive = true) {
             const ref = document.getElementById(self.dataset.target);
             self.innerHTML = ref.classList.toggle("__formwork-dump-collapsed") ? "▼" : "▲";
@@ -150,17 +150,17 @@ class Debug
      *
      * @var array<int>
      */
-    protected static array $refs = [];
+    private static array $refs = [];
 
     /**
      * Counter for unique IDs
      */
-    protected static int $counter = 0;
+    private static int $counter = 0;
 
     /**
      * Whether CSS styles have been dumped
      */
-    protected static bool $stylesDumped = false;
+    private static bool $stylesDumped = false;
 
     /**
      * Dump data
@@ -175,7 +175,7 @@ class Debug
             static::$stylesDumped = true;
         }
         foreach ($data as $d) {
-            echo static::dumpToString($d);
+            echo self::dumpToString($d);
         }
         echo '<script>__formwork_dump_goto(window.location.hash.slice(1))</script>';
     }
@@ -185,7 +185,7 @@ class Debug
      */
     public static function dd(mixed ...$data): never
     {
-        static::dump(...$data);
+        self::dump(...$data);
         exit;
     }
 
@@ -194,13 +194,13 @@ class Debug
      */
     public static function dumpToString(mixed $data): string
     {
-        return sprintf('<pre class="__formwork-dump">%s</pre>', static::outputData($data));
+        return sprintf('<pre class="__formwork-dump">%s</pre>', self::outputData($data));
     }
 
     /**
      * Output data
      */
-    protected static function outputData(mixed $data, int $indent = 0): string
+    private static function outputData(mixed $data, int $indent = 0): string
     {
         switch (gettype($data)) {
             case 'boolean':
@@ -236,9 +236,9 @@ class Debug
                     $reference = ReflectionReference::fromArrayElement($data, $key) !== null;
 
                     $parts[] = str_repeat(' ', $indent + self::INDENT_SPACES)
-                        . ($associative ? static::outputData($key) . ' => ' : '')
+                        . ($associative ? self::outputData($key) . ' => ' : '')
                         . ($reference ? '<span class="__note" title="Reference">&</span>' : '')
-                        . static::outputData($value, $indent + self::INDENT_SPACES)
+                        . self::outputData($value, $indent + self::INDENT_SPACES)
                         . ',';
                 }
 
@@ -271,7 +271,7 @@ class Debug
 
                     $parts[] = str_repeat(' ', $indent + self::INDENT_SPACES)
                         . $property . ': '
-                        . static::outputData($value, $indent + self::INDENT_SPACES);
+                        . self::outputData($value, $indent + self::INDENT_SPACES);
                 }
 
                 return sprintf(

@@ -6,17 +6,17 @@ use Generator;
 use InvalidArgumentException;
 use UnexpectedValueException;
 
-class WebpDecoder implements DecoderInterface
+final class WebpDecoder implements DecoderInterface
 {
     /**
      * RIFF header
      */
-    protected const string RIFF_HEADER = 'RIFF';
+    private const string RIFF_HEADER = 'RIFF';
 
     /**
      * WebP file header
      */
-    protected const string WEBP_HEADER = 'WEBP';
+    private const string WEBP_HEADER = 'WEBP';
 
     public function decode(string &$data): Generator
     {

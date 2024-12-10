@@ -8,11 +8,11 @@ use Formwork\Languages\Languages;
 use Formwork\Services\Container;
 use Formwork\Services\ServiceLoaderInterface;
 
-class LanguagesServiceLoader implements ServiceLoaderInterface
+final class LanguagesServiceLoader implements ServiceLoaderInterface
 {
     public function __construct(
-        protected Config $config,
-        protected Request $request,
+        private Config $config,
+        private Request $request,
     ) {
     }
 

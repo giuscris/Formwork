@@ -5,19 +5,19 @@ namespace Formwork\Http\Utils;
 use Formwork\Traits\StaticClass;
 use InvalidArgumentException;
 
-class IpAnonymizer
+final class IpAnonymizer
 {
     use StaticClass;
 
     /**
      * IPv4 addresses mask
      */
-    protected const string IPV4_MASK = '255.255.255.0';
+    private const string IPV4_MASK = '255.255.255.0';
 
     /**
      * IPv6 addresses mask
      */
-    protected const string IPV6_MASK = 'ffff:ffff:ffff:ffff::';
+    private const string IPV6_MASK = 'ffff:ffff:ffff:ffff::';
 
     /**
      * Anonymize an IP address
@@ -25,8 +25,8 @@ class IpAnonymizer
     public static function anonymize(string $ip): string
     {
         return match (strlen(self::packIPAddress($ip))) {
-            4       => static::anonymizeIPv4($ip),
-            16      => static::anonymizeIPv6($ip),
+            4       => self::anonymizeIPv4($ip),
+            16      => self::anonymizeIPv6($ip),
             default => throw new InvalidArgumentException(sprintf('Invalid IP address %s', $ip)),
         };
     }

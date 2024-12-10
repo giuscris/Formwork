@@ -10,14 +10,14 @@ use Formwork\Utils\Arr;
 use Formwork\Utils\FileSystem;
 use Formwork\Utils\Str;
 
-class ToolsController extends AbstractController
+final class ToolsController extends AbstractController
 {
     /**
      * All options tabs
      *
      * @var list<string>
      */
-    protected array $tabs = ['backups', 'updates', 'info'];
+    private array $tabs = ['backups', 'updates', 'info'];
 
     /**
      * Tools@index action
@@ -227,7 +227,7 @@ class ToolsController extends AbstractController
      *
      * @return array<string, string>
      */
-    protected function getHeaders(): array
+    private function getHeaders(): array
     {
         $headers = [];
         foreach (headers_list() as $header) {
@@ -242,7 +242,7 @@ class ToolsController extends AbstractController
      *
      * @return array<string, mixed>
      */
-    protected function getDependencies(): array
+    private function getDependencies(): array
     {
         $dependencies = [];
         if (FileSystem::exists(ROOT_PATH . '/composer.lock')) {
@@ -263,7 +263,7 @@ class ToolsController extends AbstractController
      *
      * @return list<string>
      */
-    protected function getRequiredExtensions(): array
+    private function getRequiredExtensions(): array
     {
         $extensions = [];
         if (FileSystem::exists(ROOT_PATH . '/composer.json')) {

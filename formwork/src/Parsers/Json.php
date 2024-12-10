@@ -2,24 +2,24 @@
 
 namespace Formwork\Parsers;
 
-class Json extends AbstractEncoder
+final class Json extends AbstractEncoder
 {
     /**
      * Default flags used to parse JSON
      */
-    protected const int DEFAULT_PARSE_FLAGS = JSON_THROW_ON_ERROR;
+    private const int DEFAULT_PARSE_FLAGS = JSON_THROW_ON_ERROR;
 
     /**
      * Default flags used to encode JSON
      */
-    protected const int DEFAULT_ENCODE_FLAGS = JSON_UNESCAPED_SLASHES | JSON_PRESERVE_ZERO_FRACTION | JSON_THROW_ON_ERROR;
+    private const int DEFAULT_ENCODE_FLAGS = JSON_UNESCAPED_SLASHES | JSON_PRESERVE_ZERO_FRACTION | JSON_THROW_ON_ERROR;
 
     /**
      * Default options used to encode JSON
      *
      * @var array{forceObject: bool, prettyPrint: bool, escapeUnicode: bool}
      */
-    protected const array DEFAULT_ENCODE_OPTIONS = [
+    private const array DEFAULT_ENCODE_OPTIONS = [
         'forceObject'   => false,
         'prettyPrint'   => false,
         'escapeUnicode' => false,

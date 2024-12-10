@@ -7,7 +7,7 @@ use Formwork\Utils\Arr;
 use RuntimeException;
 use UnexpectedValueException;
 
-class Header
+final class Header
 {
     use StaticClass;
 
@@ -29,7 +29,7 @@ class Header
 
         return array_reduce($tokens, function ($result, $token) use ($separators) {
             $token = trim($token, ' "');
-            $result[] = strlen($separators) === 1 ? $token : static::split($token, substr($separators, 1));
+            $result[] = strlen($separators) === 1 ? $token : self::split($token, substr($separators, 1));
             return $result;
         }, []);
     }
@@ -94,6 +94,6 @@ class Header
      */
     public static function fixHeaderNames(array $headers): array
     {
-        return Arr::mapKeys($headers, static::fixHeaderName(...));
+        return Arr::mapKeys($headers, self::fixHeaderName(...));
     }
 }

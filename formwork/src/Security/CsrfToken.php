@@ -4,15 +4,15 @@ namespace Formwork\Security;
 
 use Formwork\Http\Request;
 
-class CsrfToken
+final class CsrfToken
 {
     /**
      * Session key to store the CSRF token
      */
-    protected const string SESSION_KEY_PREFIX = '_formwork_csrf_tokens';
+    private const string SESSION_KEY_PREFIX = '_formwork_csrf_tokens';
 
     public function __construct(
-        protected Request $request,
+        private Request $request,
     ) {
     }
 

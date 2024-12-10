@@ -9,31 +9,31 @@ use Formwork\Translations\Translation;
 use InvalidArgumentException;
 use RuntimeException;
 
-class Date
+final class Date
 {
     use StaticClass;
 
     /**
      * Characters used in formats accepted by date()
      */
-    protected const string DATE_FORMAT_CHARACTERS = 'AaBcDdeFgGHhIijlLMmnNoOpPrsSTtUuvWwyYzZ';
+    private const string DATE_FORMAT_CHARACTERS = 'AaBcDdeFgGHhIijlLMmnNoOpPrsSTtUuvWwyYzZ';
 
     /**
      * Regex used to parse formats accepted by date()
      */
-    protected const string DATE_FORMAT_REGEX = '/(?P<escaped>(?:\\\[A-Za-z])+)|[' . self::DATE_FORMAT_CHARACTERS . ']|(?P<invalid>[A-Za-z])/';
+    private const string DATE_FORMAT_REGEX = '/(?P<escaped>(?:\\\[A-Za-z])+)|[' . self::DATE_FORMAT_CHARACTERS . ']|(?P<invalid>[A-Za-z])/';
 
     /**
      * Regex used to parse date patterns like 'DD/MM/YYYY hh:mm:ss'
      */
-    protected const string PATTERN_REGEX = '/(?:\[(?P<escaped>[^\]]+)\])|[YR]{4}|uuu|[YR]{2}|[MD]{1,4}|[WHhms]{1,2}|[AaZz]|(?P<invalid>[A-Za-z]+)/';
+    private const string PATTERN_REGEX = '/(?:\[(?P<escaped>[^\]]+)\])|[YR]{4}|uuu|[YR]{2}|[MD]{1,4}|[WHhms]{1,2}|[AaZz]|(?P<invalid>[A-Za-z]+)/';
 
     /**
      * Array used to translate pattern tokens to their date() format counterparts
      *
      * @var array<string, string>
      */
-    protected const array PATTERN_TO_DATE_FORMAT = [
+    private const array PATTERN_TO_DATE_FORMAT = [
         'YY'   => 'y',
         'YYYY' => 'Y',
         'M'    => 'n',
@@ -68,7 +68,7 @@ class Date
      *
      * @var array<string, int>
      */
-    protected const array TIME_INTERVALS = [
+    private const array TIME_INTERVALS = [
         'years'   => 60 * 60 * 24 * 365,
         'months'  => 60 * 60 * 24 * 30,
         'weeks'   => 60 * 60 * 24 * 7,
@@ -86,13 +86,13 @@ class Date
     public static function toTimestamp(string $date, string|array $format): int
     {
         try {
-            $dateTime = static::createDateTime($date, (array) $format);
+            $dateTime = self::createDateTime($date, (array) $format);
         } catch (InvalidArgumentException $e) {
             // Try to parse the date anyway if the format is not given
             try {
                 $dateTime = new DateTime($date);
             } catch (Exception $e) {
-                throw new InvalidArgumentException(sprintf('Invalid date "%s": %s', $date, static::getLastDateTimeError()), $e->getCode(), $e->getPrevious());
+                throw new InvalidArgumentException(sprintf('Invalid date "%s": %s', $date, self::getLastDateTimeError()), $e->getCode(), $e->getPrevious());
             }
         }
 
@@ -147,7 +147,7 @@ class Date
                 'F'     => $translation->getStrings('date.months.long')[$dateTime->format('n') - 1],
                 'D'     => $translation->getStrings('date.weekdays.short')[(int) $dateTime->format('w')],
                 'l'     => $translation->getStrings('date.weekdays.long')[(int) $dateTime->format('w')],
-                'r'     => static::formatDateTime($dateTime, DateTime::RFC2822, $translation),
+                'r'     => self::formatDateTime($dateTime, DateTime::RFC2822, $translation),
                 default => $dateTime->format($matches[1] ?? $matches[0]),
             },
             $format
@@ -159,7 +159,7 @@ class Date
      */
     public static function formatTimestamp(int $timestamp, string $format, Translation $translation): string
     {
-        return static::formatDateTime((new DateTime())->setTimestamp($timestamp), $format, $translation);
+        return self::formatDateTime((new DateTime())->setTimestamp($timestamp), $format, $translation);
     }
 
     /**
@@ -204,7 +204,7 @@ class Date
      */
     public static function formatTimestampAsDistance(int $timestamp, Translation $translation): string
     {
-        return static::formatDateTimeAsDistance((new DateTime())->setTimestamp($timestamp), $translation);
+        return self::formatDateTimeAsDistance((new DateTime())->setTimestamp($timestamp), $translation);
     }
 
     /**
@@ -212,7 +212,7 @@ class Date
      *
      * @param array<string> $formats
      */
-    protected static function createDateTime(string $date, array $formats): DateTime
+    private static function createDateTime(string $date, array $formats): DateTime
     {
         if ($formats === []) {
             throw new InvalidArgumentException(sprintf('At least 1 format must be given to %s()', __METHOD__));
@@ -223,13 +223,13 @@ class Date
                 return $dateTime;
             }
         }
-        throw new InvalidArgumentException(sprintf('Date "%s" is not formatted according to the format "%s": %s', $date, $format, static::getLastDateTimeError()));
+        throw new InvalidArgumentException(sprintf('Date "%s" is not formatted according to the format "%s": %s', $date, $format, self::getLastDateTimeError()));
     }
 
     /**
      * Return a human-readable string containing details about last DateTime error
      */
-    protected static function getLastDateTimeError(): string
+    private static function getLastDateTimeError(): string
     {
         $result = [];
         $lastError = null;

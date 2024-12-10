@@ -5,7 +5,7 @@ namespace Formwork\Panel\Utils;
 use Formwork\Traits\StaticClass;
 use Formwork\Utils\Date;
 
-class DateFormats
+final class DateFormats
 {
     use StaticClass;
 

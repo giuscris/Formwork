@@ -13,7 +13,7 @@ use Formwork\Users\Exceptions\UserNotLoggedException;
 use Formwork\Users\User;
 use Formwork\Utils\FileSystem;
 
-class AuthenticationController extends AbstractController
+final class AuthenticationController extends AbstractController
 {
     /**
      * Session key used to store the URI to redirect to after login
@@ -125,7 +125,7 @@ class AuthenticationController extends AbstractController
      *
      * @param array<string, mixed> $data
      */
-    protected function error(string $message, array $data = []): Response
+    private function error(string $message, array $data = []): Response
     {
         $defaults = ['title' => $this->translate('panel.login.login')];
         $this->panel->notify($message, 'error');

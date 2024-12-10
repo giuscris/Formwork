@@ -69,10 +69,10 @@ if ($content === false) {
 
 $content = preg_replace([
     '/Last updated: \d{4}-\d{2}-\d{2}\n/',
-    '/protected const array MIME_TYPES = \[.*?\];/s',
+    '/private const array MIME_TYPES = \[.*?\];/s',
 ], [
     sprintf("Last updated: %s\n", date('Y-m-d')),
-    sprintf("protected const array MIME_TYPES = [\n%s\n    ];", implode("\n", $lines)),
+    sprintf("private const array MIME_TYPES = [\n%s\n    ];", implode("\n", $lines)),
 ], $content);
 
 file_put_contents($file, $content);

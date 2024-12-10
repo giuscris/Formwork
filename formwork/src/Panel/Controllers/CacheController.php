@@ -8,7 +8,7 @@ use Formwork\Http\Response;
 use Formwork\Router\RouteParams;
 use Formwork\Utils\FileSystem;
 
-class CacheController extends AbstractController
+final class CacheController extends AbstractController
 {
     /**
      * Cache@clear action

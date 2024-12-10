@@ -12,12 +12,12 @@ use GdImage;
 use RuntimeException;
 use UnexpectedValueException;
 
-class GifHandler extends AbstractHandler
+final class GifHandler extends AbstractHandler
 {
     /**
      * Netscape GIF extension header
      */
-    protected const string NETSCAPE_EXT_HEADER = "!\xff\x0bNETSCAPE2.0";
+    private const string NETSCAPE_EXT_HEADER = "!\xff\x0bNETSCAPE2.0";
 
     public function getInfo(): ImageInfo
     {

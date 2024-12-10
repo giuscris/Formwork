@@ -6,16 +6,16 @@ use Formwork\Images\ImageInfo;
 use GdImage;
 use RuntimeException;
 
-class Rotate extends AbstractTransform
+final class Rotate extends AbstractTransform
 {
-    final public function __construct(
-        protected float $angle,
+    public function __construct(
+        private float $angle,
     ) {
     }
 
-    public static function fromArray(array $data): static
+    public static function fromArray(array $data): self
     {
-        return new static($data['angle']);
+        return new self($data['angle']);
     }
 
     public function apply(GdImage $gdImage, ImageInfo $imageInfo): GdImage

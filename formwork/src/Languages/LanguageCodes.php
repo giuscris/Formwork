@@ -5,7 +5,7 @@ namespace Formwork\Languages;
 use Formwork\Traits\StaticClass;
 use InvalidArgumentException;
 
-class LanguageCodes
+final class LanguageCodes
 {
     use StaticClass;
 
@@ -14,7 +14,7 @@ class LanguageCodes
      *
      * @var array<string, array{name: string, native: string, rtl?: bool, continents: list<'AF'|'AS'|'EU'|'NA'|'OC'|'SA'>}>
      */
-    protected const array LANGUAGE_CODES = [
+    private const array LANGUAGE_CODES = [
         'af' => ['name' => 'Afrikaans', 'native' => 'Afrikaans', 'continents' => ['AF']],
         'am' => ['name' => 'Amharic', 'native' => 'አማርኛ', 'continents' => ['AF']],
         'ar' => ['name' => 'Arabic', 'native' => 'العربية', 'rtl' => true, 'continents' => ['AF', 'AS']],
@@ -128,7 +128,7 @@ class LanguageCodes
      */
     public static function codeToName(string $code): string
     {
-        if (!static::hasCode($code)) {
+        if (!self::hasCode($code)) {
             throw new InvalidArgumentException(sprintf('Invalid language code "%s"', $code));
         }
         return self::LANGUAGE_CODES[$code]['name'];
@@ -139,7 +139,7 @@ class LanguageCodes
      */
     public static function codeToNativeName(string $code): string
     {
-        if (!static::hasCode($code)) {
+        if (!self::hasCode($code)) {
             throw new InvalidArgumentException(sprintf('Invalid language code "%s"', $code));
         }
         return self::LANGUAGE_CODES[$code]['native'];

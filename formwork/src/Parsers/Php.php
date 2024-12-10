@@ -10,19 +10,19 @@ use LogicException;
 use UnexpectedValueException;
 use UnitEnum;
 
-class Php extends AbstractEncoder
+final class Php extends AbstractEncoder
 {
     /**
      * Number of spaces used to indent arrays
      */
-    protected const int INDENT_SPACES = 4;
+    private const int INDENT_SPACES = 4;
 
     /**
      * Class names of objects which cannot be encoded
      *
      * @var array<class-string>
      */
-    protected const array UNENCODABLE_CLASSES = [\Closure::class, \Reflector::class, \ReflectionGenerator::class, \ReflectionType::class, \IteratorIterator::class, \RecursiveIteratorIterator::class];
+    private const array UNENCODABLE_CLASSES = [\Closure::class, \Reflector::class, \ReflectionGenerator::class, \ReflectionType::class, \IteratorIterator::class, \RecursiveIteratorIterator::class];
 
     /**
      * @param array<string, mixed> $options
@@ -46,7 +46,7 @@ class Php extends AbstractEncoder
      */
     public static function encode($data, array $options = []): string
     {
-        return static::encodeData($data);
+        return self::encodeData($data);
     }
 
     /**
@@ -58,14 +58,14 @@ class Php extends AbstractEncoder
             // Invalidate OPcache when a file is encoded again
             opcache_invalidate($file, true);
         }
-        return FileSystem::write($file, sprintf("<?php\n\nreturn %s;\n", static::encodeData($data)));
+        return FileSystem::write($file, sprintf("<?php\n\nreturn %s;\n", self::encodeData($data)));
     }
 
     /**
      * Encodes the given data like var_export() would do, but uses the short array syntax, avoids unneeded integer
      * array keys, outputs lowercase null and serializes objects which don't implement the __set_state() method
      */
-    protected static function encodeData(mixed $data, int $indent = 0): string
+    private static function encodeData(mixed $data, int $indent = 0): string
     {
         switch (($type = gettype($data))) {
             case 'array':
@@ -77,8 +77,8 @@ class Php extends AbstractEncoder
 
                 foreach ($data as $key => $value) {
                     $parts[] = str_repeat(' ', $indent + self::INDENT_SPACES)
-                        . (Arr::isAssociative($data) ? static::encodeData($key) . ' => ' : '')
-                        . static::encodeData($value, $indent + self::INDENT_SPACES);
+                        . (Arr::isAssociative($data) ? self::encodeData($key) . ' => ' : '')
+                        . self::encodeData($value, $indent + self::INDENT_SPACES);
                 }
 
                 return sprintf("[\n%s\n%s]", implode(",\n", $parts), str_repeat(' ', $indent));
@@ -97,7 +97,7 @@ class Php extends AbstractEncoder
 
                 // stdClass objects are encoded as object casts
                 if ($class === \stdClass::class) {
-                    return sprintf('(object) %s', static::encodeData((array) $data, $indent));
+                    return sprintf('(object) %s', self::encodeData((array) $data, $indent));
                 }
 
                 foreach (self::UNENCODABLE_CLASSES as $c) {
@@ -111,7 +111,7 @@ class Php extends AbstractEncoder
                 }
 
                 if ($data instanceof ArraySerializable) {
-                    return sprintf('\%s::fromArray(%s)', $class, static::encodeData($data->toArray(), $indent));
+                    return sprintf('\%s::fromArray(%s)', $class, self::encodeData($data->toArray(), $indent));
                 }
 
                 // Check if the class has a callable __set_state() magic method
@@ -123,7 +123,7 @@ class Php extends AbstractEncoder
                         // between two NUL bytes, so we need to skip that sequence
                         $properties[Str::afterLast($property, "\0")] = $value;
                     }
-                    return sprintf('\%s::__set_state(%s)', $class, static::encodeData($properties, $indent));
+                    return sprintf('\%s::__set_state(%s)', $class, self::encodeData($properties, $indent));
                 }
 
                 // In the end we try to serialize the object

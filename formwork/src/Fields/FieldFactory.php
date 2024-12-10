@@ -7,12 +7,12 @@ use Formwork\Services\Container;
 use Formwork\Translations\Translations;
 use Formwork\Utils\FileSystem;
 
-class FieldFactory
+final class FieldFactory
 {
     public function __construct(
-        protected Container $container,
-        protected Config $config,
-        protected Translations $translations,
+        private Container $container,
+        private Config $config,
+        private Translations $translations,
     ) {
     }
 

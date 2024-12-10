@@ -4,10 +4,10 @@ namespace Formwork\Schemes;
 
 use Formwork\Services\Container;
 
-class SchemeFactory
+final class SchemeFactory
 {
     public function __construct(
-        protected Container $container,
+        private Container $container,
     ) {
     }
 

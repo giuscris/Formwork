@@ -5,17 +5,15 @@ namespace Formwork\Services\Loaders;
 use Formwork\Config\Config;
 use Formwork\Fields\Dynamic\DynamicFieldValue;
 use Formwork\Fields\FieldFactory;
-use Formwork\Languages\Languages;
 use Formwork\Schemes\SchemeFactory;
 use Formwork\Schemes\Schemes;
 use Formwork\Services\Container;
 use Formwork\Services\ResolutionAwareServiceLoaderInterface;
 
-class SchemesServiceLoader implements ResolutionAwareServiceLoaderInterface
+final class SchemesServiceLoader implements ResolutionAwareServiceLoaderInterface
 {
     public function __construct(
-        protected Config $config,
-        protected Languages $languages,
+        private Config $config,
     ) {
     }
 

@@ -2,10 +2,10 @@
 
 namespace Formwork\Pages;
 
-class PageCollectionFactory
+final class PageCollectionFactory
 {
     public function __construct(
-        protected PaginationFactory $paginationFactory,
+        private PaginationFactory $paginationFactory,
     ) {
     }
 

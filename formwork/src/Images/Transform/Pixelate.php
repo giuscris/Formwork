@@ -5,16 +5,16 @@ namespace Formwork\Images\Transform;
 use Formwork\Images\ImageInfo;
 use GdImage;
 
-class Pixelate extends AbstractTransform
+final class Pixelate extends AbstractTransform
 {
-    final public function __construct(
-        protected int $amount,
+    public function __construct(
+        private int $amount,
     ) {
     }
 
-    public static function fromArray(array $data): static
+    public static function fromArray(array $data): self
     {
-        return new static($data['amount']);
+        return new self($data['amount']);
     }
 
     public function apply(GdImage $gdImage, ImageInfo $imageInfo): GdImage

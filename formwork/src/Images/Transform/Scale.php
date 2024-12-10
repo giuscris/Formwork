@@ -7,19 +7,19 @@ use GdImage;
 use InvalidArgumentException;
 use UnexpectedValueException;
 
-class Scale extends AbstractTransform
+final class Scale extends AbstractTransform
 {
-    final public function __construct(
-        protected float $factor,
+    public function __construct(
+        private float $factor,
     ) {
         if ($factor <= 0) {
             throw new InvalidArgumentException('Scale factor must be greater than 0');
         }
     }
 
-    public static function fromArray(array $data): static
+    public static function fromArray(array $data): self
     {
-        return new static($data['factor']);
+        return new self($data['factor']);
     }
 
     public function apply(GdImage $gdImage, ImageInfo $imageInfo): GdImage
