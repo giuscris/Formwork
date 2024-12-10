@@ -104,7 +104,7 @@ class User extends Model
     /**
      * Return whether the user has the default image
      */
-    public function hasDefaultImageh(): bool
+    public function hasDefaultImage(): bool
     {
         return $this->image()->path() === FileSystem::joinPaths($this->config->get('system.panel.paths.assets'), 'images/user-image.svg');
     }
