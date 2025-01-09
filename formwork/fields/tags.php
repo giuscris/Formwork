@@ -31,7 +31,7 @@ return function (App $app) {
             }
 
             if ($field->has('pattern')) {
-                $value = array_filter($value, static fn ($item): bool => Constraint::matchesRegex($item, $field->get('pattern')));
+                $value = array_filter($value, static fn($item): bool => Constraint::matchesRegex($item, $field->get('pattern')));
             }
 
             return array_values(array_filter($value));

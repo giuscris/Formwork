@@ -4,6 +4,4 @@ namespace Formwork\Users\Exceptions;
 
 use RuntimeException;
 
-class UserImageNotFoundException extends RuntimeException
-{
-}
+class UserImageNotFoundException extends RuntimeException {}

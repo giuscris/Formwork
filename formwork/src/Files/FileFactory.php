@@ -20,8 +20,7 @@ final class FileFactory
         private Config $config,
         private Schemes $schemes,
         private array $associations = [],
-    ) {
-    }
+    ) {}
 
     /**
      * Create a new File instance

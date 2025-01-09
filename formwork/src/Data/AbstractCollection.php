@@ -62,7 +62,7 @@ abstract class AbstractCollection implements Arrayable, Countable, Iterator
             ));
         }
 
-        if ($this->dataType !== null && !Arr::every($data, fn ($value) => Constraint::isOfType($value, $this->dataType, unionTypes: true))) {
+        if ($this->dataType !== null && !Arr::every($data, fn($value) => Constraint::isOfType($value, $this->dataType, unionTypes: true))) {
             throw new LogicException('Typed collections cannot be created from data of different types');
         }
 
@@ -245,7 +245,7 @@ abstract class AbstractCollection implements Arrayable, Countable, Iterator
     public function deepClone(): static
     {
         $clone = $this->clone();
-        $clone->data = Arr::map($clone->data, fn ($value) => is_object($value) ? clone $value : $value);
+        $clone->data = Arr::map($clone->data, fn($value) => is_object($value) ? clone $value : $value);
         return $clone;
     }
 
@@ -416,7 +416,7 @@ abstract class AbstractCollection implements Arrayable, Countable, Iterator
             $strict ??= true;
         }
 
-        return $this->filter(fn ($v, $k) => Constraint::isEqualTo($values[$k], $comparison ??= $value, $strict ??= false));
+        return $this->filter(fn($v, $k) => Constraint::isEqualTo($values[$k], $comparison ??= $value, $strict ??= false));
     }
 
     /**
@@ -440,7 +440,7 @@ abstract class AbstractCollection implements Arrayable, Countable, Iterator
     public function groupBy(string $key, mixed $default = null): array
     {
         $values = $this->pluck($key, $default);
-        return $this->group(fn ($v, $k) => $values[$k]);
+        return $this->group(fn($v, $k) => $values[$k]);
     }
 
     /**

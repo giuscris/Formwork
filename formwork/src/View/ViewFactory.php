@@ -15,8 +15,7 @@ final class ViewFactory
         private array $methods,
         private App $app,
         private Config $config,
-    ) {
-    }
+    ) {}
 
     /**
      * Create a new View instance

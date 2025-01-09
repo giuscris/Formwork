@@ -2,7 +2,6 @@
 
 use Formwork\Cms\App;
 use Formwork\Fields\Field;
-
 use Formwork\Utils\Arr;
 
 return function (App $app) {

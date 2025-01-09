@@ -13,8 +13,7 @@ final class TranslationsServiceLoader implements ResolutionAwareServiceLoaderInt
     public function __construct(
         private Config $config,
         private Languages $languages,
-    ) {
-    }
+    ) {}
 
     public function load(Container $container): object
     {

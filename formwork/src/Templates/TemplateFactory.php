@@ -17,8 +17,7 @@ final class TemplateFactory
         private App $app,
         private Config $config,
         private Schemes $schemes,
-    ) {
-    }
+    ) {}
 
     /**
      * Create a new Template instance
@@ -36,7 +35,7 @@ final class TemplateFactory
             'name'    => $name,
             'path'    => $path,
             'methods' => [
-                'assets' => fn () => $assets,
+                'assets' => fn() => $assets,
             ],
             'vars' => [
                 'router'    => $this->app->router(),

@@ -94,7 +94,7 @@ class Modal implements Arrayable
         $fieldCollection = new FieldCollection();
 
         // @phpstan-ignore argument.templateType
-        $fieldCollection->setMultiple(Arr::map($this->data['fields'] ?? [], fn ($data, $name) => $this->fieldFactory->make($this->id . '.' . $name, $data, $fieldCollection)));
+        $fieldCollection->setMultiple(Arr::map($this->data['fields'] ?? [], fn($data, $name) => $this->fieldFactory->make($this->id . '.' . $name, $data, $fieldCollection)));
 
         return $fieldCollection;
     }
@@ -105,7 +105,7 @@ class Modal implements Arrayable
     public function buttons(): ModalButtonCollection
     {
         if (!isset($this->buttons)) {
-            $this->buttons = new ModalButtonCollection(Arr::map($this->data['buttons'] ?? [], fn (array $data) => new ModalButton($data, $this->translation)));
+            $this->buttons = new ModalButtonCollection(Arr::map($this->data['buttons'] ?? [], fn(array $data) => new ModalButton($data, $this->translation)));
         }
         return $this->buttons;
     }
@@ -138,10 +138,10 @@ class Modal implements Arrayable
      */
     protected function translate(): void
     {
-        $this->data['title'] = Str::interpolate($this->data['title'], fn ($key) => $this->translation->translate($key));
+        $this->data['title'] = Str::interpolate($this->data['title'], fn($key) => $this->translation->translate($key));
 
         if (isset($this->data['message'])) {
-            $this->data['message'] = Str::interpolate($this->data['message'], fn ($key) => $this->translation->translate($key));
+            $this->data['message'] = Str::interpolate($this->data['message'], fn($key) => $this->translation->translate($key));
         }
     }
 }

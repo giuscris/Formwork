@@ -26,8 +26,7 @@ class Template implements Stringable
         protected Scheme $scheme,
         protected Site $site,
         protected ViewFactory $viewFactory,
-    ) {
-    }
+    ) {}
 
     public function __toString(): string
     {

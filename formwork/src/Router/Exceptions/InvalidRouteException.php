@@ -4,6 +4,4 @@ namespace Formwork\Router\Exceptions;
 
 use LogicException;
 
-class InvalidRouteException extends LogicException
-{
-}
+class InvalidRouteException extends LogicException {}

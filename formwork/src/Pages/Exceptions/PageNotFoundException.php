@@ -4,6 +4,4 @@ namespace Formwork\Pages\Exceptions;
 
 use RuntimeException;
 
-class PageNotFoundException extends RuntimeException
-{
-}
+class PageNotFoundException extends RuntimeException {}

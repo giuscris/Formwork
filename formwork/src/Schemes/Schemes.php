@@ -23,8 +23,7 @@ class Schemes
 
     public function __construct(
         protected SchemeFactory $schemeFactory,
-    ) {
-    }
+    ) {}
 
     /**
      * Load a scheme

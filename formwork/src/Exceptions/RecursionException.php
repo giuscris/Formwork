@@ -4,6 +4,4 @@ namespace Formwork\Exceptions;
 
 use RuntimeException;
 
-class RecursionException extends RuntimeException
-{
-}
+class RecursionException extends RuntimeException {}

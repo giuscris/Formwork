@@ -16,8 +16,7 @@ class Parser implements ParserInterface
 {
     public function __construct(
         protected TokenStream $tokenStream,
-    ) {
-    }
+    ) {}
 
     /**
      * Parse the tokens

@@ -4,6 +4,4 @@ namespace Formwork\Config\Exceptions;
 
 use RuntimeException;
 
-class UnresolvedConfigException extends RuntimeException
-{
-}
+class UnresolvedConfigException extends RuntimeException {}

@@ -8,8 +8,7 @@ final class ImageFactory
 {
     public function __construct(
         private Config $config,
-    ) {
-    }
+    ) {}
 
     /**
      * Create a new Image instance

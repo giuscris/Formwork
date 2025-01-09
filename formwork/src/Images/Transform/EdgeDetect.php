@@ -7,9 +7,7 @@ use GdImage;
 
 final class EdgeDetect extends AbstractTransform
 {
-    public function __construct()
-    {
-    }
+    public function __construct() {}
 
     public static function fromArray(array $data): self
     {

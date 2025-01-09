@@ -28,8 +28,7 @@ class ServiceDefinition
         protected string $name,
         protected ?object $object,
         protected Container $container,
-    ) {
-    }
+    ) {}
 
     /**
      * Get service name

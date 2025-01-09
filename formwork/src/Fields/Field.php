@@ -353,7 +353,7 @@ class Field implements Arrayable, Stringable
             return $value;
         }
 
-        $interpolate = fn ($value) => is_string($value) ? Str::interpolate($value, fn ($key) => $this->translation->translate($key)) : $value;
+        $interpolate = fn($value) => is_string($value) ? Str::interpolate($value, fn($key) => $this->translation->translate($key)) : $value;
 
         if (is_array($value)) {
             return Arr::map($value, $interpolate);

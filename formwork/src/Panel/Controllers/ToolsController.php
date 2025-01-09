@@ -42,7 +42,7 @@ final class ToolsController extends AbstractController
 
         $backupper = new Backupper([...$this->config->get('system.backup'), 'hostname' => $this->request->host()]);
 
-        $backups = Arr::map($backupper->getBackups(), fn (string $path, int $timestamp): array => [
+        $backups = Arr::map($backupper->getBackups(), fn(string $path, int $timestamp): array => [
             'name'        => basename($path),
             'encodedName' => urlencode(base64_encode(basename($path))),
             'timestamp'   => $timestamp,
@@ -107,12 +107,12 @@ final class ToolsController extends AbstractController
             $warnings[] = 'Debug mode enabled, remember to turn it off in production';
         }
 
-        $missingExtensions = Arr::reject($this->getRequiredExtensions(), fn ($extension) => extension_loaded($extension));
+        $missingExtensions = Arr::reject($this->getRequiredExtensions(), fn($extension) => extension_loaded($extension));
 
         if (($missingCount = count($missingExtensions)) > 0) {
             $warnings[] = sprintf(
                 $missingCount > 1 ? 'Required PHP extensions %s not loaded, check PHP configuration' : 'Required PHP extension %s not loaded, check PHP configuration',
-                implode(', ', Arr::map($missingExtensions, fn ($extension) => Str::wrap($extension, '`')))
+                implode(', ', Arr::map($missingExtensions, fn($extension) => Str::wrap($extension, '`')))
             );
         }
 

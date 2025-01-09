@@ -12,8 +12,7 @@ class Role
         protected string $title,
         protected Permissions $permissions,
         protected Translations $translations,
-    ) {
-    }
+    ) {}
 
     /**
      * Return role id
@@ -28,7 +27,7 @@ class Role
      */
     public function title(): string
     {
-        return Str::interpolate($this->title, fn ($key) => $this->translations->getCurrent()->translate($key));
+        return Str::interpolate($this->title, fn($key) => $this->translations->getCurrent()->translate($key));
     }
 
     /**

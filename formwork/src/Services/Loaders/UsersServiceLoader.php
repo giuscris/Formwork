@@ -24,8 +24,7 @@ final class UsersServiceLoader implements ServiceLoaderInterface
         private Config $config,
         private Translations $translations,
         private UserFactory $userFactory,
-    ) {
-    }
+    ) {}
 
     public function load(Container $container): Users
     {

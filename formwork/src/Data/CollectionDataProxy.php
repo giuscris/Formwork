@@ -6,8 +6,7 @@ final class CollectionDataProxy
 {
     public function __construct(
         private AbstractCollection $collection,
-    ) {
-    }
+    ) {}
 
     public function __get(string $name): Collection
     {

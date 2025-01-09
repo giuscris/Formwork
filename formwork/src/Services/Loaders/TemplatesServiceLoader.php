@@ -14,8 +14,7 @@ final class TemplatesServiceLoader implements ServiceLoaderInterface
     public function __construct(
         private Config $config,
         private TemplateFactory $templateFactory,
-    ) {
-    }
+    ) {}
 
     public function load(Container $container): Templates
     {

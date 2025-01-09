@@ -4,6 +4,4 @@ namespace Formwork\Config\Exceptions;
 
 use RuntimeException;
 
-class ConfigResolutionException extends RuntimeException
-{
-}
+class ConfigResolutionException extends RuntimeException {}

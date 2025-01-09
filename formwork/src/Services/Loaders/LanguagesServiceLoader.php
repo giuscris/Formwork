@@ -13,8 +13,7 @@ final class LanguagesServiceLoader implements ServiceLoaderInterface
     public function __construct(
         private Config $config,
         private Request $request,
-    ) {
-    }
+    ) {}
 
     public function load(Container $container): Languages
     {

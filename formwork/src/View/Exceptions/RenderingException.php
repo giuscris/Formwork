@@ -4,6 +4,4 @@ namespace Formwork\View\Exceptions;
 
 use RuntimeException;
 
-class RenderingException extends RuntimeException
-{
-}
+class RenderingException extends RuntimeException {}

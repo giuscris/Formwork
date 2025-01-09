@@ -21,8 +21,7 @@ class SvgSanitizer extends DomSanitizer
 
     public function __construct(
         protected DomParserInterface $domParser = new PhpDomParser(),
-    ) {
-    }
+    ) {}
 
     protected function isValidDocument(?DOMDocumentFragment $domDocumentFragment): bool
     {

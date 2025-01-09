@@ -26,8 +26,7 @@ class ContentHistory
     public function __construct(
         protected string $path,
         protected int $limit = self::HISTORY_DEFAULT_LIMIT,
-    ) {
-    }
+    ) {}
 
     /**
      * Get history file path
@@ -57,7 +56,7 @@ class ContentHistory
             return $this->items = new ContentHistoryItemCollection();
         }
         $items = Json::parse(FileSystem::read(FileSystem::joinPaths($this->path, self::HISTORY_FILENAME)));
-        return $this->items = new ContentHistoryItemCollection(Arr::map($items, fn ($item) => ContentHistoryItem::fromArray($item)));
+        return $this->items = new ContentHistoryItemCollection(Arr::map($items, fn($item) => ContentHistoryItem::fromArray($item)));
     }
 
     /**
@@ -92,7 +91,7 @@ class ContentHistory
      */
     public function save(): void
     {
-        $data = $this->items()->map(fn ($item) => $item->toArray())->toArray();
+        $data = $this->items()->map(fn($item) => $item->toArray())->toArray();
         FileSystem::write(FileSystem::joinPaths($this->path, self::HISTORY_FILENAME), Json::encode($data));
     }
 }

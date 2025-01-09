@@ -49,8 +49,7 @@ class Route
     public function __construct(
         protected string $name,
         protected string $path,
-    ) {
-    }
+    ) {}
 
     /**
      * Get route name

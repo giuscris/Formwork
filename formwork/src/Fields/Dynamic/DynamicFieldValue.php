@@ -46,8 +46,7 @@ class DynamicFieldValue
         protected string $key,
         protected string $uncomputedValue,
         protected Field $field,
-    ) {
-    }
+    ) {}
 
     /**
      * Create an instance with an already computed value

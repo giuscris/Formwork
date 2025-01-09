@@ -86,6 +86,6 @@ class ModalButton implements Arrayable
 
     protected function translate(): void
     {
-        $this->data['label'] = Str::interpolate($this->data['label'], fn ($key) => $this->translation->translate($key));
+        $this->data['label'] = Str::interpolate($this->data['label'], fn($key) => $this->translation->translate($key));
     }
 }

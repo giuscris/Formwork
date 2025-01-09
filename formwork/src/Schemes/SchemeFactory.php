@@ -8,8 +8,7 @@ final class SchemeFactory
 {
     public function __construct(
         private Container $container,
-    ) {
-    }
+    ) {}
 
     /**
      * Create a new Scheme instance

@@ -3,7 +3,6 @@
 use Formwork\Cms\App;
 use Formwork\Fields\Exceptions\ValidationException;
 use Formwork\Fields\Field;
-
 use Formwork\Utils\Constraint;
 
 return function (App $app) {

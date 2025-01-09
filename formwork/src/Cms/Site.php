@@ -131,7 +131,7 @@ class Site extends Model implements Stringable
     {
         $defaults = $this->config->getDefaults('site');
 
-        return [...$defaults, ...Arr::reject($this->fields()->pluck('default'), fn ($value) => $value === null)];
+        return [...$defaults, ...Arr::reject($this->fields()->pluck('default'), fn($value) => $value === null)];
     }
 
     public function parent(): Page|Site|null

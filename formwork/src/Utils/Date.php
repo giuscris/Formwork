@@ -108,7 +108,7 @@ final class Date
         $map = array_flip(self::PATTERN_TO_DATE_FORMAT);
         return preg_replace_callback(
             self::DATE_FORMAT_REGEX,
-            fn (array $matches): string => match (true) {
+            fn(array $matches): string => match (true) {
                 isset($matches['invalid']) => '',
                 isset($matches['escaped']) => '[' . str_replace('\\', '', $matches['escaped']) . ']',
                 default                    => $map[$matches[0]] ?? '',
@@ -126,7 +126,7 @@ final class Date
     {
         return preg_replace_callback(
             self::PATTERN_REGEX,
-            fn (array $matches): string => match (true) {
+            fn(array $matches): string => match (true) {
                 isset($matches['invalid']) => '',
                 isset($matches['escaped']) => addcslashes($matches['escaped'], 'A..Za..z'),
                 default                    => self::PATTERN_TO_DATE_FORMAT[$matches[0]] ?? '',
@@ -142,7 +142,7 @@ final class Date
     {
         return preg_replace_callback(
             self::DATE_FORMAT_REGEX,
-            fn (array $matches): string => match ($matches[0]) {
+            fn(array $matches): string => match ($matches[0]) {
                 'M'     => $translation->getStrings('date.months.short')[$dateTime->format('n') - 1],
                 'F'     => $translation->getStrings('date.months.long')[$dateTime->format('n') - 1],
                 'D'     => $translation->getStrings('date.weekdays.short')[(int) $dateTime->format('w')],

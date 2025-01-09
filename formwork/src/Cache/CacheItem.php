@@ -8,8 +8,7 @@ class CacheItem implements CacheItemInterface
         protected mixed $value,
         protected int $expirationTime,
         protected int $cachedTime,
-    ) {
-    }
+    ) {}
 
     /**
      * Return the cached value

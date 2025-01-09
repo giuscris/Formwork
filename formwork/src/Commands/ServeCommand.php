@@ -135,7 +135,7 @@ final class ServeCommand
                     $this->climate->br();
 
                     $input = $this->climate->input('➜ Enter another port:');
-                    $input->accept(fn (string $response) => ctype_digit($response));
+                    $input->accept(fn(string $response) => ctype_digit($response));
 
                     $this->port = (int) $input->prompt();
 

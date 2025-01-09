@@ -98,7 +98,7 @@ class Scheme implements Arrayable
     {
         $fieldCollection = new FieldCollection();
 
-        $fieldCollection->setMultiple(Arr::map($this->data['fields'] ?? [], fn ($data, $name) => $this->fieldFactory->make($name, $data, $fieldCollection)));
+        $fieldCollection->setMultiple(Arr::map($this->data['fields'] ?? [], fn($data, $name) => $this->fieldFactory->make($name, $data, $fieldCollection)));
 
         $layout = new Layout($this->data['layout'] ?? ['type' => 'default', 'sections' => []], $this->translations->getCurrent());
 
@@ -134,7 +134,7 @@ class Scheme implements Arrayable
             return $value;
         }
 
-        $interpolate = fn ($value) => is_string($value) ? Str::interpolate($value, fn ($key) => $translation->translate($key)) : $value;
+        $interpolate = fn($value) => is_string($value) ? Str::interpolate($value, fn($key) => $translation->translate($key)) : $value;
 
         if (is_array($value)) {
             return Arr::map($value, $interpolate);

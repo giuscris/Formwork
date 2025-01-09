@@ -2,6 +2,4 @@
 
 namespace Formwork\Users;
 
-class Users extends UserCollection
-{
-}
+class Users extends UserCollection {}

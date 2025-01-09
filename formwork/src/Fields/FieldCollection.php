@@ -77,7 +77,7 @@ class FieldCollection extends AbstractCollection
      */
     public function isValid(): bool
     {
-        return $this->every(fn ($field) => $field->isValid());
+        return $this->every(fn($field) => $field->isValid());
     }
 
     /**
@@ -85,7 +85,7 @@ class FieldCollection extends AbstractCollection
      */
     public function isValidated(): bool
     {
-        return $this->every(fn ($field) => $field->isValidated());
+        return $this->every(fn($field) => $field->isValidated());
     }
 
     /**

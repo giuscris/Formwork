@@ -8,8 +8,7 @@ final class PageFactory
 {
     public function __construct(
         private Container $container,
-    ) {
-    }
+    ) {}
 
     /**
      * Create a new Page instance

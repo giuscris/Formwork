@@ -18,7 +18,7 @@ if ($path !== '/index.php' && is_file($root . $path)) {
 }
 
 // Log requests to the console as if they were not rewritten
-register_shutdown_function(fn () => error_log(sprintf(
+register_shutdown_function(fn() => error_log(sprintf(
     '%s:%d [%d]: %s %s',
     $_SERVER['REMOTE_ADDR'],
     $_SERVER['REMOTE_PORT'],

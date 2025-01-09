@@ -99,7 +99,7 @@ class PageCollection extends AbstractCollection implements Paginable
 
         $keywords = explode(' ', $query);
 
-        $keywords = array_filter($keywords, fn (string $item): bool => strlen($item) > $min);
+        $keywords = array_filter($keywords, fn(string $item): bool => strlen($item) > $min);
 
         $queryRegex = '/\b' . preg_quote($query, '/') . '\b/iu';
         $keywordsRegex = '/(?:\b' . implode('\b|\b', $keywords) . '\b)/iu';

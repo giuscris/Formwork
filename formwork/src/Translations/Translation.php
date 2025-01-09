@@ -15,8 +15,7 @@ class Translation
     public function __construct(
         protected string $code,
         protected array $data,
-    ) {
-    }
+    ) {}
 
     /**
      * Set the fallback translation

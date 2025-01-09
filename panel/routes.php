@@ -19,7 +19,7 @@ return [
     'routes' => [
         'panel.index' => [
             'path'   => '/',
-            'action' => fn (Panel $panel) => new RedirectResponse($panel->uri('/dashboard/')),
+            'action' => fn(Panel $panel) => new RedirectResponse($panel->uri('/dashboard/')),
         ],
 
         'panel.login' => [

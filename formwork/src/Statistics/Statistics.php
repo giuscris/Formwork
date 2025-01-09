@@ -123,7 +123,7 @@ final class Statistics
 
         $labels = Arr::map(
             iterator_to_array($this->generateDays($limit)),
-            fn (string $day): string => Date::formatTimestamp(Date::toTimestamp($day, self::DATE_FORMAT), "D\nj M", $this->translation)
+            fn(string $day): string => Date::formatTimestamp(Date::toTimestamp($day, self::DATE_FORMAT), "D\nj M", $this->translation)
         );
 
         return [

@@ -28,8 +28,7 @@ class Config implements ArraySerializable
     final public function __construct(
         protected array $config = [],
         protected array $defaults = [],
-    ) {
-    }
+    ) {}
 
     /**
      * Check if a key exists in the config

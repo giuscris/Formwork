@@ -25,7 +25,7 @@ class FileUploader
         protected Config $config,
         protected FileFactory $fileFactory,
     ) {
-        $this->allowedMimeTypes = Arr::map($this->config->get('system.files.allowedExtensions'), fn (string $ext) => MimeType::fromExtension($ext));
+        $this->allowedMimeTypes = Arr::map($this->config->get('system.files.allowedExtensions'), fn(string $ext) => MimeType::fromExtension($ext));
     }
 
     /**

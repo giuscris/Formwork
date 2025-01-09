@@ -64,6 +64,6 @@ return function (App $app) {
             return Date::formatTimestampAsDistance($timestamp, $app->translations()->getCurrent());
         },
 
-        'translate' => fn (string $key, ...$arguments) => $app->translations()->getCurrent()->translate($key, ...$arguments),
+        'translate' => fn(string $key, ...$arguments) => $app->translations()->getCurrent()->translate($key, ...$arguments),
     ];
 };

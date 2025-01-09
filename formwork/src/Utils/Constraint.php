@@ -107,7 +107,7 @@ final class Constraint
     public static function isOfType(mixed $value, string $type, bool $unionTypes = false): bool
     {
         if ($unionTypes) {
-            return Arr::some(explode('|', $type), fn ($type) => self::isOfType($value, $type, unionTypes: false));
+            return Arr::some(explode('|', $type), fn($type) => self::isOfType($value, $type, unionTypes: false));
         }
         if (is_object($value)) {
             return $value instanceof $type;

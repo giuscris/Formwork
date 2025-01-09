@@ -26,8 +26,7 @@ final class PanelServiceLoader implements ResolutionAwareServiceLoaderInterface
         private Request $request,
         private Schemes $schemes,
         private Translations $translations,
-    ) {
-    }
+    ) {}
 
     public function load(Container $container): Panel
     {

@@ -2,6 +2,4 @@
 
 namespace Formwork\Templates;
 
-class Templates extends TemplateCollection
-{
-}
+class Templates extends TemplateCollection {}

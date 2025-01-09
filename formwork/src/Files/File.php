@@ -257,7 +257,7 @@ class File extends Model implements Arrayable, Stringable
     private function matchExtensions(array $extensions): bool
     {
         $mimeTypes = array_map(
-            static fn (string $extension): string => MimeType::fromExtension($extension),
+            static fn(string $extension): string => MimeType::fromExtension($extension),
             $extensions
         );
         return in_array($this->mimeType, $mimeTypes, true);

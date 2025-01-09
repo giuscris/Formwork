@@ -10,8 +10,7 @@ final class Rotate extends AbstractTransform
 {
     public function __construct(
         private float $angle,
-    ) {
-    }
+    ) {}
 
     public static function fromArray(array $data): self
     {

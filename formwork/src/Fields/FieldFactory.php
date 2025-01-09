@@ -13,8 +13,7 @@ final class FieldFactory
         private Container $container,
         private Config $config,
         private Translations $translations,
-    ) {
-    }
+    ) {}
 
     /**
      * Create a new Field instance

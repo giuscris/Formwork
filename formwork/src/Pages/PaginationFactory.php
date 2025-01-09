@@ -10,8 +10,7 @@ final class PaginationFactory
     public function __construct(
         private App $app,
         private Router $router,
-    ) {
-    }
+    ) {}
 
     /**
      * Create a new Pagination instance

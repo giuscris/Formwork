@@ -65,8 +65,7 @@ class DomSanitizer
 
     public function __construct(
         protected DomParserInterface $domParser = new Html5Parser(),
-    ) {
-    }
+    ) {}
 
     /**
      * Set the method used to sanitize elements

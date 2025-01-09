@@ -11,8 +11,7 @@ final class SiteServiceLoader implements ResolutionAwareServiceLoaderInterface
 {
     public function __construct(
         private Config $config,
-    ) {
-    }
+    ) {}
 
     public function load(Container $container): Site
     {

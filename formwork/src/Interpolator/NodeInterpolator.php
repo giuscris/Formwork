@@ -21,8 +21,7 @@ class NodeInterpolator
     public function __construct(
         protected AbstractNode $node,
         protected array $vars,
-    ) {
-    }
+    ) {}
 
     /**
      * Return the value interpolated from the node

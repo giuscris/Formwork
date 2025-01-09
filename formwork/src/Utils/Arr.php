@@ -432,7 +432,7 @@ final class Arr
      */
     public static function reject(array $array, callable $callback): array
     {
-        return self::filter($array, fn ($value, $key) => !$callback($value, $key));
+        return self::filter($array, fn($value, $key) => !$callback($value, $key));
     }
 
     /**
@@ -503,7 +503,7 @@ final class Arr
      */
     public static function pluck(array $array, string $key, mixed $default = null): array
     {
-        return self::map($array, fn ($value) => self::get(self::from($value), $key, $default));
+        return self::map($array, fn($value) => self::get(self::from($value), $key, $default));
     }
 
     /**

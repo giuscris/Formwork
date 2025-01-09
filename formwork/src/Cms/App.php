@@ -190,9 +190,9 @@ final class App
             ->alias('config');
 
         $container->define(ViewFactory::class)
-            ->parameter('methods', fn (Container $container) => $container->call(require SYSTEM_PATH . '/helpers.php'));
+            ->parameter('methods', fn(Container $container) => $container->call(require SYSTEM_PATH . '/helpers.php'));
 
-        $container->define(Request::class, fn () => Request::fromGlobals())
+        $container->define(Request::class, fn() => Request::fromGlobals())
             ->alias('request');
 
         $container->define(ErrorsController::class)
@@ -233,13 +233,13 @@ final class App
             ->alias('templates');
 
         $container->define(Statistics::class)
-            ->parameter('path', fn (Config $config) => $config->get('system.statistics.path'))
-            ->parameter('translation', fn (Translations $translations) => $translations->getCurrent())
+            ->parameter('path', fn(Config $config) => $config->get('system.statistics.path'))
+            ->parameter('translation', fn(Translations $translations) => $translations->getCurrent())
             ->alias('statistics');
 
         $container->define(FilesCache::class)
-            ->parameter('path', fn (Config $config) => $config->get('system.cache.path'))
-            ->parameter('defaultTtl', fn (Config $config) => $config->get('system.cache.time'))
+            ->parameter('path', fn(Config $config) => $config->get('system.cache.path'))
+            ->parameter('defaultTtl', fn(Config $config) => $config->get('system.cache.time'))
             ->alias(AbstractCache::class)
             ->alias('cache');
 

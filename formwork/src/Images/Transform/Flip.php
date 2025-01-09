@@ -20,8 +20,7 @@ final class Flip extends AbstractTransform
 
     public function __construct(
         private FlipDirection $flipDirection,
-    ) {
-    }
+    ) {}
 
     public static function fromArray(array $data): self
     {

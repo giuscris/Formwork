@@ -37,6 +37,6 @@ class UserCollection extends AbstractCollection
      */
     public function loggedIn(): ?User
     {
-        return $this->find(fn (User $user): bool => $user->isLoggedIn());
+        return $this->find(fn(User $user): bool => $user->isLoggedIn());
     }
 }

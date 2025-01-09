@@ -9,8 +9,7 @@ final class Pixelate extends AbstractTransform
 {
     public function __construct(
         private int $amount,
-    ) {
-    }
+    ) {}
 
     public static function fromArray(array $data): self
     {

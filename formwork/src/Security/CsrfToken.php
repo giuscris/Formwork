@@ -13,8 +13,7 @@ final class CsrfToken
 
     public function __construct(
         private Request $request,
-    ) {
-    }
+    ) {}
 
     /**
      * Generate a new CSRF token

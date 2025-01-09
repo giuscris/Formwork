@@ -19,8 +19,7 @@ class FileUriGenerator
         protected Router $router,
         protected Request $request,
         protected Site $site,
-    ) {
-    }
+    ) {}
 
     /**
      * Generate URI for the given File

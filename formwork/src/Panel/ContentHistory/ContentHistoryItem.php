@@ -10,8 +10,7 @@ class ContentHistoryItem implements ArraySerializable
         protected ContentHistoryEvent $contentHistoryEvent,
         protected string $user,
         protected int $time,
-    ) {
-    }
+    ) {}
 
     /**
      * Get the event of the history item

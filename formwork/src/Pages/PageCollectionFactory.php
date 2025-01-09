@@ -6,8 +6,7 @@ final class PageCollectionFactory
 {
     public function __construct(
         private PaginationFactory $paginationFactory,
-    ) {
-    }
+    ) {}
 
     /**
      * Create a new PageCollection instance

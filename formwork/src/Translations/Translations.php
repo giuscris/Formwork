@@ -28,8 +28,7 @@ class Translations
 
     public function __construct(
         protected Config $config,
-    ) {
-    }
+    ) {}
 
     /**
      * Load a translation file

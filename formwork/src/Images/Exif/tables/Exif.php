@@ -90,7 +90,7 @@ return [
     ],
     'ComponentsConfiguration' => [
         'type'        => 'binary',
-        'description' => fn (string $value) => array_map(fn (string $char) => match ((int) $char) {
+        'description' => fn(string $value) => array_map(fn(string $char) => match ((int) $char) {
             1       => 'Y',
             2       => 'Cb',
             3       => 'Cr',
@@ -392,7 +392,7 @@ return [
     ],
     'GPSVersion' => [
         'type'        => 'binary',
-        'description' => fn (string $value) => sprintf('%d.%d.%d.%d', $value[0], $value[1], $value[2], $value[3]),
+        'description' => fn(string $value) => sprintf('%d.%d.%d.%d', $value[0], $value[1], $value[2], $value[3]),
     ],
     'GPSLatitude' => [
         'type' => 'coords',

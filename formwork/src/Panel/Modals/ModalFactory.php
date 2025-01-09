@@ -14,8 +14,7 @@ final class ModalFactory
         private Config $config,
         private Translations $translations,
         private FieldFactory $fieldFactory,
-    ) {
-    }
+    ) {}
 
     /**
      * Create a new Modal instance

@@ -293,7 +293,7 @@ final class Str
     public static function dotNotationToBrackets(string $string): string
     {
         $segments = explode('.', $string);
-        return array_shift($segments) . implode('', Arr::map($segments, fn ($segment) => '[' . $segment . ']'));
+        return array_shift($segments) . implode('', Arr::map($segments, fn($segment) => '[' . $segment . ']'));
     }
 
     /**

@@ -2,6 +2,4 @@
 
 namespace Formwork\Utils\Exceptions;
 
-class FileNotFoundException extends FileSystemException
-{
-}
+class FileNotFoundException extends FileSystemException {}

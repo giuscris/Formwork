@@ -8,8 +8,7 @@ final class UserFactory
 {
     public function __construct(
         private Container $container,
-    ) {
-    }
+    ) {}
 
     /**
      * Create a new User instance

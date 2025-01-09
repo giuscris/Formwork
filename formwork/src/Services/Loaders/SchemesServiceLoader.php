@@ -14,8 +14,7 @@ final class SchemesServiceLoader implements ResolutionAwareServiceLoaderInterfac
 {
     public function __construct(
         private Config $config,
-    ) {
-    }
+    ) {}
 
     public function load(Container $container): object
     {
@@ -23,7 +22,7 @@ final class SchemesServiceLoader implements ResolutionAwareServiceLoaderInterfac
 
         $container->define(FieldFactory::class);
 
-        DynamicFieldValue::$varsLoader = fn () => $container->call(require $this->config->get('system.fields.dynamic.vars.file'));
+        DynamicFieldValue::$varsLoader = fn() => $container->call(require $this->config->get('system.fields.dynamic.vars.file'));
 
         return $container->build(Schemes::class);
     }

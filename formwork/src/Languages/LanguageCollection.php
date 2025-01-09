@@ -16,6 +16,6 @@ class LanguageCollection extends AbstractCollection
      */
     public function __construct(array $data)
     {
-        parent::__construct(Arr::fromEntries(Arr::map($data, fn (string $code) => [$code, new Language($code)])));
+        parent::__construct(Arr::fromEntries(Arr::map($data, fn(string $code) => [$code, new Language($code)])));
     }
 }

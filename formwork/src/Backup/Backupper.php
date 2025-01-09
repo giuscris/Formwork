@@ -19,8 +19,7 @@ final class Backupper
      */
     public function __construct(
         private array $options,
-    ) {
-    }
+    ) {}
 
     /**
      * Make a backup of all site files

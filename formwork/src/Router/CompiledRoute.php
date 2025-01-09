@@ -11,8 +11,7 @@ class CompiledRoute
         protected string $path,
         protected string $regex,
         protected array $params,
-    ) {
-    }
+    ) {}
 
     /**
      * Get route path

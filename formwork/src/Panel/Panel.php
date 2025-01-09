@@ -28,8 +28,7 @@ final class Panel
         private Config $config,
         private Request $request,
         private Users $users,
-    ) {
-    }
+    ) {}
 
     /**
      * Return whether a user is logged in

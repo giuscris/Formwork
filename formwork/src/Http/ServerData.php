@@ -27,6 +27,6 @@ class ServerData extends RequestData
             }
         });
 
-        return Arr::mapKeys($headers, fn ($key) => Str::after($key, 'HTTP_'));
+        return Arr::mapKeys($headers, fn($key) => Str::after($key, 'HTTP_'));
     }
 }

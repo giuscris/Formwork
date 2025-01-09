@@ -40,8 +40,7 @@ class Token implements Stringable
         protected string $type,
         protected ?string $value,
         protected int $position,
-    ) {
-    }
+    ) {}
 
     public function __toString(): string
     {

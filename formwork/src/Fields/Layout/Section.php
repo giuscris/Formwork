@@ -33,6 +33,6 @@ class Section
      */
     public function label(): string
     {
-        return Str::interpolate($this->get('label', ''), fn ($key) => $this->translation->translate($key));
+        return Str::interpolate($this->get('label', ''), fn($key) => $this->translation->translate($key));
     }
 }
