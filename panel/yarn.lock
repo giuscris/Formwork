@@ -108,9 +108,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@codemirror/lang-markdown@npm:^6.3.0":
-  version: 6.3.0
-  resolution: "@codemirror/lang-markdown@npm:6.3.0"
+"@codemirror/lang-markdown@npm:^6.3.2":
+  version: 6.3.2
+  resolution: "@codemirror/lang-markdown@npm:6.3.2"
   dependencies:
     "@codemirror/autocomplete": "npm:^6.7.1"
     "@codemirror/lang-html": "npm:^6.0.0"
@@ -119,7 +119,7 @@ __metadata:
     "@codemirror/view": "npm:^6.0.0"
     "@lezer/common": "npm:^1.2.1"
     "@lezer/markdown": "npm:^1.0.0"
-  checksum: 10c0/983a412d568b9d88fd1197d57f51b4cedea09889cc7635d1911424931c3000a0ad8d7267429c3144e2148de13055d2456d5d543fee6267822191a65661752971
+  checksum: 10c0/dc1c8449cf320def12d2d9bbcba24a697513431650cc5a97413de9b70fc514521e1a677351f45cc73081ac1ff58812554ba580929a1f722d21ae66233f944499
   languageName: node
   linkType: hard
 
@@ -1814,7 +1814,7 @@ __metadata:
   resolution: "formwork-panel@workspace:."
   dependencies:
     "@codemirror/commands": "npm:^6.7.0"
-    "@codemirror/lang-markdown": "npm:^6.3.0"
+    "@codemirror/lang-markdown": "npm:^6.3.2"
     "@codemirror/language": "npm:^6.10.6"
     "@codemirror/view": "npm:^6.34.1"
     "@eslint/js": "npm:^9.13.0"
