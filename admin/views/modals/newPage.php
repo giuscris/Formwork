@@ -15,7 +15,7 @@
                     $scheme = $this->scheme($page->template()->name());
                     if (!$scheme->get('children', true)) continue;
 ?>
-                <option value="<?= $page->route() ?>"<?php if ($scheme->has('children.templates')): ?> data-allowed-templates="<?= implode(', ', $scheme->get('children.templates'))?>"<?php endif; ?>><?= str_repeat('— ', $page->level() - 1) . $page->title() ?></option>
+                <option value="<?= $page->route() ?>"<?php if ($scheme->has('children.templates')): ?> data-allowed-templates="<?= implode(', ', $scheme->get('children.templates'))?>"<?php endif; ?>><?= $this->escape(str_repeat('— ', $page->level() - 1) . $page->title()) ?></option>
 <?php
                 endforeach;
 ?>
@@ -26,7 +26,7 @@
             foreach ($templates as $template):
                 $scheme = $this->scheme($template);
 ?>
-                <option value="<?= $template ?>"<?php if ($scheme->isDefault()): ?> selected<?php endif; ?>><?= $scheme->title() ?></option>
+                <option value="<?= $template ?>"<?php if ($scheme->isDefault()): ?> selected<?php endif; ?>><?= $this->escape($scheme->title()) ?></option>
 <?php
             endforeach;
 ?>

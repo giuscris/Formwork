@@ -34,7 +34,7 @@
 <?php
                     foreach ($admin->translation()->availableLanguages() as $key => $value):
 ?>
-                        <option value="<?= $key ?>"<?php if ($key === $admin->translation()->code()): ?> selected<?php endif; ?>><?= $value ?></option>
+                        <option value="<?= $key ?>"<?php if ($key === $admin->translation()->code()): ?> selected<?php endif; ?>><?= $this->escape($value) ?></option>
 <?php
                     endforeach;
 ?>

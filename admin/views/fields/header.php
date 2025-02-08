@@ -1,1 +1,1 @@
-<div class="section-header"><?= $field->label() ?></div>
+<div class="section-header"><?= $this->escape($field->label()) ?></div>

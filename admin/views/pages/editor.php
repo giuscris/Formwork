@@ -130,7 +130,7 @@
                             if (!$scheme->get('pages', true)) continue;
                             if ($parent === $page) continue;
 ?>
-                        <option value="<?= $parent->route() ?>"<?php if ($page->parent() === $parent): ?> selected<?php endif; ?>><?= str_repeat('— ', $parent->level() - 1) . $parent->title() ?></option>
+                        <option value="<?= $parent->route() ?>"<?php if ($page->parent() === $parent): ?> selected<?php endif; ?>><?= $this->escape(str_repeat('— ', $parent->level() - 1) . $parent->title()) ?></option>
 <?php
                         endforeach;
 ?>
@@ -141,7 +141,7 @@
                     foreach ($templates as $template):
                         $scheme = $this->scheme($template);
 ?>
-                        <option value="<?= $template ?>"<?php if ($page->template()->name() === $template): ?> selected<?php endif; ?>><?= $scheme->title() ?></option>
+                        <option value="<?= $template ?>"<?php if ($page->template()->name() === $template): ?> selected<?php endif; ?>><?= $this->escape($scheme->title()) ?></option>
 <?php
                     endforeach;
 ?>

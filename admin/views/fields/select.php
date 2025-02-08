@@ -6,6 +6,6 @@
     'disabled' => $field->isDisabled()
 ]) ?>>
 <?php foreach ((array) $field->get('options') as $value => $label): ?>
-    <option <?= $this->attr(['value' => $value, 'selected' => $value == $field->value()]) ?>><?= $label ?></option>
+    <option <?= $this->attr(['value' => $value, 'selected' => $value == $field->value()]) ?>><?= $this->escape($label) ?></option>
 <?php endforeach; ?>
 </select>

@@ -9,6 +9,6 @@
             'required' => $field->isRequired(),
             'disabled' => $field->isDisabled()
         ]) ?>>
-        <span class="custom-checkbox-text"><?= $field->label() ?></span>
+        <span class="custom-checkbox-text"><?= $this->escape($field->label()) ?></span>
     </label>
 </div>
