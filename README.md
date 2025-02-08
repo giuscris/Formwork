@@ -1,11 +1,11 @@
 # <img src="panel/assets/images/icon.svg" height="28"> Formwork
 
-[![Discord](https://img.shields.io/discord/637658168754831380?color=%235865f2&label=chat&logo=discord&logoColor=%23fff)](https://discord.gg/zgFRhSDMBW)
+[![PHP from Packagist](https://img.shields.io/packagist/php-v/getformwork/formwork.svg?color=%237a86b8&version=2.x-dev)](#requirements)
+[![PHPStan Level](https://img.shields.io/badge/PHPStan-level%208-brightgreen)](https://github.com/phpstan/phpstan)
+[![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/getformwork/formwork/check.yaml)](https://github.com/getformwork/formwork/actions/workflows/check.yaml)
 [![GitHub Release Date](https://img.shields.io/github/release-date/getformwork/formwork.svg)](https://github.com/getformwork/formwork/releases/latest)
 [![GitHub All Releases](https://img.shields.io/github/downloads/getformwork/formwork/total.svg)](https://github.com/getformwork/formwork/releases)
 [![Packagist](https://img.shields.io/packagist/dt/getformwork/formwork.svg?color=%23f28d1a&label=Packagist%20downloads)](https://packagist.org/packages/getformwork/formwork)
-[![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/getformwork/formwork.svg)]()
-[![PHP from Packagist](https://img.shields.io/packagist/php-v/getformwork/formwork.svg?version=2.x-dev)](#requirements)
 
 🏗 Formwork is a flat file-based Content Management System (CMS) to build and manage simple sites.
 
