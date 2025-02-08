@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.13.2](https://github.com/getformwork/formwork/releases/tag/1.13.1) (2025-02-08)
+
+**Security**
+
+- Escape administration panel fields
+
 ## [1.13.1](https://github.com/getformwork/formwork/releases/tag/1.13.1) (2024-06-07)
 
 **Security**
