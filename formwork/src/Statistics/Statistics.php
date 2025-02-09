@@ -47,6 +47,16 @@ final class Statistics
     private const string PAGE_VIEWS_FILENAME = 'pageViews.json';
 
     /**
+     * Sources registry filename
+     */
+    private const string SOURCES_FILENAME = 'sources.json';
+
+    /**
+     * Devices registry filename
+     */
+    private const string DEVICES_FILENAME = 'devices.json';
+
+    /**
      * Visits registry
      */
     private Registry $visitsRegistry;
@@ -66,6 +76,16 @@ final class Statistics
      */
     private Registry $pageViewsRegistry;
 
+    /**
+     * Sources registry
+     */
+    private Registry $sourcesRegistry;
+
+    /**
+     * Devices registry
+     */
+    private Registry $devicesRegistry;
+
     public function __construct(
         string $path,
         private Request $request,
@@ -79,6 +99,8 @@ final class Statistics
         $this->uniqueVisitsRegistry = new Registry(FileSystem::joinPaths($path, self::UNIQUE_VISITS_FILENAME));
         $this->visitorsRegistry = new Registry(FileSystem::joinPaths($path, self::VISITORS_FILENAME));
         $this->pageViewsRegistry = new Registry(FileSystem::joinPaths($path, self::PAGE_VIEWS_FILENAME));
+        $this->sourcesRegistry = new Registry(FileSystem::joinPaths($path, self::SOURCES_FILENAME));
+        $this->devicesRegistry = new Registry(FileSystem::joinPaths($path, self::DEVICES_FILENAME));
     }
 
     /**
@@ -110,6 +132,18 @@ final class Statistics
         $pageViews = $this->pageViewsRegistry->has($uri) ? (int) $this->pageViewsRegistry->get($uri) : 0;
         $this->pageViewsRegistry->set($uri, $pageViews + 1);
         $this->pageViewsRegistry->save();
+
+        if (($referer = $this->request->referer()) === null || ($source = Uri::host($referer)) !== $this->request->host()) {
+            $source ??= '';
+            $sourceVisits = $this->sourcesRegistry->has($source) ? (int) $this->sourcesRegistry->get($source) : 0;
+            $this->sourcesRegistry->set($source, $sourceVisits + 1);
+            $this->sourcesRegistry->save();
+        }
+
+        $device = Visitor::getDeviceType($this->request)->value;
+        $deviceVisits = $this->devicesRegistry->has($device) ? (int) $this->devicesRegistry->get($device) : 0;
+        $this->devicesRegistry->set($device, $deviceVisits + 1);
+        $this->devicesRegistry->save();
     }
 
     /**
@@ -145,6 +179,26 @@ final class Statistics
     public function getPageViews(): array
     {
         return Arr::sort($this->pageViewsRegistry->toArray(), SORT_DESC);
+    }
+
+    /**
+     * Return visits by source
+     *
+     * @return array<string, int>
+     */
+    public function getSources(): array
+    {
+        return Arr::sort($this->sourcesRegistry->toArray(), SORT_DESC);
+    }
+
+    /**
+     * Return visits by devices
+     *
+     * @return array<string, int>
+     */
+    public function getDevices(): array
+    {
+        return Arr::sort($this->devicesRegistry->toArray(), SORT_DESC);
     }
 
     /**
