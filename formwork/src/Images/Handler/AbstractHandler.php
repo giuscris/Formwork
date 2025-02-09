@@ -138,7 +138,7 @@ abstract class AbstractHandler implements HandlerInterface
      */
     protected function toGdImage(): GdImage
     {
-        if (($image = imagecreatefromstring($this->data)) === false) {
+        if (($image = @imagecreatefromstring($this->data)) === false) {
             throw new UnexpectedValueException('Invalid image data');
         }
 
