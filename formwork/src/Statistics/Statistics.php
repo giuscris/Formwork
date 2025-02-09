@@ -10,6 +10,8 @@ use Formwork\Translations\Translation;
 use Formwork\Utils\Arr;
 use Formwork\Utils\Date;
 use Formwork\Utils\FileSystem;
+use Formwork\Utils\Str;
+use Formwork\Utils\Uri;
 use Generator;
 
 final class Statistics
@@ -104,7 +106,7 @@ final class Statistics
         $this->visitorsRegistry->set($ip, $date);
         $this->visitorsRegistry->save();
 
-        $uri = $this->request->uri();
+        $uri = Str::append(Uri::make(['query' => '', 'fragment' => ''], $this->request->uri()), '/');
         $pageViews = $this->pageViewsRegistry->has($uri) ? (int) $this->pageViewsRegistry->get($uri) : 0;
         $this->pageViewsRegistry->set($uri, $pageViews + 1);
         $this->pageViewsRegistry->save();
