@@ -2,6 +2,7 @@
 
 namespace Formwork\Statistics;
 
+use Formwork\Config\Config;
 use Formwork\Http\Request;
 use Formwork\Http\Utils\IpAnonymizer;
 use Formwork\Http\Utils\Visitor;
@@ -88,6 +89,7 @@ final class Statistics
 
     public function __construct(
         string $path,
+        private Config $config,
         private Request $request,
         private Translation $translation,
     ) {
@@ -108,6 +110,10 @@ final class Statistics
      */
     public function trackVisit(): void
     {
+        if ($this->request->isLocalhost() && !$this->config->get('system.statistics.trackLocalhost')) {
+            return;
+        }
+
         if (Visitor::isBot($this->request) || !$this->request->ip()) {
             return;
         }
