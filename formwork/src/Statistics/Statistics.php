@@ -23,6 +23,21 @@ final class Statistics
     private const string DATE_FORMAT = 'Ymd';
 
     /**
+     * Delay between visits from the same visitor
+     */
+    private const int VISITS_DELAY = 15;
+
+    /**
+     * Probability of visitor data cleanup
+     */
+    private const int CLEANUP_PROBABILITY = 5;
+
+    /**
+     * Time to live for visitor data
+     */
+    private const int CLEANUP_TTL = 60 * 60 * 48;
+
+    /**
      * Number of days displayed in the statistics chart
      */
     private const int CHART_LIMIT = 7;
@@ -118,23 +133,39 @@ final class Statistics
             return;
         }
 
-        $date = date(self::DATE_FORMAT);
         $ip = IpAnonymizer::anonymize($this->request->ip());
+        $uri = Str::append(Uri::make(['query' => '', 'fragment' => ''], $this->request->uri()), '/');
+
+        // Prefer speed over security for hashing, as it's not a security-critical operation
+        $hash = hash('xxh3', $ip . '@' . $uri);
+
+        $timestamp = time();
+
+        if ($this->visitorsRegistry->has($hash) && $timestamp - $this->visitorsRegistry->get($hash) < self::VISITS_DELAY) {
+            return;
+        }
+
+        if (random_int(1, 100) <= self::CLEANUP_PROBABILITY) {
+            $this->cleanupVisitorData();
+        }
+
+        $this->visitorsRegistry->set($hash, $timestamp);
+        $this->visitorsRegistry->save();
+
+        $date = date(self::DATE_FORMAT, $timestamp);
 
         $todayVisits = $this->visitsRegistry->has($date) ? (int) $this->visitsRegistry->get($date) : 0;
         $this->visitsRegistry->set($date, $todayVisits + 1);
         $this->visitsRegistry->save();
 
         $todayUniqueVisits = $this->uniqueVisitsRegistry->has($date) ? (int) $this->uniqueVisitsRegistry->get($date) : 0;
-        if (!$this->visitorsRegistry->has($ip) || $this->visitorsRegistry->get($ip) !== $date) {
+        if (!$this->visitorsRegistry->has($ip) || date(self::DATE_FORMAT, $this->visitorsRegistry->get($ip)) !== $date) {
             $this->uniqueVisitsRegistry->set($date, $todayUniqueVisits + 1);
             $this->uniqueVisitsRegistry->save();
         }
 
-        $this->visitorsRegistry->set($ip, $date);
-        $this->visitorsRegistry->save();
+        $this->visitorsRegistry->set($ip, $timestamp);
 
-        $uri = Str::append(Uri::make(['query' => '', 'fragment' => ''], $this->request->uri()), '/');
         $pageViews = $this->pageViewsRegistry->has($uri) ? (int) $this->pageViewsRegistry->get($uri) : 0;
         $this->pageViewsRegistry->set($uri, $pageViews + 1);
         $this->pageViewsRegistry->save();
@@ -253,6 +284,19 @@ final class Statistics
         $low = time() - ($limit - 1) * 86400;
         for ($i = 0; $i < $limit; $i++) {
             yield date(self::DATE_FORMAT, $low + $i * 86400);
+        }
+    }
+
+    /**
+     * Cleanup visitor data prior to CLEANUP_TTL
+     */
+    private function cleanupVisitorData(): void
+    {
+        $time = time();
+        foreach ($this->visitorsRegistry->toArray() as $key => $timestamp) {
+            if ($time - $timestamp > self::CLEANUP_TTL) {
+                $this->visitorsRegistry->remove($key);
+            }
         }
     }
 }
