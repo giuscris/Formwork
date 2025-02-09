@@ -28,14 +28,6 @@ final class Visitor
         return !self::isBot($request);
     }
 
-    /**
-     * Detect whether current visitor prefers not to be tracked
-     */
-    public static function isTrackable(Request $request): bool
-    {
-        return $request->headers()->get('Dnt') !== '1';
-    }
-
     public static function getDeviceType(Request $request): DeviceType
     {
         static $mobileDetect = new MobileDetect(config: ['autoInitOfHttpHeaders' => false]);
