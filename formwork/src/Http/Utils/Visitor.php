@@ -2,6 +2,7 @@
 
 namespace Formwork\Http\Utils;
 
+use Detection\MobileDetect;
 use Formwork\Http\Request;
 use Formwork\Traits\StaticClass;
 use Jaybizzle\CrawlerDetect\CrawlerDetect;
@@ -33,5 +34,31 @@ final class Visitor
     public static function isTrackable(Request $request): bool
     {
         return $request->headers()->get('Dnt') !== '1';
+    }
+
+    public static function getDeviceType(Request $request): DeviceType
+    {
+        static $mobileDetect = new MobileDetect(config: ['autoInitOfHttpHeaders' => false]);
+        $mobileDetect->setUserAgent($request->userAgent() ?? '');
+        return match (true) {
+            $mobileDetect->isMobile() => DeviceType::Mobile,
+            $mobileDetect->isTablet() => DeviceType::Tablet,
+            default                   => DeviceType::Desktop,
+        };
+    }
+
+    public static function isMobile(Request $request): bool
+    {
+        return self::getDeviceType($request) === DeviceType::Mobile;
+    }
+
+    public static function isTablet(Request $request): bool
+    {
+        return self::getDeviceType($request) === DeviceType::Tablet;
+    }
+
+    public static function isDesktop(Request $request): bool
+    {
+        return self::getDeviceType($request) === DeviceType::Desktop;
     }
 }
