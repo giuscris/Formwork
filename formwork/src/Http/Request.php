@@ -241,7 +241,7 @@ class Request
      */
     public function validateReferer(?string $path = null): bool
     {
-        $base = Uri::normalize(Uri::base($this->uri()) . '/' . $path);
+        $base = Uri::normalize(Uri::base($this->absoluteUri()) . '/' . $path);
         return Str::startsWith((string) $this->referer(), $base);
     }
 
