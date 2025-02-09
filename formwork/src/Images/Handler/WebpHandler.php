@@ -228,6 +228,10 @@ final class WebpHandler extends AbstractHandler
     {
         imagesavealpha($gdImage, true);
 
+        if (!imageistruecolor($gdImage)) {
+            imagepalettetotruecolor($gdImage);
+        }
+
         ob_start();
 
         if (imagewebp($gdImage, null, $this->options['webpQuality']) === false) {
