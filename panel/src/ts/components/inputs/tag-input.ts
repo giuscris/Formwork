@@ -328,8 +328,11 @@ export class TagInput {
             let visibleItems = 0;
             dropdown.style.display = "block";
             $$(".dropdown-item", dropdown).forEach((element) => {
+                if (value === "") {
+                    return true;
+                }
                 const text = `${element.textContent}`;
-                const regexp = new RegExp(makeDiacriticsRegExp(escapeRegExp(value)), "i");
+                const regexp = new RegExp(`(^|\\b)${makeDiacriticsRegExp(escapeRegExp(value))}`, "i");
                 if (text.match(regexp) !== null && element.style.display !== "none") {
                     element.style.display = "block";
                     visibleItems++;

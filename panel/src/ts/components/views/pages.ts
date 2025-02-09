@@ -87,7 +87,7 @@ export class Pages {
                 } else {
                     ($(".pages-tree-root") as HTMLElement).classList.add("is-filtered");
 
-                    const regexp = new RegExp(makeDiacriticsRegExp(escapeRegExp(value)), "gi");
+                    const regexp = new RegExp(`(^|\\b)${makeDiacriticsRegExp(escapeRegExp(value))}`, "gi");
 
                     $$(".pages-tree-item").forEach((element) => {
                         const title = $(".page-title a", element) as HTMLElement;

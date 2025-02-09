@@ -247,8 +247,11 @@ export class SelectInput {
 
         function filterDropdown(value: string) {
             const filter = (element: HTMLElement) => {
+                if (value === "") {
+                    return true;
+                }
                 const text = `${element.textContent}`;
-                const regexp = new RegExp(makeDiacriticsRegExp(escapeRegExp(value)), "i");
+                const regexp = new RegExp(`(^|\\b)${makeDiacriticsRegExp(escapeRegExp(value))}`, "i");
                 return regexp.test(text);
             };
 
