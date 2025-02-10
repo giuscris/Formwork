@@ -369,6 +369,8 @@ final class PagesController extends AbstractController
             }
         }
 
+        $this->updateLastModifiedTime($page);
+
         $this->panel->notify($this->translate('panel.uploader.uploaded'), 'success');
         return $this->redirect($this->generateRoute('panel.pages.edit', ['page' => $routeParams->get('page')]));
     }
@@ -395,6 +397,8 @@ final class PagesController extends AbstractController
         }
 
         FileSystem::delete($page->contentPath() . $routeParams->get('filename'));
+
+        $this->updateLastModifiedTime($page);
 
         $this->panel->notify($this->translate('panel.pages.page.fileDeleted'), 'success');
         return $this->redirect($this->generateRoute('panel.pages.edit', ['page' => $routeParams->get('page')]));
@@ -439,6 +443,8 @@ final class PagesController extends AbstractController
                 $this->panel->notify($this->translate('panel.pages.page.cannotRenameFile.fileAlreadyExists'), 'error');
             } else {
                 FileSystem::move($page->contentPath() . $previousName, $page->contentPath() . $newName);
+                $this->updateLastModifiedTime($page);
+
                 $this->panel->notify($this->translate('panel.pages.page.fileRenamed'), 'success');
             }
         }
@@ -491,6 +497,8 @@ final class PagesController extends AbstractController
             }
         }
 
+        $this->updateLastModifiedTime($page);
+
         $this->panel->notify($this->translate('panel.uploader.uploaded'), 'success');
         return $this->redirectToReferer(default: $this->generateRoute('panel.pages'), base: $this->panel->panelRoot());
     }
@@ -536,6 +544,8 @@ final class PagesController extends AbstractController
                 $file->fields()->setValues($data)->validate();
 
                 $this->updateFileMetadata($file, $file->fields());
+
+                $this->updateLastModifiedTime($page);
 
                 $this->panel->notify($this->translate('panel.files.metadata.updated'), 'success');
 
@@ -586,6 +596,7 @@ final class PagesController extends AbstractController
                 if (!$field->isEmpty()) {
                     $uploadedFiles = $field->is('multiple') ? $field->value() : [$field->value()];
                     $this->processPageUploads($uploadedFiles, $page, $field->acceptMimeTypes());
+                    $this->updateLastModifiedTime($page);
                 }
                 $fieldCollection->remove($field->name());
             }
@@ -674,6 +685,16 @@ final class PagesController extends AbstractController
             return $this->site;
         }
         return $this->site->findPage($parent) ?? throw new UnexpectedValueException('Invalid parent');
+    }
+
+    /**
+     * Update last modified time of the given page
+     */
+    private function updateLastModifiedTime(Page $page): void
+    {
+        if ($page->contentFile()?->path() !== null) {
+            FileSystem::touch($page->contentFile()->path());
+        }
     }
 
     /**
