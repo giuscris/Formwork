@@ -1,5 +1,45 @@
 # Changelog
 
+## [2.0.0-beta.3](https://github.com/getformwork/formwork/releases/tag/2.0.0-beta.3)
+
+**Enhancements**
+
+- **Require PHP >= 8.3**
+- **Add Polish and Ukrainian translation** (🤖 AI generated, reviews are welcome)
+- Add default Cache-Control header
+- Prevent session_start() from setting cache headers
+- Handle conditional requests
+- Add cache headers to assets
+- By default make page requests conditional if cache is enabled
+- Add `autoEtag` and `autoLastModified` params to `FileResponse` constructor
+- Save response time by making errors controller lazy
+- Lazily-load dynamic field vars
+- Avoid tracking visit to maintenance, unpublished and not routable pages
+- Update .htaccess and server script to allow access to .well-known
+- Improve route patterns and order
+- Replace `mimeTypes.extensionTypes` with closure to increase response speed
+- Move some strings out from panel translations
+- Refine serve command output
+- Decouple classes and traits from `App::instance()`
+- Avoid defining global `$formwork` variable
+- Remove unused `DataGetter` and `DataSetter` classes
+- Finalize several classes and privatize methods and properties
+- Limit search and filtering to word boundaries
+- Avoid reporting gd warnings
+- Use content folder last modified time to determine cached response
+- Touch content folder when clearing pages cache
+- Update page last modified time after changes to files
+
+**Bug fixes**
+
+- Fix dropdowns scrolling by keyboard
+- Avoid setting unnecessary alpha flag to VP8X chunks
+- Copy original image resampled to avoid GIF images trasparency issues
+- Avoid artifacts on images with alpha channel
+- Avoid transforms propagation to avoid unnecessary image creation
+- Fix relative URI used instead of absolute in `Request::validateReferer()`
+- Convert palette images to truecolor before outputting WebP
+
 ## [2.0.0-beta.2](https://github.com/getformwork/formwork/releases/tag/2.0.0-beta.2)
 
 **Breaking Changes**
@@ -88,5 +128,5 @@ As the upcoming version 2.0.0 is a major release and the code has been extensive
 - **Fields in the Panel are now accurately escaped**
 - Escaped page titles and tags in default templates
 
-## [1.13.0](https://github.com/getformwork/formwork/releases/tag/1.13.0) - [0.6.9](https://github.com/getformwork/formwork/releases/tag/0.6.9)
+## [1.13.2](https://github.com/getformwork/formwork/releases/tag/1.13.2) - [0.6.9](https://github.com/getformwork/formwork/releases/tag/0.6.9)
 ➡️ Read previous [CHANGELOG.md](https://github.com/getformwork/formwork/blob/1.x/CHANGELOG.md) on the `1.x` branch.
