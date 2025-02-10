@@ -128,9 +128,10 @@ final class PageController extends AbstractController
 
         if (($cacheable = $this->config->get('system.cache.enabled') && $this->isRequestCacheable() && $page->cacheable())) {
             if ($page->contentFile() !== null) {
+                $lastModifiedTime = max($page->lastModifiedTime(), $this->site->lastModifiedTime());
                 $headers = [
-                    'ETag'          => $page->contentFile()->hash(),
-                    'Last-Modified' => gmdate('D, d M Y H:i:s T', $page->contentFile()->lastModifiedTime()),
+                    'ETag'          => hash('sha256', $page->contentFile()->path() . ':' . $lastModifiedTime),
+                    'Last-Modified' => gmdate('D, d M Y H:i:s T', $lastModifiedTime),
                 ];
             }
 

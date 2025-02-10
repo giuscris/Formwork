@@ -46,6 +46,11 @@ class Site extends Model implements Stringable
     protected ?ContentFile $contentFile = null;
 
     /**
+     * Site last modified time
+     */
+    protected int $lastModifiedTime;
+
+    /**
      * Site route
      */
     protected ?string $route = null;
@@ -261,6 +266,17 @@ class Site extends Model implements Stringable
         }
 
         return $this->metadata = new MetadataCollection($data);
+    }
+
+    /**
+     * Get site last modified time
+     */
+    public function lastModifiedTime(): ?int
+    {
+        if ($this->contentPath === null) {
+            return null;
+        }
+        return $this->lastModifiedTime = FileSystem::lastModifiedTime($this->contentPath);
     }
 
     /**
