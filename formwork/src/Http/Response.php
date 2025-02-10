@@ -23,8 +23,7 @@ class Response implements ResponseInterface
         array $headers = [],
     ) {
         $headers += [
-            'Content-Length' => (string) strlen($content),
-            'Content-Type'   => Header::make(['text/html', 'charset' => 'utf-8']),
+            'Content-Type' => Header::make(['text/html', 'charset' => 'utf-8']),
         ];
         $this->headers = new ResponseHeaders($headers);
     }
