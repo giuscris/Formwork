@@ -44,6 +44,9 @@ final class CacheController extends AbstractController
     {
         if ($this->config->get('system.cache.enabled')) {
             $cache->clear();
+            if ($this->site->contentPath() !== null) {
+                FileSystem::touch($this->site->contentPath());
+            }
         }
     }
 
