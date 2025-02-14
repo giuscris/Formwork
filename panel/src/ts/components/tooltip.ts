@@ -50,7 +50,7 @@ export class Tooltip {
         const options = this.options;
         const container = options.container;
 
-        this.delayTimer = setTimeout(() => {
+        this.delayTimer = window.setTimeout(() => {
             const tooltip = document.createElement("div");
             tooltip.className = "tooltip";
             tooltip.setAttribute("role", "tooltip");
@@ -136,7 +136,7 @@ export class Tooltip {
             }
 
             if (options.timeout !== null) {
-                this.timeoutTimer = setTimeout(() => this.remove(), options.timeout);
+                this.timeoutTimer = window.setTimeout(() => this.remove(), options.timeout);
             }
 
             if (options.removeOnMouseout) {

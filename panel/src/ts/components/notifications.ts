@@ -6,7 +6,7 @@ export class Notifications {
         let delay = 0;
 
         $$("meta[name=notification]").forEach((element: HTMLMetaElement) => {
-            setTimeout(() => {
+            window.setTimeout(() => {
                 const data = JSON.parse(element.content);
                 const notification = new Notification(data.text, data.type, {
                     interval: data.interval,

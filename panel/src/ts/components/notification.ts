@@ -60,13 +60,13 @@ export class Notification {
                 this.containerElement.appendChild(notification);
             }
 
-            let timer = setTimeout(() => this.remove(), interval);
+            let timer = window.setTimeout(() => this.remove(), interval);
 
             notification.addEventListener("click", () => this.remove());
 
             notification.addEventListener("mouseenter", () => clearTimeout(timer));
 
-            notification.addEventListener("mouseleave", () => ((timer = setTimeout(() => this.remove())), this.options.mouseleaveDelay));
+            notification.addEventListener("mouseleave", () => ((timer = window.setTimeout(() => this.remove())), this.options.mouseleaveDelay));
 
             return notification;
         };
@@ -84,7 +84,7 @@ export class Notification {
     remove() {
         this.notificationElement.classList.add("fadeout");
 
-        setTimeout(() => {
+        window.setTimeout(() => {
             if (this.containerElement && this.notificationElement && this.notificationElement.parentNode) {
                 this.containerElement.removeChild(this.notificationElement);
             }

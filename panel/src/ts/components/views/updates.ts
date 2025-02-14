@@ -37,7 +37,7 @@ export class Updates {
                 currentVersion.style.display = "block";
             };
 
-            setTimeout(() => {
+            window.setTimeout(() => {
                 const data = { "csrf-token": ($("meta[name=csrf-token]") as HTMLMetaElement).content };
 
                 new Request(

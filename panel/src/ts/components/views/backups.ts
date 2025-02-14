@@ -83,7 +83,7 @@ export class Backups {
                         notification.show();
 
                         if (response.status === "success") {
-                            setTimeout(() => {
+                            window.setTimeout(() => {
                                 triggerDownload(response.data.uri, ($("meta[name=csrf-token]") as HTMLMetaElement).content);
                             }, 1000);
                         }

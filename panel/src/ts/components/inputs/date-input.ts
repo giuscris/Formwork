@@ -19,7 +19,7 @@ function handleLongClick(element: HTMLElement, callback: (event: MouseEvent) => 
             clear();
         } else {
             callback.call(context, event);
-            timer = setTimeout(() => (timer = setInterval(callback.bind(context, event), interval)), timeout);
+            timer = window.setTimeout(() => (timer = window.setInterval(callback.bind(context, event), interval)), timeout);
         }
     });
     element.addEventListener("mouseout", clear);

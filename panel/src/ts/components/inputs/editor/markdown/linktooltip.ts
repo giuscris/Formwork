@@ -64,7 +64,7 @@ class LinkTooltipView {
     destroy() {
         if (this.tooltip) {
             const tooltip = this.tooltip;
-            setTimeout(() => tooltip.remove(), 100);
+            window.setTimeout(() => tooltip.remove(), 100);
         }
         this.tooltip = undefined;
     }

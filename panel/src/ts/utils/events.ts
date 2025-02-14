@@ -11,7 +11,7 @@ export function debounce(callback: (...args: any[]) => any, delay: number, leadi
         if (leading && !timer) {
             result = callback.apply(context, args);
         }
-        timer = setTimeout(() => {
+        timer = window.setTimeout(() => {
             if (!leading) {
                 result = callback.apply(context, args);
             }
@@ -44,7 +44,7 @@ export function throttle(callback: (...args: any[]) => any, delay: number) {
             previous = now;
             result = callback.apply(context, args);
         } else if (!timer) {
-            timer = setTimeout(() => {
+            timer = window.setTimeout(() => {
                 previous = Date.now();
                 result = callback.apply(context, args);
                 timer = null;

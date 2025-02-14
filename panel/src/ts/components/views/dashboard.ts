@@ -56,7 +56,7 @@ export class Dashboard {
                         notification.show();
 
                         if (response.status === "success") {
-                            setTimeout(() => {
+                            window.setTimeout(() => {
                                 button.disabled = false;
                                 triggerDownload(response.data.uri, ($("meta[name=csrf-token]") as HTMLMetaElement).content);
                             }, 1000);
