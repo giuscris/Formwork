@@ -103,6 +103,7 @@ schemes:
 
 statistics:
     enabled: true
+    trackLocalhost: false
     path: '${%ROOT_PATH%}/site/statistics'
 
 templates:
