@@ -26,6 +26,7 @@ final class TranslationsServiceLoader implements ResolutionAwareServiceLoaderInt
     public function onResolved(object $service, Container $container): void
     {
         $service->loadFromPath($this->config->get('system.translations.paths.system'));
+        $service->loadFromPath($this->config->get('system.translations.paths.site'));
         $service->setCurrent($this->languages->current() ?? $this->config->get('system.translations.fallback'));
     }
 }

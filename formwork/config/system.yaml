@@ -114,6 +114,7 @@ translations:
     paths:
         panel: '${system.panel.path}/translations'
         system: '${%SYSTEM_PATH%}/translations'
+        site: '${%ROOT_PATH%}/site/translations'
 
 updates:
     time: 900
