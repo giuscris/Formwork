@@ -321,7 +321,7 @@ return [
                         return new RedirectResponse($site->uri());
                     }
 
-                    if ($panel->route() !== '/register/') {
+                    if ($panel->route() !== '/register/' && !Str::startsWith($panel->route(), '/assets/')) {
                         return new RedirectResponse($panel->uri('/register/'));
                     }
                 }
